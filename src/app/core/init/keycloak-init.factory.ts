@@ -35,8 +35,7 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
                       token_type: 'Bearer',
                       access_token: token,
                       expires_in: 12955743,
-                      refresh_token: token,
-                      username:keycloak.getUsername()
+                      refresh_token: token
                     }
                     service.getUserDetails(context)
                   })
