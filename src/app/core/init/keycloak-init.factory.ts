@@ -27,7 +27,6 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
           })
           .then(response => {
             keycloak.isLoggedIn().then(isLoggedIn => {
-              debugger
               let isAuthenticated=service.isAuthenticated();
               if (isLoggedIn && !isAuthenticated) {
                   keycloak.getToken().then(token => {
