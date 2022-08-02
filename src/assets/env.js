@@ -2,8 +2,8 @@
   window["env"] = window["env"] || {};
 
   // BackEnd Environment variables
-  window["env"]["fineractApiUrls"] = 'https://localhost:8443';
-  window["env"]["fineractApiUrl"]  = 'https://localhost:8443';
+  window["env"]["fineractApiUrls"] = 'https://loans.qa.oneacrefund.org';
+  window["env"]["fineractApiUrl"]  = 'https://loans.qa.oneacrefund.org';
 
   window["env"]["apiProvider"] = '/fineract-provider/api';
   window["env"]["apiVersion"]  = '/v1';
