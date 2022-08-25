@@ -17,13 +17,18 @@ export class OfficeFlatNode {
   }
 
   export class OfficeHierarchy{
-    hierarchyLevel:string;
+    levelName:string;
     hierarchyType:string='OAF';
     descendant?:OfficeHierarchy[]
+    children:any=[];
+    collapsed:boolean=false;
+    root:boolean=true;
+    selected:string="selected";
+    parentId:any=null;
   }
   export class OfficeHierarchyFlatNode {
     expandable: boolean
-    hierarchyLevel: string
+    levelName: string
     level: number
     id:number
     hasChild:boolean

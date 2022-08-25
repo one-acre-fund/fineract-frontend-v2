@@ -118,7 +118,7 @@ export class AuthenticationService {
       return this.http
         .disableApiPrefix()
         .post(
-          `https://loans.test.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
+          `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
           {},
           { params: httpParams }
         )

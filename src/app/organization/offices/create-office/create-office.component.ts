@@ -69,11 +69,13 @@ export class CreateOfficeComponent implements OnInit {
       parentId: [this.parentId, Validators.required],
       openingDate: ['', Validators.required],
       externalId: [''],
-      countryHierarchy:[]
+      countryHierarchy:[],
+      country:[true]
     })
   }
 
   convertArrayToObject(dataArray:any){
+    dataArray.reduce((obj,item)=>(obj[item.key]=item.value,obj),{})
     dataArray.forEach(element => {
         
     });
@@ -85,11 +87,19 @@ export class CreateOfficeComponent implements OnInit {
    * if successful redirects to offices
    */
   submit () {
-    let hierarchyData=this.officeHierarchy._database.data;
-    if(hierarchyData && hierarchyData.length>0){
-      
+    let hierarchyData=this.officeHierarchy?._database.data;
+    if(hierarchyData && hierarchyData.length>0 && this.showHierarchy){
+      let dataArray=[];
+   hierarchyData.forEach(element => {
+        if(element.descendant.length<=0)
+            delete element.descendant
+            else
+            element.descendant=Object.assign({},element.descendant)
+            dataArray.push(element)
+      });
+      let dt=Object.assign({},dataArray[0])
       this.officeForm.patchValue({
-        countryHierarchy:Object.assign({}, hierarchyData)
+        countryHierarchy:dt
       })
     }
     const officeFormData = this.officeForm.value
@@ -98,14 +108,23 @@ export class CreateOfficeComponent implements OnInit {
     const prevOpeningDate: Date = this.officeForm.value.openingDate
     if (officeFormData.openingDate instanceof Date) {
       officeFormData.openingDate = this.dateUtils.formatDate(prevOpeningDate, dateFormat)
-    }
+    }   
     const data = {
       ...officeFormData,
       dateFormat,
       locale
     }
-    this.organizationService.createOffice(data).subscribe(response => {
-      this.router.navigate(['../'], { relativeTo: this.route })
-    })
+    if(this.showHierarchy){
+      data.country=data.country=="Yes"?'true':'false';
+      this.organizationService.createOfficeHierarchy(data).subscribe(response => {
+        this.router.navigate(['../'], { relativeTo: this.route })
+      })
+    }else{
+      delete officeFormData.country
+      delete data.countryHierarchy
+      this.organizationService.createOffice(data).subscribe(response => {
+        this.router.navigate(['../'], { relativeTo: this.route })
+      })
+    }   
   }
 }

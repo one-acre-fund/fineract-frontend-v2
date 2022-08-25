@@ -38,13 +38,13 @@ export class ChecklistDatabase {
     return Object.keys(obj).reduce<OfficeHierarchy[]>((accumulator, key) => {
       const value = obj[key];
       const node = new OfficeHierarchy();
-      node.hierarchyLevel = key;
+      node.levelName = key;
 
       if (value != null) {
         if (typeof value === 'object') {
           node.descendant = this.buildFileTree(value, level + 1);
         } else {
-          node.hierarchyLevel = value;
+          node.levelName = value;
         }
       }
 
@@ -55,13 +55,13 @@ export class ChecklistDatabase {
   /** Add an item to to-do list */
 insertItem(parent: OfficeHierarchy, name: string) {  
     if (!parent.descendant) parent.descendant=[];
-    parent.descendant.push({ hierarchyLevel: name,hierarchyType:'OAF' } as OfficeHierarchy);
+    parent.descendant.push({ levelName: name,hierarchyType:'OAF' } as OfficeHierarchy);
     this.dataChange.next(this.data);
 }
 
   updateItem(node: OfficeHierarchy, name: string) {
     
-    node.hierarchyLevel = name;
+    node.levelName = name;
     this.dataChange.next(this.data);
   }
 }
@@ -118,17 +118,18 @@ export class OfficeHierarchyComponent implements OnInit {
 
   hasChild = (_: number, _nodeData: OfficeHierarchyFlatNode) => true;
 
-  hasNoContent = (_: number, _nodeData: OfficeHierarchyFlatNode) => _nodeData.hierarchyLevel === '';
+  hasNoContent = (_: number, _nodeData: OfficeHierarchyFlatNode) => _nodeData.levelName === '';
 
   /**
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: OfficeHierarchy, level: number) => {
+    debugger
     const existingNode = this.nestedNodeMap.get(node);
-    const flatNode = existingNode && existingNode.hierarchyLevel === node.hierarchyLevel
+    const flatNode = existingNode && existingNode.levelName === node.levelName
         ? existingNode
         : new OfficeHierarchyFlatNode();
-    flatNode.hierarchyLevel = node.hierarchyLevel;
+    flatNode.levelName = node.levelName;
     flatNode.level = level;
     flatNode.expandable = true;                   // edit this to true to make it always expandable
     flatNode.hasChild = !!node.descendant;  // add this line. this property will help 

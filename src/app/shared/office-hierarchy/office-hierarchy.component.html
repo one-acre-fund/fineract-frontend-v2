@@ -28,7 +28,7 @@
           <button type="button"
             mat-icon-button
             matTreeNodeToggle
-            [attr.aria-label]="'Toggle ' + node.hierarchyLevel"
+            [attr.aria-label]="'Toggle ' + node.levelName"
             *ngIf="node.hasChild"
           >
             <mat-icon class="mat-icon-rtl-mirror">
@@ -40,8 +40,8 @@
           <div *ngIf="!node.hasChild" class="pad"></div>
       
           
-          <input matInput type="text" value="{{node.hierarchyLevel}}">
-          <button type="button" mat-icon-button title="Add new Level" (click)="addNewItem(node)" *ngIf="!node.hasChild">
+          <input matInput type="text" value="{{node.levelName}}">
+          <button type="button" mat-icon-button title="Add new Level" (click)="addNewItem(node)" *ngIf="node.hasChild">
             <mat-icon>add</mat-icon>
           </button>
         </mat-tree-node>
