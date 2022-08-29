@@ -1,6 +1,6 @@
 import {SelectionModel} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable, ViewChild,OnInit} from '@angular/core';
+import {Component, Injectable, ViewChild,OnInit, Input} from '@angular/core';
 import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
 import { OfficeHierarchyFlatNode, OfficeHierarchy } from '../office-tree-view/office-tree-node';
@@ -55,7 +55,7 @@ export class ChecklistDatabase {
   /** Add an item to to-do list */
 insertItem(parent: OfficeHierarchy, name: string) {  
     if (!parent.descendant) parent.descendant=[];
-    parent.descendant.push({ levelName: name,hierarchyType:'OAF' } as OfficeHierarchy);
+    parent.descendant.push({ levelName: name,hierarchyType:'OAF',children:[],collapsed:true,root:true,selected:"selected",parentId:null,descendant:[] } as OfficeHierarchy);
     this.dataChange.next(this.data);
 }
 
@@ -74,7 +74,10 @@ insertItem(parent: OfficeHierarchy, name: string) {
 })
 export class OfficeHierarchyComponent implements OnInit {
   hasData:boolean=false;
+  @Input() treeDataSource:OfficeHierarchy[]=[]
+  
   ngOnInit(): void {
+    this.dataSource.data=this.treeDataSource
   }
 
   flatNodeMap = new Map<OfficeHierarchyFlatNode, OfficeHierarchy>();
@@ -124,7 +127,7 @@ export class OfficeHierarchyComponent implements OnInit {
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: OfficeHierarchy, level: number) => {
-    debugger
+    
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.levelName === node.levelName
         ? existingNode
@@ -132,7 +135,7 @@ export class OfficeHierarchyComponent implements OnInit {
     flatNode.levelName = node.levelName;
     flatNode.level = level;
     flatNode.expandable = true;                   // edit this to true to make it always expandable
-    flatNode.hasChild = !!node.descendant;  // add this line. this property will help 
+    flatNode.hasChild = !!node.descendant && node.descendant.length>0;  // add this line. this property will help 
                                               // us to hide the expand button in a node
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
@@ -219,10 +222,14 @@ export class OfficeHierarchyComponent implements OnInit {
 
   /** Select the category so we can insert the new item. */
   addNewItem(node: OfficeHierarchyFlatNode) {
-    
+    if(node.level<2){
     const parentNode = this.flatNodeMap.get(node);
     this._database.insertItem(parentNode!, '');
     this.treeControl.expand(node);
+    }
+    else{
+      alert("You can't add more than three levels")
+    }
   }
 
   /** Save the node to database */

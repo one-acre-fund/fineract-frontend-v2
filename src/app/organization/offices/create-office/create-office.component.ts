@@ -48,14 +48,14 @@ export class CreateOfficeComponent implements OnInit {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officeData = data.offices
     })
-    this.parentId = this.router.getCurrentNavigation().extras.state.id
+    this.parentId = this.router.getCurrentNavigation().extras?.state?.id
   }
   choices: any = [
     { id: 1, tag: 'Yes' },
     { id: 2, tag: 'No' }
   ]
   showHierarchy: boolean = false
-  @ViewChild('officeHierarchy') officeHierarchy;
+  @ViewChild('officeHierarchy') officeHierarchy
   ngOnInit () {
     this.createofficeForm()
   }
@@ -69,37 +69,41 @@ export class CreateOfficeComponent implements OnInit {
       parentId: [this.parentId, Validators.required],
       openingDate: ['', Validators.required],
       externalId: [''],
-      countryHierarchy:[],
-      country:[true]
+      countryHierarchy: [],
+      country: [true]
     })
   }
 
-  convertArrayToObject(dataArray:any){
-    dataArray.reduce((obj,item)=>(obj[item.key]=item.value,obj),{})
-    dataArray.forEach(element => {
-        
-    });
-    if(Array.isArray(dataArray))
-      return Object.assign({},dataArray)
+  
+  convertArrayToObject (hierarchyData: any) {
+    hierarchyData.forEach(element => {      
+      if (element.descendant.length > 0) {
+        let obj=element.descendant;
+        element.descendant = Object.assign({}, element.descendant[0]);
+        if(obj[0].descendant.length>0){
+          element.descendant.descendant = Object.assign({}, obj[0].descendant[0]);
+          delete element.descendant.descendant.descendant
+        } else{
+          delete element.descendant.descendant
+        } 
+      }
+      else{
+        delete element.descendant
+      }
+    })
+    return hierarchyData;
   }
   /**
    * Submits the office form and creates office.
    * if successful redirects to offices
    */
   submit () {
-    let hierarchyData=this.officeHierarchy?._database.data;
-    if(hierarchyData && hierarchyData.length>0 && this.showHierarchy){
-      let dataArray=[];
-   hierarchyData.forEach(element => {
-        if(element.descendant.length<=0)
-            delete element.descendant
-            else
-            element.descendant=Object.assign({},element.descendant)
-            dataArray.push(element)
-      });
-      let dt=Object.assign({},dataArray[0])
+    let hierarchyData = this.officeHierarchy?._database.data
+    if (hierarchyData && hierarchyData.length > 0 && this.showHierarchy) {
+      let dataArray = this.convertArrayToObject(hierarchyData)      
+      let hierarchalData = Object.assign({}, dataArray[0])
       this.officeForm.patchValue({
-        countryHierarchy:dt
+        countryHierarchy: hierarchalData
       })
     }
     const officeFormData = this.officeForm.value
@@ -108,23 +112,38 @@ export class CreateOfficeComponent implements OnInit {
     const prevOpeningDate: Date = this.officeForm.value.openingDate
     if (officeFormData.openingDate instanceof Date) {
       officeFormData.openingDate = this.dateUtils.formatDate(prevOpeningDate, dateFormat)
-    }   
+    }
     const data = {
       ...officeFormData,
       dateFormat,
       locale
     }
-    if(this.showHierarchy){
-      data.country=data.country=="Yes"?'true':'false';
+    if (this.showHierarchy) {
+      data.country = data.country == 'Yes' ? 'true' : 'false'
       this.organizationService.createOfficeHierarchy(data).subscribe(response => {
         this.router.navigate(['../'], { relativeTo: this.route })
       })
-    }else{
+    } else {
       delete officeFormData.country
       delete data.countryHierarchy
       this.organizationService.createOffice(data).subscribe(response => {
         this.router.navigate(['../'], { relativeTo: this.route })
       })
-    }   
+    }
+  }
+  change_country(value:boolean){    
+    this.showHierarchy=value
+    if(value==true){
+      let parent=this.officeData.filter(x=>!x.parentId);
+      if(parent && parent.length>0){
+        this.officeForm.patchValue({
+        parentId:parent[0].id
+        })
+      }
+    }else{
+      this.officeForm.patchValue({
+        parentId:null
+        })
+    }
   }
 }

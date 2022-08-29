@@ -7,6 +7,7 @@ import { Dates } from 'app/core/utils/dates';
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { OfficeHierarchy } from 'app/shared/office-tree-view/office-tree-node';
 
 /**
  * Edit Office component.
@@ -26,7 +27,8 @@ export class EditOfficeComponent implements OnInit {
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
   maxDate = new Date();
-
+  treeDataSource: OfficeHierarchy[] = []
+  showHierarchy:boolean=false;
     /**
      * Retrieves the charge data from `resolve`.
      * @param {ProductsService} organizationService Organization Service.
@@ -49,6 +51,14 @@ export class EditOfficeComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.showHierarchy=this.officeData.isCountry?true:false
+    let data = this.officeData.map((item: any) => ({
+      name: item.name,
+      id: item.id,
+      parentId: item.parentId,
+      levelName: item.isCountry ? 'Country' : item.officeCountryHierarchyLevelName
+    }))
+
     this.createOfficeForm();
   }
 
@@ -60,6 +70,7 @@ export class EditOfficeComponent implements OnInit {
       'name': [this.officeData.name, Validators.required],
       'openingDate': [this.officeData.openingDate && new Date(this.officeData.openingDate), Validators.required],
       'externalId': [this.officeData.externalId],
+      'isCountry':[this.officeData.isCountry]
     });
     if (this.officeData.allowedParents.length) {
       this.officeForm.addControl('parentId', this.formBuilder.control(this.officeData.parentId, Validators.required));
@@ -87,4 +98,19 @@ export class EditOfficeComponent implements OnInit {
     });
   }
 
+  change_country(value:boolean){    
+    this.showHierarchy=value
+    if(value==true){
+      let parent=this.officeData.allowedParents.filter(x=>!x.parentId);
+      if(parent && parent.length>0){
+        this.officeForm.patchValue({
+        parentId:parent[0].id
+        })
+      }
+    }else{
+      this.officeForm.patchValue({
+        parentId:null
+      })
+    }
+  }
 }
