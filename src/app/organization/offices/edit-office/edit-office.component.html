@@ -43,10 +43,10 @@
             <input matInput formControlName="externalId">
           </mat-form-field>
 
-          <div floatLabel="always" appearance="outline" class="full-width radio-container">
+          <div floatLabel="always" appearance="outline" class="full-width radio-container mb-1">
             <mat-label class="ou-label">Is the OU a country</mat-label>         
-            <input class="custom-radio" (change)="change_country(true)" formControlName="isCountry" type="radio"  [value]="showHierarchy" name="isCountry" [checked]="officeForm.controls.isCountry.value === true">
-            <input class="custom-radio" (change)="change_country(false)" formControlName="isCountry" type="radio"  [value]="showHierarchy" name="isCountry" [checked]="officeForm.controls.isCountry.value === false">
+            <input [disabled]="true" class="custom-radio" (change)="change_country(true)" formControlName="isCountry" type="radio"  [value]="showHierarchy" name="isCountry" [checked]="officeForm.controls.isCountry.value === true">
+            <input [disabled]="true" class="custom-radio" (change)="change_country(false)" formControlName="isCountry" type="radio"  [value]="!showHierarchy" name="isCountry" [checked]="officeForm.controls.isCountry.value === false">
           </div>
 
         </div>

@@ -78,6 +78,9 @@ export class OfficeHierarchyComponent implements OnInit {
   
   ngOnInit(): void {
     this.dataSource.data=this.treeDataSource
+    if(this.dataSource.data){
+      this.hasData=true
+    }
   }
 
   flatNodeMap = new Map<OfficeHierarchyFlatNode, OfficeHierarchy>();
@@ -127,7 +130,9 @@ export class OfficeHierarchyComponent implements OnInit {
    * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
    */
   transformer = (node: OfficeHierarchy, level: number) => {
-    
+    if(node.children && node.children.length>0){
+      node.descendant=node.children; 
+    }
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode = existingNode && existingNode.levelName === node.levelName
         ? existingNode
