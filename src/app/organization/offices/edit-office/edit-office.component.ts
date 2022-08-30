@@ -57,15 +57,55 @@ export class EditOfficeComponent implements OnInit {
     this.createOfficeForm();
   }
 
+  convertArrayToObject (hierarchyData: any) {
+    hierarchyData.forEach(element => { 
+      if(Array.isArray(element.descendant)){
+        element.children=[];   
+        element.parentId= null
+        element.root= true  
+      if (element.descendant && element.descendant.length > 0) {
+        let obj=element.descendant;
+        element.descendant.parentId=element.id;
+        element.descendant = Object.assign({}, element.descendant[0]);
+        element.descendant.children=[]
+        if(obj[0].descendant && obj[0].descendant.length>0){ 
+          element.descendant.descendant.children=[]  
+          element.descendant.descendant.parentId= element.descendant.Id;      
+          element.descendant.descendant = Object.assign({}, obj[0].descendant[0]);
+          delete element.descendant.descendant.descendant
+        } else{
+          delete element.descendant.descendant
+        } 
+      }
+      else{
+        delete element.descendant
+      }
+    }
+    else{
+      element.descendant.children=[]
+      element.descendant.parentId=element.id;
+      if(element.descendant?.descendant?.length>0){   
+        element.descendant.descendant.parentId=element.descendant.descendant.id;    
+        element.descendant.descendant = Object.assign({}, element.descendant.descendant[0]);
+        delete element.descendant.descendant.descendant
+      } else{
+        delete element?.descendant?.descendant
+      } 
+    }
+    })
+    return hierarchyData;
+  }
+
   /**
    * Create Edit Office Form.
    */
-  createOfficeForm() {
+  createOfficeForm() {    
     this.officeForm = this.formBuilder.group({
       'name': [this.officeData.name, Validators.required],
       'openingDate': [this.officeData.openingDate && new Date(this.officeData.openingDate), Validators.required],
       'externalId': [this.officeData.externalId],
-      'isCountry':[this.officeData.isCountry]
+      'country':[this.officeData.isCountry],
+      'countryHierarchy':[null]
     });
     if (this.officeData.allowedParents.length) {
       this.officeForm.addControl('parentId', this.formBuilder.control(this.officeData.parentId, Validators.required));
@@ -75,7 +115,20 @@ export class EditOfficeComponent implements OnInit {
   /**
    * Submits the edit office form.
    */
-  submit() {
+  submit() {    
+    if (this.treeDataSource && this.treeDataSource.length > 0 && this.showHierarchy) {     
+      let dataArray = this.convertArrayToObject(this.treeDataSource)  
+      if(Array.isArray(this.treeDataSource)){
+        let hierarchalData = Object.assign({}, dataArray[0])
+        this.officeForm.patchValue({
+          countryHierarchy: hierarchalData
+        })
+      } else{
+        this.officeForm.patchValue({
+          countryHierarchy: dataArray
+        })
+      } 
+    }
     const officeFormData = this.officeForm.value;
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
@@ -88,9 +141,21 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale
     };
+   if(this.showHierarchy){
+    data.country=data.country?'true':'false'
+    if(!data.externalId)
+    delete data.externalId
+    this.organizationService.updateOfficeHierarchy(this.officeData.id, data).subscribe((response: any) => {
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
+   }else{
+    delete data.country
+    delete data.countryHierarchy
     this.organizationService.updateOffice(this.officeData.id, data).subscribe((response: any) => {
       this.router.navigate(['../'], { relativeTo: this.route });
     });
+   }
+  
   }
 
   change_country(value:boolean){    

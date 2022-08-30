@@ -5,7 +5,7 @@ import {MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import {BehaviorSubject} from 'rxjs';
 import { OfficeHierarchyFlatNode, OfficeHierarchy } from '../office-tree-view/office-tree-node';
 
-
+let iseditMode=false;
 let TREE_DATA = {
   '': {
   }
@@ -27,6 +27,7 @@ export class ChecklistDatabase {
     const data = this.buildFileTree(TREE_DATA, 0);
 
     // Notify the change.
+    if(!iseditMode)
     this.dataChange.next(data);
   }
 
@@ -80,6 +81,8 @@ export class OfficeHierarchyComponent implements OnInit {
     this.dataSource.data=this.treeDataSource
     if(this.dataSource.data){
       this.hasData=true
+      iseditMode=true
+      this._database.dataChange.next(this.treeDataSource)
     }
   }
 

@@ -143,6 +143,15 @@ export class OrganizationService {
   }
 
   /**
+   * @param {any} office Office to be updated.
+   * @param {string} officeId Office Id
+   * @returns {Observable<any>}
+   */
+   updateOfficeHierarchy(officeId: string, office: any): Observable<any> {
+    return this.http.put(`/countries/${officeId}`, office);
+  }
+
+  /**
    * @returns {Observable<any>}
    */
   getOfficeDatatables(): Observable<any> {
