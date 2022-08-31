@@ -59,9 +59,11 @@ insertItem(parent: OfficeHierarchy, name: string) {
     parent.descendant.push({ levelName: name,hierarchyType:'OAF',children:[],collapsed:true,root:true,selected:"selected",parentId:null,descendant:[] } as OfficeHierarchy);
     this.dataChange.next(this.data);
 }
+deleteItem(){
+    this.dataChange.next(this.data);  
+}
 
-  updateItem(node: OfficeHierarchy, name: string) {
-    
+  updateItem(node: OfficeHierarchy, name: string) {    
     node.levelName = name;
     this.dataChange.next(this.data);
   }
@@ -238,6 +240,35 @@ export class OfficeHierarchyComponent implements OnInit {
     else{
       alert("You can't add more than three levels")
     }
+  }
+  removeItem(node:OfficeHierarchyFlatNode){
+    let parentNode = this.flatNodeMap.get(node);
+    let flatNode = this.dataSource.data[0]?.children;
+    if(flatNode && flatNode?.length>0){
+    for (let i = flatNode.length - 1; i >= 0; i--) {
+      if (flatNode[i].levelName === node.levelName) {
+
+        if (parentNode.children) {
+          //if you want to warn user
+        }   
+        this._database.dataChange.value[0].children.splice(i, 1);
+        this.flatNodeMap.delete(node);
+        this._database.deleteItem()   
+      }
+    }
+  }
+  else{
+    if(node.level==0){
+      this._database.dataChange.next([])
+      this._database.deleteItem()  
+      this.hasData=false
+    }else{
+    this._database.dataChange.value[0].children.splice(0, 1);
+    this._database.dataChange.value[0].descendant=null;
+        this.flatNodeMap.delete(node);
+        this._database.deleteItem()   
+    }
+  }
   }
 
   /** Save the node to database */

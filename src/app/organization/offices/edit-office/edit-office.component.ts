@@ -65,12 +65,12 @@ export class EditOfficeComponent implements OnInit {
         element.root= true  
       if (element.descendant && element.descendant.length > 0) {
         let obj=element.descendant;
-        element.descendant.parentId=element.id;
+        element.descendant.parentId=null;
         element.descendant = Object.assign({}, element.descendant[0]);
         element.descendant.children=[]
         if(obj[0].descendant && obj[0].descendant.length>0){ 
           element.descendant.descendant.children=[]  
-          element.descendant.descendant.parentId= element.descendant.Id;      
+          element.descendant.descendant.parentId= null;      
           element.descendant.descendant = Object.assign({}, obj[0].descendant[0]);
           delete element.descendant.descendant.descendant
         } else{
@@ -85,7 +85,7 @@ export class EditOfficeComponent implements OnInit {
       element.descendant.children=[]
       element.descendant.parentId=element.id;
       if(element.descendant?.descendant?.length>0){   
-        element.descendant.descendant.parentId=element.descendant.descendant.id;    
+        element.descendant.descendant.parentId=null;    
         element.descendant.descendant = Object.assign({}, element.descendant.descendant[0]);
         delete element.descendant.descendant.descendant
       } else{
