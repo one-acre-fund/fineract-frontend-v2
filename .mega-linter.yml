@@ -16,7 +16,6 @@ ENABLE_LINTERS:
   - YAML_YAMLLINT
   # See https://megalinter.github.io/descriptors/dockerfile_hadolint/
   - DOCKERFILE_HADOLINT
-  - YAML_PRETTIER
   - JSON_PRETTIER
   - HTML_HTMLHINT
   - TYPESCRIPT_STANDARD
