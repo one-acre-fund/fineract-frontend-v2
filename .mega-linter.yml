@@ -18,9 +18,7 @@ ENABLE_LINTERS:
   - YAML_PRETTIER
   - JSON_PRETTIER
   - HTML_HTMLHINT
-  - TYPESCRIPT_ES
   - TYPESCRIPT_STANDARD
-  - TYPESCRIPT_PRETTIER
 
 # DISABLE:
 #   - COPYPASTE # Uncomment to enable checks of abusive copy-pastes
