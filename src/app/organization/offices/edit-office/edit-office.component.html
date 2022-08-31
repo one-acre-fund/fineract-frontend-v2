@@ -44,9 +44,9 @@
           </mat-form-field>
 
           <div floatLabel="always" appearance="outline" class="full-width radio-container mb-1">
-            <mat-label class="ou-label">Is the OU a country</mat-label>         
-            <input  class="custom-radio" disabled (change)="change_country(true)" formControlName="country" type="radio"  [value]="showHierarchy" name="country" [checked]="officeForm.controls.country.value === true">
-            <input  class="custom-radio" disabled (change)="change_country(false)" formControlName="country" type="radio"  [value]="!showHierarchy" name="country" [checked]="officeForm.controls.country.value === false">
+            <mat-label class="ou-label">Is the OU a country</mat-label>                   
+            <input disabled class="custom-radio"  (change)="change_country(true)" formControlName="country" type="radio"  [value]="true" name="country" [checked]="officeForm.controls.country?.value">
+            <input disabled  class="custom-radio"  (change)="change_country(false)" formControlName="country" type="radio" [value]="false" name="country" [checked]="!officeForm.controls.country?.value">
           </div>
 
         </div>

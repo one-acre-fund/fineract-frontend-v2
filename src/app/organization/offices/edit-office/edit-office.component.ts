@@ -52,7 +52,7 @@ export class EditOfficeComponent implements OnInit {
 
   ngOnInit() {
     this.showHierarchy=this.officeData.isCountry?true:false
-    this.treeDataSource=[this.officeData.countryHierarchies[0].officeHierarchy]
+    this.treeDataSource=this.officeData.countryHierarchies?.length>0?[this.officeData.countryHierarchies[0].officeHierarchy]:[];
 
     this.createOfficeForm();
   }
