@@ -79,9 +79,9 @@ export class OfficeHierarchyComponent implements OnInit {
   hasData:boolean=false;
   @Input() treeDataSource:OfficeHierarchy[]=[]
   
-  ngOnInit(): void {
-    this.dataSource.data=this.treeDataSource
-    if(this.dataSource.data){
+  ngOnInit(): void {    
+    if(this.treeDataSource && this.treeDataSource.length>0){
+      this.dataSource.data=this.treeDataSource
       this.hasData=true
       iseditMode=true
       this._database.dataChange.next(this.treeDataSource)
@@ -261,7 +261,7 @@ export class OfficeHierarchyComponent implements OnInit {
     if(node.level==0){
       return
     }else{
-    this._database.dataChange.value[0].children.splice(0, 1);
+    this._database.dataChange.value[0]?.children?.splice(0, 1);
     this._database.dataChange.value[0].descendant=null;
         this.flatNodeMap.delete(node);
         this._database.deleteItem()   
