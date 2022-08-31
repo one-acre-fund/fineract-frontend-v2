@@ -44,7 +44,7 @@
           <button type="button" mat-icon-button title="Add new Level" (click)="addNewItem(node)" *ngIf="!node.hasChild">
             <mat-icon>add</mat-icon>
           </button>
-          <button type="button" mat-icon-button title="Remove Level" (click)="removeItem(node)" *ngIf="!node.hasChild">
+          <button type="button" mat-icon-button title="Remove Level" (click)="removeItem(node)" *ngIf="!node.hasChild && node.level>0">
             <mat-icon>remove</mat-icon>
           </button>
         </mat-tree-node>

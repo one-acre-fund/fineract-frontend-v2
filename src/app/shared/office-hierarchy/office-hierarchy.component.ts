@@ -259,9 +259,7 @@ export class OfficeHierarchyComponent implements OnInit {
   }
   else{
     if(node.level==0){
-      this._database.dataChange.next([])
-      this._database.deleteItem()  
-      this.hasData=false
+      return
     }else{
     this._database.dataChange.value[0].children.splice(0, 1);
     this._database.dataChange.value[0].descendant=null;
