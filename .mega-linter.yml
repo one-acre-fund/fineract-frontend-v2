@@ -1,9 +1,24 @@
 # Configuration file for Mega-Linter
-# See all available variables at https://nvuillam.github.io/mega-linter/configuration/ and in linters documentation
+# See all available variables at https://megalinter.github.io/latest/configuration/ and in linters documentation
 
-DEFAULT_BRANCH: develop
+APPLY_FIXES: none       # all, none, or list of linter keys
 
+DEFAULT_BRANCH: main
+
+# If you use ENABLE_LINTERS variable, all other linters will be disabled by default
 ENABLE_LINTERS:
+  # See https://megalinter.github.io/descriptors/javascript_eslint/
+  - JAVASCRIPT_ES
+  # See https://megalinter.github.io/descriptors/css_scss_lint/
+  - CSS_SCSS_LINT
+  # See https://megalinter.github.io/descriptors/markdown_markdownlint/
+  - MARKDOWN_MARKDOWNLINT
+  # See https://megalinter.github.io/descriptors/yaml_yamllint/
+  - YAML_YAMLLINT
+  # See https://megalinter.github.io/descriptors/dockerfile_hadolint/
+  - DOCKERFILE_HADOLINT
+  # See https://megalinter.github.io/latest/descriptors/bash_shellcheck/
+  - BASH_SHELLCHECK
   - YAML_PRETTIER
   - DOCKERFILE_HADOLINT
   - JSON_PRETTIER
@@ -13,14 +28,13 @@ ENABLE_LINTERS:
   - ENV_DOTENV_LINTER
   - CSS_STYLELINT
 
-  # Not too useful since those aren't ours...
-  # - MARKDOWN_MARKDOWNLINT
-
-  # Seems to hang...
-  # - JAVA_CHECKSTYLE
+# DISABLE:
+#   - COPYPASTE # Uncomment to enable checks of abusive copy-pastes
+#   - SPELL # Uncomment to enable checks of spelling mistakes # - SPELL # Uncomment to disable checks of spelling mistakes
 
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
-PRINT_ALPACA: false
+# Custom Linter configutations
 
-APPLY_FIXES: none
+PRINT_ALPACA: false
+CSS_SCSS_LINT_DISABLE_ERRORS: true
