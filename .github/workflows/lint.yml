@@ -29,7 +29,7 @@ jobs:
       #     docker images | grep mega-linter
 
       - name: Mega-Linter
-        uses: megalinter/megalinter@v5
+        uses: megalinter/megalinter@v6
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PRINT_ALPACA: "false"
