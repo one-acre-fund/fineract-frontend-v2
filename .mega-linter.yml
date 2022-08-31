@@ -1,0 +1,21 @@
+# Configuration file for Mega-Linter
+# See all available variables at https://nvuillam.github.io/mega-linter/configuration/ and in linters documentation
+
+DEFAULT_BRANCH: develop
+
+ENABLE_LINTERS:
+  - YAML_PRETTIER
+  - DOCKERFILE_HADOLINT
+  - JSON_PRETTIER
+
+  # Not too useful since those aren't ours...
+  # - MARKDOWN_MARKDOWNLINT
+
+  # Seems to hang...
+  # - JAVA_CHECKSTYLE
+
+SHOW_ELAPSED_TIME: true
+FILEIO_REPORTER: false
+PRINT_ALPACA: false
+
+APPLY_FIXES: none
