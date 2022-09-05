@@ -52,7 +52,7 @@ export class CombineOfficeComponent implements OnInit {
   fetchByHierarchyLevelByOfficeId(event: any) {
     let officeId = +event.value;
     this.organizationService.fetchByHierarchyLevel(officeId).subscribe((response) => {
-      this.sourceOfficeData = response;
+      this.sourceOfficeData = response?.filter(x=>x.status==true);
     });
   }
 
