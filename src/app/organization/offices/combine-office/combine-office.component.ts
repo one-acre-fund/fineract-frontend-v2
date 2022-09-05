@@ -31,7 +31,7 @@ export class CombineOfficeComponent implements OnInit {
     private alertService:AlertService
   ) {
     this.route.data.subscribe((data: { offices: any }) => {
-      this.officeData = data.offices;
+      this.officeData = data.offices?.filter(x=>x.status==true);
     });
   }
 
