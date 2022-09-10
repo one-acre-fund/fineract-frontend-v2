@@ -1,0 +1,31 @@
+name: Lint with Mega-linter
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+      - master
+  pull_request:
+    branches:
+      - develop
+      - main
+      - master
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+
+      - name: Mega-Linter
+        uses: megalinter/megalinter/flavors/ruby@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRINT_ALPACA: "false"
+          APPLY_FIXES_EVENT: pull_request
+          APPLY_FIXES_MODE: commit
+          APPLY_FIXES: all
