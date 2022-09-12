@@ -154,6 +154,7 @@ export class OfficeHierarchyComponent implements OnInit {
   }
 
   /** Whether all the descendants of the node are selected. */
+
   descendantsAllSelected(node: OfficeHierarchyFlatNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected = descendants.length > 0 && descendants.every(child => {
@@ -235,7 +236,7 @@ export class OfficeHierarchyComponent implements OnInit {
   addNewItem(node: OfficeHierarchyFlatNode) {
     if (node.level < 2) {
     const parentNode = this.flatNodeMap.get(node);
-    this._database.insertItem(parentNode!, '');
+    this._database.insertItem(parentNode, '');
     this.treeControl.expand(node);
     } else {
       alert('You can\'t add more than three levels');
@@ -272,7 +273,7 @@ export class OfficeHierarchyComponent implements OnInit {
   saveNode(node: OfficeHierarchyFlatNode, itemValue: string) {
 
     const nestedNode = this.flatNodeMap.get(node);
-    this._database.updateItem(nestedNode!, itemValue);
+    this._database.updateItem(nestedNode, itemValue);
     this.treeControl.expand(node);
     this.tree.treeControl.expandAll();
   }
