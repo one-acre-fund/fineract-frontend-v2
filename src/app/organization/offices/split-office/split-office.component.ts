@@ -64,9 +64,6 @@ export class SplitOfficeComponent implements OnInit {
   filterChildOffices(event: any) {
     const officeId = +event.value;
     this.childOfficeData = this.officeData.filter((x) => x.status === true && x.parentId === officeId);
-    // this.organizationService.fetchByHierarchyLevel(officeId,'SAME').subscribe((response) => {
-    //   this.childOfficeData = response?.filter(x=>x?.status==true);
-    // });
   }
 
   filterparentOffices(event: any) {
