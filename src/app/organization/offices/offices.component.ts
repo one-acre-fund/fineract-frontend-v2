@@ -8,6 +8,7 @@ import { OfficeTreeNode } from 'app/shared/office-tree-view/office-tree-node';
 
 /** rxjs Imports */
 import { of } from 'rxjs';
+import { OrganizationService } from 'app/organization/organization.service';
 
 /**
  * Offices component.
@@ -36,7 +37,7 @@ export class OfficesComponent implements OnInit {
    * Retrieves the offices data from `resolve`.
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor (private route: ActivatedRoute) {
+  constructor (private route: ActivatedRoute,private organizationService:OrganizationService) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officesData = data.offices;
     });
@@ -66,44 +67,52 @@ export class OfficesComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  makeOfficeTreeNode (btntext: string) {
-    this.treeView = btntext === 'Tree View' ? true : false;
-    if (this.treeView) {
-      this.toggleText = 'List View';
-      const data = this.officesData.map((item: any) => ({
-        name: item.name,
-        id: item.id,
-        parentId: item.parentId,
-        levelName: item.isCountry ? 'Country' : item.officeCountryHierarchyLevelName
-      }));
-      this.treeDataSource = data.reduce(
-        (initial: any, value: any, index: any, original: any) => {
-          if (!value.parentId || value.parentId === null) {
-            if (initial.left.length) {
-              this.checkLeftOvers(initial.left, value);
-            }
-            delete value.parentId;
-            const displayName = [value.levelName, value.name]
-              .filter(word => undefined !== word && word.length > 0)
-              .join(' - ');
-            value.name = displayName;
-            initial.nested.push(value);
-          } else {
-            const parentFound = this.findParent(initial.nested, value);
-            if (parentFound) {
-              this.checkLeftOvers(initial.left, value);
-            } else {
+  serachOffice(){
+    this.organizationService.searchOfficeTreeHierarchy(true,'OAF').subscribe(response=>{
+      if(response){
+        const data = response.map((item: any) => ({
+          name: item.name,
+          id: item.id,
+          parentId: item.parentId,
+          levelName: item.isCountry ? 'Country' : item.officeCountryHierarchyLevelName
+        }));
+        this.treeDataSource = data.reduce(
+          (initial: any, value: any, index: any, original: any) => {
+            if (!value.parentId || value.parentId === null) {
+              if (initial.left.length) {
+                this.checkLeftOvers(initial.left, value);
+              }
+              delete value.parentId;
               const displayName = [value.levelName, value.name]
                 .filter(word => undefined !== word && word.length > 0)
                 .join(' - ');
               value.name = displayName;
-              initial.left.push(value);
+              initial.nested.push(value);
+            } else {
+              const parentFound = this.findParent(initial.nested, value);
+              if (parentFound) {
+                this.checkLeftOvers(initial.left, value);
+              } else {
+                const displayName = [value.levelName, value.name]
+                  .filter(word => undefined !== word && word.length > 0)
+                  .join(' - ');
+                value.name = displayName;
+                initial.left.push(value);
+              }
             }
-          }
-          return index < original.length - 1 ? initial : initial.nested;
-        },
-        { nested: [], left: [] }
-      );
+            return index < original.length - 1 ? initial : initial.nested;
+          },
+          { nested: [], left: [] }
+        );
+      }
+    })
+  }
+
+  makeOfficeTreeNode (btntext: string) {
+    this.treeView = btntext === 'Tree View' ? true : false;
+    if (this.treeView) {
+      this.toggleText = 'List View';
+      this.serachOffice();
     } else {
       this.toggleText = 'Tree View';
     }
