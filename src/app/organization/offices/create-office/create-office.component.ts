@@ -123,7 +123,7 @@ export class CreateOfficeComponent implements OnInit {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
     } else {
-      delete officeFormData.country;
+      delete data.country;
       delete data.countryHierarchy;
       this.organizationService.createOffice(data).subscribe(response => {
         this.router.navigate(['../'], { relativeTo: this.route });

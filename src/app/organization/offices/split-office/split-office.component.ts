@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from 'app/core/alert/alert.service';
-import { Dates } from 'app/core/utils/dates';
-import { OrganizationService } from 'app/organization/organization.service';
-import { SettingsService } from 'app/settings/settings.service';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AlertService } from "app/core/alert/alert.service";
+import { Dates } from "app/core/utils/dates";
+import { OrganizationService } from "app/organization/organization.service";
+import { SettingsService } from "app/settings/settings.service";
 
 @Component({
-  selector: 'mifosx-split-office',
-  templateUrl: './split-office.component.html',
-  styleUrls: ['./split-office.component.scss'],
+  selector: "mifosx-split-office",
+  templateUrl: "./split-office.component.html",
+  styleUrls: ["./split-office.component.scss"],
 })
 export class SplitOfficeComponent implements OnInit {
   /** Office Data */
@@ -54,8 +54,8 @@ export class SplitOfficeComponent implements OnInit {
       secondParentId: [null, Validators.required],
       firstOfficeName: [null, Validators.required],
       secondOfficeName: [null, Validators.required],
-      firstOpeningDate: ['', Validators.required],
-      secondOpeningDate: ['', Validators.required],
+      firstOpeningDate: ["", Validators.required],
+      secondOpeningDate: ["", Validators.required],
       firstExternalId: [null],
       secondExternalId: [null],
     });
@@ -68,20 +68,10 @@ export class SplitOfficeComponent implements OnInit {
 
   filterparentOffices(event: any) {
     const officeId = +event.value;
-    const level = 'SAME';
-    const splitOfficeParentId = this.officeData.find((el) => el.id === officeId).parentId;
-    const parentOffice: any = this.officeData.find((el) => el.id === splitOfficeParentId);
-    this.parentOfficeData = [];
-    if (parentOffice?.isCountry === true) {
-      this.parentOfficeData =
-        parentOffice.parentId === 1
-          ? [parentOffice]
-          : this.officeData.filter((el) => el.parentId === parentOffice.parentId);
-    } else {
-      this.organizationService.fetchByHierarchyLevel(officeId, level).subscribe((response) => {
-        this.parentOfficeData = response?.filter((x) => x?.status === true);
-      });
-    }
+    const level = "SAME";
+    this.organizationService.fetchByHierarchyLevel(officeId, level).subscribe((response) => {
+      this.parentOfficeData = response?.filter((x) => x?.status === true);
+    });
   }
 
   submit() {
@@ -108,7 +98,7 @@ export class SplitOfficeComponent implements OnInit {
       delete data.secondExternalId;
     }
     this.organizationService.splitOffice(data).subscribe((response) => {
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.router.navigate(["../"], { relativeTo: this.route });
     });
   }
 }

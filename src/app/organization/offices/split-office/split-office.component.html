@@ -8,7 +8,7 @@
         <div fxLayout="column">
           <mat-form-field>
             <mat-label>Select Office To Split</mat-label>
-            <mat-select required formControlName="splitId" (selectionChange)="filterparentOffices($event)">
+            <mat-select required formControlName="splitId" #splitOffice (selectionChange)="filterparentOffices($event)">
               <mat-option *ngFor="let office of splitOffices" [value]="office.id">
                 {{ office.name }}
               </mat-option>
@@ -47,7 +47,7 @@
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.firstOfficeChildIds.hasError('required')">
               First Office Parent is <strong>required</strong>
-            </mat-error>          
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field (click)="openedOnDatePicker.open()">
@@ -97,7 +97,7 @@
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.secondOfficeChildIds.hasError('required')">
               First Office Parent is <strong>required</strong>
-            </mat-error>        
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field (click)="openedOnDatePicker.open()">
