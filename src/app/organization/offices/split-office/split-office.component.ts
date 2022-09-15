@@ -95,8 +95,9 @@ export class SplitOfficeComponent implements OnInit {
   }
 
   filterSelectedChildOffices()  {
-    this.firstchildOfficeData = (!this.splitOfficeForm.value.secondOfficeChildIds || this.splitOfficeForm.value.secondOfficeChildIds?.length === 0) ? this.firstchildOfficeData : this.firstchildOfficeData.filter(el => !this.splitOfficeForm.value.secondOfficeChildIds?.includes(el.id));
-    this.secondchildOfficeData = (!this.splitOfficeForm.value.firstOfficeChildIds || this.splitOfficeForm.value.firstOfficeChildIds?.length === 0) ? this.secondchildOfficeData : this.secondchildOfficeData.filter(el => !this.splitOfficeForm.value.firstOfficeChildIds?.includes(el.id));
+    let allChildOfficeData=this.splitOffices.filter((x) => x.parentId === this.splitOfficeForm.value.splitId);
+    this.firstchildOfficeData = (!this.splitOfficeForm.value.secondOfficeChildIds || this.splitOfficeForm.value.secondOfficeChildIds?.length === 0) ? allChildOfficeData : allChildOfficeData.filter(el => !this.splitOfficeForm.value.secondOfficeChildIds?.includes(el.id));
+    this.secondchildOfficeData = (!this.splitOfficeForm.value.firstOfficeChildIds || this.splitOfficeForm.value.firstOfficeChildIds?.length === 0) ? allChildOfficeData : allChildOfficeData.filter(el => !this.splitOfficeForm.value.firstOfficeChildIds?.includes(el.id));
     this.secondChildOfficeSliced=this.secondchildOfficeData;
     this.firstChildOfficeSliced=this.firstchildOfficeData;
 }
