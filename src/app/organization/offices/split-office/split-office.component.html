@@ -8,9 +8,13 @@
         <div fxLayout="column">
           <mat-form-field>
             <mat-label>Select Office To Split</mat-label>
-            <mat-select required formControlName="splitId" #splitOffice (selectionChange)="filterparentOffices($event)">
-              <mat-option *ngFor="let office of splitOffices" [value]="office.id">
-                {{ office.name }}
+            <mat-select placeholder="Search office to split"  required formControlName="splitId" #splitOffice (selectionChange)="filterparentOffices($event)">
+              <mat-select-filter *ngIf="splitOffice.focused" [array]="splitOffices" (filteredReturn)="splitOfficesSliced=$event"
+                [displayMember]="'name'">
+              </mat-select-filter>
+              <mat-option *ngFor="let office of splitOffices" [value]="office.id"
+                [class.hide]="!isFiltered(office,0)">
+                {{office.name}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.splitId.hasError('required')">
@@ -20,9 +24,14 @@
 
           <mat-form-field>
             <mat-label>First Office Parent</mat-label>
-            <mat-select required formControlName="firstParentId" (selectionChange)="filterChildOffices($event)">
-              <mat-option *ngFor="let office of parentOfficeData" [value]="office.id">
-                {{ office.name }}
+
+            <mat-select placeholder="Search"  required formControlName="firstParentId">
+              <mat-select-filter [array]="firstParentOfficeData" (filteredReturn)="firstParentOfficesSliced=$event"
+                [displayMember]="'name'">
+              </mat-select-filter>
+              <mat-option *ngFor="let office of firstParentOfficeData" [value]="office.id"
+                [class.hide]="!isFiltered(office,1)">
+                {{office.name}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.firstParentId.hasError('required')">
@@ -33,16 +42,20 @@
           <mat-form-field>
             <mat-label>First Office</mat-label>
             <input required matInput formControlName="firstOfficeName">
-            <mat-error *ngIf="splitOfficeForm.controls.secondOfficeChildIds.hasError('required')">
+            <mat-error *ngIf="splitOfficeForm.controls.firstOfficeName.hasError('required')">
               First Office Name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>First Office Child</mat-label>
-            <mat-select required formControlName="firstOfficeChildIds" multiple>
-              <mat-option *ngFor="let office of childOfficeData" [value]="office.id">
-                {{ office.name }}
+            <mat-select placeholder="Search" multiple required formControlName="firstOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
+              <mat-select-filter [array]="firstchildOfficeData" (filteredReturn)="firstChildOfficeSliced=$event"
+                [displayMember]="'name'">
+              </mat-select-filter>
+              <mat-option *ngFor="let office of firstchildOfficeData" [value]="office.id"
+                [class.hide]="!isFiltered(office,3)">
+                {{office.name}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.firstOfficeChildIds.hasError('required')">
@@ -70,9 +83,14 @@
 
           <mat-form-field>
             <mat-label>Second Office Parent</mat-label>
-            <mat-select required formControlName="secondParentId" (selectionChange)="filterChildOffices($event)">
-              <mat-option *ngFor="let office of parentOfficeData" [value]="office.id">
-                {{ office.name }}
+
+            <mat-select placeholder="Search"  required formControlName="secondParentId" >
+              <mat-select-filter [array]="secondParentOfficeData" (filteredReturn)="secondParentOfficesSliced=$event"
+                [displayMember]="'name'">
+              </mat-select-filter>
+              <mat-option *ngFor="let office of secondParentOfficeData" [value]="office.id"
+                [class.hide]="!isFiltered(office,2)">
+                {{office.name}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.secondParentId.hasError('required')">
@@ -82,17 +100,21 @@
 
           <mat-form-field>
             <mat-label>Second Office</mat-label>
-            <input required matInput formControlName="secondOfficeName" >
-            <mat-error *ngIf="splitOfficeForm.controls.secondOfficeChildIds.hasError('required')">
+            <input required matInput formControlName="secondOfficeName">
+            <mat-error *ngIf="splitOfficeForm.controls.secondOfficeName.hasError('required')">
               Second Office Name is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Second Office Child</mat-label>
-            <mat-select required formControlName="secondOfficeChildIds" multiple>
-              <mat-option *ngFor="let office of childOfficeData" [value]="office.id">
-                {{ office.name }}
+            <mat-select placeholder="Search" multiple required formControlName="secondOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
+              <mat-select-filter [array]="secondchildOfficeData" (filteredReturn)="secondChildOfficeSliced=$event"
+                [displayMember]="'name'">
+              </mat-select-filter>
+              <mat-option *ngFor="let office of secondchildOfficeData" [value]="office.id"
+                [class.hide]="!isFiltered(office,4)">
+                {{office.name}}
               </mat-option>
             </mat-select>
             <mat-error *ngIf="splitOfficeForm.controls.secondOfficeChildIds.hasError('required')">

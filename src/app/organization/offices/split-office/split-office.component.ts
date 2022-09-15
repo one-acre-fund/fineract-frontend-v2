@@ -14,14 +14,23 @@ import { SettingsService } from "app/settings/settings.service";
 export class SplitOfficeComponent implements OnInit {
   /** Office Data */
   splitOffices: any;
+  splitOfficesSliced: any;
 
   officeData: any;
   /** Office form. */
   splitOfficeForm: FormGroup;
 
-  childOfficeData: any;
+  firstchildOfficeData: any;
+  firstChildOfficeSliced:any;
 
-  parentOfficeData: any;
+  secondchildOfficeData: any;
+  secondChildOfficeSliced:any
+
+  firstParentOfficeData: any;
+  firstParentOfficesSliced:any;
+
+  secondParentOfficeData: any;
+  secondParentOfficesSliced:any;
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
@@ -38,13 +47,29 @@ export class SplitOfficeComponent implements OnInit {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officeData = data.offices.filter((x) => x.status === true);
       this.splitOffices = data.offices?.filter((x) => x.id !== 1 && x.status === true && x.parentId !== 1);
+      this.splitOfficesSliced=this.splitOffices;
     });
   }
 
   ngOnInit(): void {
     this.createSplitOfficeForm();
   }
-
+  public isFiltered(office,type:number) {
+    if(type===0){
+    return this.splitOfficesSliced.find(item => item.id === office.id);
+    }
+    else if(type===1){
+      return this.firstParentOfficesSliced.find(item => item.id === office.id);
+    }
+    else if(type===2){
+      return this.secondParentOfficesSliced.find(item => item.id === office.id);
+    }else if(type===3){
+      return this.firstChildOfficeSliced.find(item => item.id === office.id);
+    }
+    else {
+      return this.secondChildOfficeSliced.find(item => item.id === office.id);
+    }
+  }
   createSplitOfficeForm() {
     this.splitOfficeForm = this.formBuilder.group({
       splitId: [null, Validators.required],
@@ -61,16 +86,31 @@ export class SplitOfficeComponent implements OnInit {
     });
   }
 
-  filterChildOffices(event: any) {
-    const officeId = +event.value;
-    this.childOfficeData = this.officeData.filter((x) => x.status === true && x.parentId === officeId);
+  filterChildOffices(officeId:number) {
+    let childOffices = this.splitOffices.filter((x) => x.parentId === officeId);
+    this.firstchildOfficeData=childOffices;
+    this.firstChildOfficeSliced=this.firstchildOfficeData;
+    this.secondchildOfficeData=childOffices;
+    this.secondChildOfficeSliced=this.firstchildOfficeData;
   }
+
+  filterSelectedChildOffices()  {
+    this.firstchildOfficeData = (!this.splitOfficeForm.value.secondOfficeChildIds || this.splitOfficeForm.value.secondOfficeChildIds?.length === 0) ? this.firstchildOfficeData : this.firstchildOfficeData.filter(el => !this.splitOfficeForm.value.secondOfficeChildIds?.includes(el.id));
+    this.secondchildOfficeData = (!this.splitOfficeForm.value.firstOfficeChildIds || this.splitOfficeForm.value.firstOfficeChildIds?.length === 0) ? this.secondchildOfficeData : this.secondchildOfficeData.filter(el => !this.splitOfficeForm.value.firstOfficeChildIds?.includes(el.id));
+    this.secondChildOfficeSliced=this.secondchildOfficeData;
+    this.firstChildOfficeSliced=this.firstchildOfficeData;
+}
 
   filterparentOffices(event: any) {
     const officeId = +event.value;
     const level = "SAME";
+    this.filterChildOffices(officeId)
     this.organizationService.fetchByHierarchyLevel(officeId, level).subscribe((response) => {
-      this.parentOfficeData = response?.filter((x) => x?.status === true);
+      let parentOfficeData = response?.filter((x) => x?.status === true);
+      this.firstParentOfficeData=parentOfficeData;
+      this.secondParentOfficeData=parentOfficeData;
+      this.firstParentOfficesSliced=parentOfficeData;
+      this.secondParentOfficesSliced=parentOfficeData;
     });
   }
 
