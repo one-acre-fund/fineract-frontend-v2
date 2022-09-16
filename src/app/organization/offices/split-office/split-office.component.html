@@ -25,8 +25,8 @@
           <mat-form-field>
             <mat-label>First Office Parent</mat-label>
 
-            <mat-select placeholder="Search"  required formControlName="firstParentId">
-              <mat-select-filter [array]="firstParentOfficeData" (filteredReturn)="firstParentOfficesSliced=$event"
+            <mat-select placeholder="Search" #firstParent  required formControlName="firstParentId">
+              <mat-select-filter *ngIf="firstParent.focused" [array]="firstParentOfficeData" (filteredReturn)="firstParentOfficesSliced=$event"
                 [displayMember]="'name'">
               </mat-select-filter>
               <mat-option *ngFor="let office of firstParentOfficeData" [value]="office.id"
@@ -49,8 +49,8 @@
 
           <mat-form-field>
             <mat-label>First Office Child</mat-label>
-            <mat-select placeholder="Search" multiple required formControlName="firstOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
-              <mat-select-filter [array]="firstchildOfficeData" (filteredReturn)="firstChildOfficeSliced=$event"
+            <mat-select placeholder="Search" multiple #firstChild required formControlName="firstOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
+              <mat-select-filter *ngIf="firstChild.focused" [array]="firstchildOfficeData" (filteredReturn)="firstChildOfficeSliced=$event"
                 [displayMember]="'name'">
               </mat-select-filter>
               <mat-option *ngFor="let office of firstchildOfficeData" [value]="office.id"
@@ -84,8 +84,8 @@
           <mat-form-field>
             <mat-label>Second Office Parent</mat-label>
 
-            <mat-select placeholder="Search"  required formControlName="secondParentId" >
-              <mat-select-filter [array]="secondParentOfficeData" (filteredReturn)="secondParentOfficesSliced=$event"
+            <mat-select placeholder="Search" #secondParent required formControlName="secondParentId" >
+              <mat-select-filter *ngIf="secondParent.focused" [array]="secondParentOfficeData" (filteredReturn)="secondParentOfficesSliced=$event"
                 [displayMember]="'name'">
               </mat-select-filter>
               <mat-option *ngFor="let office of secondParentOfficeData" [value]="office.id"
@@ -108,8 +108,8 @@
 
           <mat-form-field>
             <mat-label>Second Office Child</mat-label>
-            <mat-select placeholder="Search" multiple required formControlName="secondOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
-              <mat-select-filter [array]="secondchildOfficeData" (filteredReturn)="secondChildOfficeSliced=$event"
+            <mat-select placeholder="Search" multiple #secondChild required formControlName="secondOfficeChildIds" (openedChange)="filterSelectedChildOffices()">
+              <mat-select-filter *ngIf="secondChild.focused" [array]="secondchildOfficeData" (filteredReturn)="secondChildOfficeSliced=$event"
                 [displayMember]="'name'">
               </mat-select-filter>
               <mat-option *ngFor="let office of secondchildOfficeData" [value]="office.id"

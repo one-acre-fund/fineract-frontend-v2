@@ -14,9 +14,11 @@ import { SettingsService } from 'app/settings/settings.service';
 export class CombineOfficeComponent implements OnInit {
   /** Office Data */
   officeData: any;
+  officeDataSliced:any;
   /** Office form. */
   combineOfficeForm: FormGroup;
   sourceOfficeData: any;
+  sourceOfficeDataSliced: any;
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
@@ -32,13 +34,21 @@ export class CombineOfficeComponent implements OnInit {
   ) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officeData = data.offices?.filter(x => x.status === true);
+      this.officeDataSliced=this.officeData;
     });
   }
 
   ngOnInit(): void {
     this.createCombineOfficeForm();
   }
-
+  public isFiltered(office,type:number) {
+    if(type===0){
+    return this.officeDataSliced.find(item => item.id === office.id);
+    }
+    else {
+      return this.sourceOfficeDataSliced.find(item => item.id === office.id);
+    }
+  }
   createCombineOfficeForm() {
     this.combineOfficeForm = this.formBuilder.group({
       parentId: [null, Validators.required],
@@ -53,6 +63,7 @@ export class CombineOfficeComponent implements OnInit {
     const officeId = +event.value;
     this.organizationService.fetchByHierarchyLevel(officeId, 'LOWER').subscribe((response) => {
       this.sourceOfficeData = response?.filter(x => x.status === true);
+      this.sourceOfficeDataSliced=this.sourceOfficeData;
     });
   }
 
