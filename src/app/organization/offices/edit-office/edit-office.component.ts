@@ -30,7 +30,7 @@ export class EditOfficeComponent implements OnInit {
   treeDataSource: OfficeHierarchy[] = [];
   showHierarchy = false;
   allowedParents: any;
-  allowedParentsSliced:any;
+  allowedParentsSliced: any;
 
     /**
      * Retrieves the charge data from `resolve`.
@@ -51,7 +51,7 @@ export class EditOfficeComponent implements OnInit {
       this.route.data.subscribe((data: { officeTemplate: any }) => {
         this.officeData = data.officeTemplate;
         this.allowedParents = data.officeTemplate?.allowedParents?.filter(x => x.status === true);
-        this.allowedParentsSliced=this.allowedParents;
+        this.allowedParentsSliced = this.allowedParents;
       });
     }
 

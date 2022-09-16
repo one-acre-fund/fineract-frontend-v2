@@ -1,14 +1,14 @@
 /** Angular Imports */
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { MatPaginator } from '@angular/material/paginator'
-import { MatSort } from '@angular/material/sort'
-import { MatTableDataSource } from '@angular/material/table'
-import { ActivatedRoute } from '@angular/router'
-import { OfficeTreeNode } from 'app/shared/office-tree-view/office-tree-node'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
+import { OfficeTreeNode } from 'app/shared/office-tree-view/office-tree-node';
 
 /** rxjs Imports */
-import { of } from 'rxjs'
-import { OrganizationService } from 'app/organization/organization.service'
+import { of } from 'rxjs';
+import { OrganizationService } from 'app/organization/organization.service';
 
 /**
  * Offices component.
@@ -20,14 +20,14 @@ import { OrganizationService } from 'app/organization/organization.service'
 })
 export class OfficesComponent implements OnInit {
   /** Offices data. */
-  officesData: any
+  officesData: any;
   /** Columns to be displayed in offices table. */
-  displayedColumns: string[] = ['name', 'externalId', 'parentName', 'openingDate']
+  displayedColumns: string[] = ['name', 'externalId', 'parentName', 'openingDate'];
   /** Data source for offices table. */
-  dataSource: MatTableDataSource<any>
-  treeDataSource: OfficeTreeNode[] = []
-  toggleText = 'Tree View'
-  treeView = false
+  dataSource: MatTableDataSource<any>;
+  treeDataSource: OfficeTreeNode[] = [];
+  toggleText = 'Tree View';
+  treeView = false;
   /** Paginator for offices table. */
   // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatPaginator, {static: false})
@@ -47,8 +47,8 @@ export class OfficesComponent implements OnInit {
    */
   constructor (private route: ActivatedRoute, private organizationService: OrganizationService) {
     this.route.data.subscribe((data: { offices: any }) => {
-      this.officesData = data.offices.filter(x=>x.status==true)
-    })
+      this.officesData = data.offices.filter(x => x.status === true);
+    });
   }
 
   /**
@@ -56,54 +56,54 @@ export class OfficesComponent implements OnInit {
    * @param {string} filterValue Value to filter data.
    */
   applyFilter (filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase()
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   /**
    * Sets the offices table.
    */
   ngOnInit () {
-    this.setOffices()
+    this.setOffices();
   }
 
   /**
    * Initializes the data source, paginator and sorter for offices table.
    */
   setOffices () {
-    this.dataSource = new MatTableDataSource(this.officesData)
-    this.dataSource.paginator = this.paginator
-    this.dataSource.sort = this.sort
+    this.dataSource = new MatTableDataSource(this.officesData);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   flatToHierarchy (flat) {
-    var roots = [] // offices without parent
+    const roots = []; // offices without parent
     // make them accessible by id on this map
-    var all = {};
+    const all = {};
     flat.forEach(function (item) {
-      all[item.id] = item
-    })
+      all[item.id] = item;
+    });
     // connect childrens to its parent, and split roots apart
     Object.keys(all).forEach(function (id) {
-      var item = all[id]
+      const item = all[id];
       if (!item.parentId || item.parentId === null) {
         const displayName = [item.levelName, item.name]
         .filter(word => undefined !== word && word.length > 0)
-        .join(' - ')
-        item.name=displayName;
-        roots.push(item)
+        .join(' - ');
+        item.name = displayName;
+        roots.push(item);
       } else if (item.parentId in all) {
         const displayName = [item.levelName, item.name]
         .filter(word => undefined !== word && word.length > 0)
-        .join(' - ')
-        item.name=displayName;
-        var p = all[item.parentId]
+        .join(' - ');
+        item.name = displayName;
+        const p = all[item.parentId];
         if (!('children' in p)) {
-          p.children = []
+          p.children = [];
         }
-        p.children.push(item)
+        p.children.push(item);
       }
-    })
-    return roots
+    });
+    return roots;
   }
 
   searchTreeViewOffices () {
@@ -117,18 +117,18 @@ export class OfficesComponent implements OnInit {
             parentId: item.parentId,
             levelName: item.isCountry ? 'Country' : item.officeCountryHierarchyLevelName
           }));
-        this.treeDataSource = this.flatToHierarchy(data);        
+        this.treeDataSource = this.flatToHierarchy(data);
       }
-    })
+    });
   }
 
   makeOfficeTreeNode (btntext: string) {
-    this.treeView = btntext === 'Tree View' ? true : false
+    this.treeView = btntext === 'Tree View' ? true : false;
     if (this.treeView) {
-      this.toggleText = 'List View'
-      this.searchTreeViewOffices()
+      this.toggleText = 'List View';
+      this.searchTreeViewOffices();
     } else {
-      this.toggleText = 'Tree View'
+      this.toggleText = 'Tree View';
     }
   }
 }

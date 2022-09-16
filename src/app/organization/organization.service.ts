@@ -120,7 +120,7 @@ export class OrganizationService {
    * @param {any} office Office to be created.
    * @returns {Observable<any>}
    */
-   searchOfficeTreeHierarchy(includeRootOffice:boolean,OAfCode:string ): Observable<any> {
+   searchOfficeTreeHierarchy(includeRootOffice: boolean, OAfCode: string ): Observable<any> {
     return this.http.get(`/offices/search?includeRootOffice=${includeRootOffice}&officeHierarchyTypeCode=${OAfCode}`);
   }
 

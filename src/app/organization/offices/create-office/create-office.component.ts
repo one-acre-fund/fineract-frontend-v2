@@ -22,7 +22,7 @@ export class CreateOfficeComponent implements OnInit {
   officeForm: FormGroup;
   /** Office Data */
   officeData: any;
-  officeDataSliced:any;
+  officeDataSliced: any;
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */
@@ -48,7 +48,7 @@ export class CreateOfficeComponent implements OnInit {
   ) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.officeData = data.offices?.filter(x => x.status === true);
-      this.officeDataSliced=this.officeData;
+      this.officeDataSliced = this.officeData;
     });
     this.parentId = this.router.getCurrentNavigation().extras?.state?.id;
   }
