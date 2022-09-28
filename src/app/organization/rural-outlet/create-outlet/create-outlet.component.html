@@ -21,7 +21,7 @@
 
                       <mat-form-field>
                         <mat-label>Opened On</mat-label>
-                        <input matInput required formControlName="openingDate" [matDatepicker]="openingDatePicker">
+                        <input matInput required formControlName="openingDate" [formControl]="date" [matDatepicker]="openingDatePicker">
                         <mat-datepicker-toggle matSuffix [for]="openingDatePicker"></mat-datepicker-toggle>
                         <mat-datepicker #openingDatePicker></mat-datepicker>
                         <mat-error>

@@ -246,7 +246,7 @@ export class OrganizationService {
       return this.http.get('/countries');
     }
     createOutlet (data:any): Observable<any> {
-      return this.http.post(`/ruralretailoutlets/`, {data});
+      return this.http.post(`/ruralretailoutlets/`, data);
     }
     updateOutlet(id:any, data:any): Observable<any> {
       return this.http.put(`/ruralretailoutlets/${id}`, data);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrganizationService } from 'app/organization/organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'app/settings/settings.service';
@@ -11,6 +11,7 @@ import { Dates } from 'app/core/utils/dates';
   styleUrls: ['./create-outlet.component.scss']
 })
 export class CreateOutletComponent implements OnInit {
+  date = new FormControl(new Date());
   listCountries: any = [];
   outletForm: FormGroup;
 
