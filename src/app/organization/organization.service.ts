@@ -233,6 +233,25 @@ export class OrganizationService {
     return this.http.delete(`/datatables/${datatableName}/${officeId}`, { params: httpParams });
   }
 
+   /**
+     * @returns {Observable<any>} rural retail outlet data
+     */
+    getRuralRetailOutlets(): Observable<any> {
+      return this.http.get('/ruralretailoutlets');
+    }
+    getRuralOutletByOutletId(id:any){
+      return this.http.get('/ruralretailoutlets/'+id);
+    }
+    getCountries(): Observable<any> {
+      return this.http.get('/countries');
+    }
+    createOutlet (data:any): Observable<any> {
+      return this.http.post(`/ruralretailoutlets/`, {data});
+    }
+    updateOutlet(id:any, data:any): Observable<any> {
+      return this.http.put(`/ruralretailoutlets/${id}`, data);
+    }
+
   /**
    * @returns {Observable<any>} Employees data
    */

@@ -1,0 +1,34 @@
+<div class="tab-container mat-typography">
+  <div class="container">
+  <mat-card>
+    <div fxLayoutAlign="flex-end" class="action-button m-b-20">
+      <span>
+        <button mat-raised-button color="primary" [routerLink]="['edit']">
+          <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;Edit Rural Outlet
+        </button>
+      </span>
+    </div>
+
+      <mat-list-item>
+        Parent Office : {{ retailOutletData?.name }}
+      </mat-list-item>
+
+      <mat-list-item>
+        Opened On : {{ retailOutletData?.openingDate ? (retailOutletData?.openingDate  | dateFormat) : 'Unassigned' }}
+      </mat-list-item>
+
+      <mat-list-item>
+        External Id : {{ retailOutletData?.externalId ? retailOutletData?.externalId : 'Unassigned' }}
+      </mat-list-item>
+
+      <mat-list-item class="assignedoffices">
+        Assigned Office :
+        <div style="width: 300px;">
+        <div class="officename" *ngFor="let item of retailOutletData?.offices">
+            {{item?.officeName}}
+        </div>
+      </div>
+      </mat-list-item>
+    </mat-card>
+    </div>
+  </div>
