@@ -15,13 +15,14 @@ export class EditOutletComponent implements OnInit {
   retailOutletData: any;
   outletForm: FormGroup;
   listCountries: any = [];
-
+  treeDataSource:any;
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
     private organizationService: OrganizationService,private router: Router,
     private settingsService: SettingsService,private dateUtils: Dates) {
     let outletId= +this.route.snapshot.paramMap.get('id');
-    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res) => {
+    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res:any) => {
       this.retailOutletData=res;
+      this.search(res.countryId);
       this.createOutletForm();
     });
    }
@@ -53,6 +54,40 @@ export class EditOutletComponent implements OnInit {
     .subscribe(res=>{
         this.listCountries = res;
     })
+  }
+
+  search(countryId:number){
+    this.organizationService.searchCountryById(countryId)
+    .subscribe((res:any)=>{
+      const data = res
+      .filter(x => x.status === true)
+      .map((item: any) => ({
+        name: item.name,
+        id: item.id,
+        parentId: item.parentId
+      }));
+      this.treeDataSource = this.flatToHierarchy(data);
+    })
+  }
+
+  flatToHierarchy (list) {
+    var map = {}, node, roots = [], i;
+  
+  for (i = 0; i < list.length; i += 1) {
+    map[list[i].id] = i; // initialize the map
+    list[i].children = []; // initialize the children
+  }
+  
+  for (i = 0; i < list.length; i += 1) {
+    node = list[i];
+    if (node.parentId !== 1) {
+      // if you have dangling branches check that map[node.parentId] exists
+      list[map[node.parentId]].children.push(node);
+    } else {
+      roots.push(node);
+    }
+  }
+  return roots;
   }
 
   submit(){

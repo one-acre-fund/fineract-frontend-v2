@@ -9,6 +9,7 @@ import { OrganizationService } from "app/organization/organization.service";
 })
 export class ViewOutletComponent implements OnInit {
   retailOutletData: any;
+  officeList:any;
   constructor(private organizationService: OrganizationService,private route: ActivatedRoute) {
     let outletId= +this.route.snapshot.paramMap.get('id');
     this.getRuralOutlet(outletId);
@@ -17,8 +18,9 @@ export class ViewOutletComponent implements OnInit {
   ngOnInit(): void {}
 
   getRuralOutlet(outletId:number) {
-    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res) => {
+    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res:any) => {
       this.retailOutletData=res;
+      this.officeList=res?.offices.map(x=> {return x.officeName}).toString();
     });
   }
 }
