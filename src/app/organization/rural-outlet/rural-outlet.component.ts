@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: "mifosx-rural-outlet",
-  templateUrl: "./rural-outlet.component.html",
-  styleUrls: ["./rural-outlet.component.scss"],
+  selector: 'mifosx-rural-outlet',
+  templateUrl: './rural-outlet.component.html',
+  styleUrls: ['./rural-outlet.component.scss'],
 })
 export class RuralOutletComponent implements OnInit {
   outletData: any;
     /** Columns to be displayed in offices table. */
-    displayedColumns: string[] = ['name', 'externalId', 'openingDate','actions'];
+    displayedColumns: string[] = ['name', 'externalId', 'openingDate', 'actions'];
     /** Data source for offices table. */
     dataSource: MatTableDataSource<any>;
 

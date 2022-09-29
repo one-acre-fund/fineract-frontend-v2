@@ -277,7 +277,7 @@ const routes: Routes = [
                 },
                 {
                   path: 'edit',
-                  data: { title: extract('Edit Rural Outlet'),breadcrumb: 'Edit', routeResolveBreadcrumb: false },
+                  data: { title: extract('Edit Rural Outlet'), breadcrumb: 'Edit', routeResolveBreadcrumb: false },
                   component: EditOutletComponent,
                   resolve: {
                      offices: EditRetailOutletResolver

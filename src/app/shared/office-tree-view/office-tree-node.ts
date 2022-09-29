@@ -14,6 +14,7 @@ export class OfficeFlatNode {
     level: number;
     id: number;
     hasChild: boolean;
+    checked: boolean;
   }
 
   export class OfficeHierarchy {

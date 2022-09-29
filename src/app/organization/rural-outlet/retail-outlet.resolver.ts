@@ -11,9 +11,7 @@ import { OrganizationService } from '../organization.service';
   providedIn: 'root'
 })
 export class RetailOutletResolver implements Resolve<object> {
- /**
-   * @param {OrganizationService} organizationService Organization service.
-   */
+ /*** @param {OrganizationService} organizationService Organization service.*/
   constructor(private organizationService: OrganizationService) {}
 
   /**

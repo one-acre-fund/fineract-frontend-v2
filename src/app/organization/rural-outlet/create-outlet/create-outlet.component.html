@@ -5,7 +5,7 @@
                 <div fxLayout="column">
                     <mat-form-field>
                         <mat-label>Country</mat-label>
-                        <mat-select formControlName="countryId">
+                        <mat-select formControlName="countryId" (selectionChange)="search($event)">
                             <mat-option *ngFor="let country of listCountries" [value]="country.id">
                                 {{ country.name }}
                             </mat-option>
@@ -35,15 +35,18 @@
 
                       </mat-form-field>
 
-                      <mat-form-field>
-                        <mat-label>Assined Office</mat-label>
-                        <input matInput formControlName="offices">
-
-                      </mat-form-field>
+                      <div class="">
+                        Assigned Offices:
+                        <mifosx-country-tree-view
+                          *ngIf="treeDataSource.length>0"
+                          [treeDataSource]="treeDataSource"
+                          (checkedOffices)="getCheckedOffices($event)"
+                        ></mifosx-country-tree-view>
+                      </div>
                 </div>
             </mat-card-content>
             <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-                <button type="button" mat-raised-button>Cancel</button>
+                <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
                 <button mat-raised-button color="primary">Submit</button>
               </mat-card-actions>
         </form>

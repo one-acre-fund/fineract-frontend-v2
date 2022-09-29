@@ -15,13 +15,15 @@ export class EditOutletComponent implements OnInit {
   retailOutletData: any;
   outletForm: FormGroup;
   listCountries: any = [];
-  treeDataSource:any;
+  treeDataSource: any;
+  selectedOffices: any = [];
+
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute,
-    private organizationService: OrganizationService,private router: Router,
-    private settingsService: SettingsService,private dateUtils: Dates) {
-    let outletId= +this.route.snapshot.paramMap.get('id');
-    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res:any) => {
-      this.retailOutletData=res;
+    private organizationService: OrganizationService, private router: Router,
+    private settingsService: SettingsService, private dateUtils: Dates) {
+    const outletId = +this.route.snapshot.paramMap.get('id');
+    this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res: any) => {
+      this.retailOutletData = res;
       this.search(res.countryId);
       this.createOutletForm();
     });
@@ -34,31 +36,21 @@ export class EditOutletComponent implements OnInit {
       name: ['', Validators.required],
       openingDate : '',
       externalId: '',
-      offices:''
-    })
+      offices: ''
+    });
 
   }
 
-  createOutletForm() {
-    this.outletForm.patchValue({
-      countryId: this.retailOutletData.countryId,
-      name: this.retailOutletData.name,
-      openingDate: new Date(this.retailOutletData.openingDate),
-      externalId: this.retailOutletData.externalId,
-      offices: []
+  getCountries() {
+    this.organizationService.getCountries()
+    .subscribe(res => {
+        this.listCountries = res;
     });
   }
 
-  getCountries(){
-    this.organizationService.getCountries()
-    .subscribe(res=>{
-        this.listCountries = res;
-    })
-  }
-
-  search(countryId:number){
+  search(countryId: number) {
     this.organizationService.searchCountryById(countryId)
-    .subscribe((res:any)=>{
+    .subscribe((res: any) => {
       const data = res
       .filter(x => x.status === true)
       .map((item: any) => ({
@@ -67,17 +59,17 @@ export class EditOutletComponent implements OnInit {
         parentId: item.parentId
       }));
       this.treeDataSource = this.flatToHierarchy(data);
-    })
+    });
   }
 
-  flatToHierarchy (list) {
-    var map = {}, node, roots = [], i;
-  
+  flatToHierarchy ( list: any ) {
+    let map = {}, node, roots = [], i;
+
   for (i = 0; i < list.length; i += 1) {
     map[list[i].id] = i; // initialize the map
     list[i].children = []; // initialize the children
   }
-  
+
   for (i = 0; i < list.length; i += 1) {
     node = list[i];
     if (node.parentId !== 1) {
@@ -90,13 +82,36 @@ export class EditOutletComponent implements OnInit {
   return roots;
   }
 
-  submit(){
-    let outletId= +this.route.snapshot.paramMap.get('id');
+
+  getCheckedOffices(event: any) {
+    this.selectedOffices = event;
+  }
+
+  createOutletForm() {
+    this.outletForm.patchValue({
+      countryId: this.retailOutletData.countryId,
+      name: this.retailOutletData.name,
+      openingDate: new Date(this.retailOutletData.openingDate),
+      externalId: this.retailOutletData.externalId,
+      offices: []
+    });
+  }
+
+  submit() {
+    const outletId = +this.route.snapshot.paramMap.get('id');
     const outletFormData = this.outletForm.value;
 
     const data = {
       ...outletFormData
     };
+
+    if (this.selectedOffices && this.selectedOffices.length > 0) {
+      const offices = this.selectedOffices.map((x) => {
+        const officeId = {officeId: x.id};
+        return officeId;
+      });
+      data.offices = offices;
+    }
 
     if (!data.externalId) {
       delete data.externalId;
@@ -107,6 +122,6 @@ export class EditOutletComponent implements OnInit {
     this.organizationService.updateOutlet(outletId, data)
     .subscribe(resp => {
       this.router.navigate(['../'], { relativeTo: this.route });
-    })
+    });
   }
 }
