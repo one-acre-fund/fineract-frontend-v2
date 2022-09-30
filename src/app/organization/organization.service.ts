@@ -254,6 +254,12 @@ export class OrganizationService {
   updateOutlet (id: any, data: any): Observable<any> {
     return this.http.put(`/ruralretailoutlets/${id}`, data);
   }
+  deleteOutlet(id: any): Observable<any> {
+    return this.http.delete(`/ruralretailoutlets/${id}`);
+  }
+  deactivateRuralOutlet(id:any, status:any): Observable<any> {
+    return this.http.put(`/ruralretailoutlets/${id}`, status);
+  }
 
   /**
    * @returns {Observable<any>} Employees data

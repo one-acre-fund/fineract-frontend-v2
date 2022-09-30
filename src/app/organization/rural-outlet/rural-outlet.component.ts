@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { OrganizationService } from 'app/organization/organization.service';
 
 @Component({
   selector: 'mifosx-rural-outlet',
@@ -21,7 +22,7 @@ export class RuralOutletComponent implements OnInit {
     /** Sorter for offices table. */
     @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute,private organizationService: OrganizationService) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.outletData = data?.offices;
     });
@@ -46,5 +47,9 @@ export class RuralOutletComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.outletData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  deactivateRuralOutlet(outletId: any){
+    this.organizationService.deactivateRuralOutlet(outletId,)
   }
 }
