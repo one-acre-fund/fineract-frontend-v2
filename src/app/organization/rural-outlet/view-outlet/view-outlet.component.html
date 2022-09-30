@@ -2,9 +2,14 @@
   <div class="container">
     <mat-card>
       <div fxLayoutAlign="flex-end" class="action-button m-b-20">
-        <span>
+        <span class="mr-1">
           <button mat-raised-button color="primary" [routerLink]="['edit']">
             <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;Edit Rural Outlet
+          </button>
+        </span>
+        <span>
+          <button mat-raised-button color="warn">
+            <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Delete Rural Outlet
           </button>
         </span>
       </div>

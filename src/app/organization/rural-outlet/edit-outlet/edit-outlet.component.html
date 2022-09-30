@@ -33,7 +33,7 @@
           <div class="">
             Assigned Offices:
             <mifosx-country-tree-view
-              *ngIf="treeDataSource.length>0"
+              *ngIf="treeDataSource?.length>0"
               [treeDataSource]="treeDataSource"
               (checkedOffices)="getCheckedOffices($event)"
             ></mifosx-country-tree-view>

@@ -266,7 +266,7 @@ const routes: Routes = [
             },
             {
               path: ':id',
-              data: { title: extract('View Rural Outlet'), routeResolveBreadcrumb: ['office', 'name'] },
+              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
