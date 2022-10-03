@@ -257,8 +257,8 @@ export class OrganizationService {
   deleteOutlet(id: any): Observable<any> {
     return this.http.delete(`/ruralretailoutlets/${id}`);
   }
-  deactivateRuralOutlet(id:any, status:any): Observable<any> {
-    return this.http.put(`/ruralretailoutlets/${id}`, status);
+  deactivateRuralOutlet(id: any, status: any): Observable<any> {
+    return this.http.put(`/ruralretailoutlets/${id}`, {active: status});
   }
 
   /**

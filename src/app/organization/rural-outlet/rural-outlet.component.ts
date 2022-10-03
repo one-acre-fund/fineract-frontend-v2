@@ -2,8 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from 'app/organization/organization.service';
+import { MatDialog } from '@angular/material/dialog';
+
+import { DisableDialogComponent } from 'app/shared/disable-dialog/disable-dialog.component';
 
 @Component({
   selector: 'mifosx-rural-outlet',
@@ -22,7 +25,8 @@ export class RuralOutletComponent implements OnInit {
     /** Sorter for offices table. */
     @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private route: ActivatedRoute,private organizationService: OrganizationService) {
+  constructor(private route: ActivatedRoute, private organizationService: OrganizationService,
+    private dialog: MatDialog, private router: Router) {
     this.route.data.subscribe((data: { offices: any }) => {
       this.outletData = data?.offices;
     });
@@ -49,7 +53,17 @@ export class RuralOutletComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  deactivateRuralOutlet(outletId: any){
-    this.organizationService.deactivateRuralOutlet(outletId,)
+  deactivateOutlet(outletId: any) {
+    const disableOutletDialogRef = this.dialog.open(DisableDialogComponent, {
+      data: { disableContext: this.outletData.name }
+    });
+    disableOutletDialogRef.afterClosed().subscribe((response: any) => {
+      if (response.disable) {
+        const active = "false";
+        this.organizationService.deactivateRuralOutlet(outletId, active).subscribe(() => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        });
+      }
+    });
   }
 }

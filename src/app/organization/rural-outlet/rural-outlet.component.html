@@ -39,14 +39,14 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let offices">
-            <button mat-button color="warn" class="mat-raised-button mat-warn">
+            <button type="button" mat-raised-button color="warn" (click)="deactivateOutlet(offices.id)">
               <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Deactivate
             </button>
           </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row" [routerLink]="[row.id]"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
 
       </table>
 

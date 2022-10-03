@@ -13,8 +13,8 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 export class ViewOutletComponent implements OnInit {
   retailOutletData: any;
   officeList: any;
-  constructor(private organizationService: OrganizationService, 
-    private route: ActivatedRoute,private dialog: MatDialog,private router: Router) {
+  constructor(private organizationService: OrganizationService,
+    private route: ActivatedRoute, private dialog: MatDialog, private router: Router) {
     const outletId = +this.route.snapshot.paramMap.get('id');
     this.getRuralOutlet(outletId);
   }
@@ -28,10 +28,8 @@ export class ViewOutletComponent implements OnInit {
     });
   }
 
-  deleteRuralOutlet(){
+  deleteRuralOutlet() {
     const outletId = +this.route.snapshot.paramMap.get('id');
-    console.log('list',this.retailOutletData);
-
     const deleteOutletDialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: this.retailOutletData.name }
     });
