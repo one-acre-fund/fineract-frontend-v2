@@ -108,7 +108,6 @@ import { RetailOutletResolver } from './rural-outlet/retail-outlet.resolver';
 import { ViewOutletComponent } from './rural-outlet/view-outlet/view-outlet.component';
 import { RuralOutletComponent } from './rural-outlet/rural-outlet.component';
 import { EditOutletComponent } from './rural-outlet/edit-outlet/edit-outlet.component';
-import { EditRetailOutletResolver } from './rural-outlet/edit-retail-outlet.resolver';
 import { CreateOutletComponent } from './rural-outlet/create-outlet/create-outlet.component';
 
 /** Organization Routes */
@@ -280,7 +279,7 @@ const routes: Routes = [
                   data: { title: extract('Edit Rural Outlet'), breadcrumb: 'Edit', routeResolveBreadcrumb: false },
                   component: EditOutletComponent,
                   resolve: {
-                     offices: EditRetailOutletResolver
+                     offices: RetailOutletResolver
                   }
                 }
               ]

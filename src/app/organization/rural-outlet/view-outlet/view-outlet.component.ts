@@ -19,7 +19,7 @@ export class ViewOutletComponent implements OnInit {
     this.getRuralOutlet(outletId);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(){}
 
   getRuralOutlet(outletId: number) {
     this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res: any) => {
