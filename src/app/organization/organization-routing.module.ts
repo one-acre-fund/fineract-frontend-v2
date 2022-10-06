@@ -109,6 +109,7 @@ import { ViewOutletComponent } from './rural-outlet/view-outlet/view-outlet.comp
 import { RuralOutletComponent } from './rural-outlet/rural-outlet.component';
 import { EditOutletComponent } from './rural-outlet/edit-outlet/edit-outlet.component';
 import { CreateOutletComponent } from './rural-outlet/create-outlet/create-outlet.component';
+import { EditRetailOutletResolver } from './rural-outlet/edit-retail-outlet.resolver';
 
 /** Organization Routes */
 const routes: Routes = [
@@ -265,10 +266,10 @@ const routes: Routes = [
             },
             {
               path: ':id',
-              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id',routeResolveBreadcrumb: ['offices', 'name'] },
               component: ViewOutletComponent,
               resolve: {
-                offices: RetailOutletResolver
+                offices: EditRetailOutletResolver
               }
             },
             {
