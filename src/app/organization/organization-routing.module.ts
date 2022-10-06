@@ -266,17 +266,18 @@ const routes: Routes = [
             {
               path: ':id',
               data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id' },
+              component: ViewOutletComponent,
+              resolve: {
+                offices: RetailOutletResolver
+              }
+            },
+            {
+              path: ':id',
+              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id' },
               children: [
                 {
-                  path: '',
-                  component: ViewOutletComponent,
-                  resolve: {
-                    offices: RetailOutletResolver
-                  }
-                },
-                {
                   path: 'edit',
-                  data: { title: extract('Edit Rural Outlet'), breadcrumb: 'Edit', routeResolveBreadcrumb: false },
+                  data: { title: extract('Edit Rural Outlet'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                   component: EditOutletComponent,
                   resolve: {
                      offices: RetailOutletResolver
