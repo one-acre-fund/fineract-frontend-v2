@@ -7,6 +7,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DisableDialogComponent } from 'app/shared/disable-dialog/disable-dialog.component';
+import { EnableDialogComponent } from 'app/shared/enable-dialog/enable-dialog.component';
 
 @Component({
   selector: 'mifosx-rural-outlet',
@@ -53,17 +54,31 @@ export class RuralOutletComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  deactivateOutlet(outletId: any) {
+  deactivateOutlet(outletId: any,status:boolean) {
+    const outlet=this.outletData.filter(x=>x.id===outletId);
+    if(status==false){
     const disableOutletDialogRef = this.dialog.open(DisableDialogComponent, {
-      data: { disableContext: this.outletData.name }
+      data: { disableContext: `rural outlet : ${outlet[0]?.name}` }
     });
     disableOutletDialogRef.afterClosed().subscribe((response: any) => {
       if (response.disable) {
-        const active = "false";
-        this.organizationService.deactivateRuralOutlet(outletId, active).subscribe(() => {
+        this.organizationService.deactivateRuralOutlet(outletId, status).subscribe(() => {
           this.router.navigate(['../'], { relativeTo: this.route });
         });
       }
     });
+  }
+  else{
+    const enableletDialogRef = this.dialog.open(EnableDialogComponent, {
+      data: { enableContext: `rural outlet : ${outlet[0]?.name}` }
+    });
+    enableletDialogRef.afterClosed().subscribe((response: any) => {
+      if (response.enable) {
+        this.organizationService.deactivateRuralOutlet(outletId, status).subscribe(() => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        });
+      }
+    });
+  }
   }
 }

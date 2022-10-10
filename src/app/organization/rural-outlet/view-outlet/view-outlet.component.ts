@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
 import { ErrorDialogComponent } from 'app/shared/error-dialog/error-dialog.component';
+import { AlertService } from 'app/core/alert/alert.service';
 
 @Component({
   selector: 'mifosx-view-outlet',
@@ -16,7 +17,8 @@ export class ViewOutletComponent implements OnInit {
   officeList: any;
   errMsg: string = undefined;
   constructor(private organizationService: OrganizationService,
-    private route: ActivatedRoute, private dialog: MatDialog, private router: Router) {
+    private route: ActivatedRoute, private dialog: MatDialog, private router: Router,
+    private alertService:AlertService) {
     const outletId = +this.route.snapshot.paramMap.get('id');
     this.getRuralOutlet(outletId);
   }
@@ -40,18 +42,11 @@ export class ViewOutletComponent implements OnInit {
         this.organizationService.deleteOutlet(outletId)
           .subscribe(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
-          }),
-          error => {
+          } ,error => {
             console.log(error)
-            this.errMsg = error;
-          };
+            this.alertService.alert({ type: 'Deletion Error', message: 'Error while deleting rural outlet. Please try again.' });
+          })         
       }
-    }),
-    error => {
-      console.log(error)
-      this.dialog.open(ErrorDialogComponent, {
-        data: { error }
-      });
-    };
+    })    
   }
 }

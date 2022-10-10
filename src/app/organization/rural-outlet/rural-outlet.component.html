@@ -41,8 +41,11 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let offices" (click)="$event.stopPropagation()">
-            <button type="button" mat-raised-button color="warn" (click)="deactivateOutlet(offices.id)">
+            <button type="button" mat-raised-button color="warn" *ngIf="offices.status===true" (click)="deactivateOutlet(offices.id,false)">
               <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Deactivate
+            </button>
+            <button type="button" mat-raised-button color="primary" *ngIf="offices.status===false" (click)="deactivateOutlet(offices.id,true)">
+              <i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;Activate           
             </button>
           </td>
         </ng-container>
