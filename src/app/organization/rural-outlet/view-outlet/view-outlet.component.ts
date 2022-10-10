@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from 'app/organization/organization.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { AlertService } from 'app/core/alert/alert.service';
   templateUrl: './view-outlet.component.html',
   styleUrls: ['./view-outlet.component.scss'],
 })
-export class ViewOutletComponent implements OnInit {
+export class ViewOutletComponent  {
   retailOutletData: any;
   officeList: any;
   errMsg: string = undefined;
@@ -22,8 +22,6 @@ export class ViewOutletComponent implements OnInit {
     const outletId = +this.route.snapshot.paramMap.get('id');
     this.getRuralOutlet(outletId);
   }
-
-  ngOnInit(){}
 
   getRuralOutlet(outletId: number) {
     this.organizationService.getRuralOutletByOutletId(outletId).subscribe((res: any) => {
