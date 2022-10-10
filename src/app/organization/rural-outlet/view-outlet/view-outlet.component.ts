@@ -4,6 +4,7 @@ import { OrganizationService } from 'app/organization/organization.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
+import { ErrorDialogComponent } from 'app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'mifosx-view-outlet',
@@ -13,6 +14,7 @@ import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dial
 export class ViewOutletComponent implements OnInit {
   retailOutletData: any;
   officeList: any;
+  errMsg: string = undefined;
   constructor(private organizationService: OrganizationService,
     private route: ActivatedRoute, private dialog: MatDialog, private router: Router) {
     const outletId = +this.route.snapshot.paramMap.get('id');
@@ -38,8 +40,18 @@ export class ViewOutletComponent implements OnInit {
         this.organizationService.deleteOutlet(outletId)
           .subscribe(() => {
             this.router.navigate(['../'], { relativeTo: this.route });
-          });
+          }),
+          error => {
+            console.log(error)
+            this.errMsg = error;
+          };
       }
-    });
+    }),
+    error => {
+      console.log(error)
+      this.dialog.open(ErrorDialogComponent, {
+        data: { error }
+      });
+    };
   }
 }

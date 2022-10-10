@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrganizationService } from 'app/organization/organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { CountryTreeViewComponent } from 'app/shared/country-tree-view/country-tree-view.component';
 
 @Component({
   selector: 'mifosx-create-outlet',
@@ -11,7 +12,9 @@ import { Dates } from 'app/core/utils/dates';
   styleUrls: ['./create-outlet.component.scss'],
 })
 export class CreateOutletComponent implements OnInit {
-
+  minDate = new Date(2000, 0, 1);
+  /** Maximum Date allowed. */
+  maxDate = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private organizationService: OrganizationService,
@@ -20,27 +23,34 @@ export class CreateOutletComponent implements OnInit {
     private settingsService: SettingsService,
     private dateUtils: Dates
   ) {}
-  date = new FormControl(new Date());
+
   listCountries: any = [];
+  listCountriesSliced: any = [];
   outletForm: FormGroup;
   treeDataSource: any = [];
   selectedOffices: any = [];
+  @ViewChild(CountryTreeViewComponent) countryTreeComponent:CountryTreeViewComponent;
 
   ngOnInit(): void {
     this.getCountries();
     this.outletForm = this.formBuilder.group({
-      countryId: '',
+      countryId: [null,Validators.required],
       name: ['', Validators.required],
-      openingDate: '',
-      externalId: '',
-      offices: [],
+      openingDate: ['', Validators.required],
+      externalId: [''],
+      offices: [this.selectedOffices],
     });
   }
 
   getCountries() {
     this.organizationService.getCountries().subscribe((res) => {
       this.listCountries = res;
+      this.listCountriesSliced=this.listCountries;
     });
+  }
+
+  public isFiltered(country: any) {
+    return this.listCountriesSliced.find(item => item.id === country.id);
   }
 
   search(event: any) {
@@ -55,6 +65,7 @@ export class CreateOutletComponent implements OnInit {
           checked: false,
         }));
       this.treeDataSource = this.flatToHierarchy(data);
+      this.countryTreeComponent?.refreshDataSource(this.treeDataSource)
     });
   }
 

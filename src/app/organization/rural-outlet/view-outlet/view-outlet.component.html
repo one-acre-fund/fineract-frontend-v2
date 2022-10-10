@@ -1,6 +1,7 @@
 <div class="tab-container mat-typography">
   <div class="container">
     <mat-card>
+      <div *ngIf="errMsg">Unable to delete outlet</div>
       <div fxLayoutAlign="flex-end" class="action-button m-b-20">
         <span class="mr-1">
           <button mat-raised-button color="primary" [routerLink]="['edit']">
