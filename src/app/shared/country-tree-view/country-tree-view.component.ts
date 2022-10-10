@@ -49,13 +49,6 @@ export class CountryTreeViewComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource.data = this.treeDataSource;
-    // if(this.treeDataSource && this.treeDataSource.length>0){
-    //   this.treeDataSource.forEach((element:OfficeFlatNode) => {
-    //     this.checkAllParentsSelection(element);
-    //   });
-
-    // }
-
   }
 
   ngAfterViewInit() {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { OrganizationService } from "app/organization/organization.service";
 import { SettingsService } from "app/settings/settings.service";
 import { Dates } from "app/core/utils/dates";
+import DataFlattner from "app/core/utils/data-flattner";
 
 @Component({
   selector: "mifosx-edit-outlet",
@@ -60,31 +61,8 @@ export class EditOutletComponent implements OnInit {
           parentId: item.parentId,
           checked: this.retailOutletData?.offices?.filter((c) => c.officeId === item.id)?.length > 0 ? true : false,
         }));
-      this.treeDataSource = this.flatToHierarchy(data);
+      this.treeDataSource = DataFlattner.flatToHierarchy(data);
     });
-  }
-
-  flatToHierarchy(list: any) {
-    let map = {},
-      node,
-      roots = [],
-      i;
-
-    for (i = 0; i < list.length; i += 1) {
-      map[list[i].id] = i; // initialize the map
-      list[i].children = []; // initialize the children
-    }
-
-    for (i = 0; i < list.length; i += 1) {
-      node = list[i];
-      if (node.parentId !== 1) {
-        // if you have dangling branches check that map[node.parentId] exists
-        list[map[node.parentId]].children.push(node);
-      } else {
-        roots.push(node);
-      }
-    }
-    return roots;
   }
 
   getCheckedOffices(event: any) {

@@ -4,7 +4,6 @@ import { OrganizationService } from 'app/organization/organization.service';
 import { MatDialog } from '@angular/material/dialog';
 
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { ErrorDialogComponent } from 'app/shared/error-dialog/error-dialog.component';
 import { AlertService } from 'app/core/alert/alert.service';
 
 @Component({
@@ -43,8 +42,8 @@ export class ViewOutletComponent  {
           } ,error => {
             console.log(error)
             this.alertService.alert({ type: 'Deletion Error', message: 'Error while deleting rural outlet. Please try again.' });
-          })         
+          })
       }
-    })    
+    })
   }
 }

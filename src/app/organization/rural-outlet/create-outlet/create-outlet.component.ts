@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder,  FormGroup, Validators } from '@angular/forms';
 import { OrganizationService } from 'app/organization/organization.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
 import { CountryTreeViewComponent } from 'app/shared/country-tree-view/country-tree-view.component';
+import DataFlattner from 'app/core/utils/data-flattner';
 
 @Component({
   selector: 'mifosx-create-outlet',
@@ -64,36 +65,15 @@ export class CreateOutletComponent implements OnInit {
           parentId: item.parentId,
           checked: false,
         }));
-      this.treeDataSource = this.flatToHierarchy(data);
+      this.treeDataSource = DataFlattner.flatToHierarchy(data);
       this.countryTreeComponent?.refreshDataSource(this.treeDataSource)
     });
   }
 
-  flatToHierarchy(list: any) {
-    let map = {},
-      node,
-      roots = [],
-      i;
-
-    for (i = 0; i < list.length; i += 1) {
-      map[list[i].id] = i; // initialize the map
-      list[i].children = []; // initialize the children
-    }
-
-    for (i = 0; i < list.length; i += 1) {
-      node = list[i];
-      if (node.parentId !== 1) {
-        // if you have dangling branches check that map[node.parentId] exists
-        list[map[node.parentId]].children.push(node);
-      } else {
-        roots.push(node);
-      }
-    }
-    return roots;
-  }
   getCheckedOffices(event: any) {
     this.selectedOffices = event;
   }
+
   submit() {
     const outletFormData = this.outletForm.value;
 
