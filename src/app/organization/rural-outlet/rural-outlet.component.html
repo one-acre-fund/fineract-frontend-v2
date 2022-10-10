@@ -20,7 +20,7 @@
     <div class="mat-elevation-z8">
 
       <table mat-table [dataSource]="dataSource" matSort>
-
+        <caption class="display-none">Rural Outlet</caption>
         <ng-container matColumnDef="name">
 
 
@@ -45,7 +45,7 @@
               <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Deactivate
             </button>
             <button type="button" mat-raised-button color="primary" *ngIf="offices.status===false" (click)="deactivateOutlet(offices.id,true)">
-              <i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;Activate           
+              <em class="fa fa-unlock-alt"></em>&nbsp;&nbsp;Activate           
             </button>
           </td>
         </ng-container>
