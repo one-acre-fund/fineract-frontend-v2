@@ -1,26 +1,25 @@
-/** Angular Imports */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationService } from 'app/organization/organization.service';
+import { SystemService } from 'app/system/system.service';
 
-/** Custom Services */
-import { SystemService } from '../../../system.service';
-
-/**
- * Edit Configuration Component
- */
 @Component({
-  selector: 'mifosx-edit-configuration',
-  templateUrl: './edit-configuration.component.html',
-  styleUrls: ['./edit-configuration.component.scss']
+  selector: 'mifosx-clone-configuration',
+  templateUrl: './clone-configuration.component.html',
+  styleUrls: ['./clone-configuration.component.scss']
 })
-export class EditConfigurationComponent implements OnInit {
+export class CloneConfigurationComponent implements OnInit {
+
 
   /** Global Configuration form. */
   configurationForm: FormGroup;
   /** Configuration. */
   configuration: any;
 
+  listCountries: any = [];
+  listCountriesSliced: any = [];
+  configId: number;
   /**
    * Retrieves the configuration data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -31,10 +30,13 @@ export class EditConfigurationComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private systemService: SystemService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private organizationService: OrganizationService) {
     this.route.data.subscribe((data: { configuration: any }) => {
       this.configuration = data.configuration;
+      this.configId = this.configuration?.id;
     });
+    this.getCountries();
   }
 
   /**
@@ -49,18 +51,29 @@ export class EditConfigurationComponent implements OnInit {
    */
   createConfigurationForm() {
     this.configurationForm = this.formBuilder.group({
-      'name': [{ value: this.configuration.name, disabled: true }, Validators.required],
-      'value': [this.configuration.value, Validators.required]
+      'value': ['', Validators.required],
+      'countryId': [null, Validators.required],
+      'globalConfigId': [this.configId]
     });
   }
 
+  getCountries() {
+    this.organizationService.getCountries().subscribe((res) => {
+      this.listCountries = res;
+      this.listCountriesSliced = this.listCountries;
+    });
+  }
+
+  public isFiltered(country: any) {
+    return this.listCountriesSliced.find(item => item.id === country.id);
+  }
   /**
    * Submits the global configuration form and updates global configuration,
    * if successful redirects to view all global configurations.
    */
   submit() {
     this.systemService
-      .updateConfiguration(this.configuration.id, this.configurationForm.value, 'configurations')
+      .cloneConfiguration(this.configuration.id, this.configurationForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../../'], { relativeTo: this.route });
       });

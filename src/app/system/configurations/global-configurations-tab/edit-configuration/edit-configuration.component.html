@@ -1,7 +1,10 @@
 <div class="container space">
 
   <mat-card>
-
+    <mat-card-header fxLayout="column" class="header">
+      <h1>Edit Configuration</h1>
+      <hr>
+    </mat-card-header>
     <form [formGroup]="configurationForm" (ngSubmit)="submit()">
 
       <mat-card-content>
