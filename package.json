@@ -58,7 +58,7 @@
     "moment": "^2.29.4",
     "rxjs": "6.6.2",
     "tslib": "^2.0.0",
-    "zone.js": "0.11.6"
+    "zone.js": "0.11.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "12.2.17",
