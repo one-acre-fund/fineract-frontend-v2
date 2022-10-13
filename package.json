@@ -47,7 +47,7 @@
     "@fortawesome/free-solid-svg-icons": "5.8.2",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
-    "chart.js": "3.0.0-alpha",
+    "chart.js": "3.9.1",
     "core-js": "2.5.0",
     "font-awesome": "^4.7.0",
     "install": "^0.13.0",
