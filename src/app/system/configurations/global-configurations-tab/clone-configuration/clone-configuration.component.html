@@ -9,7 +9,7 @@
           <div fxLayout="column">
             <mat-form-field>
               <mat-label>Value</mat-label>
-              <input matInput required formControlName="value">
+              <input type="number" matInput required formControlName="value">
               <mat-error *ngIf="configurationForm.controls.value.hasError('required')">
                 Value is <strong>required</strong>
               </mat-error>

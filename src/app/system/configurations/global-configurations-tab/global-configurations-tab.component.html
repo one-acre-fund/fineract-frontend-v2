@@ -19,7 +19,8 @@
       </ng-container>
       <ng-container matColumnDef="country">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-        <td mat-cell *matCellDef="let configuration"> Global
+        <td mat-cell *matCellDef="let configuration"> 
+          {{configuration?.country?configuration.country.name:'Global'}}
         </td>
       </ng-container>
       <ng-container matColumnDef="enabled">
