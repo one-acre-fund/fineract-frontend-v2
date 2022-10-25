@@ -2,7 +2,7 @@
 
   <mat-card>
 
-    <form [formGroup]="chargeForm" (ngSubmit)="submit()">
+    <form [formGroup]="editChargeForm" (ngSubmit)="submit()">
 
       <mat-card-content>
 
@@ -18,20 +18,20 @@
                 {{country.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="chargeForm.controls.country.hasError('required')">
+            <mat-error *ngIf="editChargeForm.controls.country.hasError('required')">
               Country is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-divider [inset]="true"></mat-divider>
 
-          <div *ngIf="chargeForm.controls.country.value" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%"
+          <div *ngIf="editChargeForm.controls.country.value" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%"
             fxLayout.lt-md="column">
 
             <mat-form-field fxFlex="48%">
               <mat-label>Charge Name</mat-label>
               <input matInput required formControlName="name">
-              <mat-error *ngIf="chargeForm.controls.name.hasError('required')">
+              <mat-error *ngIf="editChargeForm.controls.name.hasError('required')">
                 Charge Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -43,7 +43,7 @@
                   {{ currency.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="chargeForm.controls.currencyCode.hasError('required')">
+              <mat-error *ngIf="editChargeForm.controls.currencyCode.hasError('required')">
                 Currency is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -55,7 +55,7 @@
                   {{ chargeTimeType.value }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="chargeForm.controls.chargeTimeType.hasError('required')">
+              <mat-error *ngIf="editChargeForm.controls.chargeTimeType.hasError('required')">
                 Charge Time Type is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -68,7 +68,7 @@
                   {{ chargeCalculationType.value }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="chargeForm.controls.chargeCalculationType.hasError('required')">
+              <mat-error *ngIf="editChargeForm.controls.chargeCalculationType.hasError('required')">
                 Charge Calculation Type is <strong>required</strong>
               </mat-error>
             </mat-form-field>
@@ -76,14 +76,14 @@
             <mat-form-field fxFlex="48%">
               <mat-label>Amount</mat-label>
               <input matInput required formControlName="amount">
-              <mat-error *ngIf="chargeForm.controls.amount.hasError('required')">
+              <mat-error *ngIf="editChargeForm.controls.amount.hasError('required')">
                 Amount is <strong>required</strong>
               </mat-error>
-              <mat-error *ngIf="chargeForm.controls.amount.hasError('pattern') && currencyDecimalPlaces !== undefined">
+              <mat-error *ngIf="editChargeForm.controls.amount.hasError('pattern') && currencyDecimalPlaces !== undefined">
                 Amount must be <strong>a positive number with {{ currencyDecimalPlaces ? 'up to ' +
                   currencyDecimalPlaces : 'no' }} decimal places</strong>
               </mat-error>
-              <mat-error *ngIf="chargeForm.controls.amount.hasError('pattern') && currencyDecimalPlaces === undefined">
+              <mat-error *ngIf="editChargeForm.controls.amount.hasError('pattern') && currencyDecimalPlaces === undefined">
                 Amount must be <strong>a positive number</strong>
               </mat-error>
             </mat-form-field>
@@ -95,7 +95,7 @@
                 </mat-checkbox>
               </div>
 
-              <div fxFlex="50%" class="penalty-wrapper" *ngIf="chargeForm.controls.chargeTimeType.value !=1">
+              <div fxFlex="50%" class="penalty-wrapper" *ngIf="editChargeForm.controls.chargeTimeType.value !=1">
                 <mat-checkbox labelPosition="before" formControlName="penalty">
                   Is Penalty
                 </mat-checkbox>
@@ -110,8 +110,8 @@
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
         <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="!chargeForm.valid"
-          *mifosxHasPermission="'CREATE_CHARGE'">Submit</button>
+        <button mat-raised-button color="primary" [disabled]="!editChargeForm.valid"
+          *mifosxHasPermission="'UPDATE_CHARGE'">Submit</button>
       </mat-card-actions>
 
     </form>

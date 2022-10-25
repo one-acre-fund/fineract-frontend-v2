@@ -21,7 +21,7 @@ export class EditChargeComponent implements OnInit {
   /** Selected Data. */
   chargeData: any;
   /** Charge form. */
-  chargeForm: FormGroup;
+  editChargeForm: FormGroup;
   /** Select Income. */
   selectedIncome: any;
   /** Select Time Type. */
@@ -65,14 +65,14 @@ export class EditChargeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.editChargeForm();
+    this.createEditChargeForm();
   }
 
   /**
    * Edit Charge form.
    */
-  editChargeForm() {
-    this.chargeForm = this.formBuilder.group({
+  createEditChargeForm() {
+    this.editChargeForm = this.formBuilder.group({
       'country': [{value: this.chargeData.countryId, disabled: true}, Validators.required],
       'name': [this.chargeData.name, Validators.required],
       'chargeAppliesTo': [{ value: this.chargeData.chargeAppliesTo.id, disabled: true }, Validators.required],
@@ -99,7 +99,7 @@ export class EditChargeComponent implements OnInit {
         this.chargeCalculationTypeOptions = this.chargeData.clientChargeCalculationTypeOptions;
         this.chargeTimeTypeOptions = this.chargeData.clientChargeTimeTypeOptions;
         this.showGLAccount = true;
-        this.chargeForm.addControl('incomeAccountId', this.formBuilder.control(this.chargeData.incomeOrLiabilityAccount.id, Validators.required));
+        this.editChargeForm.addControl('incomeAccountId', this.formBuilder.control(this.chargeData.incomeOrLiabilityAccount.id, Validators.required));
         break;
       }
     }
@@ -123,7 +123,7 @@ export class EditChargeComponent implements OnInit {
    * Submits Edit Charge form.
    */
   submit() {
-    const charges = this.chargeForm.value;
+    const charges = this.editChargeForm.value;
     charges.locale = this.settingsService.language.code;
     charges.chargePaymentMode = this.chargeData.chargePaymentMode.id;
     this.productsService.updateCharge(this.chargeData.id.toString(), charges)
