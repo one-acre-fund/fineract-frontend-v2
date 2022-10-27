@@ -1,18 +1,17 @@
 <div class="container">
-
   <mat-card>
-
     <form [formGroup]="chargeForm" (ngSubmit)="submit()">
-
       <mat-card-content>
-
         <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
-
           <mat-form-field fxFlex="48%">
             <mat-label>Country</mat-label>
             <mat-select placeholder="Search" #country required formControlName="country">
-              <mat-select-filter *ngIf="country.focused" [array]="countries"
-                (filteredReturn)="countriesDataSliced=$event" [displayMember]="'name'">
+              <mat-select-filter
+                *ngIf="country.focused"
+                [array]="countries"
+                (filteredReturn)="countriesDataSliced=$event"
+                [displayMember]="'name'"
+              >
               </mat-select-filter>
               <mat-option *ngFor="let country of countries" [value]="country.id" [class.hide]="!isFiltered(country)">
                 {{country.name}}
@@ -25,12 +24,16 @@
 
           <mat-divider [inset]="true"></mat-divider>
 
-          <div *ngIf="chargeForm.controls.country.value" fxFlexFill fxLayout="row wrap" fxLayoutGap="2%"
-            fxLayout.lt-md="column">
-
+          <div
+            *ngIf="chargeForm.controls.country.value"
+            fxFlexFill
+            fxLayout="row wrap"
+            fxLayoutGap="2%"
+            fxLayout.lt-md="column"
+          >
             <mat-form-field fxFlex="48%">
               <mat-label>Charge Name</mat-label>
-              <input matInput required formControlName="name">
+              <input matInput required formControlName="name" />
               <mat-error *ngIf="chargeForm.controls.name.hasError('required')">
                 Charge Name is <strong>required</strong>
               </mat-error>
@@ -50,8 +53,11 @@
 
             <mat-form-field fxFlex="48%">
               <mat-label>Charge Time Type</mat-label>
-              <mat-select required formControlName="chargeTimeType" (selectionChange)="this.showPenalty=!this.showPenalty;">
-                <mat-option *ngFor="let chargeTimeType of chargesTemplateData.loanChargeTimeTypeOptions" [value]="chargeTimeType.id">
+              <mat-select required formControlName="chargeTimeType" (selectionChange)="showHidepenalty($event)">
+                <mat-option
+                  *ngFor="let chargeTimeType of chargesTemplateData.loanChargeTimeTypeOptions"
+                  [value]="chargeTimeType.id"
+                >
                   {{ chargeTimeType.value }}
                 </mat-option>
               </mat-select>
@@ -63,8 +69,10 @@
             <mat-form-field fxFlex="48%">
               <mat-label>Charge Calculation Type</mat-label>
               <mat-select required formControlName="chargeCalculationType">
-                <mat-option *ngFor="let chargeCalculationType of chargesTemplateData.loanChargeCalculationTypeOptions"
-                  [value]="chargeCalculationType.id">
+                <mat-option
+                  *ngFor="let chargeCalculationType of chargesTemplateData.loanChargeCalculationTypeOptions"
+                  [value]="chargeCalculationType.id"
+                >
                   {{ chargeCalculationType.value }}
                 </mat-option>
               </mat-select>
@@ -75,7 +83,7 @@
 
             <mat-form-field fxFlex="48%">
               <mat-label>Amount</mat-label>
-              <input matInput required formControlName="amount">
+              <input matInput required formControlName="amount" />
               <mat-error *ngIf="chargeForm.controls.amount.hasError('required')">
                 Amount is <strong>required</strong>
               </mat-error>
@@ -89,26 +97,24 @@
               </div>
 
               <div fxFlex="50%" class="penalty-wrapper" *ngIf="showPenalty">
-                <mat-checkbox labelPosition="before" formControlName="penalty">
+                <mat-checkbox required labelPosition="before" formControlName="penalty">
                   Is Penalty
                 </mat-checkbox>
+                <mat-error *ngIf="chargeForm.controls.penalty.hasError('required')">
+                  Penalty is <strong>required</strong>
+                </mat-error>
               </div>
             </div>
-
           </div>
-
         </div>
-
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
         <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="!chargeForm.valid"
-          *mifosxHasPermission="'CREATE_CHARGE'">Submit</button>
+        <button mat-raised-button color="primary" [disabled]="!chargeForm.valid" *mifosxHasPermission="'CREATE_CHARGE'">
+          Submit
+        </button>
       </mat-card-actions>
-
     </form>
-
   </mat-card>
-
 </div>

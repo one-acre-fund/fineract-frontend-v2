@@ -1,12 +1,12 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
+import { Router, ActivatedRoute } from '@angular/router'
 
 /** Custom Services */
-import { ProductsService } from '../../products.service';
-import { SettingsService } from 'app/settings/settings.service';
-import { Dates } from 'app/core/utils/dates';
+import { ProductsService } from '../../products.service'
+import { SettingsService } from 'app/settings/settings.service'
+import { Dates } from 'app/core/utils/dates'
 
 /**
  * Create charge component.
@@ -17,35 +17,31 @@ import { Dates } from 'app/core/utils/dates';
   styleUrls: ['./create-charge.component.scss']
 })
 export class CreateChargeComponent implements OnInit {
-
   /** Selected Data. */
-  chargeData: any;
+  chargeData: any
   /** Charge form. */
-  chargeForm: FormGroup;
+  chargeForm: FormGroup
   /** Charges template data. */
-  chargesTemplateData: any;
+  chargesTemplateData: any
   /** Charge time type data. */
-  chargeTimeTypeData: any;
+  chargeTimeTypeData: any
   /** Charge calculation type data. */
-  chargeCalculationTypeData: any = '';
+  chargeCalculationTypeData: any = ''
   /** Income and liability account data */
-  incomeAndLiabilityAccountData: any;
+  incomeAndLiabilityAccountData: any
   /** Minimum due date allowed. */
-  minDate = new Date(2000, 0, 1);
+  minDate = new Date(2000, 0, 1)
   /** Maximum due date allowed. */
-  maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+  maxDate = new Date(new Date().setFullYear(new Date().getFullYear() + 1))
   /** Repeat every label */
-  repeatEveryLabel: string;
+  repeatEveryLabel: string
   /** Currency decimal places */
-  currencyDecimalPlaces: number;
+  currencyDecimalPlaces: number
   /** Show Penalty. */
-  showPenalty = false;
+  showPenalty = false
 
-
-
-  countries: any = [];
-  countriesDataSliced: any = [];
-
+  countries: any = []
+  countriesDataSliced: any = []
 
   /**
    * Retrieves the charges template data and income and liability account data from `resolve`.
@@ -56,92 +52,100 @@ export class CreateChargeComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor(private formBuilder: FormBuilder,
-              private productsService: ProductsService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private dateUtils: Dates,
-              private settingsService: SettingsService) {
+  constructor (
+    private formBuilder: FormBuilder,
+    private productsService: ProductsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private dateUtils: Dates,
+    private settingsService: SettingsService
+  ) {
     this.route.data.subscribe((data: { chargesTemplate: any }) => {
-      this.chargesTemplateData = data.chargesTemplate;
-    });
-    this.getCountries();
+      this.chargesTemplateData = data.chargesTemplate
+    })
+    this.getCountries()
   }
 
   /**
    * Creates and sets the charge form.
    */
-  ngOnInit() {
-    this.createChargeForm();
+  ngOnInit () {
+    this.createChargeForm()
   }
 
   /**
    * Creates the charge form.
    */
-  createChargeForm() {
+  createChargeForm () {
     this.chargeForm = this.formBuilder.group({
-      'country' : ['', Validators.required],
-      'chargeAppliesTo': [1],
-      'name': ['', Validators.required],
-      'currencyCode': ['', Validators.required],
-      'chargeTimeType': ['', Validators.required],
-      'chargeCalculationType': ['', Validators.required],
-      'amount': ['', Validators.required],
-      'active': [false],
-      'penalty': [false]
-    });
+      country: ['', Validators.required],
+      chargeAppliesTo: [1],
+      name: ['', Validators.required],
+      currencyCode: ['', Validators.required],
+      chargeTimeType: ['', Validators.required],
+      chargeCalculationType: ['', Validators.required],
+      amount: ['', Validators.required],
+      active: [false],
+      penalty: [true, Validators.required]
+    })
   }
-
-
 
   /**
    * Submits the charge form and creates charge,
    * if successful redirects to charges.
    */
-  submit() {
-    const chargeFormData = this.chargeForm.value;
-    const locale = this.settingsService.language.code;
-    const prevFeeOnMonthDay: Date = this.chargeForm.value.feeOnMonthDay;
-    const monthDayFormat = 'dd MMM';
+  submit () {
+    const chargeFormData = this.chargeForm.value
+    const locale = this.settingsService.language.code
+    const prevFeeOnMonthDay: Date = this.chargeForm.value.feeOnMonthDay
+    const monthDayFormat = 'dd MMM'
     if (chargeFormData.feeOnMonthDay instanceof Date) {
-      chargeFormData.feeOnMonthDay = this.dateUtils.formatDate(prevFeeOnMonthDay, monthDayFormat);
+      chargeFormData.feeOnMonthDay = this.dateUtils.formatDate(prevFeeOnMonthDay, monthDayFormat)
     }
     const data = {
       ...chargeFormData,
       monthDayFormat,
       locale
-    };
-    delete data.addFeeFrequency;
+    }
+    delete data.addFeeFrequency
     if (!data.taxGroupId) {
-      delete data.taxGroupId;
+      delete data.taxGroupId
     }
     if (!data.minCap) {
-      delete data.minCap;
+      delete data.minCap
     }
     if (!data.maxCap) {
-      delete data.maxCap;
+      delete data.maxCap
+    }
+    if (this.showPenalty) {
+      data.penalty = true
+    } else {
+      data.penalty = false
     }
     this.productsService.createCharge(data).subscribe((response: any) => {
-      this.router.navigate(['../'], { relativeTo: this.route });
-    });
+      this.router.navigate(['../'], { relativeTo: this.route })
+    })
   }
 
-  getCountries() {
+  getCountries () {
     this.productsService.getCountries().subscribe((response: any) => {
-        this.countries = response;
-        this.countriesDataSliced = response;
-    });
-}
+      this.countries = response
+      this.countriesDataSliced = response
+    })
+  }
 
-isFiltered(country: any) {
-  return this.countriesDataSliced.find(item => item.id === country.id);
-}
-showHidepenalty(){
-  if(this.chargeData.chargeTimeType.value==="Disbursement"){
-    this.showPenalty=false;
+  isFiltered (country: any) {
+    return this.countriesDataSliced.find(item => item.id === country.id)
   }
-  if(this.chargeData.chargeTimeType.value==="Overdue Fees"){
-    this.showPenalty=true;
+  showHidepenalty (event: any) {
+    if (event.value != 1) {
+      this.showPenalty = true
+      this.chargeForm.controls['penalty'].setValidators(Validators.required)
+      this.chargeForm.controls['penalty'].updateValueAndValidity()
+    } else {
+      this.showPenalty = false
+      this.chargeForm.controls['penalty'].clearValidators()
+      this.chargeForm.controls['penalty'].updateValueAndValidity()
+    }
   }
-}
 }
