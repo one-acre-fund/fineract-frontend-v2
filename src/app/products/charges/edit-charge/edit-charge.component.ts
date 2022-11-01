@@ -1,11 +1,11 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormBuilder, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
-import { ProductsService } from 'app/products/products.service'
-import { SettingsService } from 'app/settings/settings.service'
+import { ProductsService } from 'app/products/products.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Edit Charge component.
@@ -17,30 +17,31 @@ import { SettingsService } from 'app/settings/settings.service'
 })
 export class EditChargeComponent implements OnInit {
   /** Selected Data. */
-  chargeData: any
+  chargeData: any;
   /** Charge form. */
-  editChargeForm: FormGroup
+  editChargeForm: FormGroup;
   /** Select Income. */
-  selectedIncome: any
+  selectedIncome: any;
   /** Select Time Type. */
-  selectedTime: any
+  selectedTime: any;
   /** Select Currency Type. */
-  selectedCurrency: any
+  selectedCurrency: any;
   /** Select Calculation Type. */
-  selectedCalculation: any
+  selectedCalculation: any;
   /** Charge Time Type options. */
-  chargeTimeTypeOptions: any
+  chargeTimeTypeOptions: any;
   /** Charge Calculation Type options. */
-  chargeCalculationTypeOptions: any
+  chargeCalculationTypeOptions: any;
   /** Show Penalty. */
-  showPenalty = true
+  showPenalty = true;
   /** Show GL Accounts. */
-  showGLAccount = false
+  showGLAccount = false;
   /** Show Fee Options. */
-  showFeeOptions = false
+  showFeeOptions = false;
 
-  countries: any = []
-  countriesDataSliced: any = []
+  countries: any = [];
+  countriesDataSliced: any = [];
+  getMode: any;
 
   /**
    * Retrieves the charge data from `resolve`.
@@ -58,13 +59,14 @@ export class EditChargeComponent implements OnInit {
     private settingsService: SettingsService
   ) {
     this.route.data.subscribe((data: { chargesTemplate: any }) => {
-      this.chargeData = data.chargesTemplate
-      this.getCountries()
-    })
+      this.chargeData = data.chargesTemplate;
+
+    });
+    this.getCountries();
   }
 
   ngOnInit () {
-    this.createEditChargeForm()
+    this.createEditChargeForm();
   }
 
   /**
@@ -81,42 +83,42 @@ export class EditChargeComponent implements OnInit {
       penalty: [this.chargeData.penalty, Validators.required],
       chargeTimeType: [this.chargeData.chargeTimeType.id, Validators.required],
       chargeCalculationType: [this.chargeData.chargeCalculationType.id, Validators.required]
-    })
+    });
     switch (this.chargeData.chargeAppliesTo.value) {
       case 'Loan': {
-        this.chargeTimeTypeOptions = this.chargeData.loanChargeTimeTypeOptions
-        this.chargeCalculationTypeOptions = this.chargeData.loanChargeCalculationTypeOptions
-        break
+        this.chargeTimeTypeOptions = this.chargeData.loanChargeTimeTypeOptions;
+        this.chargeCalculationTypeOptions = this.chargeData.loanChargeCalculationTypeOptions;
+        break;
       }
       case 'Savings': {
-        this.chargeTimeTypeOptions = this.chargeData.savingsChargeTimeTypeOptions
-        this.chargeCalculationTypeOptions = this.chargeData.savingsChargeCalculationTypeOptions
-        break
+        this.chargeTimeTypeOptions = this.chargeData.savingsChargeTimeTypeOptions;
+        this.chargeCalculationTypeOptions = this.chargeData.savingsChargeCalculationTypeOptions;
+        break;
       }
 
       default: {
-        this.chargeCalculationTypeOptions = this.chargeData.clientChargeCalculationTypeOptions
-        this.chargeTimeTypeOptions = this.chargeData.clientChargeTimeTypeOptions
-        this.showGLAccount = true
+        this.chargeCalculationTypeOptions = this.chargeData.clientChargeCalculationTypeOptions;
+        this.chargeTimeTypeOptions = this.chargeData.clientChargeTimeTypeOptions;
+        this.showGLAccount = true;
         this.editChargeForm.addControl(
           'incomeAccountId',
           this.formBuilder.control(this.chargeData.incomeOrLiabilityAccount.id, Validators.required)
-        )
-        break
+        );
+        break;
       }
     }
     switch (this.chargeData.chargeTimeType.value) {
       case 'Disbursement': {
-        this.showPenalty = false
-        break
+        this.showPenalty = false;
+        break;
       }
       case 'Overdue Fees': {
-        this.showPenalty = true
-        break
+        this.showPenalty = true;
+        break;
       }
       default: {
-        this.showPenalty = false
-        break
+        this.showPenalty = false;
+        break;
       }
     }
   }
@@ -125,17 +127,17 @@ export class EditChargeComponent implements OnInit {
    * Submits Edit Charge form.
    */
   submit () {
-    const charges = this.editChargeForm.value
-    charges.locale = this.settingsService.language.code
-    charges.chargePaymentMode = this.chargeData.chargePaymentMode.id
+    const charges = this.editChargeForm.value;
+    charges.locale = this.settingsService.language.code;
+    charges.chargePaymentMode = this.chargeData.chargePaymentMode.id;
     if (this.showPenalty) {
-      charges.penalty = true
+      charges.penalty = true;
     } else {
-      charges.penalty = false
+      charges.penalty = false;
     }
     this.productsService.updateCharge(this.chargeData.id.toString(), charges).subscribe((response: any) => {
-      this.router.navigate(['../'], { relativeTo: this.route })
-    })
+      this.router.navigate(['../'], { relativeTo: this.route });
+    });
   }
 
   /**
@@ -144,24 +146,24 @@ export class EditChargeComponent implements OnInit {
 
   getCountries () {
     this.productsService.getCountries().subscribe((response: any) => {
-      this.countries = response
-      this.countriesDataSliced = response
-    })
+      this.countries = response;
+      this.countriesDataSliced = response;
+    });
   }
 
   public isFiltered (country: any) {
-    return this.countriesDataSliced.find(item => item.id === country.id)
+    return this.countriesDataSliced.find(item => item.id === country.id);
   }
 
   showHidepenalty (event: any) {
-    if (event.value != 1) {
-      this.showPenalty = true
-      this.editChargeForm.controls['penalty'].setValidators(Validators.required)
-      this.editChargeForm.controls['penalty'].updateValueAndValidity()
+    if (event.value !== 1) {
+      this.showPenalty = true;
+      this.editChargeForm.controls['penalty'].setValidators(Validators.required);
+      this.editChargeForm.controls['penalty'].updateValueAndValidity();
     } else {
-      this.showPenalty = false
-      this.editChargeForm.controls['penalty'].clearValidators()
-      this.editChargeForm.controls['penalty'].updateValueAndValidity()
+      this.showPenalty = false;
+      this.editChargeForm.controls['penalty'].clearValidators();
+      this.editChargeForm.controls['penalty'].updateValueAndValidity();
     }
   }
 }

@@ -584,7 +584,7 @@ const routes: Routes = [
                 },
                 {
                   path: 'edit',
-                  component: EditChargeComponent,
+                  component: CreateChargeComponent,
                   data: { title: extract('Edit Charge'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                   resolve: {
                     chargesTemplate: ChargesTemplateAndResolver

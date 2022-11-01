@@ -21,7 +21,6 @@
               Country is <strong>required</strong>
             </mat-error>
           </mat-form-field>
-
           <mat-divider [inset]="true"></mat-divider>
 
           <div
@@ -110,11 +109,12 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['../']" >Cancel</button>
         <button mat-raised-button color="primary" [disabled]="!chargeForm.valid" *mifosxHasPermission="'CREATE_CHARGE'">
           Submit
         </button>
       </mat-card-actions>
     </form>
+
   </mat-card>
 </div>
