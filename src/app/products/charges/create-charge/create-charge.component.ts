@@ -14,7 +14,7 @@ import { Dates } from 'app/core/utils/dates';
 @Component({
   selector: 'mifosx-create-charge',
   templateUrl: './create-charge.component.html',
-  styleUrls: ['./create-charge.component.scss']
+  styleUrls: ['./create-charge.component.scss'],
 })
 export class CreateChargeComponent implements OnInit {
   /** Selected Data. */
@@ -58,7 +58,7 @@ export class CreateChargeComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils to format date.
    * @param {SettingsService} settingsService Settings Service
    */
-  constructor (
+  constructor(
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
     private route: ActivatedRoute,
@@ -75,15 +75,15 @@ export class CreateChargeComponent implements OnInit {
   /**
    * Creates and sets the charge form.
    */
-  ngOnInit () {
+  ngOnInit() {
     this.createChargeForm();
   }
 
   /**
    * Creates the charge form.
    */
-  createChargeForm () {
-    if ( this.router.url.includes ( 'edit' ) ) {
+  createChargeForm() {
+    if (this.router.url.includes('edit')) {
       this.isAddingCharge = false;
       this.chargeForm = this.formBuilder.group({
         name: [this.chargesTemplateData.name, Validators.required],
@@ -94,7 +94,7 @@ export class CreateChargeComponent implements OnInit {
         amount: [this.chargesTemplateData.amount, Validators.required],
         country: [{ value: this.chargesTemplateData.countryId, disabled: true }, Validators.required],
         chargeTimeType: [this.chargesTemplateData.chargeTimeType.id, Validators.required],
-        chargeCalculationType: [this.chargesTemplateData.chargeCalculationType.id, Validators.required]
+        chargeCalculationType: [this.chargesTemplateData.chargeCalculationType.id, Validators.required],
       });
       switch (this.chargesTemplateData.chargeAppliesTo.value) {
         case 'Loan': {
@@ -144,7 +144,7 @@ export class CreateChargeComponent implements OnInit {
         chargeCalculationType: ['', Validators.required],
         amount: ['', Validators.required],
         active: [false],
-        penalty: [true, Validators.required]
+        penalty: [true, Validators.required],
       });
     }
   }
@@ -153,63 +153,40 @@ export class CreateChargeComponent implements OnInit {
    * Submits the charge form and creates charge,
    * if successful redirects to charges.
    */
-  submit () {
-    if ( this.router.url.includes ( 'edit' ) ) {
+  submit() {
+    this.chargeForm.patchValue({
+      penalty: this.showPenalty ? true : false,
+    });
+    if (this.router.url.includes('edit')) {
       const charges = this.chargeForm.getRawValue();
       charges.locale = this.settingsService.language.code;
-      if (this.showPenalty) {
-        charges.penalty = true;
-      } else {
-        charges.penalty = false;
-      }
       this.productsService.updateCharge(this.chargesTemplateData.id.toString(), charges).subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
     } else {
       const chargeFormData = this.chargeForm.value;
       const locale = this.settingsService.language.code;
-      const prevFeeOnMonthDay: Date = this.chargeForm.value.feeOnMonthDay;
-      const monthDayFormat = 'dd MMM';
-      if (chargeFormData.feeOnMonthDay instanceof Date) {
-        chargeFormData.feeOnMonthDay = this.dateUtils.formatDate(prevFeeOnMonthDay, monthDayFormat);
-      }
       const data = {
         ...chargeFormData,
-        monthDayFormat,
-        locale
+        locale,
       };
-      delete data.addFeeFrequency;
-      if (!data.taxGroupId) {
-        delete data.taxGroupId;
-      }
-      if (!data.minCap) {
-        delete data.minCap;
-      }
-      if (!data.maxCap) {
-        delete data.maxCap;
-      }
-      if (this.showPenalty) {
-        data.penalty = true;
-      } else {
-        data.penalty = false;
-      }
       this.productsService.createCharge(data).subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
     }
   }
 
-  getCountries () {
+  getCountries() {
     this.productsService.getCountries().subscribe((response: any) => {
       this.countries = response;
       this.countriesDataSliced = response;
     });
   }
 
-  isFiltered (country: any) {
-    return this.countriesDataSliced.find(item => item.id === country.id);
+  isFiltered(country: any) {
+    return this.countriesDataSliced.find((item) => item.id === country.id);
   }
-  showHidepenalty (event: any) {
+  showHidepenalty(event: any) {
     if (event.value !== 1) {
       this.showPenalty = true;
       this.chargeForm.controls['penalty'].setValidators(Validators.required);
@@ -220,5 +197,4 @@ export class CreateChargeComponent implements OnInit {
       this.chargeForm.controls['penalty'].updateValueAndValidity();
     }
   }
-
 }
