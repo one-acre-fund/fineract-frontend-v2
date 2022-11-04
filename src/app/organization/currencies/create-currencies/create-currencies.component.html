@@ -17,7 +17,7 @@
                             Country is <strong>required</strong>
                         </mat-error>
                       </mat-form-field>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field>
                         <mat-label>Currency Name</mat-label>
                         <mat-select placeholder="Search" #currency required formControlName="currencyCode"  >
                           <mat-select-filter *ngIf="currency.focused" [array]="currencyTemplateData.currencyOptions" (filteredReturn)="currencyTemplateData.currencyOptions=$event"
