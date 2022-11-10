@@ -334,13 +334,13 @@ const routes: Routes = [
         {
           path: 'currencies',
           data: { title: extract('Currency Configuration'), breadcrumb: 'Currency Configuration' },
-          resolve: {
-            currencies: CurrenciesResolver
-          },
           children: [
             {
               path: '',
               component: CurrenciesComponent,
+              resolve: {
+                currencies: CurrenciesResolver
+              }
             },
             {
               path: 'manage',
@@ -351,6 +351,9 @@ const routes: Routes = [
               path: 'create',
               component: CreateCurrenciesComponent,
               data: { title: extract('Create Currency'), breadcrumb: 'Create Currency' },
+              resolve: {
+                currencies: CurrenciesResolver
+              }
             }
           ]
         },
