@@ -92,6 +92,9 @@ import { CreateProductMixComponent } from './products-mix/create-product-mix/cre
 import { EditProductMixComponent } from './products-mix/edit-product-mix/edit-product-mix.component';
 import { CreateChargeComponent } from './charges/create-charge/create-charge.component';
 import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-fixed-deposit-product/edit-fixed-deposit-product.component';
+import { LoanProductOrganizationUnitStepComponent } from './loan-products/loan-product-stepper/loan-product-organization-unit-step/loan-product-organization-unit-step.component';
+import { LoanProductClientEligibilityStepComponent } from './loan-products/loan-product-stepper/loan-product-client-eligibility-step/loan-product-client-eligibility-step.component';
+import { LoanProductAppsComponent } from './loan-products/loan-product-stepper/loan-product-apps/loan-product-apps.component';
 
 /**
  * Products Module
@@ -191,7 +194,10 @@ import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-
     EditProductMixComponent,
     ManageTaxGroupsComponent,
     CreateChargeComponent,
-    EditFixedDepositProductComponent
+    EditFixedDepositProductComponent,
+    LoanProductOrganizationUnitStepComponent,
+    LoanProductClientEligibilityStepComponent,
+    LoanProductAppsComponent
   ],
   providers: [ ]
 })
