@@ -58,6 +58,10 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
     });
   }
 
+  public isFiltered(country: any) {
+    return this.countriesDataSliced.find(item => item.id === country.id);
+  }
+
   search(event: any) {
     if (!event.value) {
        this.countryId = this.loanProductsTemplate.countryId;

@@ -7,10 +7,9 @@
                 *ngIf="countryId.focused"
                 [array]="countries"
                 (filteredReturn)="countriesDataSliced=$event"
-                [displayMember]="'name'"
-              >
+                [displayMember]="'name'">
               </mat-select-filter>
-              <mat-option *ngFor="let country of countries" [value]="country.id">
+              <mat-option *ngFor="let country of countries" [value]="country.id" [class.hide]="!isFiltered(country)">
                 {{country.name}}
               </mat-option>
             </mat-select>
