@@ -67,6 +67,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
        this.countryId = this.loanProductsTemplate.countryId;
     } else {
       this.countryId = event.value;
+      this.productsService.countryId = event.value;
     }
     this.organizationService.searchCountryById(this.countryId).subscribe((res: any) => {
       if (this.router.url.includes('edit')) {

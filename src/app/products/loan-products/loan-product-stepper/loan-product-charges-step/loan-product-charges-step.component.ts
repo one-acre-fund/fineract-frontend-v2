@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
+import { Router } from '@angular/router';
+import { ProductsService } from 'app/products/products.service';
 
 @Component({
   selector: 'mifosx-loan-product-charges-step',
@@ -17,26 +19,53 @@ export class LoanProductChargesStepComponent implements OnInit {
 
   chargeData: any;
   overdueChargeData: any;
+  countryId: any;
 
   chargesDataSource: {}[];
   displayedColumns: string[] = ['name', 'chargeCalculationType', 'amount', 'chargeTimeType', 'action'];
 
   pristine = true;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private router: Router, private productService: ProductsService) {
   }
 
   ngOnInit() {
-    this.chargeData = this.loanProductsTemplate.chargeOptions;
-    this.overdueChargeData = this.loanProductsTemplate.penaltyOptions ?
-      this.loanProductsTemplate.penaltyOptions.filter((penalty: any) => penalty.chargeTimeType.code === 'chargeTimeType.overdueInstallment') :
-      [];
 
-    this.chargesDataSource = this.loanProductsTemplate.charges || [];
+    this.productService.countryId.subscribe(val => {
+      this.countryId = val;
+      this.getCharges(this.countryId);
+      this.getOverdueCharges(this.countryId);
+    });
+
+    if ( this.router.url.includes('edit') ) {
+
+      this.chargeData = this.loanProductsTemplate.chargeOptions;
+      this.overdueChargeData = this.loanProductsTemplate.penaltyOptions ?
+        this.loanProductsTemplate.penaltyOptions.filter((penalty: any) => penalty.chargeTimeType.code === 'chargeTimeType.overdueInstallment') :
+      [];
+      this.chargesDataSource = this.loanProductsTemplate.charges || [];
+    }
+    else{
+      this.chargesDataSource = this.chargeData || [];
+    }
+
+
     this.pristine = true;
 
     this.currencyCode.valueChanges.subscribe(() => this.chargesDataSource = []);
     this.multiDisburseLoan.valueChanges.subscribe(() => this.chargesDataSource = []);
+  }
+
+  getCharges(countryId: any){
+    this.productService.getCharges().subscribe(data =>{
+      this.chargeData = data.filter((x)=> x.penalty === false && x.countryId === countryId);
+    })
+  }
+
+  getOverdueCharges(countryId: any){
+    this.productService.getCharges().subscribe(data =>{
+      this.overdueChargeData = data.filter((x)=> x.penalty === true && x.countryId === countryId);
+    })
   }
 
   addCharge(charge: any) {

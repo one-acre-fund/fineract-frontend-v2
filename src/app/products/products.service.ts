@@ -17,6 +17,7 @@ import { SettingsService } from 'app/settings/settings.service';
 export class ProductsService {
 
   private  loanId$ = new BehaviorSubject<any>(null);
+  private  countryId$ = new BehaviorSubject<any>(null);
 
   /**
    * @param {HttpClient} http Http Client to send requests.
@@ -31,6 +32,14 @@ export class ProductsService {
 
   get loanId(): any {
     return this.loanId$.asObservable();
+  }
+
+  set countryId(val:any){
+    this.countryId$.next(val);
+  }
+
+  get countryId(): any {
+    return this.countryId$.asObservable();
   }
 
   /**
@@ -64,6 +73,7 @@ export class ProductsService {
   getChannels(): Observable<any> {
     return this.http.get('/channels');
   }
+
 
   /**
    * @returns {Observable<any>} Saving products data
