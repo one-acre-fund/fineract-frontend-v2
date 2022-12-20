@@ -41,7 +41,6 @@ export class LoanProductPreviewStepComponent implements OnInit {
     console.log('loanData', this.loanProduct);
     if (this.loanProduct.officeIds && this.loanProduct.officeIds.length > 0) {
       this.organizationService.searchCountryById(this.loanProduct.countryId).subscribe((res: any) => {
-        // var data = res;
         const data = res.map((item: any) => ({
           name: item.name,
           id: item.id,
@@ -72,7 +71,6 @@ export class LoanProductPreviewStepComponent implements OnInit {
 
   getChannels() {
     this.productsService.getChannels().subscribe((data) => {
-      // this.channelList = data;
       this.loanProduct.channels.map((response) => {
         const channelCount = data.filter((x) => x.code === response);
         this.channelList.push(channelCount);

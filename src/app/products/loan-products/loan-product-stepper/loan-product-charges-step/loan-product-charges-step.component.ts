@@ -44,8 +44,7 @@ export class LoanProductChargesStepComponent implements OnInit {
         this.loanProductsTemplate.penaltyOptions.filter((penalty: any) => penalty.chargeTimeType.code === 'chargeTimeType.overdueInstallment') :
       [];
       this.chargesDataSource = this.loanProductsTemplate.charges || [];
-    }
-    else{
+    } else {
       this.chargesDataSource = this.chargeData || [];
     }
 
@@ -56,16 +55,16 @@ export class LoanProductChargesStepComponent implements OnInit {
     this.multiDisburseLoan.valueChanges.subscribe(() => this.chargesDataSource = []);
   }
 
-  getCharges(countryId: any){
-    this.productService.getCharges().subscribe(data =>{
-      this.chargeData = data.filter((x)=> x.penalty === false && x.countryId === countryId);
-    })
+  getCharges(countryId: any) {
+    this.productService.getCharges().subscribe(data => {
+      this.chargeData = data.filter((x) => x.penalty === false && x.countryId === countryId);
+    });
   }
 
-  getOverdueCharges(countryId: any){
-    this.productService.getCharges().subscribe(data =>{
-      this.overdueChargeData = data.filter((x)=> x.penalty === true && x.countryId === countryId);
-    })
+  getOverdueCharges(countryId: any) {
+    this.productService.getCharges().subscribe(data => {
+      this.overdueChargeData = data.filter((x) => x.penalty === true && x.countryId === countryId);
+    });
   }
 
   addCharge(charge: any) {

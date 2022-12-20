@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 
@@ -43,7 +43,7 @@ export class LoanProductAppsComponent implements OnInit {
 }
 
   loadForm(data: any) {
-    for (let line = 0; line < data.channels.length; line++) {
+    for (const line of data.channels) {
        const linesFormArray = this.loanProductAppsForm.get('channels') as FormArray;
        linesFormArray.push(this.line);
     }

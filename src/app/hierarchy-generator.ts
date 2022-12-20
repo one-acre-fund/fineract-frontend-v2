@@ -16,9 +16,9 @@ export class OUHierarchy {
 
         Object.keys(all).forEach(function (id: any) {
           const item = all[id];
+          const displayName = item?.name;
+          item.name = displayName;
           if (!item.parentId || item.parentId === null) {
-            const displayName = item.name;
-            item.name = displayName;
             roots.push(item);
           } else if (item.parentId in all) {
             const displayName = item.name;
@@ -34,8 +34,6 @@ export class OUHierarchy {
               p.children.push(item);
             }
           } else {
-            const displayName = item.name;
-            item.name = displayName;
             roots.push(item);
           }
         });

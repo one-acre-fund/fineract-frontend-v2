@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
-import { LoanProductDetailsStepComponent } from '../loan-product-details-step/loan-product-details-step.component';
 
 @Component({
   selector: 'mifosx-loan-product-client-eligibility-step',

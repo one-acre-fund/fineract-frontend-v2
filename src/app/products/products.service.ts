@@ -34,7 +34,7 @@ export class ProductsService {
     return this.loanId$.asObservable();
   }
 
-  set countryId(val:any){
+  set countryId(val: any) {
     this.countryId$.next(val);
   }
 
