@@ -76,15 +76,13 @@
         </div>
 
         <h3 class="mat-h3" fxFlexFill>Organization Units</h3>
-
         <mat-divider [inset]="true"></mat-divider>
 
         <div fxFlexFill>
           <span fxFlex="40%">Organization Units</span>
           <span fxFlex="60%">
-            <div *ngFor="let office of arrayList">
-            <span fxFlex="40%"><b>{{office.name}} :</b></span><span fxFlex="60%">{{office.children}}</span>
-
+            <div *ngFor="let officeData of arrayList">
+            <span fxFlex="40%"><b>{{officeData.name}} :</b></span><span fxFlex="60%">{{officeData.children}}</span>
           </div>
         </span>
         </div>
@@ -96,8 +94,8 @@
         <div fxFlexFill>
           <span fxFlex="40%">Applicable Apps</span>
           <span fxFlex="60%">
-            <div *ngFor="let channel of loanProduct.channels">
-            <span fxFlex="40%">{{channel.name}}</span>
+            <div *ngFor="let channelData of loanProduct.channels">
+            <span fxFlex="40%">{{channelData.name}}</span>
           </div>
         </span>
         </div>
