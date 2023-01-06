@@ -23,19 +23,20 @@ export class CreateOutletComponent implements OnInit {
     private route: ActivatedRoute,
     private settingsService: SettingsService,
     private dateUtils: Dates
-  ) {}
+  ) {
+    this.getCountries();
+  }
 
   listCountries: any = [];
   listCountriesSliced: any = [];
   outletForm: FormGroup;
   treeDataSource: any = [];
   selectedOffices: any = [];
-  @ViewChild(CountryTreeViewComponent) countryTreeComponent:CountryTreeViewComponent;
+  @ViewChild(CountryTreeViewComponent) countryTreeComponent: CountryTreeViewComponent;
 
   ngOnInit(): void {
-    this.getCountries();
     this.outletForm = this.formBuilder.group({
-      countryId: [null,Validators.required],
+      countryId: [null, Validators.required],
       name: ['', Validators.required],
       openingDate: ['', Validators.required],
       externalId: [''],
@@ -46,7 +47,7 @@ export class CreateOutletComponent implements OnInit {
   getCountries() {
     this.organizationService.getCountries().subscribe((res) => {
       this.listCountries = res;
-      this.listCountriesSliced=this.listCountries;
+      this.listCountriesSliced = this.listCountries;
     });
   }
 
@@ -66,7 +67,7 @@ export class CreateOutletComponent implements OnInit {
           checked: false,
         }));
       this.treeDataSource = DataFlattner.flatToHierarchy(data);
-      this.countryTreeComponent?.refreshDataSource(this.treeDataSource)
+      this.countryTreeComponent?.refreshDataSource(this.treeDataSource);
     });
   }
 
