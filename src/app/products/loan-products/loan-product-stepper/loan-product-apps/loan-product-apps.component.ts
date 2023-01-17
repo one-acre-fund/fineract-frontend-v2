@@ -43,10 +43,11 @@ export class LoanProductAppsComponent implements OnInit {
 }
 
   loadForm(data: any) {
-    for (let line of data.channels) {
-       const linesFormArray = this.loanProductAppsForm.get('channels') as FormArray;
-       linesFormArray.push(this.line);
-    }
+    data?.channels.forEach(element => {
+      const linesFormArray = this.loanProductAppsForm.get('channels') as FormArray;
+      linesFormArray.push(this.line);
+    });
+
     this.loanProductAppsForm.patchValue(data);
   }
 
