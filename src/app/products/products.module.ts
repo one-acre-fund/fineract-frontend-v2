@@ -95,6 +95,7 @@ import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-
 import { LoanProductOrganizationUnitStepComponent } from './loan-products/loan-product-stepper/loan-product-organization-unit-step/loan-product-organization-unit-step.component';
 import { LoanProductClientEligibilityStepComponent } from './loan-products/loan-product-stepper/loan-product-client-eligibility-step/loan-product-client-eligibility-step.component';
 import { LoanProductAppsComponent } from './loan-products/loan-product-stepper/loan-product-apps/loan-product-apps.component';
+import { ClientEligbilityComponent } from './loan-products/shared/client-eligbility/client-eligbility.component';
 
 /**
  * Products Module
@@ -197,7 +198,8 @@ import { LoanProductAppsComponent } from './loan-products/loan-product-stepper/l
     EditFixedDepositProductComponent,
     LoanProductOrganizationUnitStepComponent,
     LoanProductClientEligibilityStepComponent,
-    LoanProductAppsComponent
+    LoanProductAppsComponent,
+    ClientEligbilityComponent
   ],
   providers: [ ]
 })
