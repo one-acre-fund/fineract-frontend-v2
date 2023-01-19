@@ -82,7 +82,7 @@
   <mat-divider fxFlexFill></mat-divider>
 
   <div fxFlexFill>
-    <span fxFlex="40%">Applicable Apps</span>
+    <span fxFlex="40%">Applicable Apps:</span>
     <span fxFlex="60%">
       <div *ngFor="let channel of channelList">
       <span fxFlex="40%">{{channel[0].name}}</span>
@@ -317,22 +317,22 @@
     <span fxFlex="40%">Minimum Credit Repaid:</span>
     <span fxFlex="60%">{{ loanProduct.clientEligibility?.minimumCreditRepaid }}</span>
   </div>
-
-  <div fxFlexFill *ngIf="loanProduct.loanTypeId == 2">
+<div class="contents" *ngIf="loanProduct.loanTypeId == 2">
+  <div fxFlexFill >
     <span fxFlex="40%">Client Group Previously Defaulted:</span>
     <span fxFlex="60%">{{ loanProduct.clientEligibility?.clientGroupPreviouslyDefaulted }}</span>
   </div>
 
-  <div fxFlexFill *ngIf="loanProduct.loanTypeId == 2">
+  <div fxFlexFill>
     <span fxFlex="40%">Client Group Previously Not Defaulted:</span>
     <span fxFlex="60%">{{ loanProduct.clientEligibility?.clientGroupPreviouslyNotDefaulted }}</span>
   </div>
 
-  <div fxFlexFill *ngIf="loanProduct.loanTypeId == 2">
+  <div fxFlexFill>
     <span fxFlex="40%">Minimum Group Credit Repaid:</span>
     <span fxFlex="60%">{{ loanProduct.clientEligibility?.minimumGroupCreditRepaid }}</span>
   </div>
-
+</div>
   <h3 class="mat-h3" fxFlexFill>Settings</h3>
 
   <mat-divider fxFlexFill></mat-divider>
