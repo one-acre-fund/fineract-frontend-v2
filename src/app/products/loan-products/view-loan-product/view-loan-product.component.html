@@ -157,7 +157,7 @@
 
           <table fxFlexFill class="mat-elevation-z1" mat-table
             [dataSource]="loanProduct.principalVariationsForBorrowerCycle">
-
+            <caption class="display-none">Loan Principal</caption>
             <ng-container matColumnDef="valueConditionType">
               <th mat-header-cell *matHeaderCellDef> Condition </th>
               <td mat-cell *matCellDef="let variation">
@@ -206,7 +206,7 @@
 
           <table fxFlexFill class="mat-elevation-z1" mat-table
             [dataSource]="loanProduct.numberOfRepaymentVariationsForBorrowerCycle">
-
+            <caption class="display-none">Loan Repayment</caption>
             <ng-container matColumnDef="valueConditionType">
               <th mat-header-cell *matHeaderCellDef> Condition </th>
               <td mat-cell *matCellDef="let variation">
@@ -255,7 +255,7 @@
 
           <table fxFlexFill class="mat-elevation-z1" mat-table
             [dataSource]="loanProduct.interestRateVariationsForBorrowerCycle">
-
+            <caption class="display-none">Loan Intrest</caption>
             <ng-container matColumnDef="valueConditionType">
               <th mat-header-cell *matHeaderCellDef> Condition </th>
               <td mat-cell *matCellDef="let variation">
@@ -615,7 +615,7 @@
 
             <table fxFlexFill class="mat-elevation-z1" mat-table
               [dataSource]="loanProduct.charges | chargesPenaltyFilter:false">
-
+              <caption class="display-none">Loan Charges</caption>
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let charge">
@@ -655,7 +655,7 @@
 
             <table fxFlexFill class="mat-elevation-z1" mat-table
               [dataSource]="loanProduct.charges | chargesPenaltyFilter:true">
-
+              <caption class="display-none">Loan Overdue charges</caption>
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let overdueCharge">
@@ -765,7 +765,7 @@
 
                 <table fxFlexFill class="mat-elevation-z1" mat-table
                   [dataSource]="loanProduct.paymentChannelToFundSourceMappings">
-
+                  <caption class="display-none">Loan Payment Channel</caption>
                   <ng-container matColumnDef="paymentTypeId">
                     <th mat-header-cell *matHeaderCellDef> Payment Type </th>
                     <td mat-cell *matCellDef="let paymentFundSource">
@@ -794,7 +794,7 @@
 
                 <table fxFlexFill class="mat-elevation-z1" mat-table
                   [dataSource]="loanProduct.feeToIncomeAccountMappings">
-
+                  <caption class="display-none">Loan Specific Income</caption>
                   <ng-container matColumnDef="chargeId">
                     <th mat-header-cell *matHeaderCellDef> Fees </th>
                     <td mat-cell *matCellDef="let feesIncome">
@@ -823,7 +823,7 @@
 
                 <table fxFlexFill class="mat-elevation-z1" mat-table
                   [dataSource]="loanProduct.penaltyToIncomeAccountMappings">
-
+                  <caption class="display-none">Loan Income specific</caption>
                   <ng-container matColumnDef="chargeId">
                     <th mat-header-cell *matHeaderCellDef> Penalty </th>
                     <td mat-cell *matCellDef="let penaltyIncome">
