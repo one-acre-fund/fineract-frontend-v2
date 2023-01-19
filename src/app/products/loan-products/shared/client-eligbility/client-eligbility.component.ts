@@ -1,15 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'mifosx-client-eligbility',
   templateUrl: './client-eligbility.component.html',
   styleUrls: ['./client-eligbility.component.scss']
 })
-export class ClientEligbilityComponent implements OnInit {
+export class ClientEligbilityComponent {
   @Input() loanProduct: any;
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
