@@ -41,7 +41,7 @@ steps:
       configMode: "manual"
       cliProjectKey: "one-acre-fund_fineract-frontend-v2"
       cliProjectName: "fineract-frontend-v2"
-      cliSources: $(System.DefaultWorkingDirectory)/src
+      cliSources: ./src
       cliProjectVersion: $VERSION_TAG
       configFile: $(System.DefaultWorkingDirectory)/sonar-project.properties
       extraProperties: |
