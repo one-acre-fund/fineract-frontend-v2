@@ -26,14 +26,17 @@ steps:
     inputs:
       versionSpec: "16.x"
     displayName: "Install Node.js"
+    condition: eq(variables['Build.Analyse'], 'true')
 
   - script: |
       npm install
     displayName: "Install Node Packages"
     workingDirectory: "$(System.DefaultWorkingDirectory)"
+    condition: eq(variables['Build.Analyse'], 'true')
 
   - task: SonarCloudPrepare@1
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
     inputs:
       SonarCloud: "sonar-oaf"
       organization: "one-acre-fund"
@@ -63,16 +66,18 @@ steps:
     displayName: "Run Lint and Unit Tests"
     workingDirectory: "$(System.DefaultWorkingDirectory)"
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
 
   - script: |
       npm run test:cov
     displayName: "Generate Test Coverage Report  "
     workingDirectory: "$(System.DefaultWorkingDirectory)"
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
 
   - task: PublishCodeCoverageResults@1
-    condition: succeededOrFailed()
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
     inputs:
       codeCoverageTool: Cobertura
       summaryFileLocation: "$(System.DefaultWorkingDirectory)/**/*coverage.xml"
@@ -80,9 +85,11 @@ steps:
 
   - task: SonarCloudAnalyze@1
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
 
   - task: SonarCloudPublish@1
     continueOnError: true
+    condition: eq(variables['Build.Analyse'], 'true')
     inputs:
       pollingTimeoutSec: "300"
 
