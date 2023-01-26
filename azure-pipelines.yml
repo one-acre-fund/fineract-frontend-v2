@@ -53,18 +53,19 @@ steps:
         #Path to source files
         sonar.sources=$(System.DefaultWorkingDirectory)/src
         #Path to test files
-        sonar.tests=**/*.spec.ts
+        sonar.tests=./src/app
+        sonar.test.inclusions=**/*.spec.ts
         #Path to report
         sonar.javascript.lcov.reportPaths=$(System.DefaultWorkingDirectory)/coverage/mifosx-web-app/lcov.info
 
   - script: |
-      npm test:ci
+      npm run test:ci
     displayName: "Run Lint and Unit Tests"
     workingDirectory: "$(System.DefaultWorkingDirectory)"
     continueOnError: true
 
   - script: |
-      npm test:cov
+      npm run test:cov
     displayName: "Generate Test Coverage Report  "
     workingDirectory: "$(System.DefaultWorkingDirectory)"
     continueOnError: true
