@@ -51,7 +51,7 @@ steps:
         #Path to functions dir as base for analysis
         sonar.projectBaseDir=$(System.DefaultWorkingDirectory)
         #Path to source files
-        sonar.sources=$(System.DefaultWorkingDirectory)/src
+        sonar.sources=./src
         #Path to test files
         sonar.tests=./src/app
         sonar.test.inclusions=**/*.spec.ts
