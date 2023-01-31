@@ -48,13 +48,10 @@ export class FooterComponent implements OnInit, OnDestroy {
         }
       } else if (alertType === SettingsService.businessDateType + ' Set') {
         if (this.isBusinessDateEnabled) {
-         // this.setBusinessDate();
         }
       } else if (alertType === 'Authentication Start') {
-        //this.timer = setTimeout(() => { this.getConfigurations(); }, 60000);
       }
     });
-    //this.getConfigurations();
   }
 
   ngOnDestroy() {
