@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import DataFlattner from 'app/core/utils/data-flattner';
-import { OrganizationService } from 'app/organization/organization.service';
-import { ProductsService } from 'app/products/products.service';
-import { CountryTreeViewComponent } from 'app/shared/country-tree-view/country-tree-view.component';
-import { DragulaService } from 'ng2-dragula';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import DataFlattner from "app/core/utils/data-flattner";
+import { OrganizationService } from "app/organization/organization.service";
+import { ProductsService } from "app/products/products.service";
+import { CountryTreeViewComponent } from "app/shared/country-tree-view/country-tree-view.component";
+import { DragulaService } from "ng2-dragula";
 
 @Component({
-  selector: 'mifosx-loan-product-allocation',
-  templateUrl: './loan-product-allocation.component.html',
-  styleUrls: ['./loan-product-allocation.component.scss'],
+  selector: "mifosx-loan-product-allocation",
+  templateUrl: "./loan-product-allocation.component.html",
+  styleUrls: ["./loan-product-allocation.component.scss"],
 })
 export class LoanProductAllocationComponent implements OnInit {
   countries: any = [];
@@ -33,16 +33,16 @@ export class LoanProductAllocationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dragulaService: DragulaService
   ) {
-    if (this.router.url.includes('edit')) {
+    if (this.router.url.includes("edit")) {
       this.route.data.subscribe((data: { loanProductAllocationData: any }) => {
         this.loanAllocationTemplate = data.loanProductAllocationData;
         this.officeName = this.loanAllocationTemplate.districtOffice.name;
         this.loanTypeOptions = this.loanAllocationTemplate.loanPaymentAllocationSetting.loanTypeOptions;
-        const liablity = this.loanAllocationTemplate?.loanPaymentAllocationSetting?.liabilityPriority.split(' ');
+        const liablity = this.loanAllocationTemplate?.loanPaymentAllocationSetting?.liabilityPriority.split(" ");
         if (liablity) {
           const loanOptions = [];
           liablity.forEach((element) => {
-            if (element && element != '' && element.length > 0) {
+            if (element && element != "" && element.length > 0) {
               const loanOptionItem = this.loanTypeOptions?.filter((x) => x.code === element);
               if (loanOptionItem && loanOptionItem.length > 0) {
                 loanOptions.push(loanOptionItem[0]);
@@ -91,14 +91,14 @@ export class LoanProductAllocationComponent implements OnInit {
 
   search(event: any) {
     if (!event.value) {
-      this.countryId = this.allocationForm.get['countryId'];
+      this.countryId = this.allocationForm.get["countryId"];
     } else {
       this.countryId = event.value;
       this.productService.countryId = event.value;
     }
     this.selectedUnits = [];
     this.organizationService.searchCountryById(this.countryId).subscribe((res: any) => {
-      if (this.router.url.includes('edit')) {
+      if (this.router.url.includes("edit")) {
         this.data = res
           .filter((x) => x.status === true)
           .map((item: any) => ({
@@ -126,17 +126,17 @@ export class LoanProductAllocationComponent implements OnInit {
     this.selectedUnits = event;
   }
 
-  submit() {
+  getLoanAllocationProduct() {
     const loanAllocationProduct = this.allocationForm.value;
     loanAllocationProduct.districtIds = this.selectedUnits.map((x: any) => {
       return x.id;
     });
     delete loanAllocationProduct.countryId;
-    if (loanAllocationProduct.repaymentChoice === 'CLIENT_CHOICE') {
+    if (loanAllocationProduct.repaymentChoice === "CLIENT_CHOICE") {
       delete loanAllocationProduct.liabilityPriority;
       delete loanAllocationProduct.systemChoice;
     }
-    if (loanAllocationProduct.systemChoice === 'DUE_DATE') {
+    if (loanAllocationProduct.systemChoice === "DUE_DATE") {
       delete loanAllocationProduct.liabilityPriority;
     } else {
       const loanOptions = [];
@@ -149,21 +149,25 @@ export class LoanProductAllocationComponent implements OnInit {
             })
         );
       });
-      loanAllocationProduct.liabilityPriority = loanOptions.join(' ');
+      loanAllocationProduct.liabilityPriority = loanOptions.join(" ");
     }
-    if (this.router.url.includes('edit')) {
+    return loanAllocationProduct;
+  }
+  submit() {
+    let loanAllocationProduct = this.getLoanAllocationProduct();
+    if (this.router.url.includes("edit")) {
       delete loanAllocationProduct.districtIds;
       const id = this.allocationForm.value.id;
       delete loanAllocationProduct.id;
       this.productService.updateLoanAllocationProduct(id, loanAllocationProduct).subscribe((response: any) => {
         this.selectedUnits = [];
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(["../"], { relativeTo: this.route });
       });
     } else {
       delete loanAllocationProduct.id;
       this.productService.createLoanAllocationProduct(loanAllocationProduct).subscribe((response: any) => {
         this.selectedUnits = [];
-        this.router.navigate(['../'], { relativeTo: this.route });
+        this.router.navigate(["../"], { relativeTo: this.route });
       });
     }
   }
