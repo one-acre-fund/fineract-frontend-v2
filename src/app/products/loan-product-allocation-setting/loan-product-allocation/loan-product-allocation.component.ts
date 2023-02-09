@@ -38,26 +38,30 @@ export class LoanProductAllocationComponent implements OnInit {
         this.loanAllocationTemplate = data.loanProductAllocationData;
         this.officeName = this.loanAllocationTemplate.districtOffice.name;
         this.loanTypeOptions = this.loanAllocationTemplate.loanPaymentAllocationSetting.loanTypeOptions;
-        const liablity = this.loanAllocationTemplate?.loanPaymentAllocationSetting?.liabilityPriority.split(" ");
-        if (liablity) {
-          const loanOptions = [];
-          liablity.forEach((element) => {
-            if (element && element != "" && element.length > 0) {
-              const loanOptionItem = this.loanTypeOptions?.filter((x) => x.code === element);
-              if (loanOptionItem && loanOptionItem.length > 0) {
-                loanOptions.push(loanOptionItem[0]);
-              }
-            }
-          });
-          this.loanTypeOptions = loanOptions;
-        }
-        this.loanTypeOptionsModel = this.loanTypeOptions.map((x) => {
-          return x.name;
-        });
+        this.setLoanTypeOptions();
       });
     } else {
       this.getCountries();
     }
+  }
+
+  setLoanTypeOptions(){
+    const liablity = this.loanAllocationTemplate?.loanPaymentAllocationSetting?.liabilityPriority.split(" ");
+    if (liablity) {
+      const loanOptions = [];
+      liablity.forEach((element) => {
+        if (element && element != "" && element.length > 0) {
+          const loanOptionItem = this.loanTypeOptions?.filter((x) => x.code === element);
+          if (loanOptionItem && loanOptionItem.length > 0) {
+            loanOptions.push(loanOptionItem[0]);
+          }
+        }
+      });
+      this.loanTypeOptions = loanOptions;
+    }
+    this.loanTypeOptionsModel = this.loanTypeOptions.map((x) => {
+      return x.name;
+    });
   }
 
   ngOnInit(): void {
