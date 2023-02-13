@@ -38,6 +38,9 @@ export class ToolbarComponent implements OnInit {
   /** Limit the checks when it has already did. */
   hasChecked: boolean = false;
 
+  /** Get the selected country name if it is set */
+  selectedCountryName: any;
+
   /** Subscription to breakpoint observer for handset. */
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -79,13 +82,15 @@ export class ToolbarComponent implements OnInit {
     
     if(!this.hasChecked && this.userData?.permissions.length > 0) {
       let hasAnyPermission = this.allowedPermissions.filter(item => this.userData.permissions.includes(item)).length > 0;
-
       if(hasAnyPermission) {
         this.getActiveCountries();
         this.displayAdminOptions = true;
       }
-
       this.hasChecked = true;
+    }
+
+    if(this.displayAdminOptions) {
+      this.selectedCountryName = JSON.parse(sessionStorage.getItem("selectedCountry"))?.countryName;
     }
   }
   
@@ -99,10 +104,10 @@ export class ToolbarComponent implements OnInit {
   }
 
   /**
-   * Saves the selected country id in the session storage.
+   * Saves the selected country details in the session storage.
    */
-  saveTheSelectedCountry(countryId: any) {
-    sessionStorage.setItem('selectedCountryId', countryId); 
+  saveTheSelectedCountry(country: any) {
+    sessionStorage.setItem('selectedCountry', JSON.stringify({countryId: country.id, countryName: country.name}));
   }
       
   /**

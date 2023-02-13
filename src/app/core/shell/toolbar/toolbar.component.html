@@ -17,11 +17,12 @@
     </a>
     <a mat-tab-link class="tab-link" *ngIf="displayAdminOptions">
       <mat-select class="mr-2" #countryId required formControlName="countryId">
-        <mat-option *ngFor="let country of activeCountries" [value]="country.id" (click)="saveTheSelectedCountry(country.id)">
+        <mat-option *ngFor="let country of activeCountries" [value]="country.id" (click)="saveTheSelectedCountry(country)">
           {{country.name}}
         </mat-option>
       </mat-select>
-      {{ 'Country' | translate }}
+      <mat-label *ngIf="!selectedCountryName">{{ 'Country' | translate }}</mat-label>
+      <mat-label *ngIf="selectedCountryName">{{selectedCountryName}}</mat-label>
     </a>
 
     <span fxHide.lt-lg="true">
