@@ -104,6 +104,13 @@ import { StandingInstructionsTemplateResolver } from './standing-instructions-hi
 import { AdvanceSearchTemplateResolver } from './fund-mapping/advance-search-template.resolver';
 import { CombineOfficeComponent } from './offices/combine-office/combine-office.component';
 import { SplitOfficeComponent } from './offices/split-office/split-office.component';
+import { RetailOutletResolver } from './rural-outlet/retail-outlet.resolver';
+import { ViewOutletComponent } from './rural-outlet/view-outlet/view-outlet.component';
+import { RuralOutletComponent } from './rural-outlet/rural-outlet.component';
+import { EditOutletComponent } from './rural-outlet/edit-outlet/edit-outlet.component';
+import { CreateOutletComponent } from './rural-outlet/create-outlet/create-outlet.component';
+import { EditRetailOutletResolver } from './rural-outlet/edit-retail-outlet.resolver';
+import { CreateCurrenciesComponent } from './currencies/create-currencies/create-currencies.component';
 
 /** Organization Routes */
 const routes: Routes = [
@@ -240,6 +247,49 @@ const routes: Routes = [
           ]
         },
         {
+          path: 'rural-outlet',
+          data: { title: extract('Rural Retail Outlet'), breadcrumb: 'Manage Rural Retail Outlet' },
+          children: [
+            {
+              path: '',
+              component: RuralOutletComponent,
+              resolve: {
+                offices: RetailOutletResolver
+              }
+            },
+            {
+              path: 'create',
+              component: CreateOutletComponent,
+              data: { title: extract('Create Outlet'), breadcrumb: 'Create Outlet' },
+              resolve: {
+                offices: RetailOutletResolver
+              }
+            },
+            {
+              path: ':id',
+              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id', routeResolveBreadcrumb: ['offices', 'name'] },
+              component: ViewOutletComponent,
+              resolve: {
+                offices: EditRetailOutletResolver
+              }
+            },
+            {
+              path: ':id',
+              data: { title: extract('View Rural Outlet'), routeParamBreadcrumb: 'id' },
+              children: [
+                {
+                  path: 'edit',
+                  data: { title: extract('Edit Rural Outlet'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  component: EditOutletComponent,
+                  resolve: {
+                     offices: RetailOutletResolver
+                  }
+                }
+              ]
+            }
+          ],
+        },
+        {
           path: 'employees',
           data: { title: extract('Manage Employees'), breadcrumb: 'Manage Employees' },
           children: [
@@ -284,18 +334,26 @@ const routes: Routes = [
         {
           path: 'currencies',
           data: { title: extract('Currency Configuration'), breadcrumb: 'Currency Configuration' },
-          resolve: {
-            currencies: CurrenciesResolver
-          },
           children: [
             {
               path: '',
               component: CurrenciesComponent,
+              resolve: {
+                currencies: CurrenciesResolver
+              }
             },
             {
               path: 'manage',
               data: { title: extract('Manage Currencies'), breadcrumb: 'Manage Currencies' },
               component: ManageCurrenciesComponent
+            },
+            {
+              path: 'create',
+              component: CreateCurrenciesComponent,
+              data: { title: extract('Create Currency'), breadcrumb: 'Create Currency' },
+              resolve: {
+                currencies: CurrenciesResolver
+              }
             }
           ]
         },

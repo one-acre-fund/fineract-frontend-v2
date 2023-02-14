@@ -45,6 +45,8 @@ import { KeycloakService } from 'keycloak-angular';
 import { initializer } from './core/init/keycloak-init.factory';
 import { AuthenticationService } from './core/authentication/authentication.service';
 import { FormsModule } from '@angular/forms';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DragulaModule } from 'ng2-dragula';
 
 /**
  * App Module
@@ -57,10 +59,16 @@ import { FormsModule } from '@angular/forms';
       loader: {
         provide: TranslateLoader,
         useFactory: (http: HttpClient, locationStrategy: LocationStrategy) => {
-          return new TranslateHttpLoader(http, `${ window.location.protocol }//${ window.location.host }${locationStrategy.getBaseHref()}/assets/translations/`, '.json');
+          return new TranslateHttpLoader(
+            http,
+            `${window.location.protocol}//${
+              window.location.host
+            }${locationStrategy.getBaseHref()}/assets/translations/`,
+            '.json'
+          );
         },
-        deps: [HttpClient, LocationStrategy]
-      }
+        deps: [HttpClient, LocationStrategy],
+      },
     }),
     BrowserModule,
     BrowserAnimationsModule,
@@ -88,15 +96,20 @@ import { FormsModule } from '@angular/forms';
     CollectionsModule,
     TasksModule,
     AppRoutingModule,
+    DragulaModule.forRoot(),
   ],
   declarations: [WebAppComponent, NotFoundComponent],
-  providers: [DatePipe, KeycloakService,
+  providers: [
+    DatePipe,
+    KeycloakService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializer,
-      deps: [ KeycloakService, AuthenticationService ],
-      multi: true
-    }],
-  bootstrap: [WebAppComponent]
+      deps: [KeycloakService, AuthenticationService],
+      multi: true,
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+  ],
+  bootstrap: [WebAppComponent],
 })
-export class AppModule { }
+export class AppModule {}

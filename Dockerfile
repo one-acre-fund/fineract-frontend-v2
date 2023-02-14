@@ -3,7 +3,7 @@
 ###############
 FROM node:16-alpine as builder
 
-RUN apk add --no-cache git=2.37.1-r1
+RUN apk add --no-cache git
 
 WORKDIR /usr/src/app
 
@@ -13,13 +13,13 @@ COPY ./ /usr/src/app/
 
 RUN npm cache clear --force &&\
 
-npm config set fetch-retry-maxtimeout 120000 &&\
+  npm config set fetch-retry-maxtimeout 120000 &&\
 
-npm install --location=global @angular/cli@12.2.17 &&\
+  npm install --location=global @angular/cli@13.3.10 &&\
 
-npm install &&\
+  npm install &&\
 
-ng build --configuration production --output-path=/dist
+  ng build --configuration production --output-path=/dist
 
 ###############
 ### STAGE 2: Serve app with nginx ###
@@ -27,6 +27,8 @@ ng build --configuration production --output-path=/dist
 FROM nginx:1.23.1-alpine
 
 COPY --from=builder /dist /usr/share/nginx/html
+
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
