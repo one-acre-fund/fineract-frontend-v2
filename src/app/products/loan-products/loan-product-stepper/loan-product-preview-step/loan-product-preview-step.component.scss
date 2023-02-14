@@ -22,3 +22,15 @@ mat-divider {
 .margin-t {
   margin-top: 1em;
 }
+
+.textalign{
+  float: left;
+}
+.contents{
+  display: contents !important;
+}
+.client {
+  display: contents !important;
+  line-height: 28px !important;
+  width: 100% !important;
+}

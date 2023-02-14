@@ -70,7 +70,6 @@ import { EditFloatingRateComponent } from './floating-rates/edit-floating-rate/e
 import { FloatingRatePeriodDialogComponent } from './floating-rates/floating-rate-period-dialog/floating-rate-period-dialog.component';
 import { CreateTaxComponentComponent } from './manage-tax-components/create-tax-component/create-tax-component.component';
 import { EditTaxComponentComponent } from './manage-tax-components/edit-tax-component/edit-tax-component.component';
-import { EditChargeComponent } from './charges/edit-charge/edit-charge.component';
 import { ViewTaxGroupComponent } from './manage-tax-groups/view-tax-group/view-tax-group.component';
 import { ShareProductsDividendsComponent } from './share-products/dividends-share-product/dividends.components';
 import { ViewRecurringDepositProductComponent } from './recurring-deposit-products/view-recurring-deposit-product/view-recurring-deposit-product.component';
@@ -93,6 +92,13 @@ import { CreateProductMixComponent } from './products-mix/create-product-mix/cre
 import { EditProductMixComponent } from './products-mix/edit-product-mix/edit-product-mix.component';
 import { CreateChargeComponent } from './charges/create-charge/create-charge.component';
 import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-fixed-deposit-product/edit-fixed-deposit-product.component';
+import { LoanProductOrganizationUnitStepComponent } from './loan-products/loan-product-stepper/loan-product-organization-unit-step/loan-product-organization-unit-step.component';
+import { LoanProductClientEligibilityStepComponent } from './loan-products/loan-product-stepper/loan-product-client-eligibility-step/loan-product-client-eligibility-step.component';
+import { LoanProductAppsComponent } from './loan-products/loan-product-stepper/loan-product-apps/loan-product-apps.component';
+import { ClientEligbilityComponent } from './loan-products/shared/client-eligbility/client-eligbility.component';
+import { LoanProductAllocationSettingComponent } from './loan-product-allocation-setting/loan-product-allocation-setting.component';
+import { LoanProductAllocationComponent } from './loan-product-allocation-setting/loan-product-allocation/loan-product-allocation.component';
+import { DragulaModule } from 'ng2-dragula';
 
 /**
  * Products Module
@@ -104,7 +110,8 @@ import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-
     SharedModule,
     ProductsRoutingModule,
     PipesModule,
-    DirectivesModule
+    DirectivesModule,
+    DragulaModule
   ],
   declarations: [
     ProductsComponent,
@@ -169,7 +176,6 @@ import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-
     ViewTaxComponentComponent,
     CreateTaxComponentComponent,
     EditTaxComponentComponent,
-    EditChargeComponent,
     ViewTaxGroupComponent,
     ShareProductsDividendsComponent,
     DepositProductIncentiveFormDialogComponent,
@@ -193,7 +199,13 @@ import { EditFixedDepositProductComponent } from './fixed-deposit-products/edit-
     EditProductMixComponent,
     ManageTaxGroupsComponent,
     CreateChargeComponent,
-    EditFixedDepositProductComponent
+    EditFixedDepositProductComponent,
+    LoanProductOrganizationUnitStepComponent,
+    LoanProductClientEligibilityStepComponent,
+    LoanProductAppsComponent,
+    ClientEligbilityComponent,
+    LoanProductAllocationSettingComponent,
+    LoanProductAllocationComponent
   ],
   providers: [ ]
 })
