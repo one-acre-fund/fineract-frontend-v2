@@ -23,8 +23,8 @@ import { OrganizationService } from 'app/organization/organization.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  /** Eligible permissions to view the country dropdown and an admin menu. */
-  allowedPermissions: any = ["ALL_FUNCTIONS"];
+  /** Eligible roles to view the country dropdown and an admin menu. */
+  allowedRoles: any = ["super user"];
 
   /** Save the user data from the session storage. */
   userData: any;
@@ -81,8 +81,8 @@ export class ToolbarComponent implements OnInit {
     this.userData = this.authenticationService.getCredentials();
     
     if(!this.hasChecked && this.userData?.permissions.length > 0) {
-      let hasAnyPermission = this.allowedPermissions.filter(item => this.userData.permissions.includes(item)).length > 0;
-      if(hasAnyPermission) {
+      let isEligible = this.userData.roles.filter(item => this.allowedRoles.includes(item.name.toLowerCase())).length > 0;
+      if(isEligible) {
         this.getActiveCountries();
         this.displayAdminOptions = true;
       }
@@ -90,7 +90,7 @@ export class ToolbarComponent implements OnInit {
     }
 
     if(this.displayAdminOptions) {
-      this.selectedCountryName = JSON.parse(sessionStorage.getItem("selectedCountry"))?.countryName;
+      this.selectedCountryName = JSON.parse(sessionStorage.getItem("selectedCountry"))?.name;
     }
   }
   
@@ -107,7 +107,7 @@ export class ToolbarComponent implements OnInit {
    * Saves the selected country details in the session storage.
    */
   saveTheSelectedCountry(country: any) {
-    sessionStorage.setItem('selectedCountry', JSON.stringify({countryId: country.id, countryName: country.name}));
+    sessionStorage.setItem('selectedCountry', JSON.stringify(country));
   }
       
   /**
