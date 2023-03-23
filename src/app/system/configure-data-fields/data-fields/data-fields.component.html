@@ -156,7 +156,7 @@
                     <th mat-header-cell *matHeaderCellDef> Actions </th>
                     <td mat-cell *matCellDef="let row; let index = index">
                       <span>
-                        <button mat-icon-button color="primary"  matTooltip="Add Field" (click)="saveControls()" >
+                        <button mat-icon-button color="primary"  matTooltip="Add Field" (click)="saveControls()" *mifosxHasPermission="CREATE_DATATABLE">
                             <fa-icon icon="plus"></fa-icon>
                         </button>
                       </span>
