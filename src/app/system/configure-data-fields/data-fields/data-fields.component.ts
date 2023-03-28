@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgModel } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { AlertService } from "app/core/alert/alert.service";
 import { SystemService } from "app/system/system.service";
 import { BehaviorSubject } from "rxjs";
 
@@ -48,7 +49,8 @@ export class DataFieldsComponent implements OnInit {
     private route: ActivatedRoute,
     private systemService: SystemService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private alertService:AlertService
   ) {
     this.route.data.subscribe((data: { columnCodes: any }) => {
       this.codes = data.columnCodes;
@@ -170,10 +172,14 @@ export class DataFieldsComponent implements OnInit {
     }
 
     this.systemService.saveFieldConfiguration(model).subscribe((res:any)=>{
+      this.rows.clear();
       this.getFieldConfigurationByType();
       this.toggleMatTable=false;
     },err=>{
-      console.log("error=>",err)
+      this.alertService.alert({
+        type: 'Error while saving data',
+        message:  err?.error?.errors?err?.error?.errors[0]?.developerMessage:err?.error?.error
+      });
     })
   }
 
