@@ -249,8 +249,6 @@ export class AuthenticationService {
    * @returns {Observable<boolean>} True if the user was logged out successfully.
    */
   logout (): Observable<boolean> {
-    debugger
-    console.log('url=>',window["env"]["homeURL"])
     this.keyCloak.isLoggedIn().then(isLoggedIn => {
       if (isLoggedIn && this.isAuthenticated() === true) {
         this.authenticationInterceptor.removeAuthorization();
