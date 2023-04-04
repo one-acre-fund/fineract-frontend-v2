@@ -16,11 +16,15 @@ spec:
     spec:
       containers:
       - name: fineract-ui
-        image: oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:f072fb53a8e2d974000fe18fa4213233f6a1417a
+        image: oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:7d242bb2d53b84be7b60627b69138e4e4c2eceef
         env:
         - name: HOST_HOME_URL
           value: "http://65.108.247.228:31506/home"
         ports:
-        - containerPort: 80
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+
       imagePullSecrets:
       - name: imagecred
