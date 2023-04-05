@@ -164,8 +164,16 @@ export class DataFieldsComponent implements OnInit {
   saveControls() {
     let value = this.form.get("tableArray").value;
 
+    let appTableName=this.type.toLowerCase();
+    if(this.type.toLowerCase()==='loantype'){
+      appTableName='loan';
+    }
+    else if(this.type.toLowerCase()==='ou'){
+      appTableName='office';
+    }
+
     let model = {
-      apptableName: `m_${this.type.toLowerCase()==='loantype'?'loan':this.type.toLowerCase()==='ou'?'office':this.type.toLowerCase()}`,
+      apptableName: `m_${appTableName}`,
       datatableName: this.datatableName,
       officeCountryId: this.countryId,
       addColumns:value
@@ -178,9 +186,13 @@ export class DataFieldsComponent implements OnInit {
         this.toggleMatTable = false;
       },
       (err) => {
+        let errorMessage=err?.error?.error;
+        if(err?.error?.errors){
+          errorMessage=err?.error?.errors[0]?.developerMessage;
+        }
         this.alertService.alert({
           type: "Error while saving data",
-          message: err?.error?.errors ? err?.error?.errors[0]?.developerMessage : err?.error?.error,
+          message: errorMessage,
         });
       }
     );

@@ -81,7 +81,6 @@ export class ConfigureDataFieldsComponent implements OnInit {
       if(countryName && countryName.length>0){
         let country=countryName[0].name;
         this.router.navigate([`system/configure-field/${entity}/${this.countryId}/${country}`]);
-        // this.router.navigate(['configure-field', {entity:entity,countryId:this.countryId,countryName:countryName}]);
       }
     }
   }
