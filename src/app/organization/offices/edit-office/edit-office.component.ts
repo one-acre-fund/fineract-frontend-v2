@@ -56,6 +56,7 @@ export class EditOfficeComponent implements OnInit {
     }
 
   ngOnInit() {
+    debugger;
     this.showHierarchy = this.officeData.isCountry ? true : false;
     this.treeDataSource = this.officeData.countryHierarchies?.length > 0 ? [this.officeData.countryHierarchies[0].officeHierarchy] : [];
 
@@ -67,40 +68,16 @@ export class EditOfficeComponent implements OnInit {
 
   }
   convertArrayToObject (hierarchyData: any) {
-    hierarchyData.forEach(element => {
-      if (Array.isArray(element.descendant)) {
-        element.children = [];
-        element.parentId = null;
-        element.root = true;
-      if (element.descendant && element.descendant.length > 0) {
-        const obj = element.descendant;
-        element.descendant.parentId = null;
-        element.descendant = Object.assign({}, element.descendant[0]);
-        element.descendant.children = [];
-        if (obj[0].descendant && obj[0].descendant.length > 0) {
-          element.descendant.descendant.children = [];
-          element.descendant.descendant.parentId = null;
-          element.descendant.descendant = Object.assign({}, obj[0].descendant[0]);
-          delete element.descendant.descendant.descendant;
-        } else {
-          delete element.descendant.descendant;
-        }
-      } else {
-        delete element.descendant;
-      }
-    } else {
-      element.descendant.children = [];
-      element.descendant.parentId = element.id;
-      if (element.descendant?.descendant?.length > 0) {
-        element.descendant.descendant.parentId = null;
-        element.descendant.descendant = Object.assign({}, element.descendant.descendant[0]);
-        delete element.descendant.descendant.descendant;
-      } else {
-        delete element?.descendant?.descendant;
-      }
-    }
-    });
-    return hierarchyData;
+    hierarchyData.children=[];
+    for (let i = 0; i < hierarchyData.descendant.length; i++) {
+      if (hierarchyData.descendant[i].descendant && hierarchyData.descendant[i].descendant.length>0) {
+        this.convertArrayToObject(hierarchyData.descendant[i]);
+        hierarchyData.descendant[i].descendant=Object.assign({}, hierarchyData.descendant[i].descendant[0]);
+     } else {
+      delete hierarchyData.descendant[i].descendant
+     }
+   }
+   return hierarchyData;
   }
 
   /**
@@ -124,9 +101,9 @@ export class EditOfficeComponent implements OnInit {
    */
   submit() {
     if (this.treeDataSource && this.treeDataSource.length > 0 && this.showHierarchy) {
-      const dataArray = this.convertArrayToObject(this.treeDataSource);
+      const dataArray = this.convertArrayToObject(this.treeDataSource[0]);
       if (Array.isArray(this.treeDataSource)) {
-        const hierarchalData = Object.assign({}, dataArray[0]);
+        const hierarchalData  =dataArray.descendant=Object.assign({}, dataArray.descendant[0]);
         this.officeForm.patchValue({
           countryHierarchy: hierarchalData
         });
