@@ -149,7 +149,18 @@ export class ViewBulkImportComponent implements OnInit {
         const fileName =  this.bulkImport.entityType.toUpperCase()+ new Date().toISOString().slice(0, 10) + ".xls";
         console.log(fileName);        
         const fileOfBlob = new File([blob],fileName, { type: contentType });
-        window.open(window.URL.createObjectURL(fileOfBlob));
+        var fileLink = document.createElement("a");
+        document.body.appendChild(fileLink);
+        fileLink.style.display = "none";
+        // window.open(window.URL.createObjectURL(fileOfBlob));
+        const url = window.URL.createObjectURL(blob);
+        fileLink.href = url;
+        fileLink.download = fileName;
+        fileLink.click();
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(fileLink);
+    }, 0)
       });
   }
 
