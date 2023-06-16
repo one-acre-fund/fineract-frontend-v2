@@ -12,6 +12,8 @@ Release Notes
     * [SER-1542] - Fix new loan application error
     * [SER-1617] - Fix error when accessing group member details from Group details page
     * [SER-1536] - Implement Loan Top-up in Fineract UI 
+    * [SER-1746] - Modify bulk import template naming: Use the module with dates
+    * [SER-1726] - Remove deactivate OUs from the OU tree
 
 
 ## Version 1.0.0 - for use with Fineract Web App

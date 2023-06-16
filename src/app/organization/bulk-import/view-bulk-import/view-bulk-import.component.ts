@@ -140,12 +140,13 @@ export class ViewBulkImportComponent implements OnInit {
         legalFormType = "CLIENTS_ENTTTY";
         break;
     }
+    
     this.organizationService
       .getImportTemplate(this.bulkImport.urlSuffix, officeId, staffId, legalFormType)
       .subscribe((res: any) => {
         const contentType = res.headers.get("Content-Type");
         const blob = new Blob([res.body], { type: contentType });
-        const fileOfBlob = new File([blob], "template.xls", { type: contentType });
+        const fileOfBlob = new File([blob], this.bulkImport.entityType.toUpperCase()+ new Date().toISOString().slice(0, 10) + ".xls", { type: contentType });
         window.open(window.URL.createObjectURL(fileOfBlob));
       });
   }

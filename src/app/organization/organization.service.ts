@@ -121,7 +121,7 @@ export class OrganizationService {
    * @returns {Observable<any>}
    */
   searchOfficeTreeHierarchy (includeRootOffice: boolean, OAfCode: string): Observable<any> {
-    return this.http.get(`/offices/search?includeRootOffice=${includeRootOffice}&officeHierarchyTypeCode=${OAfCode}`);
+    return this.http.get(`/offices/search?includeRootOffice=${includeRootOffice}&officeHierarchyTypeCode=${OAfCode}&activeFlag=true`);
   }
 
   /**
@@ -245,7 +245,7 @@ export class OrganizationService {
     return this.http.get('/countries');
   }
   searchCountryById (countryId: number) {
-    return this.http.get(`/offices/search?countryId=${countryId}`);
+    return this.http.get(`/offices/search?countryId=${countryId}&activeFlag=true`);
   }
 
   createOutlet (data: any): Observable<any> {
