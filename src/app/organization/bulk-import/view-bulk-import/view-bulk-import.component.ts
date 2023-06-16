@@ -146,7 +146,9 @@ export class ViewBulkImportComponent implements OnInit {
       .subscribe((res: any) => {
         const contentType = res.headers.get("Content-Type");
         const blob = new Blob([res.body], { type: contentType });
-        const fileOfBlob = new File([blob], this.bulkImport.entityType.toUpperCase()+ new Date().toISOString().slice(0, 10) + ".xls", { type: contentType });
+        const fileName =  this.bulkImport.entityType.toUpperCase()+ new Date().toISOString().slice(0, 10) + ".xls";
+        console.log(fileName);        
+        const fileOfBlob = new File([blob],fileName, { type: contentType });
         window.open(window.URL.createObjectURL(fileOfBlob));
       });
   }
