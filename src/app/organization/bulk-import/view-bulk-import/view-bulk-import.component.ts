@@ -144,25 +144,33 @@ export class ViewBulkImportComponent implements OnInit {
     this.organizationService
       .getImportTemplate(this.bulkImport.urlSuffix, officeId, staffId, legalFormType)
       .subscribe((res: any) => {
-        const contentType = res.headers.get("Content-Type");
-        const blob = new Blob([res.body], { type: contentType });
-        const fileName =  this.bulkImport.entityType.toUpperCase()+ new Date().toISOString().slice(0, 10) + ".xls";
-        console.log(fileName);        
-        const fileOfBlob = new File([blob],fileName, { type: contentType });
-        var fileLink = document.createElement("a");
-        document.body.appendChild(fileLink);
-        fileLink.style.display = "none";
-        // window.open(window.URL.createObjectURL(fileOfBlob));
-        const url = window.URL.createObjectURL(blob);
-        fileLink.href = url;
-        fileLink.download = fileName;
-        fileLink.click();
-        setTimeout(() => {
-          window.URL.revokeObjectURL(url);
-          document.body.removeChild(fileLink);
-    }, 0)
+        this.downloadFileFromAPIResponse(res);
       });
   }
+
+  downloadFileFromAPIResponse (res){
+    var headers = res.headers();
+    const contentType = headers['content-type'];
+    const blob = new Blob([res.data], { type: contentType });
+    const fileName = this.getFileNameFromHttpHeaders(headers);
+    var fileLink = document.createElement("a");
+    document.body.appendChild(fileLink);
+    fileLink.style.display = "none";
+    const url = window.URL.createObjectURL(blob);
+    fileLink.href = url;
+    fileLink.download = fileName;
+    fileLink.click();
+    setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(fileLink);
+    }, 0)
+}
+  getFileNameFromHttpHeaders(headers) {
+    console.log(headers);
+    var contentDispositionHeader = headers['content-disposition'];
+    var result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
+    return result.replace(/"/g, '');
+}
 
   /**
    * Sets file form control value.
