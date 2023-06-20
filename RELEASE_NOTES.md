@@ -15,6 +15,9 @@ Release Notes
     * [SER-1746] - Modify bulk import template naming: Use the module with dates
     * [SER-1726] - Remove deactivate OUs from the OU tree
 
+    * Client Management
+        * [SER-1755] - Fix Client Group displayal in View client page
+
 
 ## Version 1.0.0 - for use with Fineract Web App
 
