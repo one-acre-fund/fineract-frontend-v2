@@ -11,14 +11,14 @@ Release Notes
     * [SER-1538] - Implement healthy path upload in Fineract UI v2
     * [SER-1542] - Fix new loan application error
     * [SER-1617] - Fix error when accessing group member details from Group details page
-    * [SER-1536] - Implement Loan Top-up in Fineract UI 
+    * [SER-1536] - Implement Loan Top-up in Fineract UI
     * [SER-1746] - Modify bulk import template naming: Use the module with dates
     * [SER-1726] - Remove deactivate OUs from the OU tree
-
+    * [SER-1618] - Search Client on the client list interface by multiple fields as done in the old version
+    * [SER-1895] - Fix Fineract UI Signout Redirect Keycloak Error
+    * [SER-1532] - Hide fields in the loan creation process
     * Client Management
         * [SER-1755] - Fix Client Group displayal in View client page
-
-
 ## Version 1.0.0 - for use with Fineract Web App
 
     * This repository was forked from Mifos Web App
