@@ -149,11 +149,11 @@ export class ViewBulkImportComponent implements OnInit {
   }
 
   downloadFileFromAPIResponse (res){
-    var headers = res.headers();
+    let headers = res.headers();
     const contentType = headers['content-type'];
     const blob = new Blob([res.data], { type: contentType });
     const fileName = this.getFileNameFromHttpHeaders(headers);
-    var fileLink = document.createElement("a");
+    let fileLink = document.createElement("a");
     document.body.appendChild(fileLink);
     fileLink.style.display = "none";
     const url = window.URL.createObjectURL(blob);
@@ -167,8 +167,8 @@ export class ViewBulkImportComponent implements OnInit {
 }
   getFileNameFromHttpHeaders(headers) {
     console.log(headers);
-    var contentDispositionHeader = headers['content-disposition'];
-    var result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
+    let contentDispositionHeader = headers['content-disposition'];
+    let result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
     return result.replace(/"/g, '');
 }
 
