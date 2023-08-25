@@ -19,7 +19,7 @@
             </mat-error>
         </mat-form-field>
 
-        <div class="partial">
+        <div class="partial" *ngIf="!toggleMatTable">
             <mat-form-field fxFlex="48%">
                 <mat-label>Add Field</mat-label>
                 <input matInput required [(ngModel)]="fieldName" #addField="ngModel">

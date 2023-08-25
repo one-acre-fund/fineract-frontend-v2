@@ -13,7 +13,7 @@ import { BehaviorSubject } from "rxjs";
 export class DataFieldsComponent implements OnInit {
   codes: any = [];
   countryId: any;
-  type: any;
+  entity: any;
   baseData: any;
   subModuleFields: any;
   subModule: any;
@@ -23,6 +23,7 @@ export class DataFieldsComponent implements OnInit {
   updatedFieldsData: any = [];
   datatableName: any;
   fieldName: any;
+  dataTableDetails: any = [];
 
   columnType: any;
   columnTypeList: any[] = [
@@ -59,7 +60,7 @@ export class DataFieldsComponent implements OnInit {
 
     this.route.paramMap.subscribe((paramMap) => {
       this.countryId = paramMap.get("countryId");
-      this.type = paramMap.get("id");
+      this.entity = paramMap.get("id");
     });
   }
 
@@ -70,7 +71,7 @@ export class DataFieldsComponent implements OnInit {
   }
 
   getFieldConfigurationByType() {
-    this.systemService.getFieldConfigurationByType(this.type, this.countryId).subscribe((res: any) => {
+    this.systemService.getFieldConfigurationByType(this.entity, this.countryId).subscribe((res: any) => {
       this.subModuleFields = res;
       let temp = res.filter((value, index, self) => index === self.findIndex((t) => t.subentity === value.subentity));
       this.subModule = temp;
@@ -84,15 +85,15 @@ export class DataFieldsComponent implements OnInit {
     this.systemService.getFieldConfigurationBasedata().subscribe((res: any) => {
       this.baseData = res;
     });
-  }
+  }    
 
   public isFiltered(field: any) {
-    if (field && field.fieldConfigurationId)
+    if (field?.fieldConfigurationId)
       return this.subModuleFiltered.find((item) => item.fieldConfigurationId === field.fieldConfigurationId);
   }
 
   public filterColumnType(field: any) {
-    if (field && field.name && this.columnTypeListFiltered) {
+    if (field?.name && this.columnTypeListFiltered) {
       return this.columnTypeListFiltered.find((item) => item.name === field.name);
     } else {
       return this.columnTypeList.find((item) => item.name === field.name);
@@ -102,7 +103,7 @@ export class DataFieldsComponent implements OnInit {
   subEntity: any;
   selectedSubModule(subEntity: any) {
     this.subEntity = subEntity;
-    this.datatableName = "m_field_" + subEntity.toLowerCase() + "_" + this.type.charAt(0).toLowerCase();
+    this.datatableName = "m_field_" + subEntity.toLowerCase() + "_" + this.entity.charAt(0).toLowerCase();
     if (subEntity && this.subModule.length > 0) {
       this.updatedFieldsData = this.subModuleFields.filter((i) => i.subentity === subEntity);
     }
@@ -112,14 +113,14 @@ export class DataFieldsComponent implements OnInit {
     if (this.fieldName && this.columnType) {
       this.toggleMatTable = true;
       const row = this.fb.group({
-        name: [this.fieldName],
+        name: [this.fieldName?.trim().replace(/\s+/g, '_')],
         type: [this.columnType],
         mandatory: [false],
         isUnique: [false],
         length: new FormControl({ value: null, disabled: this.columnType !== "String" }),
         code: new FormControl({ value: null, disabled: this.columnType !== "Dropdown" }),
         subEntity: this.subEntity,
-        entity: this.type,
+        entity: this.entity,
       });
       this.rows.push(row);
       this.updateView();
@@ -161,23 +162,22 @@ export class DataFieldsComponent implements OnInit {
     this.updateView();
   }
 
-  saveControls() {
+  async saveControls() {
+
     let value = this.form.get("tableArray").value;
-
-    let appTableName=this.type.toLowerCase();
-    if(this.type.toLowerCase()==='loantype'){
-      appTableName='loan';
-    }
-    else if(this.type.toLowerCase()==='ou'){
-      appTableName='office';
-    }
-
     let model = {
-      apptableName: `m_${appTableName}`,
+      apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
       officeCountryId: this.countryId,
-      addColumns:value
     };
+
+    this.dataTableDetails = await this.systemService.getDataTableByAppTableName(model.apptableName);
+
+    if(this.dataTableDetails?.length > 0 && this.dataTableDetails.some((item) => item.registeredTableName ===this.datatableName)){
+      model['addColumns'] = value;
+    } else {
+      model['columns'] = value;
+    }
 
     this.systemService.saveFieldConfiguration(model).subscribe(
       (res: any) => {
@@ -200,7 +200,7 @@ export class DataFieldsComponent implements OnInit {
 
   updateControl(value: any) {
     let model = {
-      apptableName: `m_${this.type.toLowerCase()}`,
+      apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
       field: value.field,
       isEnabled: value.isEnabled,
@@ -217,14 +217,35 @@ export class DataFieldsComponent implements OnInit {
 
   deleteRecord(field: any, fieldConfigurationId: any) {
     let model = {
-      apptableName: `m_${this.type.toLowerCase()}`,
+      apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
+      dropColumns: [{"name": field}]
     };
     this.systemService.deleteConfiguration(fieldConfigurationId, model).subscribe((res: any) => {
       this.getFieldConfigurationByType();
       this.toggleMatTable = false;
     });
   }
+
+  /**
+   * Generates the name of an application table based on the provided entity.
+   *
+   * @param {string} entity - The entity for which to generate the table name.
+   * @return {string} The name of the application table.
+   */
+  generateAppTableName(entity) {
+    let entityToUse = entity.toUpperCase();
+    let apptableName = "";
+
+    if (entityToUse === "OU") {
+        apptableName = "m_office";
+    } else if (entityToUse === "ADDRESS" || entityToUse === "CLIENT") {
+        apptableName = "m_client";
+    } else if (entityToUse === "LOANTYPE") {
+        apptableName = "m_loan";
+    }
+    return apptableName;
+}
 
   goBack() {
     this.rows.clear();

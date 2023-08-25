@@ -365,6 +365,16 @@ export class SystemService {
   }
 
   /**
+   * Retrieves the data table based on the specified app table name.
+   *
+   * @param {string} apptableName - The name of the app table.
+   * @return {Observable<any>}
+   */
+  async getDataTableByAppTableName(apptableName: string):  Promise<any> {
+    return await this.http.get(`/datatables?apptable=${apptableName}`).toPromise();;
+  }
+
+  /**
    * @param dataTableName Data Table Name.
    * @return {Observable<any>}
    */
