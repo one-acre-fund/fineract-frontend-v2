@@ -1,6 +1,6 @@
 
 ---
-name: Lint-Build-Test-CI
+name: CI-Lint-Build-Test
 'on':
   push:
     branches:
