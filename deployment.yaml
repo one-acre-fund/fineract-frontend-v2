@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: fineract-frontend
+  name: fineract-frontend-v2
   labels:
-    app: fineract-frontend
+    app: fineract-frontend-v2
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: fineract-frontend
+      app: fineract-frontend-v2
   template:
     metadata:
       labels:
-        app: fineract-frontend
+        app: fineract-frontend-v2
     spec:
       containers:
       - name: fineract-ui
-        image: oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:7d242bb2d53b84be7b60627b69138e4e4c2eceef
+        image: oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:bba27c1967924b414194271bfb88bb3560b41e31
         env:
         - name: HOST_HOME_URL
-          value: "http://65.108.247.228:31506/home"
+          value: "https://fineract.test.oneacrefund.org/v2/home"
         ports:
             - containerPort: 80
               name: http
