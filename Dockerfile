@@ -19,7 +19,7 @@ npm install --location=global @angular/cli@12.2.17 &&\
 
 npm install &&\
 
-ng build --configuration production --output-path=/dist
+ng build --configuration production --output-path=/dist --base-href /v2/
 
 ###############
 ### STAGE 2: Serve app with nginx ###
