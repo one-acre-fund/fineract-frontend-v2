@@ -27,7 +27,7 @@
     "postinstall": "node version.js && ngcc"
   },
   "dependencies": {
-    "@angular-devkit/schematics": "^14.0.4",
+    "@angular-devkit/schematics": "^14.2.13",
     "@angular/animations": "^13.3.12",
     "@angular/cdk": "13.3.9",
     "@angular/common": "13.3.12",
