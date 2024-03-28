@@ -9,7 +9,7 @@ export const environment = {
   fineractPlatformTenantId: window['env']['fineractPlatformTenantId'] || 'default',
   // For connecting to others servers running elsewhere update the base API URL
   baseApiUrls: window['env']['fineractApiUrls'] ||
-    'https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://loans.test.oneacrefund.org,https://localhost:8443,https://loans.qa.oneacrefund.org',
+    'https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://loans.qa.oneacrefund.org,https://localhost:8443,https://loans.qa.oneacrefund.org',
   // For connecting to server running elsewhere set the base API URL
   baseApiUrl: window['env']['fineractApiUrl'] || 'https://loans.qa.oneacrefund.org',
   allowServerSwitch: env.allow_switching_backend_instance,
@@ -21,7 +21,7 @@ export const environment = {
     serverUrl: 'https://accounts.qa.oneacrefund.org/',
     realm:'OneAcreFund',
     client_id:'fineract',
-    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/v2/home'
+    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
   supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR',
