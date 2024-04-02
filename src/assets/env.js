@@ -13,4 +13,6 @@
   // Language Environment variables
   window["env"]["defaultLanguage"] = '';
   window["env"]["supportedLanguages"] = '';
+  // set base url
+  window["env"]["homeURL"] = 'https://fineract.test.oneacrefund.org/';
 })(this);
