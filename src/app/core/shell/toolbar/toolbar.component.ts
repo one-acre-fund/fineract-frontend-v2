@@ -23,15 +23,12 @@ import { OrganizationService } from 'app/organization/organization.service';
 })
 export class ToolbarComponent implements OnInit {
 
-  /** Eligible roles to view the country dropdown and an admin menu. */
-  allowedRoles: any = new Set<string>(["super user"]);
-
   /** Save the user data from the session storage. */
   userData: any;
 
   /** Allow an authorised user to select a country and view an Admin menu. */
   displayAdminOptions: boolean = false;
-  
+
   /** Only active countries. */
   activeCountries: any = [];
 
@@ -79,10 +76,9 @@ export class ToolbarComponent implements OnInit {
 
   ngDoCheck() {
     this.userData = this.authenticationService.getCredentials();
-    
-    if(!this.hasChecked && this.userData?.roles.length > 0) {
-      let isEligible = this.userData.roles.filter(item => this.allowedRoles.has(item.name.toLowerCase())).length > 0;
-      if(isEligible) {
+    if(!this.hasChecked && this.userData?.officeId) {
+      /** Eligible office (Head office) to view the country dropdown and an admin menu. */
+      if(this.userData.officeId == 1) {
         this.getActiveCountries();
         this.displayAdminOptions = true;
       }
@@ -93,7 +89,7 @@ export class ToolbarComponent implements OnInit {
       this.selectedCountryName = JSON.parse(sessionStorage.getItem("selectedCountry"))?.name;
     }
   }
-  
+
   /**
   * List active countries.
   */
@@ -109,7 +105,7 @@ export class ToolbarComponent implements OnInit {
   saveTheSelectedCountry(country: any) {
     sessionStorage.setItem('selectedCountry', JSON.stringify(country));
   }
-      
+
   /**
    * Toggles the current state of sidenav.
    */
