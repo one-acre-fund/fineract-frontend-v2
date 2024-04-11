@@ -29,6 +29,7 @@ Release Notes
     * [SER-2030] - Implement loan terms and conditions
     * [SER-2045] - Add delete button for loan product 
     * [SER-2093] - Add qualification rules on loan products
+    * [SER-2438] - Fix view client details
 
 
 ## Version 1.0.0 - for use with Fineract Web App
