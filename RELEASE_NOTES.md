@@ -30,8 +30,9 @@ Release Notes
     * [SER-2045] - Add delete button for loan product 
     * [SER-2093] - Add qualification rules on loan products
     * [SER-2438] - Fix view client details
+    * [SER-2093] - Add qualification rules on loan products    
     * [SER-2396] - Deploy fineract UI v2 on the integration cluster (Added missing envs)
-
+    * [SER-2440] - Revise the country selection option to check for the Head Office instead of roles
 
 ## Version 1.0.0 - for use with Fineract Web App
 
