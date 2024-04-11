@@ -15,4 +15,7 @@
   window["env"]["supportedLanguages"] = '$MIFOS_SUPPORTED_LANGUAGES';
 
   window["env"]["homeURL"] = '$HOST_HOME_URL';
+
+  // Head Office ID
+  window["env"]["headOfficeID"] = '$headOfficeID';
 })(this);

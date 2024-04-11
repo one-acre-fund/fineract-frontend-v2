@@ -13,4 +13,6 @@
   // Language Environment variables
   window["env"]["defaultLanguage"] = '';
   window["env"]["supportedLanguages"] = '';
+  // Head Office ID
+  window["env"]["headOfficeID"] = '';
 })(this);

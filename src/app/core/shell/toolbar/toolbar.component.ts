@@ -13,6 +13,8 @@ import { map } from 'rxjs/operators';
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { OrganizationService } from 'app/organization/organization.service';
 
+import { environment } from 'environments/environment';
+
 /**
  * Toolbar component.
  */
@@ -78,7 +80,7 @@ export class ToolbarComponent implements OnInit {
     this.userData = this.authenticationService.getCredentials();
     if(!this.hasChecked && this.userData?.officeId) {
       /** Eligible office (Head office) to view the country dropdown and an admin menu. */
-      if(this.userData.officeId == 1) {
+      if(this.userData.officeId == environment.headOfficeID) {
         this.getActiveCountries();
         this.displayAdminOptions = true;
       }
