@@ -60,13 +60,19 @@
               clientViewData.staffName || "Unassigned"
             }}<br />
             Activation Date :
-            {{ clientViewData.activation ? (clientViewData.activationDate | dateFormat) : "Not Activated" }}<br />
+            {{ clientViewData.active ? (clientViewData.activationDate | dateFormat) : "Not Activated" }}<br />
             Member Of :
-            <span *ngFor="let group of clientViewData.groups">
-              <a>{{ group.name }}</a
+
+            <span>
+              <a>{{ clientViewData?.group?.name }}</a
               >&nbsp;
             </span>
-            <span *ngIf="!clientViewData.groups">Unassigned</span>
+
+            <!-- <span *ngFor="let group of clientViewData.groups">
+              <a>{{ group.name }}</a
+              >&nbsp;
+            </span> -->
+            <span *ngIf="!clientViewData.group">Unassigned</span>
             <br />
           </p>
         </mat-card-subtitle>

@@ -1,8 +1,19 @@
 <form [formGroup]="createClientForm">
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
-    <mat-form-field fxFlex="48%">
+    <ng-select
+      [items]="officeOptions"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Select Office"
+      formControlName="officeId"
+      aria-labelledby="officeId"
+      [virtualScroll]="true"
+    >
+    </ng-select>
+    <!--   <mat-form-field fxFlex="48%">
       <mat-label>Office</mat-label>
-      <mat-select required formControlName="officeId" #office>
+
+       <mat-select required formControlName="officeId" #office>
         <mat-select-filter
           *ngIf="office.focused"
           [array]="officeOptions"
@@ -15,10 +26,11 @@
           {{ office.name }}
         </mat-option>
       </mat-select>
+
       <mat-error *ngIf="createClientForm.controls.officeId.hasError('required')">
         Office is <strong>required</strong>
       </mat-error>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <mat-form-field fxFlex="48%">
       <mat-label>Staff</mat-label>
