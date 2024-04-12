@@ -1,15 +1,19 @@
 <form [formGroup]="createClientForm">
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
-    <ng-select
-      [items]="officeOptions"
-      bindLabel="name"
-      bindValue="id"
-      placeholder="Select Office"
-      formControlName="officeId"
-      aria-labelledby="officeId"
-      [virtualScroll]="true"
-    >
-    </ng-select>
+    <div>
+      <label for="officeId">Office</label>
+      <ng-select
+        [items]="officeOptions"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Office"
+        formControlName="officeId"
+        aria-labelledby="officeId"
+        [virtualScroll]="true"
+      >
+      </ng-select>
+    </div>
+
     <!--   <mat-form-field fxFlex="48%">
       <mat-label>Office</mat-label>
 
