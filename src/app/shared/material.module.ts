@@ -39,6 +39,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatSelectFilterModule } from 'mat-select-filter';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 /**
  * Material Module
@@ -84,7 +85,8 @@ import { MatSelectFilterModule } from 'mat-select-filter';
     MatTooltipModule,
     MatTreeModule,
     MatBadgeModule,
-    MatSelectFilterModule
+    MatSelectFilterModule,
+    ScrollingModule
   ],
   providers: [
     {
