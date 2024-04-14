@@ -34,7 +34,7 @@
 
   <div class="mat-elevation-z8" *ngIf="!treeView">
     <!-- offices.component.html -->
-    <cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+    <cdk-virtual-scroll-viewport tvsItemSize="48" headerHeight="56" style="height: 400px" class="example-viewport">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Office Name</th>

@@ -9,6 +9,7 @@ import { OfficeTreeNode } from "app/shared/office-tree-view/office-tree-node";
 /** rxjs Imports */
 import { of } from "rxjs";
 import { OrganizationService } from "app/organization/organization.service";
+import { TableVirtualScrollDataSource } from "ng-table-virtual-scroll";
 
 /**
  * Offices component.
@@ -24,7 +25,7 @@ export class OfficesComponent implements OnInit {
   /** Columns to be displayed in offices table. */
   displayedColumns: string[] = ["name", "officeHierarchyPath", "parentName", "openingDate"];
   /** Data source for offices table. */
-  dataSource: MatTableDataSource<any>;
+  dataSource: TableVirtualScrollDataSource<any>;
   treeDataSource: OfficeTreeNode[] = [];
   toggleText = "Tree View";
   treeView = false;
@@ -70,7 +71,7 @@ export class OfficesComponent implements OnInit {
    * Initializes the data source, paginator and sorter for offices table.
    */
   setOffices() {
-    this.dataSource = new MatTableDataSource(this.officesData);
+    this.dataSource = new TableVirtualScrollDataSource(this.officesData);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
