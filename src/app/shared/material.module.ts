@@ -38,7 +38,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
-import { MatSelectFilterModule } from "mat-select-filter";
+//import { MatSelectFilterModule } from "mat-select-filter";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { TableVirtualScrollModule } from "ng-table-virtual-scroll";
 
@@ -86,7 +86,7 @@ import { TableVirtualScrollModule } from "ng-table-virtual-scroll";
     MatTooltipModule,
     MatTreeModule,
     MatBadgeModule,
-    MatSelectFilterModule,
+    //MatSelectFilterModule,
     ScrollingModule,
     TableVirtualScrollModule,
   ],
