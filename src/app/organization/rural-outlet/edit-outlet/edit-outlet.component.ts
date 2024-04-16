@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
@@ -13,13 +13,13 @@ import DataFlattner from 'app/core/utils/data-flattner';
 })
 export class EditOutletComponent implements OnInit {
   retailOutletData: any;
-  outletForm: FormGroup;
+  outletForm: UntypedFormGroup;
   listCountries: any = [];
   treeDataSource: any;
   selectedOffices: any = [];
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private organizationService: OrganizationService,
     private router: Router,
