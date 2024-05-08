@@ -12,6 +12,8 @@ import { tap } from 'rxjs/operators';
 /** Custom Services */
 import { ClientsService } from './clients.service';
 import { SearchService } from '../search/search.service';
+import { MatomoTracker } from 'ngx-matomo';
+
 
 @Component({
   selector: 'mifosx-clients',
@@ -29,12 +31,22 @@ export class ClientsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  constructor(private clientsService: ClientsService, private searchService: SearchService) {
+  /**
+     * Fetches paginated client list
+     * @param {ClientsService} clientsService Clients Service
+     * @param {SearchService} searchService Search service
+     * @param {MatomoTracker} matomoTracker Matomo tracker service
+     */
+  constructor(private clientsService: ClientsService, private searchService: SearchService, private matomoTracker: MatomoTracker) {
 
   }
 
   ngOnInit() {
+
+    //set Matomo page info
+    let title = document.title;
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.getClients();
   }
 
@@ -54,9 +66,11 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     if (!this.sort.direction) {
       delete this.sort.active;
     }
-
+    //Matomo log activity
+    this.matomoTracker.trackEvent('clients', 'list', this.sort.active, this.paginator.pageIndex);// change to track right info
     if (this.searchValue !== '') {
       this.applyFilter(this.searchValue);
+      this.matomoTracker.trackSiteSearch(this.searchValue, 'clients');
     } else {
       this.dataSource.getClients(this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.showClosedAccounts.checked);
     }
@@ -82,11 +96,13 @@ export class ClientsComponent implements OnInit, AfterViewInit {
    * Search Client Data
    * @param {string} searchValue Value to filter data.
    */
-   applySearch(searchValue: string = '') {
+  applySearch(searchValue: string = '') {
     if (searchValue.length > 0) {
       this.dataSource = new ClientsDataSource(this.clientsService, this.searchService);
       this.searchValue = searchValue;
       this.dataSource.searchClients(this.searchValue, this.showClosedAccounts.checked);
+    }else{
+      //TODO after the search filter is cleared/empty, there's no trigger to reset
     }
   }
 
