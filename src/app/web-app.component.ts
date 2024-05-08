@@ -42,6 +42,7 @@ import { MatomoTracker } from 'ngx-matomo';
 export class WebAppComponent implements OnInit {
 
   buttonConfig: KeyboardShortcutsConfiguration;
+  private userName :string;
 
   /**
    * @param {Router} router Router for navigation.
@@ -112,8 +113,8 @@ export class WebAppComponent implements OnInit {
           this.titleService.setTitle(`${this.translateService.instant(title)} | Mifos X`);
         }
         //set Matomo page info
-        let userName = this.authenticationService.getConnectedUsername() ? this.authenticationService.getConnectedUsername() : "";
-        this.matomoTracker.setUserId(userName); //tracker user ID
+        this.userName = this.authenticationService.getConnectedUsername() ? this.authenticationService.getConnectedUsername() : "";
+        this.matomoTracker.setUserId(this.userName); //tracker user ID
 
         this.matomoTracker.setDocumentTitle(`${this.translateService.instant(title)} | Mifos X`);
       });
@@ -159,6 +160,8 @@ export class WebAppComponent implements OnInit {
   }
 
   logout() {
+    //track user logout activity trough Matomo
+    this.matomoTracker.trackEvent('navigation', 'logout', this.userName);
     this.authenticationService.logout();
     // .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
