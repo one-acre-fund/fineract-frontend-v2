@@ -38,6 +38,7 @@ Release Notes
     * [SER-2304] - Upgrade to angular 14
     * [SER-2036] - Return groups based on the selected country
     * [SER-2034] - Return clients based on the selected country.
+    * [SER-2510] - show office hierrachy path name, show only required menus.
 
 ## Version 1.0.0 - for use with Fineract Web App
 
