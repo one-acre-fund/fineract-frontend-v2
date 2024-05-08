@@ -89,7 +89,7 @@ export class AcceptClientTransferComponent implements OnInit {
     };
 
     //Matomo log activity
-    this.matomoTracker.trackEvent('clients', 'acceptTransfer',this.clientId);// change to track right info
+    this.matomoTracker.trackEvent('clients', 'acceptClientTransfer',this.clientId);// change to track right info
 
     this.clientsService.executeClientCommand(this.clientId, "acceptTransfer", data).subscribe(() => {
       this.router.navigate(["../../"], { relativeTo: this.route });

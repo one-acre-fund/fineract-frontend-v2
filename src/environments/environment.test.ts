@@ -29,8 +29,8 @@ export const environment = {
   supportedLanguages: window["env"]["supportedLanguages"] || "en-US,fr-FR",
   headOfficeID: window["env"]["headOfficeID"] || "1",
   //Matomo instance config
-  matomoSiteId: 1,
-  matomoSiteUrl: "https://analytics.test.oneacrefund.org",
+  matomoSiteId: window['env']['matomoSiteId'] || 1,
+  matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.test.oneacrefund.org',
 };
 
 // Server URL

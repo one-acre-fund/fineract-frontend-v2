@@ -86,7 +86,7 @@ export class UndoClientTransferComponent implements OnInit {
       locale */
     };
     //Track Matomo event for transferring client
-    this.matomoTracker.trackEvent('clients', 'withdrawTransfer', this.clientId);
+    this.matomoTracker.trackEvent('clients', 'undoClientTransfer', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, "withdrawTransfer", data).subscribe(() => {
       this.router.navigate(["../../"], { relativeTo: this.route });
