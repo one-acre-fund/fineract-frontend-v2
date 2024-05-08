@@ -68,9 +68,13 @@ export class ClientsComponent implements OnInit, AfterViewInit {
     }
     //Matomo log activity
     this.matomoTracker.trackEvent('clients', 'list', this.sort.active, this.paginator.pageIndex);// change to track right info
+
     if (this.searchValue !== '') {
       this.applyFilter(this.searchValue);
+
+      //Track client search in Matomo
       this.matomoTracker.trackSiteSearch(this.searchValue, 'clients');
+
     } else {
       this.dataSource.getClients(this.sort.active, this.sort.direction, this.paginator.pageIndex, this.paginator.pageSize, this.showClosedAccounts.checked);
     }

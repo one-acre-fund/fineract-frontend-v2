@@ -37,7 +37,7 @@ export class WithdrawClientComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
    * @param {SettingsService} settingsService Setting service
-   *  @param {MatomoTracker} matomoTracker Matomo tracker service
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
   constructor(private formBuilder: UntypedFormBuilder,
               private clientsService: ClientsService,
