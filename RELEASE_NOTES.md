@@ -36,6 +36,8 @@ Release Notes
     * [SER-2446] - Add ng-select as drop down in client and group creation
     * [SER-2458] - Replace mat-select-filter in all interfaces with ng select
     * [SER-2304] - Upgrade to angular 14
+    * [SER-2036] - Return groups based on the selected country
+    * [SER-2034] - Return clients based on the selected country.
 
 ## Version 1.0.0 - for use with Fineract Web App
 
