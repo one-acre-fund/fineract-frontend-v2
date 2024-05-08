@@ -46,9 +46,8 @@ export class ClientsDataSource implements DataSource<any> {
       this.clientsService
         .getClientsByCountry("id", "ASC", pageIndex * limit, limit, countryId)
         .subscribe((clients: any) => {
-          if (showClosedAccounts) {
-            clients.pageItems = clients.pageItems;
-          } else {
+          if (!showClosedAccounts) {
+
             clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== "Closed");
           }
           this.recordsSubject.next(clients.totalFilteredRecords);
@@ -56,9 +55,8 @@ export class ClientsDataSource implements DataSource<any> {
         });
     } else {
       this.clientsService.getClients("id", "ASC", pageIndex * limit, limit).subscribe((clients: any) => {
-        if (showClosedAccounts) {
-          clients.pageItems = clients.pageItems;
-        } else {
+        if (!showClosedAccounts) {
+
           clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== "Closed");
         }
         this.recordsSubject.next(clients.totalFilteredRecords);
