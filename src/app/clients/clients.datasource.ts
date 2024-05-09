@@ -42,27 +42,19 @@ export class ClientsDataSource implements DataSource<any> {
   ) {
     this.clientsSubject.next([]);
     let countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
+    let clientsObs: Observable<any>;
     if (countryId) {
-      this.clientsService
-        .getClientsByCountry("id", "ASC", pageIndex * limit, limit, countryId)
-        .subscribe((clients: any) => {
-          if (!showClosedAccounts) {
-
-            clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== "Closed");
-          }
-          this.recordsSubject.next(clients.totalFilteredRecords);
-          this.clientsSubject.next(clients.pageItems);
-        });
+      clientsObs = this.clientsService.getClientsByCountry("id", "ASC", pageIndex * limit, limit, countryId);
     } else {
-      this.clientsService.getClients("id", "ASC", pageIndex * limit, limit).subscribe((clients: any) => {
-        if (!showClosedAccounts) {
-
-          clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== "Closed");
-        }
-        this.recordsSubject.next(clients.totalFilteredRecords);
-        this.clientsSubject.next(clients.pageItems);
-      });
+      clientsObs = this.clientsService.getClients("id", "ASC", pageIndex * limit, limit);
     }
+    clientsObs.subscribe((clients: any) => {
+      if (!showClosedAccounts) {
+        clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== "Closed");
+      }
+      this.recordsSubject.next(clients.totalFilteredRecords);
+      this.clientsSubject.next(clients.pageItems);
+    });
   }
   /**
    * Search clients on the basis of provided parameters.

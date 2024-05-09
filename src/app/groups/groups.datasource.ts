@@ -42,22 +42,25 @@ export class GroupsDataSource implements DataSource<any> {
   ) {
     this.groupsSubject.next([]);
     let countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
-
+    let groupsObs: Observable<any>;
     if (countryId) {
-      this.groupsService
-        .getGroupsByCountryId(filterBy, orderBy, sortOrder, pageIndex * limit, limit, countryId)
-        .subscribe((groups: any) => {
-          groups.pageItems = groupActive ? groups.pageItems.filter((group: any) => group.active) : groups.pageItems;
-          this.recordsSubject.next(groups.totalFilteredRecords);
-          this.groupsSubject.next(groups.pageItems);
-        });
+      groupsObs = this.groupsService.getGroupsByCountryId(
+        filterBy,
+        orderBy,
+        sortOrder,
+        pageIndex * limit,
+        limit,
+        countryId
+      );
     } else {
-      this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit).subscribe((groups: any) => {
-        groups.pageItems = groupActive ? groups.pageItems.filter((group: any) => group.active) : groups.pageItems;
-        this.recordsSubject.next(groups.totalFilteredRecords);
-        this.groupsSubject.next(groups.pageItems);
-      });
+      groupsObs = this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit);
     }
+
+    groupsObs.subscribe((groups: any) => {
+      groups.pageItems = groupActive ? groups.pageItems.filter((group: any) => group.active) : groups.pageItems;
+      this.recordsSubject.next(groups.totalFilteredRecords);
+      this.groupsSubject.next(groups.pageItems);
+    });
   }
 
   /**
