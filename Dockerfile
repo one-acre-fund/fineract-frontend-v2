@@ -1,7 +1,7 @@
 ###############
 ### STAGE 1: Build app
 ###############
-FROM node:16-alpine as builder
+FROM node:18-alpine as builder
 
 RUN apk add --no-cache git
 
