@@ -53,9 +53,8 @@ export class AcceptClientTransferComponent implements OnInit {
    * Creates the accept client transfer form.
    */
   ngOnInit() {
-    //set Matomo page info
-    let title = document.title || "";
-    this.matomoTracker.setDocumentTitle(`${title}`);
+    //Matomo log activity
+    this.matomoTracker.trackEvent('clients', 'acceptClientTransferStart',this.clientId);// change to track right info
 
     this.createAcceptClientTransferForm();
   }

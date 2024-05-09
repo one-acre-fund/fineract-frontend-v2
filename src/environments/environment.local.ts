@@ -34,7 +34,7 @@ export const environment = {
   headOfficeID: window['env']['headOfficeID'] || '1',
   //Matomo instance config
   matomoSiteId: window['env']['matomoSiteId'] || 1,
-  matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.test.oneacrefund.org',
+  matomoSiteUrl: window['env']['matomoSiteUrl'] || 'http://localhost',
 };
 
 // Server URL
