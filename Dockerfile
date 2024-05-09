@@ -1,7 +1,7 @@
 ###############
 ### STAGE 1: Build app
 ###############
-FROM node:18-alpine as builder
+FROM node:16-alpine as builder
 
 RUN apk add --no-cache git
 
@@ -17,7 +17,7 @@ RUN npm cache clear --force &&\
 
   npm install --location=global @angular/cli@14.2.13 &&\
 
-  npm install &&\
+  npm install --force &&\
 
   ng build --configuration production --output-path=/dist
 
