@@ -17,7 +17,7 @@ RUN npm cache clear --force &&\
 
   npm install --location=global @angular/cli@14.2.13 &&\
 
-  npm install &&\
+  npm install --legacy-peer-deps &&\
 
   ng build --configuration production --output-path=/dist
 
