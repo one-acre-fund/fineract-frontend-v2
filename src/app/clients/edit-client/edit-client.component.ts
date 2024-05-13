@@ -189,12 +189,12 @@ export class EditClientComponent implements OnInit {
     }
 
     //Track Matomo event in clients module
-    this.matomoTracker.trackEvent('clients', 'update', this.clientDataAndTemplate.id);
+    this.matomoTracker.trackEvent('clients', 'updateClient', this.clientDataAndTemplate.id);
 
     this.clientsService.updateClient(this.clientDataAndTemplate.id, clientData).subscribe(() => {
 
       //Track Matomo event in clients module
-      this.matomoTracker.trackEvent('clients', 'updateSuccess', this.clientDataAndTemplate.id);
+      this.matomoTracker.trackEvent('clients', 'updateClientSuccess', this.clientDataAndTemplate.id);
 
       this.router.navigate(['../'], { relativeTo: this.route });
     });

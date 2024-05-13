@@ -101,12 +101,12 @@ export class CreateClientComponent implements OnInit {
     };
 
     //Track Matomo event in clients module
-    this.matomoTracker.trackEvent('clients', 'create');
+    this.matomoTracker.trackEvent('clients', 'createClient');
 
     this.clientsService.createClient(clientData).subscribe((response: any) => {
 
       //Track Matomo event in clients module
-      this.matomoTracker.trackEvent('clients', 'createSuccess', response.resourceId);
+      this.matomoTracker.trackEvent('clients', 'createClientSuccess', response.resourceId);
 
       this.router.navigate(['../', response.resourceId], { relativeTo: this.route });
     });
