@@ -40,6 +40,9 @@ Release Notes
     * [SER-2034] - Return clients based on the selected country.
     * [SER-2039] - Return loan products based on the selected country.
     * [SER-2510] - show office hierrachy path name, show only required menus.
+    * [SER-1922] - Fineract v2  - Loan type to be visible in loan product view and edit screens
+    * [SER-1912] - Fineract v2  - Show OU Location Hierarchy Details When Displaying Clients
+    * [SER-1911] - Fineract v2  - Show OU Location Hierarchy Details When Displaying Groups
 
 ## Version 1.0.0 - for use with Fineract Web App
 
