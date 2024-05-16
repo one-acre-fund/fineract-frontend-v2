@@ -43,6 +43,7 @@ Release Notes
     * [SER-1922] - Fineract v2  - Loan type to be visible in loan product view and edit screens
     * [SER-1912] - Fineract v2  - Show OU Location Hierarchy Details When Displaying Clients
     * [SER-1911] - Fineract v2  - Show OU Location Hierarchy Details When Displaying Groups
+    * [SER-2486] - Creating savings account and mapping it to loans and country
 
 ## Version 1.0.0 - for use with Fineract Web App
 
