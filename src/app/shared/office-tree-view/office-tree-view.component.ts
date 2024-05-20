@@ -3,7 +3,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { OfficeFlatNode, OfficeTreeNode } from './office-tree-node';
 import { Router } from '@angular/router';
-import { has } from 'lodash';
+
 const _transformer = (node: OfficeTreeNode, level: number) => {
   return {
     expandable: !!node.children && node.children.length > 0,

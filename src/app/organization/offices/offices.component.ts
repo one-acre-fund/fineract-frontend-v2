@@ -2,7 +2,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { OfficeTreeNode } from 'app/shared/office-tree-view/office-tree-node';
 
@@ -131,7 +130,7 @@ export class OfficesComponent implements OnInit {
   }
 
   makeOfficeTreeNode(btntext: string) {
-    this.treeView = btntext === 'Tree View' ? true : false;
+    this.treeView = btntext === 'Tree View';
     if (this.treeView) {
       this.toggleText = 'List View';
       this.searchTreeViewOffices();

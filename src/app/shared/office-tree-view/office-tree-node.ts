@@ -5,7 +5,6 @@ export class OfficeTreeNode {
   children?: OfficeTreeNode[];
   checked: boolean;
   isLowestOU?: boolean;
-  constructor() {}
 }
 
 export class OfficeFlatNode {
