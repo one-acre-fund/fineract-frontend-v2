@@ -14,7 +14,7 @@ repos:
         pass_filenames: false
         always_run: true
         args: []
-        stages: [prepare-commit-msg,commit-msg,commit]
+        stages: [prepare-commit-msg, commit-msg, commit]
   - repo: https://github.com/gitguardian/ggshield
     rev: v1.14.4
     hooks:
@@ -28,9 +28,8 @@ repos:
     hooks:
       - id: snyk-test
         stages: [push]
-  - repo:  https://github.com/oxsecurity/megalinter
-    rev: v6.8.0 # Git tag specifying the hook, not mega-linter-runner, version
+  - repo: https://github.com/oxsecurity/megalinter
+    rev: v7.11.1 # Git tag specifying the hook, not mega-linter-runner, version
     hooks:
       - id: megalinter-incremental # Faster, less thorough
-        stages:
-          - commit
+        stages: [prepare-commit-msg, commit-msg, commit]
