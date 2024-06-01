@@ -50,7 +50,7 @@
     * [SER-1908] - Include Phone Number in Repayment Transaction Details
     * [SER-1913] - Exclude the ability to Edit Repayments in Fineract
     * [SER-2549] - Implement Loan Account Bulk Upload in Fineract v2
-    * [SER-2595] - Fix Add hooks interface for Rabbit MQ template, also clears cached data when there is a PUT,POST or DELETE request
+    * [SER-2595] - Fix Add hooks interface for Rabbit MQ template, also clears cached data when there is a PUT,POST or DELETE request, a fix for the reacitvate interface.
 
 ## Version 1.0.0 - for use with Fineract Web App
 
