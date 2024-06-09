@@ -37,6 +37,8 @@ export class EditLoanProductComponent implements OnInit {
   loanProductAndTemplate: any;
   accountingRuleData = ['None', 'Cash', 'Accrual (periodic)', 'Accrual (upfront)'];
   isQualificationRequired: boolean = false;
+  enableTermsAndConditions: boolean = false;
+  
 
   /**
    * @param {ActivatedRoute} route Activated Route.
@@ -52,6 +54,8 @@ export class EditLoanProductComponent implements OnInit {
     this.route.data.subscribe((data: { loanProductAndTemplate: any }) => {
       this.loanProductAndTemplate = data.loanProductAndTemplate;
       this.isQualificationRequired = this.loanProductAndTemplate.configurations?.isQualificationRequired;
+      this.enableTermsAndConditions = this.loanProductAndTemplate.configurations?.enableTermsAndConditions;
+      // this.addTermsAndConditions = this.loanProductAndTemplate.settings?.loanProductTemplate != null || this.loanProductAndTemplate.settings?.loanProductTemplate != undefined;
     });
   }
 
@@ -137,10 +141,22 @@ export class EditLoanProductComponent implements OnInit {
       ...this.loanProduct,
       charges: this.loanProduct.charges.map((charge: any) => ({ id: charge.id })),
       dateFormat,
-      locale: this.settingsService.language.code
+      locale: this.settingsService.language.code,
+      terms : {
+        prepaidAmount: this.loanProduct.prepaidAmount, prepaidAmountCalculationType: this.loanProduct.prepaidAmountCalculationType,
+        repaymentStartPeriod: this.loanProduct.repaymentStartPeriod, repaymentStartPeriodFrequencyType: this.loanProduct.repaymentStartPeriodFrequencyType,
+      },
     };
+    if(loanProduct.templateForTermsAndConditions == undefined || loanProduct.templateForTermsAndConditions == null || loanProduct.templateForTermsAndConditions == ""){
+      delete loanProduct.templateForTermsAndConditions;
+    }
     delete loanProduct.allowAttributeConfiguration;
     delete loanProduct.advancedAccountingRules;
+    delete loanProduct.prepaidAmount;
+    delete loanProduct.prepaidAmountCalculationType;
+    delete loanProduct.repaymentStartPeriod;
+    delete loanProduct.repaymentStartPeriodFrequencyType;
+    delete loanProduct.showTermsAndConditions;
     this.productsService.updateLoanProduct(this.loanProductAndTemplate.id, loanProduct)
       .subscribe((response: any) => {
         this.router.navigate(['../../', response.resourceId], { relativeTo: this.route });
