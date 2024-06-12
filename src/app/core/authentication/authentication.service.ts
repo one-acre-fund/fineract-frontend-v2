@@ -405,7 +405,7 @@ export class AuthenticationService {
     } else {
       console.debug('Getting the connected username from Keycloak');
       if (this.isAuthenticated() === true) {
-        return this.keyCloak.getUsername();
+        return  (this.isAuthenticated())? this.keyCloak.getUsername(): '';
       }
     }
   }
