@@ -31,8 +31,6 @@ export class SavingProductDetailsStepComponent implements OnInit {
   ngOnInit() {
     if (this.savingProductsTemplate) {
       this.isLinkedToLoanProduct = !!this.savingProductsTemplate.loanProductId;
-      console.log('gilbert islinked ' + this.isLinkedToLoanProduct);
-      console.log('gilbert template ' + JSON.stringify(this.savingProductsTemplate));
       this.savingProductDetailsForm.patchValue({
         name: this.savingProductsTemplate.name,
         shortName: this.savingProductsTemplate.shortName,
