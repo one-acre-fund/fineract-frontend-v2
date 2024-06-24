@@ -20,7 +20,6 @@
     "lib": [
       "es2017",
       "dom"
-    ],
-    "skipLibCheck": true
+    ]
   }
 }
