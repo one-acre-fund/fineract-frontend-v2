@@ -173,8 +173,7 @@ export class BusinessRuleParametersComponent implements OnChanges {
    * TODO: Replace report object with report name once reports service is refactored.
    */
   getResponseHeaders() {
-    const formattedresponse = this.formatUserResponse(this.ReportForm.value, true);
-    console.log("Calling getRunReportData")
+    const formattedresponse = this.formatUserResponse(this.ReportForm.value, true);console.log("Calling getRunReportData")
     this.reportsService.getRunReportData(this.reportName, formattedresponse).subscribe(
       (response: any) => {
         this.templateParameters.emit(response.columnHeaders);
