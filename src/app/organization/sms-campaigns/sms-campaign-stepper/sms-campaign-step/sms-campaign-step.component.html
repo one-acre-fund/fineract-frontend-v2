@@ -136,6 +136,7 @@
     *ngIf="smsCampaignDetailsForm.controls.runReportId.value"
     [paramData]="paramData" 
     (templateParameters)="passParameters($event)"
+    [countryId] = "smsCampaignDetailsForm.controls.countryId?.value"
   >
   </mifosx-business-rule-parameters>
 

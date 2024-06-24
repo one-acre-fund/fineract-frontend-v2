@@ -137,10 +137,13 @@ export class SmsCampaignStepComponent implements OnInit {
     });
     this.smsCampaignDetailsForm.get('runReportId').valueChanges.subscribe((value: number) => {
       if (value) {
-        const report = this.businessRules.find((rule: any) => rule.reportId === value);
-        this.reportService.getReportParams(report.reportName).subscribe((response: ReportParameter[]) => {
-          this.paramData = { response, reportName: report.reportName };
-        });
+        this.callGetReportParams(value);
+      }
+    });
+    this.smsCampaignDetailsForm.get('countryId').valueChanges.subscribe((value: number) => {
+      const selectedReportId = this.smsCampaignDetailsForm.get('runReportId').value;
+      if (selectedReportId) {
+        this.callGetReportParams(selectedReportId);
       }
     });
     this.smsCampaignDetailsForm.get('triggerType').valueChanges.subscribe((value: number) => {
@@ -182,6 +185,13 @@ export class SmsCampaignStepComponent implements OnInit {
         this.smsCampaignDetailsForm.removeControl('interval');
         this.smsCampaignDetailsForm.removeControl('repeatsOnDay');
       }
+    });
+  }
+
+  callGetReportParams(selectedReportId: number){
+    const report = this.businessRules.find((rule: any) => rule.reportId === selectedReportId);
+    this.reportService.getReportParams(report.reportName).subscribe((response: ReportParameter[]) => {
+      this.paramData = { response, reportName: report.reportName };
     });
   }
 
