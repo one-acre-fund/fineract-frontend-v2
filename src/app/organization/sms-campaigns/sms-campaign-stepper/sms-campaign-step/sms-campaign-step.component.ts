@@ -45,46 +45,6 @@ export class SmsCampaignStepComponent implements OnInit {
   repetitionIntervals: any[];
   countryOptions: any[];
 
-  temporaryCountryOptions = [
-    {
-      "id": 2,
-      "name": "Wakanda",
-      "openingDate": [
-          2022,
-          2,
-          2
-      ],
-      "status": true,
-      "activeCurrency": {
-          "currencyId": 1,
-          "code": "RWF",
-          "name": "Rwanda Franc",
-          "decimalPlaces": 0,
-          "nameCode": "currency.RWF",
-          "displayLabel": "Rwanda Franc [RWF]"
-      }
-  },
-  {
-      "id": 3,
-      "name": "Kenya",
-      "openingDate": [
-          2022,
-          2,
-          2
-      ],
-      "status": true,
-      "activeCurrency": {
-          "currencyId": 2,
-          "code": "KES",
-          "name": "Kenyan Shilling",
-          "decimalPlaces": 2,
-          "displaySymbol": "KSh",
-          "nameCode": "currency.KES",
-          "displayLabel": "Kenyan Shilling (KSh)"
-      }
-  }
-  ];
-
   /** Template Parameters Event Emitter */
   @Output() templateParameters = new EventEmitter();
 
@@ -104,7 +64,7 @@ export class SmsCampaignStepComponent implements OnInit {
   ngOnInit() {
     this.triggerTypes = this.smsCampaignTemplate.triggerTypeOptions;
     this.smsProviders = this.smsCampaignTemplate.smsProviderOptions;
-    this.countryOptions = this.smsCampaignTemplate.countryOptions || this.temporaryCountryOptions;
+    this.countryOptions = this.smsCampaignTemplate.countryOptions || [];
   }
 
   /**

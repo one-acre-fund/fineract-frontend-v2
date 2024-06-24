@@ -2,17 +2,19 @@
 
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
 
-    <mat-form-field fxFlex="48%" >
-      <mat-label>Country</mat-label>
-      <mat-select formControlName="countryId" required>
-        <mat-option *ngFor="let countryOption of countryOptions" [value]="countryOption.id">
-          {{ countryOption.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error>
-        Country is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
+    <div fxFlex="48%" >
+      <label for="officeId">Country</label>
+      <ng-select 
+        formControlName="countryId" 
+        [items]="countryOptions"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select a country"
+        aria-labelledby="countryOptions"
+        [virtualScroll]="true"
+        required>
+      </ng-select>
+    </div>
     
     <mat-form-field fxFlex="48%">
       <mat-label>Campaign Name</mat-label>
