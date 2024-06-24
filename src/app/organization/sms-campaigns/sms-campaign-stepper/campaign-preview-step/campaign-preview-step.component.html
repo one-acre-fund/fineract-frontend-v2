@@ -7,7 +7,7 @@
     </mat-list-item>
 
     <mat-list-item>
-      SMS Provider : {{ (campaign.providerId | find:smsProviders:'id':'name') || "Unassigned" }}
+      SMS Provider : {{ (campaign.providerId | find:smsProviders:'id':'providerName') || "Unassigned" }}
     </mat-list-item>
 
     <mat-list-item>
