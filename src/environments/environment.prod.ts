@@ -8,7 +8,8 @@ export const environment = {
   // For connecting to server running elsewhere update the tenant identifier
   fineractPlatformTenantId: window['env']['fineractPlatformTenantId'] || 'default',
   // For connecting to others servers running elsewhere update the base API URL
-  baseApiUrls: window['env']['fineractApiUrls'] ||
+  baseApiUrls:
+    window['env']['fineractApiUrls'] ||
     'https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://loans.oneacrefund.org,https://localhost:8443',
   // For connecting to server running elsewhere set the base API URL
   baseApiUrl: window['env']['fineractApiUrl'] || 'https://loans.oneacrefund.org',
@@ -17,12 +18,12 @@ export const environment = {
   apiVersion: window['env']['apiVersion'] || '/v1',
   serverUrl: '',
   oauth: {
-    enabled: true,  // For connecting to Mifos X using OAuth2 Authentication change the value to true
+    enabled: true, // For connecting to Mifos X using OAuth2 Authentication change the value to true
     serverUrl: window['env']['authServerUrl'] || 'https://accounts.oneacrefund.org',
-    realm:'OneAcreFund',
-    client_id:'fineract',
+    realm: window['env']['keycloakRealm'] || 'OneAcreFund',
+    client_id: window['env']['keycloakClientId'] || 'fineract',
     tokenUrl: `https://loans.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
-    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
+    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home',
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
   supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR',

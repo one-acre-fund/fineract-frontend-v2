@@ -57,28 +57,48 @@
         <mat-card-subtitle>
           <p>
             Client #:{{ clientViewData.accountNo }} | External Id: {{ clientViewData.externalId }} | Staff:{{
-              clientViewData.staffName || "Unassigned"
+              clientViewData.staffName || 'Unassigned'
             }}<br />
             <span *ngIf="clientViewData.status?.value">Status: {{ clientViewData.status?.value }} &nbsp;</span>
 
             <span *ngIf="clientViewData.subStatus?.name">Sub Status: {{ clientViewData.subStatus?.name }} &nbsp;</span>
             <br />
             Activation Date :
-            {{ clientViewData.active ? (clientViewData.activationDate | dateFormat) : "Not Activated" }}<br />
+            {{ clientViewData.active ? (clientViewData.activationDate | dateFormat) : 'Not Activated' }}<br />
 
             Member Of :
 
-            <span>
-              <a>{{ clientViewData?.group?.name }}</a
+            <span *ngIf="clientViewData.group">
+              <a [routerLink]="['/groups', clientViewData?.group?.id, 'general']">{{ clientViewData?.group?.name }}</a
               >&nbsp;
             </span>
 
             <!-- <span *ngFor="let group of clientViewData.groups">
               <a>{{ group.name }}</a
-              >&nbsp;
+              >&nbsp;officeHierarchyPath,
+              /organization/offices/10/general
             </span> -->
             <span *ngIf="!clientViewData.group">Unassigned</span>
             <br />
+
+            <span *ngIf="clientViewData.officeHierarchyPath">
+              Office:
+              <a [routerLink]="['/organization/offices', clientViewData?.officeId, 'general']">{{
+                clientViewData?.officeHierarchyPath
+              }}</a
+              >&nbsp;
+            </span>
+
+            <br />
+          </p>
+        </mat-card-subtitle>
+        <mat-card-subtitle *ngIf="clientViewData.creditScoreData?.length > 0">
+          <p>
+            Credit Score Limits : <br />
+            <span *ngFor="let score of clientViewData.creditScoreData">
+              {{ score.loanProductType }} Limit : {{ score.score }}&nbsp;
+              <br />
+            </span>
           </p>
         </mat-card-subtitle>
       </div>

@@ -22,7 +22,8 @@ import { MatomoTracker } from "@ngx-matomo/tracker";
 export class ClientsComponent implements OnInit, AfterViewInit {
   @ViewChild("showClosedAccounts", { static: true }) showClosedAccounts: MatCheckbox;
 
-  displayedColumns = ["name", "clientno", "externalid", "status", "mobileNo", "gender", "office", "staff"];
+
+  displayedColumns = ['name', 'clientno', 'externalid', 'status', 'office', 'officeHierarchyPath'];
   dataSource: ClientsDataSource;
   /** Get the required filter value. */
   searchValue = "";
