@@ -10,7 +10,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 /** Custom Dialogs */
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Client Address Step Component

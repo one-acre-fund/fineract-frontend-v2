@@ -25,7 +25,7 @@ import { SettingsService } from './settings/settings.service';
 import { Alert } from './core/alert/alert.model';
 import { KeyboardShortcutsConfiguration } from './keyboards-shortcut-config';
 /** Matomo analytics tracker */
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 
 /** Initialize Logger */

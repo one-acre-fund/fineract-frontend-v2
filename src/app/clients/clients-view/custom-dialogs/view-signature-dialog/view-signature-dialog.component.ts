@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * View signature dialog component.

@@ -8,7 +8,7 @@ import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
 /** Matomo tracker */
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Reject Client Component

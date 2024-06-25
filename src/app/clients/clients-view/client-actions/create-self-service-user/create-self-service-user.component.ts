@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 /** Client Services. */
 import { ClientsService } from 'app/clients/clients.service';
 /** Matomo tracker */
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 @Component({
   selector: 'mifosx-create-self-service-user',

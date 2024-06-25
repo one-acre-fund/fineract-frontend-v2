@@ -16,7 +16,7 @@ import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.componen
 
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Identities Tab Component
@@ -164,7 +164,7 @@ export class IdentitiesTabComponent {
    * @param {string} identifierId Identifier Id
    */
   uploadDocument(index: number, identifierId: string) {
-    
+
     //Track Matomo event in clients module
     this.matomoTracker.trackEvent('clients', 'uploadClientIdentity', identifierId);
 

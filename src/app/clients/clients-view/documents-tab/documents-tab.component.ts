@@ -9,7 +9,7 @@ import { ClientsService } from '../../clients.service';
 /** Custom Components */
 import { UploadDocumentDialogComponent } from '../custom-dialogs/upload-document-dialog/upload-document-dialog.component';
 import { DeleteDialogComponent } from '../../../shared/delete-dialog/delete-dialog.component';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 
 @Component({

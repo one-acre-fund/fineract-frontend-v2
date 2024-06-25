@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Renderer2, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 
 /**

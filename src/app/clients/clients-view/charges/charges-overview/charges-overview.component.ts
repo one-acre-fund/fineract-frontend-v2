@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Client Charge Overview component.
@@ -44,7 +44,7 @@ export class ChargesOverviewComponent implements OnInit {
     //set Matomo page info
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    
+
     this.setLoanClientChargeOverview();
   }
 

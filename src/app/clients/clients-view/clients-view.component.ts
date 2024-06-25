@@ -15,7 +15,7 @@ import { CaptureImageDialogComponent } from './custom-dialogs/capture-image-dial
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 @Component({
   selector: 'mifosx-clients-view',

@@ -7,7 +7,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } 
 import { ClientsService } from '../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Edit Client Component

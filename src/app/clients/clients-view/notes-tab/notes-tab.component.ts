@@ -11,7 +11,7 @@ import { EditNotesDialogComponent } from '../custom-dialogs/edit-notes-dialog/ed
 /** Custom Services */
 import { ClientsService } from '../../clients.service';
 import { AuthenticationService } from 'app/core/authentication/authentication.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Notes Tab Component

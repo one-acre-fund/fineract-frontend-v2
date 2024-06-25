@@ -12,7 +12,7 @@ import { ClientAddressStepComponent } from '../client-stepper/client-address-ste
 
 /** Custom Services */
 import { SettingsService } from 'app/settings/settings.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 
 /**

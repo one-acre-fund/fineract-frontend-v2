@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 /** Custom Services */
 import { ClientsService } from '../../../clients.service';
 import { AuthenticationService } from '../../../../core/authentication/authentication.service';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Take Survey Component

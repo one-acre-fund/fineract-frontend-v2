@@ -5,7 +5,7 @@ import { Dates } from "app/core/utils/dates";
 
 /** Custom Services */
 import { SettingsService } from "app/settings/settings.service";
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Create Client Component

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 /**
  * View Survey component.
  */
@@ -43,7 +43,7 @@ export class ViewSurveyComponent implements OnInit {
      //set Matomo page info
      let title = document.title || "";
      this.matomoTracker.setDocumentTitle(`${title}`);
-     
+
     this.constructSurveys(this.surveyData);
   }
 

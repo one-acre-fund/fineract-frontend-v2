@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 /** Custom Services. */
 import { ClientsService } from "app/clients/clients.service";
-import { MatomoTracker } from 'ngx-matomo';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * General Tab component.
