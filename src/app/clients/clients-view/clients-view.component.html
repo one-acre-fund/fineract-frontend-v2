@@ -58,7 +58,11 @@
           <p>
             Client #:{{ clientViewData.accountNo }} | External Id: {{ clientViewData.externalId }} | Staff:{{
               clientViewData.staffName || 'Unassigned'
-            }}<br />
+            }}
+
+            <br />
+            <span *ngIf="clientViewData.mobileNo">Phone No: {{ clientViewData.mobileNo }} &nbsp;</span>
+            <br />
             <span *ngIf="clientViewData.status?.value">Status: {{ clientViewData.status?.value }} &nbsp;</span>
 
             <span *ngIf="clientViewData.subStatus?.name">Sub Status: {{ clientViewData.subStatus?.name }} &nbsp;</span>
