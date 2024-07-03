@@ -67,6 +67,10 @@
 
             <span *ngIf="clientViewData.subStatus?.name">Sub Status: {{ clientViewData.subStatus?.name }} &nbsp;</span>
             <br />
+            <span *ngIf="clientViewData.timeline?.submittedOnDate"
+              >Created Date: {{ clientViewData.timeline?.submittedOnDate | dateFormat }} &nbsp;</span
+            >
+            <br />
             Activation Date :
             {{ clientViewData.active ? (clientViewData.activationDate | dateFormat) : 'Not Activated' }}<br />
 
