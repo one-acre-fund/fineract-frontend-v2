@@ -1,11 +1,13 @@
 /** Angular Imports */
 import { Component, OnInit, Renderer2, ViewChild, ElementRef, SecurityContext } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { MatomoTracker } from "@ngx-matomo/tracker";
+
 
 /**
  * Client Screen Reports Component.
@@ -18,7 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ClientScreenReportsComponent implements OnInit {
 
   /** Client Screen Reportform. */
-  clientScreenReportForm: FormGroup;
+  clientScreenReportForm: UntypedFormGroup;
   /** Templates Data */
   templatesData: any;
   /** Client Id */
@@ -36,12 +38,14 @@ export class ClientScreenReportsComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route
    * @param {DomSanitizer} sanitizer DOM Sanitizer
    * @param {Renderer2} renderer Renderer 2
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
-              private route: ActivatedRoute,
-              private sanitizer: DomSanitizer,
-              private renderer: Renderer2) {
+  constructor(private formBuilder: UntypedFormBuilder,
+    private clientsService: ClientsService,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2,
+    private matomoTracker: MatomoTracker) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
       this.templatesData = data.clientActionData;
     });
@@ -52,6 +56,10 @@ export class ClientScreenReportsComponent implements OnInit {
    * Creates the client screen report form.
    */
   ngOnInit() {
+    //set Matomo page info
+    let title = document.title || "";
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createClientScreenReportForm();
   }
 
@@ -68,6 +76,9 @@ export class ClientScreenReportsComponent implements OnInit {
    * Prints client screen report
    */
   print() {
+    //Track Matomo event for  printing client report info
+    this.matomoTracker.trackEvent('clients', 'printReport', this.clientId);
+
     const templateWindow = window.open('', 'Screen Report', 'height=400,width=600');
     templateWindow.document.write('<html><head>');
     templateWindow.document.write('</head><body>');
@@ -81,6 +92,9 @@ export class ClientScreenReportsComponent implements OnInit {
    * Submits the form and generates screen report for the client.
    */
   generate() {
+    //Track Matomo event for generating client report info
+    this.matomoTracker.trackEvent('clients', 'generateReport', this.clientId);
+
     const templateId = this.clientScreenReportForm.get('templateId').value;
     this.clientsService.retrieveClientReportTemplate(templateId, this.clientId).subscribe((response: any) => {
       this.template = this.sanitizer.sanitize(SecurityContext.HTML, response);

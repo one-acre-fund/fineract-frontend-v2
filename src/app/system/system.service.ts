@@ -26,6 +26,59 @@ export class SystemService {
     return this.http.get('/datatables');
   }
 
+
+  /**
+   * @returns {Observable<any>} Field Configuration.
+   */
+  getFieldConfiguration(): Observable<any> {
+    return this.http.get('/fieldconfiguration');
+  }
+
+  /**
+   * @returns {Observable<any>} Field Configuration.
+   */
+  getFieldConfigurationByType(type:any,countryId:any): Observable<any> {
+    return this.http.get(`/fieldconfiguration/${type}/${countryId}`);
+  }
+
+  /**
+   * @returns {Observable<any>} Field Configuration.
+   */
+  getFieldConfigurationBasedata(): Observable<any> {
+    return this.http.get('/datatables/m_field_base_c?template=true');
+  }
+
+  saveFieldConfiguration(configModel:any):Observable<any>{
+      return this.http.post('/fieldconfiguration', configModel);
+  }
+
+  updateFieldConfiguration(model:any,fieldId:any,countryId:any): Observable<any> {
+    return this.http.put(`/fieldconfiguration/${fieldId}?countryId=${countryId}`, model);
+  }
+
+  deleteConfiguration(fieldId:any,model:any): Observable<any>{
+    return this.http.put(`/fieldconfiguration/delete/${fieldId}`, model);
+  }
+
+  /**
+   * @returns {Observable<any>} Field Configuration.
+   */
+  getFieldCodes(): Observable<any> {
+    return this.http.get('/codes');
+  }
+
+
+  getCountries (): Observable<any> {
+    return this.http.get('/countries');
+  }
+
+  getConfigurationCodes(){
+    return this.http.get('/codes');
+  }
+
+  getFieldConfigurationByEntityCountry(entity:any,countryId:any){
+    return this.http.get(`/fieldconfiguration/${entity}/${countryId}`);
+  }
   /**
    * @returns {Observable<any>} Hooks.
    */
@@ -312,6 +365,16 @@ export class SystemService {
   }
 
   /**
+   * Retrieves the data table based on the specified app table name.
+   *
+   * @param {string} apptableName - The name of the app table.
+   * @return {Observable<any>}
+   */
+  async getDataTableByAppTableName(apptableName: string):  Promise<any> {
+    return await this.http.get(`/datatables?apptable=${apptableName}`).toPromise();;
+  }
+
+  /**
    * @param dataTableName Data Table Name.
    * @return {Observable<any>}
    */
@@ -358,6 +421,13 @@ export class SystemService {
   }
 
   /**
+ * @returns {Observable<any>} Configurations data by country.
+ */
+  getConfigurationsByCountry(countryId): Observable<any> {
+    let httpParams = new HttpParams().set('countryId', countryId.toString());
+    return this.http.get('/configurations', { params: httpParams });
+  }
+  /**
    * @param {string} configurationId Configuration ID of configuration.
    * @returns {Observable<any>} Configuration.
    */
@@ -366,11 +436,12 @@ export class SystemService {
   }
 
   /**
-   * @param {string} configurationId Configuration ID of configuration.
+   * @param {string} configurationName The name of the configuration.
+   * @param {Record<string, any>} params Optional query parameters to search for the configuration.
    * @returns {Observable<any>} Configuration.
    */
-   getConfigurationByName(configurationName: string): Observable<any> {
-    return this.http.get(`/configurations/name/${configurationName}`);
+   getConfigurationByName(configurationName: string, params: Record<string, any> = {}): Observable<any> {
+    return this.http.get(`/configurations/name/${configurationName}`, { params });
   }
 
   /**
@@ -378,8 +449,16 @@ export class SystemService {
    * @param {any} configuration Configuration to be updated.
    * @returns {Observable<any>}
    */
-  updateConfiguration(configurationId: string, configuration: any): Observable<any> {
+  updateConfiguration(configurationId: string, configuration: any, resourceType: any): Observable<any> {
+    if (resourceType) {
+    return this.http.put(`/configurations/${configurationId}?resourceType=${resourceType}`, configuration);
+    } else {
     return this.http.put(`/configurations/${configurationId}`, configuration);
+    }
+  }
+
+  cloneConfiguration(id: any, configuration: any) {
+    return this.http.post(`/configurations/clone?id=${id}&resourceType=configurations`, configuration);
   }
 
   /**

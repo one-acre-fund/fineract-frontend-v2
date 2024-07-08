@@ -11,22 +11,24 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY ./ /usr/src/app/
 
-RUN npm cache clear --force
+RUN npm cache clear --force &&\
 
-RUN npm config set fetch-retry-maxtimeout 120000
+  npm config set fetch-retry-maxtimeout 120000 &&\
 
-RUN npm install --location=global @angular/cli@12.2.17
+  npm install --location=global @angular/cli@14.2.13 &&\
 
-RUN npm install
+  npm install &&\
 
-RUN ng build --configuration production --output-path=/dist
+  ng build --configuration production --output-path=/dist
 
 ###############
 ### STAGE 2: Serve app with nginx ###
 ###############
-FROM nginx:alpine
+FROM nginx:1.25.2-alpine
 
 COPY --from=builder /dist /usr/share/nginx/html
+
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

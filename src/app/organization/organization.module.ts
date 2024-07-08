@@ -69,6 +69,14 @@ import { EditLoanProvisioningCriteriaComponent } from './loan-provisioning-crite
 import { StandingInstructionsHistoryComponent } from './standing-instructions-history/standing-instructions-history.component';
 import { FundMappingComponent } from './fund-mapping/fund-mapping.component';
 import { CreateHolidayComponent } from './holidays/create-holiday/create-holiday.component';
+import { CombineOfficeComponent } from './offices/combine-office/combine-office.component';
+import { SplitOfficeComponent } from './offices/split-office/split-office.component';
+import { RuralOutletComponent } from './rural-outlet/rural-outlet.component';
+import { CreateOutletComponent } from './rural-outlet/create-outlet/create-outlet.component';
+import { ViewOutletComponent } from './rural-outlet/view-outlet/view-outlet.component';
+import { EditOutletComponent } from './rural-outlet/edit-outlet/edit-outlet.component';
+import { CreateCurrenciesComponent } from './currencies/create-currencies/create-currencies.component';
+import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-download/bulk-repayment-download.component';
 
 /**
  * Organization Module
@@ -144,6 +152,14 @@ import { CreateHolidayComponent } from './holidays/create-holiday/create-holiday
     StandingInstructionsHistoryComponent,
     FundMappingComponent,
     CreateHolidayComponent,
+    CombineOfficeComponent,
+    SplitOfficeComponent,
+    RuralOutletComponent,
+    CreateOutletComponent,
+    ViewOutletComponent,
+    EditOutletComponent,
+    CreateCurrenciesComponent,
+    BulkRepaymentDownloadComponent,
   ]
 })
 export class OrganizationModule { }

@@ -11,9 +11,8 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "target": "es5",
+    "noImplicitAny": false,
+    "target": "es2020",
     "typeRoots": [
       "node_modules/@types",
       "src/typings.d.ts"

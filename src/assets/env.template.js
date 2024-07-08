@@ -10,7 +10,16 @@
 
   window["env"]["fineractPlatformTenantId"]  = '$FINERACT_PLATFORM_TENANT_IDENTIFIER';
 
+  window['env']['authServerUrl'] ='$AUTH_SERVER_URL';
+  window['env']['keycloakRealm'] = "$KEYCLOAK_REALM";
+  window['env']['keycloakClientId'] = "$KEYCLOAK_CLIENT_ID";
+
   // Language Environment variables
   window["env"]["defaultLanguage"] = '$MIFOS_DEFAULT_LANGUAGE';
   window["env"]["supportedLanguages"] = '$MIFOS_SUPPORTED_LANGUAGES';
+
+  window["env"]["homeURL"] = '$HOST_HOME_URL';
+
+  // Head Office ID
+  window["env"]["headOfficeID"] = '$headOfficeID';
 })(this);

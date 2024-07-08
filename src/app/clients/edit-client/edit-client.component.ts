@@ -1,12 +1,17 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ClientOtpDialogComponent } from '../client-otp-dialog/client-otp-dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SystemService } from 'app/system/system.service';
+import { AlertService } from 'app/core/alert/alert.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Edit Client Component
@@ -26,7 +31,7 @@ export class EditClientComponent implements OnInit {
   /** Client Data and Template */
   clientDataAndTemplate: any;
   /** Edit Client Form */
-  editClientForm: FormGroup;
+  editClientForm: UntypedFormGroup;
 
   /** Office Options */
   officeOptions: any;
@@ -53,19 +58,29 @@ export class EditClientComponent implements OnInit {
    * @param {ClientsService} clientsService Clients Service
    * @param {Dates} dateUtils Date Utils
    * @param {SettingsService} settingsService Settings Service
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: FormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private clientsService: ClientsService,
-              private dateUtils: Dates,
-              private settingsService: SettingsService) {
+  constructor(private formBuilder: UntypedFormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private clientsService: ClientsService,
+    private dateUtils: Dates,
+    private settingsService: SettingsService,
+    private matomoTracker: MatomoTracker,
+    private dialog: MatDialog,
+    private systemService: SystemService,
+    private alertService: AlertService) {
     this.route.data.subscribe((data: { clientDataAndTemplate: any }) => {
       this.clientDataAndTemplate = data.clientDataAndTemplate;
     });
   }
 
   ngOnInit() {
+
+    //set Matomo page info
+    let title = document.title;
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createEditClientForm();
     this.setOptions();
     this.buildDependencies();
@@ -133,14 +148,14 @@ export class EditClientComponent implements OnInit {
       if (legalFormId === 1) {
         this.editClientForm.removeControl('fullname');
         this.editClientForm.removeControl('clientNonPersonDetails');
-        this.editClientForm.addControl('firstname', new FormControl(this.clientDataAndTemplate.firstname, Validators.required));
-        this.editClientForm.addControl('middlename', new FormControl(this.clientDataAndTemplate.middlename));
-        this.editClientForm.addControl('lastname', new FormControl(this.clientDataAndTemplate.lastname, Validators.required));
+        this.editClientForm.addControl('firstname', new UntypedFormControl(this.clientDataAndTemplate.firstname, Validators.required));
+        this.editClientForm.addControl('middlename', new UntypedFormControl(this.clientDataAndTemplate.middlename));
+        this.editClientForm.addControl('lastname', new UntypedFormControl(this.clientDataAndTemplate.lastname, Validators.required));
       } else {
         this.editClientForm.removeControl('firstname');
         this.editClientForm.removeControl('middlename');
         this.editClientForm.removeControl('lastname');
-        this.editClientForm.addControl('fullname', new FormControl(this.clientDataAndTemplate.fullname, Validators.required));
+        this.editClientForm.addControl('fullname', new UntypedFormControl(this.clientDataAndTemplate.fullname, Validators.required));
         this.editClientForm.addControl('clientNonPersonDetails', this.formBuilder.group({
           'constitutionId': [this.clientDataAndTemplate.clientNonPersonDetails.constitution && this.clientDataAndTemplate.clientNonPersonDetails.constitution.id],
           'incorpValidityTillDate': [this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate && new Date(this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate)],
@@ -155,7 +170,7 @@ export class EditClientComponent implements OnInit {
   /**
    * Submits the edit client form.
    */
-  submit() {
+  private updateClient() {
     const locale = this.settingsService.language.code;
     const dateFormat = this.settingsService.dateFormat;
     const editClientFormValue: any = this.editClientForm.getRawValue();
@@ -178,9 +193,98 @@ export class EditClientComponent implements OnInit {
     } else {
       clientData.clientNonPersonDetails = {};
     }
+
+    //Track Matomo event in clients module
+    this.matomoTracker.trackEvent('clients', 'updateClient', this.clientDataAndTemplate.id);
+
     this.clientsService.updateClient(this.clientDataAndTemplate.id, clientData).subscribe(() => {
+
+      //Track Matomo event in clients module
+      this.matomoTracker.trackEvent('clients', 'updateClientSuccess', this.clientDataAndTemplate.id);
+
       this.router.navigate(['../'], { relativeTo: this.route });
     });
   }
 
+  /**
+   * Opens OTP dialog to validate phone number.
+   * @param phoneNumber The client's phone number that recieved the OTP
+   * @param countryId The client's country ID
+   */
+  private openOtpDialog(phoneNumber: string, countryId: number): void {
+    this.systemService.getConfigurationByName('country-client-phone-number-otp-length', { countryId })
+    .subscribe(config => {
+      if (config?.enabled && config?.value > 3) {
+        const otpDialog = this.dialog.open(ClientOtpDialogComponent, {
+          data: { mobileNo: phoneNumber,
+                  countryId: countryId,
+                  otpLength: config.value
+           }
+        });
+        this.updateAfterOtpValidation(otpDialog);
+      } else {
+        this.alertService.alert({
+          type: 'Configuration Error',
+          message: 'Invalid OTP length configuration. Please contact your administrator.'
+        });
+      }
+    });
+  }
+
+  /**
+   *
+   * Submits the request to update client after OTP validation. The OTP dialog is opened only if the phone number is updated and OTP validation is required in the client's country.
+   */
+  submit(): void {
+    let formMobileNo: string = this.editClientForm.get('mobileNo').value;
+    if (formMobileNo) {
+      formMobileNo = formMobileNo.trim();
+    }
+    if (formMobileNo === this.clientDataAndTemplate.mobileNo) {
+      this.updateClient();
+      return;
+    }
+    const countryId = this.clientDataAndTemplate.countryId;
+    this.systemService.getConfigurationByName('country-client-identity-ocr-validation-required', { countryId })
+    .subscribe(config => {
+      if (config?.enabled) {
+        this.initiateOtpValidation(formMobileNo, countryId);
+      } else {
+        this.updateClient();
+      }
+    })
+  }
+
+  /**
+   * Updates client after OTP validation.
+   * @param otpDialog OTP Dialog that got opened
+   */
+  private updateAfterOtpValidation(otpDialog: MatDialogRef<ClientOtpDialogComponent, any>): void {
+    otpDialog.afterClosed().subscribe(validOtp => {
+      if (validOtp) {
+        this.updateClient();
+      }
+    });
+  }
+
+  /**
+   * Initiates OTP validation.
+   * @param mobileNo The client's phone number
+   * @param countryId The client's country ID
+   */
+  private initiateOtpValidation(mobileNo: string, countryId: number): void {
+    if (!mobileNo) {
+      this.alertService.alert({
+        type: 'Validation Error',
+        message: 'Please provide a valid phone number for OTP validation.'
+      });
+      return;
+    }
+    if (!mobileNo.startsWith('+')) {
+      mobileNo = `+${mobileNo}`;
+    }
+    this.clientsService.generateClientOTP(countryId, {mobilePhoneNumber: mobileNo}).subscribe(() => {
+      this.openOtpDialog(mobileNo, countryId);
+    });
+  }
 }

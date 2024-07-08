@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Undo Client Rejection Component
@@ -23,7 +24,7 @@ export class UndoClientRejectionComponent implements OnInit {
   /** Maximum date allowed. */
   maxDate = new Date();
   /** Undo Client Rejection form. */
-  undoClientRejectionForm: FormGroup;
+  undoClientRejectionForm: UntypedFormGroup;
   /** Client Id */
   clientId: any;
 
@@ -33,13 +34,15 @@ export class UndoClientRejectionComponent implements OnInit {
    * @param {Dates} dateUtils Date Utils
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
-              private dateUtils: Dates,
-              private route: ActivatedRoute,
-              private router: Router,
-              private settingsService: SettingsService) {
+  constructor(private formBuilder: UntypedFormBuilder,
+    private clientsService: ClientsService,
+    private dateUtils: Dates,
+    private route: ActivatedRoute,
+    private router: Router,
+    private settingsService: SettingsService,
+    private matomoTracker: MatomoTracker) {
     this.clientId = this.route.parent.snapshot.params['clientId'];
   }
 
@@ -47,6 +50,10 @@ export class UndoClientRejectionComponent implements OnInit {
    * Creates the undo client rejection form.
    */
   ngOnInit() {
+    //set Matomo page info
+    let title = document.title || "";
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createUndoClientRejectionForm();
   }
 
@@ -76,6 +83,9 @@ export class UndoClientRejectionComponent implements OnInit {
       dateFormat,
       locale
     };
+    //Track Matomo event for transferring client
+    this.matomoTracker.trackEvent('clients', 'undoRejection', this.clientId);
+
     this.clientsService.executeClientCommand(this.clientId, 'undoRejection', data).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });

@@ -12,14 +12,13 @@ import { SettingsService } from 'app/settings/settings.service';
  * Organization service.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrganizationService {
-
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
-  constructor(private http: HttpClient, private settingsService: SettingsService) { }
+  constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
   /**
    * @returns {Observable<any>} Loan Provisioning Criteria data
@@ -121,8 +120,24 @@ export class OrganizationService {
    * @param {any} office Office to be created.
    * @returns {Observable<any>}
    */
+  searchOfficeTreeHierarchy(includeRootOffice: boolean, OAfCode: string): Observable<any> {
+    return this.http.get(`/offices/search?includeRootOffice=${includeRootOffice}&officeHierarchyTypeCode=${OAfCode}`);
+  }
+
+  /**
+   * @param {any} office Office to be created.
+   * @returns {Observable<any>}
+   */
   createOffice(office: any): Observable<any> {
     return this.http.post('/offices', office);
+  }
+
+  /**
+   * @param {any} office Office to be created.
+   * @returns {Observable<any>}
+   */
+  createOfficeHierarchy(office: any): Observable<any> {
+    return this.http.post('/countries', office);
   }
 
   /**
@@ -132,6 +147,51 @@ export class OrganizationService {
    */
   updateOffice(officeId: string, office: any): Observable<any> {
     return this.http.put(`/offices/${officeId}`, office);
+  }
+
+  /**
+   * @param {any} office Office to be updated.
+   * @param {string} officeId Office Id
+   * @returns {Observable<any>}
+   */
+  updateOfficeHierarchy(officeId: string, office: any): Observable<any> {
+    return this.http.put(`/countries/${officeId}`, office);
+  }
+
+  deactivateOffice(id: any): Observable<any> {
+    return this.http.put(`/offices/${id}`, { status: false });
+  }
+
+  activateOffice(id: any): Observable<any> {
+    return this.http.put(`/offices/${id}`, { status: true });
+  }
+
+  deleteOffice(id: any): Observable<any> {
+    return this.http.delete(`/offices/${id}`);
+  }
+
+  /**
+   * @param officeId Office Id of office to get data for.
+   * @returns {Observable<any>}
+   */
+  fetchByHierarchyLevel(officeId: number, level: string): Observable<any> {
+    return this.http.get(`/offices/fetchByHierarchyLevel?level=${level}&officeId=${officeId}`);
+  }
+
+  /**
+   * @param {any} merge Offices
+   * @returns {Observable<any>}
+   */
+  mergeOffice(office: any): Observable<any> {
+    return this.http.post('/offices/mergeOffice', office);
+  }
+
+  /**
+   * @param {any} split Offices
+   * @returns {Observable<any>}
+   */
+  splitOffice(office: any): Observable<any> {
+    return this.http.post('/offices/splitOffice', office);
   }
 
   /**
@@ -185,6 +245,38 @@ export class OrganizationService {
   }
 
   /**
+   * @returns {Observable<any>} rural retail outlet data
+   */
+  getRuralRetailOutlets(): Observable<any> {
+    return this.http.get('/ruralretailoutlets');
+  }
+  getRuralOutletByOutletId(id: any) {
+    return this.http.get('/ruralretailoutlets/' + id);
+  }
+  getCountries(): Observable<any> {
+    return this.http.get('/countries');
+  }
+  getCountry(countryId: number): Observable<any> {
+    return this.http.get(`/countries/${countryId}`);
+  }
+  searchCountryById(countryId: number) {
+    return this.http.get(`/offices/search?countryId=${countryId}`);
+  }
+
+  createOutlet(data: any): Observable<any> {
+    return this.http.post(`/ruralretailoutlets/`, data);
+  }
+  updateOutlet(id: any, data: any): Observable<any> {
+    return this.http.put(`/ruralretailoutlets/${id}`, data);
+  }
+  deleteOutlet(id: any): Observable<any> {
+    return this.http.delete(`/ruralretailoutlets/${id}`);
+  }
+  deactivateRuralOutlet(id: any, status: any): Observable<any> {
+    return this.http.put(`/ruralretailoutlets/${id}`, { active: status });
+  }
+
+  /**
    * @returns {Observable<any>} Employees data
    */
   getEmployees(): Observable<any> {
@@ -215,6 +307,14 @@ export class OrganizationService {
    */
   getCurrencies(): Observable<any> {
     return this.http.get('/currencies');
+  }
+
+  createCurrencies(currencies: any[]): Observable<any> {
+    return this.http.post('/currencies', currencies);
+  }
+
+  deactivatCurrency(id: any, status: any): Observable<any> {
+    return this.http.put(`/currencies/${id}`, { active: status });
   }
 
   /**
@@ -540,9 +640,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Entity Data Table Checks data.
    */
   getEntityDataTableChecks(offset: number = 0, limit: number = -1): Observable<any> {
-    const httpParams = new HttpParams()
-      .set('offset', offset.toString())
-      .set('limit', limit.toString());
+    const httpParams = new HttpParams().set('offset', offset.toString()).set('limit', limit.toString());
     return this.http.get('/entityDatatableChecks', { params: httpParams });
   }
 
@@ -589,8 +687,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Holidays data.
    */
   getHolidays(officeId: string): Observable<any> {
-    const httpParams = new HttpParams()
-      .set('officeId', officeId.toString());
+    const httpParams = new HttpParams().set('officeId', officeId.toString());
     return this.http.get('/holidays', { params: httpParams });
   }
 
@@ -645,8 +742,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Resource Id.
    */
   activateHoliday(holidayId: string): Observable<any> {
-    const httpParams = new HttpParams()
-      .set('command', 'activate');
+    const httpParams = new HttpParams().set('command', 'activate');
     return this.http.post(`/holidays/${holidayId}`, null, { params: httpParams });
   }
 
@@ -695,8 +791,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Staff data.
    */
   getStaff(officeId: any): Observable<any> {
-    const httpParams = new HttpParams()
-      .set('officeId', officeId.toString());
+    const httpParams = new HttpParams().set('officeId', officeId.toString());
     return this.http.get('/staff', { params: httpParams });
   }
 
@@ -751,7 +846,13 @@ export class OrganizationService {
    * @param legalFormType Legal Form type fortemplate retrieval
    * @returns {Observable<any>} Import Template
    */
-  getImportTemplate(urlSuffix: string, officeId: any, staffId: any, legalFormType: string): Observable<any> {
+  getImportTemplate(
+    urlSuffix: string,
+    countryId: any,
+    officeId: any,
+    staffId: any,
+    legalFormType: string
+  ): Observable<any> {
     let httpParams = new HttpParams()
       .set('tenantIdentifier', 'default')
       .set('locale', this.settingsService.language.code)
@@ -765,7 +866,16 @@ export class OrganizationService {
     if (legalFormType.length) {
       httpParams = httpParams.set('legalFormType', legalFormType);
     }
-    return this.http.get(`${urlSuffix}/downloadtemplate`, { params: httpParams, responseType: 'arraybuffer', observe: 'response' });
+
+    if (countryId) {
+      httpParams = httpParams.set('countryId', countryId.toString());
+    }
+
+    return this.http.get(`${urlSuffix}/downloadtemplate`, {
+      params: httpParams,
+      responseType: 'arraybuffer',
+      observe: 'response',
+    });
   }
 
   /**
@@ -773,10 +883,12 @@ export class OrganizationService {
    * @returns {Observable<any>} Import Document
    */
   getImportDocument(id: any): Observable<any> {
-    const httpParams = new HttpParams()
-      .set('importDocumentId', id)
-      .set('tenantIdentifier', 'default');
-    return this.http.get('/imports/downloadOutputTemplate', { params: httpParams, responseType: 'arraybuffer', observe: 'response' });
+    const httpParams = new HttpParams().set('importDocumentId', id).set('tenantIdentifier', 'default');
+    return this.http.get('/imports/downloadOutputTemplate', {
+      params: httpParams,
+      responseType: 'arraybuffer',
+      observe: 'response',
+    });
   }
 
   /**
@@ -785,10 +897,13 @@ export class OrganizationService {
    * @param {string} legalFormType Legal Form type for file upload
    * @returns {Observable<any>}
    */
-  uploadImportDocument(file: File, urlSuffix: string, legalFormType: string): Observable<any> {
+  uploadImportDocument(file: File, urlSuffix: string, legalFormType: string, countryId: any): Observable<any> {
     let httpParams = new HttpParams();
     if (legalFormType.length) {
       httpParams = httpParams.set('legalFormType', legalFormType);
+    }
+    if (countryId) {
+      httpParams = httpParams.set('countryId', countryId);
     }
     const formData = new FormData();
     formData.append('file', file);
@@ -797,4 +912,60 @@ export class OrganizationService {
     return this.http.post(`${urlSuffix}/uploadtemplate`, formData, { params: httpParams });
   }
 
+  /**
+   * Downloads the output template from the specified URL suffix.
+   *
+   * @param {string} urlSuffix - The URL suffix to download the template from.
+   * @return {Observable<any>} - An observable that emits the downloaded template as an array buffer.
+   */
+  downloadOutputTemplate(urlSuffix: string): Observable<any> {
+    return this.http.get(urlSuffix, {
+      responseType: 'arraybuffer',
+      observe: 'response',
+    });
+  }
+
+  /**
+   * Searches for offices based on the provided parameters.
+   * @param params - The parameters to search for offices.
+   * @returns {Observable<any>} - An observable that emits the search results.
+   */
+  searchOffices(params: Record<string, any>): Observable<any> {
+    return this.http.get('/offices/search', { params });
+  }
+
+
+  /**
+   * Get file name from HTTP headers
+   * @param headers the HTTP headers
+   * @returns the file name found in the headers
+   */
+  getFileNameFromHttpHeaders(headers): string {
+    const contentDispositionHeader = headers.get('Content-Disposition');
+    let result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
+    return result.replace(/"/g, '');
+  }
+
+  /**
+   * Download file from API response
+   * 
+   * @param res 
+   */
+  downloadFileFromAPIResponse (res){
+    const headers = res.headers;
+    const contentType = headers.get('Content-Type');
+    const blob = new Blob([res.body], { type: contentType });
+    const fileName = this.getFileNameFromHttpHeaders(headers);
+    let fileLink = document.createElement("a");
+    document.body.appendChild(fileLink);
+    fileLink.style.display = "none";
+    const url = window.URL.createObjectURL(blob);
+    fileLink.href = url;
+    fileLink.download = fileName;
+    fileLink.click();
+    setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(fileLink);
+    }, 0)
+}
 }

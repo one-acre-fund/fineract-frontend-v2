@@ -62,6 +62,9 @@ import { ConfigureMakerCheckerTasksComponent } from './configure-maker-checker-t
 import { BusinessDateTabComponent } from './configurations/business-date-tab/business-date-tab.component';
 import { ConfigurationsComponent } from './configurations/configurations.component';
 import { GlobalConfigurationsTabComponent } from './configurations/global-configurations-tab/global-configurations-tab.component';
+import { CloneConfigurationComponent } from './configurations/global-configurations-tab/clone-configuration/clone-configuration.component';
+import { ConfigureDataFieldsComponent } from './configure-data-fields/configure-data-fields.component';
+import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
 
 @NgModule({
   imports: [
@@ -123,7 +126,10 @@ import { GlobalConfigurationsTabComponent } from './configurations/global-config
     ViewSurveyComponent,
     BusinessDateTabComponent,
     ConfigurationsComponent,
-    GlobalConfigurationsTabComponent
+    GlobalConfigurationsTabComponent,
+    CloneConfigurationComponent,
+    ConfigureDataFieldsComponent,
+    DataFieldsComponent
   ],
 })
 export class SystemModule { }

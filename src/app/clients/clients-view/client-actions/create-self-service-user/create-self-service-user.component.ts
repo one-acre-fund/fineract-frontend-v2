@@ -1,11 +1,13 @@
 /** Angular Imports. */
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 /** Client Services. */
 import { ClientsService } from 'app/clients/clients.service';
+/** Matomo tracker */
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 @Component({
   selector: 'mifosx-create-self-service-user',
@@ -14,20 +16,33 @@ import { ClientsService } from 'app/clients/clients.service';
 })
 export class CreateSelfServiceUserComponent implements OnInit {
 
-  createSelfServiceForm: FormGroup;
+  createSelfServiceForm: UntypedFormGroup;
   clientData: any;
   hidePasswordField = true;
 
-  constructor(private formBuilder: FormBuilder,
+   /**
+   * @param {UntypedFormBuilder} formBuilder Form Builder
+   * @param {ActivatedRoute} route Date Utils
+   * @param {ClientsService} clientsService Clients Service
+   * @param {Router} router Router
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
+   */
+
+  constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private clientService: ClientsService,
-              private router: Router) {
+              private router: Router,
+              private matomoTracker: MatomoTracker) {
     this.route.data.subscribe((data: { clientActionData: any}) => {
       this.clientData = data.clientActionData;
     });
   }
 
   ngOnInit(): void {
+    //set Matomo page info
+    let title = document.title || "";
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createSelfServiceUser();
     this.sendPasswordToEmailChange();
   }
@@ -43,8 +58,8 @@ export class CreateSelfServiceUserComponent implements OnInit {
         this.createSelfServiceForm.removeControl('repeatPassword');
       } else {
         this.hidePasswordField = false;
-        this.createSelfServiceForm.addControl('password', new FormControl('', [Validators.required]));
-        this.createSelfServiceForm.addControl('repeatPassword', new FormControl('', [Validators.required, this.confirmPassword('password')]));
+        this.createSelfServiceForm.addControl('password', new UntypedFormControl('', [Validators.required]));
+        this.createSelfServiceForm.addControl('repeatPassword', new UntypedFormControl('', [Validators.required, this.confirmPassword('password')]));
       }
     });
   }
@@ -54,13 +69,13 @@ export class CreateSelfServiceUserComponent implements OnInit {
    */
   createSelfServiceUser() {
     this.createSelfServiceForm = this.formBuilder.group({
-      'username': new FormControl('', [Validators.required]),
-      'firstname': new FormControl(this.clientData.firstname, [Validators.required]),
-      'lastname': new FormControl(this.clientData.lastname, [Validators.required]),
-      'email': new FormControl('', [Validators.required, Validators.email]),
-      'sendPasswordToEmail': new FormControl(true),
-      'passwordNeverExpires': new FormControl(false),
-      'status': new FormControl({value: this.clientData.subStatus.active ? 'Active' : 'Inactive', disabled: true})
+      'username': new UntypedFormControl('', [Validators.required]),
+      'firstname': new UntypedFormControl(this.clientData.firstname, [Validators.required]),
+      'lastname': new UntypedFormControl(this.clientData.lastname, [Validators.required]),
+      'email': new UntypedFormControl('', [Validators.required, Validators.email]),
+      'sendPasswordToEmail': new UntypedFormControl(true),
+      'passwordNeverExpires': new UntypedFormControl(false),
+      'status': new UntypedFormControl({value: this.clientData.subStatus.active ? 'Active' : 'Inactive', disabled: true})
     });
   }
 
@@ -78,6 +93,10 @@ export class CreateSelfServiceUserComponent implements OnInit {
     selfServiceForm.staffId = this.clientData.staffId;
     selfServiceForm.clients = [clientId];
     selfServiceForm.officeId = this.clientData.officeId;
+
+     //Track Matomo event for client's self service
+     this.matomoTracker.trackEvent('clients', 'selfService', clientId);
+
     this.clientService.createSelfServiceUser(selfServiceForm).subscribe(() => {
       this.router.navigate(['../../general'], { relativeTo: this.route });
     });

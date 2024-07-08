@@ -1,3 +1,21 @@
 .container{
     max-width: 37rem;
 }
+.custom-radio{
+    width: 20px;
+    height: 20px;
+}
+.full-width{
+    align-items: center;
+    display: inline-flex;
+}
+.mat-option.hide {
+    display: none;
+  }
+  .mat-label-for{
+    padding: 2px 5px;
+  }
+  ::ng-deep .ng-select .ng-option .ng-option-label {
+    white-space: normal !important;
+    line-height: normal !important;
+  }

@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { activities } from './activities';
 
 /** Custom Services */
 import { AuthenticationService } from '../core/authentication/authentication.service';
+import { KeycloakService } from 'keycloak-angular';
 
 /**
  * Home component.
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   /** Activity Form. */
   activityForm: any;
   /** Search Text. */
-  searchText: FormControl = new FormControl();
+  searchText: UntypedFormControl = new UntypedFormControl();
   /** Filtered Activities. */
   filteredActivities: Observable<any[]>;
   /** All User Activities. */
@@ -35,16 +36,20 @@ export class HomeComponent implements OnInit {
    * @param {AuthenticationService} authenticationService Authentication Service.
    * @param {FormBuilder} formBuilder Form Builder.
    */
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, private keyCloakService: KeycloakService) { }
 
   /**
    * Sets the username of the authenticated user.
    * Set Form.
    */
   ngOnInit() {
-    const credentials = this.authenticationService.getCredentials();
-    this.username = credentials.username;
     this.setFilteredActivities();
+  }
+
+  ngDoCheck() {
+    if(!this.username) {
+      this.username = this.authenticationService.getConnectedUsername();
+    }
   }
 
   /**

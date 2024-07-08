@@ -11,6 +11,9 @@ import { map } from 'rxjs/operators';
 
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
+import { OrganizationService } from 'app/organization/organization.service';
+
+import { environment } from 'environments/environment';
 
 /**
  * Toolbar component.
@@ -21,6 +24,21 @@ import { AuthenticationService } from '../../authentication/authentication.servi
   styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
+
+  /** Save the user data from the session storage. */
+  userData: any;
+
+  /** Allow an authorised user to select a country and view an Admin menu. */
+  displayAdminOptions: boolean = false;
+
+  /** Only active countries. */
+  activeCountries: any = [];
+
+  /** Limit the checks when it has already did. */
+  hasChecked: boolean = false;
+
+  /** Get the selected country name if it is set */
+  selectedCountryName: any;
 
   /** Subscription to breakpoint observer for handset. */
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
@@ -42,19 +60,56 @@ export class ToolbarComponent implements OnInit {
    * @param {AuthenticationService} authenticationService Authentication service.
    */
   constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router,
-              private authenticationService: AuthenticationService,
-              private dialog: MatDialog) { }
+    private router: Router,
+    private authenticationService: AuthenticationService,
+    private organizationService: OrganizationService,
+    private dialog: MatDialog) {}
 
   /**
    * Subscribes to breakpoint for handset.
    */
   ngOnInit() {
+    const savedCountry = sessionStorage.getItem('selectedCountry');
+    this.selectedCountryName = savedCountry ? JSON.parse(savedCountry)?.name : null;
+
     this.isHandset$.subscribe(isHandset => {
       if (isHandset && this.sidenavCollapsed) {
         this.toggleSidenavCollapse(false);
       }
     });
+  }
+
+  ngDoCheck() {
+    this.userData = this.authenticationService.getCredentials();
+    if(!this.hasChecked && this.userData?.officeId) {
+      /** Eligible office (Head office) to view the country dropdown and an admin menu. */
+      if(this.userData.officeId == environment.headOfficeID) {
+        this.getActiveCountries();
+        this.displayAdminOptions = true;
+      }
+      this.hasChecked = true;
+    }
+
+    if(this.displayAdminOptions) {
+      this.selectedCountryName = JSON.parse(sessionStorage.getItem("selectedCountry"))?.name;
+    }
+  }
+
+  /**
+  * List active countries.
+  */
+  getActiveCountries() {
+    this.organizationService.getCountries().subscribe((response: any) => {
+      this.activeCountries = response?.filter(item => item.status);
+    });
+  }
+
+  /**
+   * Saves the selected country details in the session storage.
+   */
+  saveTheSelectedCountry(countryId: any) {
+    const selectedCountry = this.activeCountries.find(country => country.id == countryId);
+    sessionStorage.setItem('selectedCountry', JSON.stringify(selectedCountry));
   }
 
   /**
@@ -76,8 +131,8 @@ export class ToolbarComponent implements OnInit {
    * Logs out the authenticated user and redirects to login page.
    */
   logout() {
-    this.authenticationService.logout()
-      .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+    this.authenticationService.logout();
+    // .subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
   /**

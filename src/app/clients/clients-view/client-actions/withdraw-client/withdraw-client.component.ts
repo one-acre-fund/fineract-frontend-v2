@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Withdraw Client Component
@@ -23,7 +24,7 @@ export class WithdrawClientComponent implements OnInit {
   /** Maximum date allowed. */
   maxDate = new Date();
   /** Withdraw Client form. */
-  withdrawClientForm: FormGroup;
+  withdrawClientForm: UntypedFormGroup;
   /** Client Data */
   withdrawalData: any;
   /** Client Id */
@@ -36,13 +37,15 @@ export class WithdrawClientComponent implements OnInit {
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
    * @param {SettingsService} settingsService Setting service
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private clientsService: ClientsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
               private router: Router,
-              private settingsService: SettingsService) {
+              private settingsService: SettingsService,
+              private matomoTracker: MatomoTracker) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
       this.withdrawalData = data.clientActionData.narrations;
     });
@@ -50,6 +53,10 @@ export class WithdrawClientComponent implements OnInit {
   }
 
   ngOnInit() {
+     //set Matomo page info
+     let title = document.title || "";
+     this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createWithdrawClientForm();
   }
 
@@ -79,6 +86,10 @@ export class WithdrawClientComponent implements OnInit {
       dateFormat,
       locale
     };
+
+    //Track Matomo event for transferring client
+    this.matomoTracker.trackEvent('clients', 'withdraw', this.clientId);
+
     this.clientsService.executeClientCommand(this.clientId, 'withdraw', data).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });

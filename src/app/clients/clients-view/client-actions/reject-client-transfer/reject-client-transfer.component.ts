@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Reject Client Transfer Component
@@ -19,7 +20,7 @@ import { SettingsService } from 'app/settings/settings.service';
 export class RejectClientTransferComponent implements OnInit {
 
   /** Reject Client Transfer form. */
-  rejectClientTransferForm: FormGroup;
+  rejectClientTransferForm: UntypedFormGroup;
   /** Client Id */
   clientId: any;
   /** Transfer Date */
@@ -30,13 +31,15 @@ export class RejectClientTransferComponent implements OnInit {
    * @param {ClientsService} clientsService Clients Service
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private clientsService: ClientsService,
               private settingsService: SettingsService,
               private dateUtils: Dates,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private matomoTracker: MatomoTracker) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
       this.transferDate = data.clientActionData;
     });
@@ -44,6 +47,10 @@ export class RejectClientTransferComponent implements OnInit {
   }
 
   ngOnInit() {
+    //set Matomo page info
+    let title = document.title || "";
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.createRejectClientTransferForm();
   }
 
@@ -71,9 +78,12 @@ export class RejectClientTransferComponent implements OnInit {
     }
     const data = {
       ...rejectClientTransferFormData,
-      dateFormat,
-      locale
+   /*    dateFormat,
+      locale */
     };
+    //Track Matomo event for rejecting client's trasnfer
+    this.matomoTracker.trackEvent('clients', 'rejectTransfer', this.clientId);
+
     this.clientsService.executeClientCommand(this.clientId, 'rejectTransfer', data).subscribe(() => {
       this.router.navigate(['../../'], { relativeTo: this.route });
     });

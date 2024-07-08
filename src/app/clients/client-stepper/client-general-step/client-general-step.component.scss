@@ -5,3 +5,13 @@
 .margin-t {
   margin-top: 2em;
 }
+
+.mat-option.hide {
+  display: none;
+}
+
+::ng-deep .ng-select .ng-option .ng-option-label {
+  white-space: normal !important;
+  line-height: normal !important;
+}
+

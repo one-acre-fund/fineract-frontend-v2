@@ -1,10 +1,11 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services */
 import { ClientsService } from 'app/clients/clients.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Clients Assign Staff Component
@@ -17,7 +18,7 @@ import { ClientsService } from 'app/clients/clients.service';
 export class ClientAssignStaffComponent implements OnInit {
 
   /** Client Assign Staff form. */
-  clientAssignStaffForm: FormGroup;
+  clientAssignStaffForm: UntypedFormGroup;
   /** Staff Data */
   staffData: any;
   /** Client Data */
@@ -29,11 +30,14 @@ export class ClientAssignStaffComponent implements OnInit {
    * @param {SavingsService} savingsService Savings Service
    * @param {ActivatedRoute} route Activated Route
    * @param {Router} router Router
+   * @param {MatomoTracker} matomoTracker Matomo tracker service
+   *
    */
-  constructor(private formBuilder: FormBuilder,
-              private clientsService: ClientsService,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(private formBuilder: UntypedFormBuilder,
+    private clientsService: ClientsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private matomoTracker: MatomoTracker) {
     this.route.data.subscribe((data: { clientActionData: any }) => {
       this.clientData = data.clientActionData;
     });
@@ -43,6 +47,10 @@ export class ClientAssignStaffComponent implements OnInit {
    * Creates the client assign staff form.
    */
   ngOnInit() {
+    //set Matomo page info
+    let title = document.title || "";
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.staffData = this.clientData.staffOptions;
     this.createClientAssignStaffForm();
   }
@@ -60,6 +68,9 @@ export class ClientAssignStaffComponent implements OnInit {
    * Submits the form and assigns staff for the client.
    */
   submit() {
+    //Track Matomo event for assigning client to staff member
+    this.matomoTracker.trackEvent('clients', 'assignStaff', this.clientData.id);
+
     this.clientsService.executeClientCommand(this.clientData.id, 'assignStaff', this.clientAssignStaffForm.value)
       .subscribe(() => {
         this.router.navigate(['../../'], { relativeTo: this.route });

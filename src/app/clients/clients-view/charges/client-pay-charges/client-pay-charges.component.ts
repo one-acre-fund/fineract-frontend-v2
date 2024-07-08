@@ -1,12 +1,13 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Custom Services. */
 import { ClientsService } from 'app/clients/clients.service';
 import { Dates } from 'app/core/utils/dates';
 import { SettingsService } from 'app/settings/settings.service';
+import { MatomoTracker } from "@ngx-matomo/tracker";
 
 /**
  * Client Pay Charge component.
@@ -32,14 +33,16 @@ export class ClientPayChargesComponent implements OnInit {
      * @param {ActivatedRoute} route Activated Route.
      * @param {Router} router Router for navigation.
      * @param {SettingsService} settingsService Setting service
+     * @param {MatomoTracker} matomoTracker Matomo tracker service
      */
   constructor(
     private clientsService: ClientsService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private dateUtils: Dates,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private matomoTracker: MatomoTracker
   ) {
     this.route.data.subscribe((data: { transactionData: any }) => {
       this.transactionData = data.transactionData;
@@ -47,6 +50,10 @@ export class ClientPayChargesComponent implements OnInit {
   }
 
   ngOnInit() {
+    //set Matomo page info
+    let title = document.title;
+    this.matomoTracker.setDocumentTitle(`${title}`);
+
     this.setTransactionForm();
   }
 
@@ -76,6 +83,10 @@ export class ClientPayChargesComponent implements OnInit {
       dateFormat,
       locale
     };
+
+     //Track Matomo event for paying client charges
+     this.matomoTracker.trackEvent('clients', 'payCharges', this.transactionData.id);
+
     this.clientsService.payClientCharge(this.transactionData.clientId, this.transactionData.id, data).subscribe(() => {
       this.router.navigate(['../../..', 'general'], { relativeTo: this.route });
     });

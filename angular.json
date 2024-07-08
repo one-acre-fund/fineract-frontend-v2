@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "04edc123-81b9-4c45-9d43-3da520989435"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -92,6 +95,48 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
+            },
+            "test": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
+            },
+            "qa": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.qa.ts"
+                }
+              ]
             }
           }
         },
@@ -103,6 +148,15 @@
           "configurations": {
             "production": {
               "browserTarget": "mifosx-web-app:build:production"
+            },
+            "local": {
+              "browserTarget": "mifosx-web-app:build:local"
+            },
+            "qa": {
+              "browserTarget": "mifosx-web-app:build:qa"
+            },
+            "test": {
+              "browserTarget": "mifosx-web-app:build:test"
             }
           }
         },
@@ -115,6 +169,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "src/test.ts",
             "karmaConfig": "src/karma.conf.ts",
             "polyfills": "src/polyfills.ts",
@@ -188,6 +243,12 @@
           "configurations": {
             "production": {
               "devServerTarget": "mifosx-web-app:serve:production"
+            },
+            "local": {
+              "devServerTarget": "mifosx-web-app:serve:local"
+            },
+            "qa": {
+              "devServerTarget": "mifosx-web-app:serve:qa"
             }
           }
         },
@@ -204,6 +265,5 @@
         }
       }
     }
-  },
-  "defaultProject": "mifosx-web-app"
+  }
 }

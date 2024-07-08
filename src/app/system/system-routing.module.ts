@@ -86,6 +86,12 @@ import { ViewHistorySchedulerJobComponent } from './manage-scheduler-jobs/view-h
 import { ViewHistorySchedulerJobsResolver } from './manage-scheduler-jobs/view-history-scheduler-job/view-history-scheduler-job.resolver';
 import { ConfigurationsComponent } from './configurations/configurations.component';
 import { GlobalConfigurationResolver } from './configurations/global-configurations-tab/global-configuration.resolver';
+import { EditConfigurationComponent } from './configurations/global-configurations-tab/edit-configuration/edit-configuration.component';
+import { CloneConfigurationComponent } from './configurations/global-configurations-tab/clone-configuration/clone-configuration.component';
+import { ConfigureDataFieldsComponent } from './configure-data-fields/configure-data-fields.component';
+import { ManageDataFieldResolver } from './configure-data-fields/manage-data-field.resolver';
+import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
+import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/manage-fields-data.resolver';
 
 const routes: Routes = [
   Route.withShell([
@@ -284,6 +290,49 @@ const routes: Routes = [
           ],
         },
         {
+          path: 'field-configuration',
+          data: { title: extract('Configure Data Fields'), breadcrumb: 'Configure Data Fields' },
+          children: [
+            {
+              path: '',
+              component: ConfigureDataFieldsComponent,
+              resolve: {
+                dataTables: ManageDataFieldResolver
+              },
+            },
+            {
+              path: ':datatableName',
+              data: { title: extract('View Data Table'), routeParamBreadcrumb: 'datatableName' },
+              children: [
+                {
+                  path: '',
+                  component: ViewDataTableComponent,
+                  resolve: {
+                    dataTable: DataTableResolver
+                  }
+                },
+                {
+                  path: 'edit',
+                  component: EditDataTableComponent,
+                  data: { title: extract('Edit Data table'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  resolve: {
+                    dataTable: DataTableResolver,
+                    columnCodes: CodesResolver
+                  }
+                }
+              ]
+            }
+          ],
+        },
+        {
+          path: 'configure-field/:id/:countryId/:countryName',
+          component: DataFieldsComponent,
+          data: { title: extract('Configure Data Fields'), routeParamBreadcrumb: 'countryName' },
+          resolve: {
+            columnCodes: ManageFieldsDataResolver
+          }
+        },
+        {
           path: 'hooks',
           data: { title: extract('Manage Hooks'), breadcrumb: 'Manage Hooks' },
           children: [
@@ -447,8 +496,29 @@ const routes: Routes = [
         },
         {
           path: 'configurations',
-          component: ConfigurationsComponent,
-          data: { title: extract('Configurations'), breadcrumb: 'Configurations' }
+          data: { title: extract('Configurations'), breadcrumb: 'Configurations' },
+          children: [
+            {
+              path: '',
+              component: ConfigurationsComponent
+            },
+            {
+              path: ':id/edit',
+              component: EditConfigurationComponent,
+              data: { title: extract('Edit Configuration'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+              resolve: {
+                configuration: GlobalConfigurationResolver
+              }
+            },
+            {
+              path: ':id/clone-config',
+              component: CloneConfigurationComponent,
+              data: { title: extract('Clone Configuration'), breadcrumb: 'Clone', routeParamBreadcrumb: false },
+              resolve: {
+                configuration: GlobalConfigurationResolver
+              }
+            }
+          ]
         },
         {
           path: 'account-number-preferences',

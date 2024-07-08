@@ -6,12 +6,12 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from './clients.service';
+import { SearchService } from 'app/search/search.service';
 
 /**
  * Clients custom data source to implement server side filtering, pagination and sorting.
  */
 export class ClientsDataSource implements DataSource<any> {
-
   /** clients behavior subject to represent loaded journal clients page. */
   private clientsSubject = new BehaviorSubject<any[]>([]);
   /** Records subject to represent total number of filtered clients records. */
@@ -21,8 +21,9 @@ export class ClientsDataSource implements DataSource<any> {
 
   /**
    * @param {ClientsService} clientsService Clients Service
+   * @param {SearchService} searchService Search Service
    */
-  constructor(private clientsService: ClientsService) { }
+  constructor(private clientsService: ClientsService, private searchService: SearchService) {}
 
   /**
    * Gets clients on the basis of provided parameters and emits the value.
@@ -32,18 +33,70 @@ export class ClientsDataSource implements DataSource<any> {
    * @param {number} pageIndex Page number.
    * @param {number} limit Number of clients within the page.
    */
-  getClients(orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10, showClosedAccounts: boolean = true) {
+  getClients(
+    orderBy: string = '',
+    sortOrder: string = '',
+    pageIndex: number = 0,
+    limit: number = 10,
+    showClosedAccounts: boolean = true
+  ) {
     this.clientsSubject.next([]);
-    this.clientsService.getClients(orderBy, sortOrder, pageIndex * limit, limit)
-      .subscribe((clients: any) => {
-        if (showClosedAccounts) {
-          clients.pageItems = clients.pageItems;
-        } else {
-          clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== 'Closed');
-        }
-        this.recordsSubject.next(clients.totalFilteredRecords);
-        this.clientsSubject.next(clients.pageItems);
-      });
+    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    let clientsObs: Observable<any>;
+    if (countryId) {
+      clientsObs = this.clientsService.getClientsByCountry('id', 'ASC', pageIndex * limit, limit, countryId);
+    } else {
+      clientsObs = this.clientsService.getClients('id', 'ASC', pageIndex * limit, limit);
+    }
+    clientsObs.subscribe((clients: any) => {
+      if (!showClosedAccounts) {
+        clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== 'Closed');
+      }
+      this.recordsSubject.next(clients.totalFilteredRecords);
+      this.clientsSubject.next(clients.pageItems);
+    });
+  }
+  /**
+   * Search clients on the basis of provided parameters.
+   * @param {string} searchValue Property by which clients should be sorted.
+   * @param {boolean} showClosedAccounts determines if only active account should be displayed.
+   */
+  searchClients(searchValue: string, showClosedAccounts: boolean = true) {
+    this.clientsSubject.next([]);
+    this.searchService.getSearchResults(searchValue, 'clients,clientIdentifiers').subscribe((data: any) => {
+      if (!showClosedAccounts) {
+        data = data.filter((client: any) => client.entityStatus && client.entityStatus.value !== 'Closed');
+      }
+      this.recordsSubject.next(data.length);
+      const clients = data
+        .filter((result) => result.entityType === 'CLIENT' || result.entityType === 'CLIENTIDENTIFIER')
+        .map(
+          ({
+            entityStatus,
+            entityName,
+            entityAccountNo,
+            entityId,
+            entityExternalId,
+            parentName,
+            entityMobileNo,
+            entityType,
+            parentId,
+            parentExternalId,
+            entityOUPath,
+          }) => ({
+            status: { ...entityStatus },
+            gender: { name: '' },
+            mobileNo: entityMobileNo,
+            displayName: entityType === 'CLIENT' ? entityName : parentName,
+            accountNo: entityAccountNo,
+            id: entityType === 'CLIENT' ? entityId : parentId,
+            externalId: entityType === 'CLIENT' ? entityExternalId : parentExternalId,
+            officeName: entityType === 'CLIENT' ? parentName : null,
+            officeHierarchyPath: entityType === 'CLIENT' ? entityOUPath : null,
+          })
+        );
+      this.clientsSubject.next(clients);
+    });
   }
 
   /**
@@ -68,18 +121,27 @@ export class ClientsDataSource implements DataSource<any> {
    * @param {number} pageIndex Page number.
    * @param {number} limit Number of clients within the page.
    */
-  filterClients(filter: string, orderBy: string = '', sortOrder: string = '', pageIndex: number = 0, limit: number = 10, showClosedAccounts: boolean = true) {
+  filterClients(
+    filter: string,
+    orderBy: string = '',
+    sortOrder: string = '',
+    pageIndex: number = 0,
+    limit: number = 10,
+    showClosedAccounts: boolean = true
+  ) {
     this.clientsSubject.next([]);
-    this.clientsService.getClients(orderBy, sortOrder, pageIndex * limit, limit)
-      .subscribe((clients: any) => {
-        if (showClosedAccounts) {
-          clients.pageItems = clients.pageItems.filter((client: any) => client.displayName.toLowerCase().includes(filter));
-        } else {
-          clients.pageItems = clients.pageItems.filter((client: any) => client.status.value !== 'Closed' && client.displayName.toLowerCase().includes(filter));
-        }
-        this.recordsSubject.next(clients.totalFilteredRecords);
-        this.clientsSubject.next(clients.pageItems);
-      });
+    this.clientsService.getClients('id', 'ASC', pageIndex * limit, limit).subscribe((clients: any) => {
+      if (showClosedAccounts) {
+        clients.pageItems = clients.pageItems.filter((client: any) =>
+          client.displayName.toLowerCase().includes(filter)
+        );
+      } else {
+        clients.pageItems = clients.pageItems.filter(
+          (client: any) => client.status.value !== 'Closed' && client.displayName.toLowerCase().includes(filter)
+        );
+      }
+      this.recordsSubject.next(clients.totalFilteredRecords);
+      this.clientsSubject.next(clients.pageItems);
+    });
   }
-
 }

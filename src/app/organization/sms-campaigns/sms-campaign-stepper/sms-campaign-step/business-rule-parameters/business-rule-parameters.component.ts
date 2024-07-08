@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Component, OnChanges, Input, Output, EventEmitter } from '@angular/core';
-import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Validators, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 
 /** Custom Services */
 import { ReportsService } from 'app/reports/reports.service';
@@ -23,11 +23,12 @@ export class BusinessRuleParametersComponent implements OnChanges {
 
   /** Run Report Parameters Data */
   @Input() paramData: any;
+  @Input() countryId: any;
 
   /** Report Name */
   reportName: string;
   /** Initializes new form group ReportForm */
-  ReportForm = new FormGroup({});
+  ReportForm = new UntypedFormGroup({});
   /** Array of all parent parameters */
   parentParameters: any[] = [];
   /** Minimum Date allowed. */
@@ -49,7 +50,7 @@ export class BusinessRuleParametersComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.paramData) {
-      this.ReportForm = new FormGroup({});
+      this.ReportForm = new UntypedFormGroup({});
       this.reportName = this.paramData.reportName;
       this.paramData = this.paramData.response;
       this.createRunReportForm();
@@ -70,10 +71,10 @@ export class BusinessRuleParametersComponent implements OnChanges {
    * Fetches dropdown options and builds child dependencies.
    */
   createRunReportForm() {
-    this.paramData.forEach(
+    this.paramData?.forEach(
       (param: any) => {
         if (!param.parentParameterName) { // Non-Child Parameter
-          this.ReportForm.addControl(param.name, new FormControl('', Validators.required));
+          this.ReportForm.addControl(param.name, new UntypedFormControl('', Validators.required));
           if (param.displayType === 'select') {
             this.fetchSelectOptions(param, param.name);
           }
@@ -106,12 +107,12 @@ export class BusinessRuleParametersComponent implements OnChanges {
     */
   setChildControls() {
     this.parentParameters.forEach((param: ReportParameter) => {
-      this.ReportForm.get(param.name).valueChanges.subscribe((option: any) => {
+      this.ReportForm.get(param.name)?.valueChanges.subscribe((option: any) => {
         param.childParameters.forEach((child: ReportParameter) => {
           if (child.displayType === 'none') {
-            this.ReportForm.addControl(child.name, new FormControl(child.defaultVal));
+            this.ReportForm.addControl(child.name, new UntypedFormControl(child.defaultVal));
           } else {
-            this.ReportForm.addControl(child.name, new FormControl('', Validators.required));
+            this.ReportForm.addControl(child.name, new UntypedFormControl('', Validators.required));
           }
           if (child.displayType === 'select') {
             const inputstring = `${child.name}?${param.inputName}=${option.id}`;
@@ -128,10 +129,10 @@ export class BusinessRuleParametersComponent implements OnChanges {
   * @param {string} inputstring url substring for API call.
   */
   fetchSelectOptions(param: ReportParameter, inputstring: string) {
-    this.reportsService.getSelectOptions(inputstring).subscribe((options: SelectOption[]) => {
+    this.reportsService.getSelectOptions(inputstring, this.countryId).subscribe((options: SelectOption[]) => {
       param.selectOptions = options;
       if (param.selectAll === 'Y') {
-        param.selectOptions.push({id: '-1', name: 'All'});
+        param.selectOptions?.unshift({id: '-1', name: 'All'});
       }
     });
   }
@@ -172,7 +173,7 @@ export class BusinessRuleParametersComponent implements OnChanges {
    * TODO: Replace report object with report name once reports service is refactored.
    */
   getResponseHeaders() {
-    const formattedresponse = this.formatUserResponse(this.ReportForm.value, true);
+    const formattedresponse = this.formatUserResponse(this.ReportForm.value, true);console.log("Calling getRunReportData")
     this.reportsService.getRunReportData(this.reportName, formattedresponse).subscribe(
       (response: any) => {
         this.templateParameters.emit(response.columnHeaders);

@@ -17,4 +17,6 @@ export interface Credentials {
   username: string;
   shouldRenewPassword: boolean;
   rememberMe?: boolean;
+  countryId?: number;
+  countryName?: string;
 }

@@ -1,0 +1,24 @@
+.container {
+    max-width: 37rem;
+}
+.custom-radio{
+    width: 20px;
+    height: 20px;
+}
+.full-width{
+    display: inline-flex;
+    padding: 10px 0;
+}
+.ou-label{
+    margin-right: 20px;
+}
+.mat-option.hide {
+    display: none;
+  }
+
+  ::ng-deep .ng-select .ng-option .ng-option-label {
+    white-space: normal !important;
+    line-height: normal !important;
+  }
+
+
