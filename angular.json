@@ -26,12 +26,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "assets": [
-              "src/favicon.ico",
-              "src/robots.txt",
-              "src/manifest.json",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/robots.txt", "src/manifest.json", "src/assets"],
             "styles": [
               "node_modules/font-awesome/css/font-awesome.css",
               "src/main.scss",
@@ -67,10 +62,7 @@
               }
             ],
             "scripts": [],
-            "allowedCommonJsDependencies": [
-              "lodash",
-              "@ckeditor/ckeditor5-build-classic"
-            ]
+            "allowedCommonJsDependencies": ["lodash", "@ckeditor/ckeditor5-build-classic"]
           },
           "configurations": {
             "production": {
@@ -208,20 +200,13 @@
                 "bundleName": "pictonblue-yellowgreen"
               }
             ],
-            "assets": [
-              "src/favicon.ico",
-              "src/robots.txt",
-              "src/manifest.json",
-              "src/assets"
-            ]
+            "assets": ["src/favicon.ico", "src/robots.txt", "src/manifest.json", "src/assets"]
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts"
-            ]
+            "lintFilePatterns": ["src/**/*.ts"]
           }
         }
       }
@@ -251,9 +236,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts"
-            ]
+            "lintFilePatterns": ["src/**/*.ts"]
           }
         }
       }
