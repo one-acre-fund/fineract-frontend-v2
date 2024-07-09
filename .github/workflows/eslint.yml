@@ -19,4 +19,7 @@
             run: npm install
 
           - name: Run ESLint
-            run: npx eslint 'src/**/*.ts'
+            run: npx eslint . --ext .ts,.html
+
+          - name: Run ESLint with detailed output
+            run: npx eslint . --ext .ts,.html --format stylish
