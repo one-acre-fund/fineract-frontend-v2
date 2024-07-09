@@ -73,7 +73,7 @@ export class DataFieldsComponent implements OnInit {
   getFieldConfigurationByType() {
     this.systemService.getFieldConfigurationByType(this.entity, this.countryId).subscribe((res: any) => {
       this.subModuleFields = res;
-      let temp = res.filter((value, index, self) => index === self.findIndex((t) => t.subentity === value.subentity));
+      const temp = res.filter((value, index, self) => index === self.findIndex((t) => t.subentity === value.subentity));
       this.subModule = temp;
       this.subModuleFiltered = temp;
       this.fieldConfigurationId = temp[0];
@@ -145,7 +145,7 @@ export class DataFieldsComponent implements OnInit {
   changeType(index: number, value: any) {
     const controls = this.form.get("tableArray") as UntypedFormArray;
     if (controls) {
-      let control: any = controls.controls[index];
+      const control: any = controls.controls[index];
       control.value.type = value;
       if (value !== "String") {
         control.controls["length"].disable();
@@ -164,8 +164,8 @@ export class DataFieldsComponent implements OnInit {
 
   async saveControls() {
 
-    let value = this.form.get("tableArray").value;
-    let model = {
+    const value = this.form.get("tableArray").value;
+    const model = {
       apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
       officeCountryId: this.countryId,
@@ -199,7 +199,7 @@ export class DataFieldsComponent implements OnInit {
   }
 
   updateControl(value: any) {
-    let model = {
+    const model = {
       apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
       field: value.field,
@@ -216,7 +216,7 @@ export class DataFieldsComponent implements OnInit {
   }
 
   deleteRecord(field: any, fieldConfigurationId: any) {
-    let model = {
+    const model = {
       apptableName: this.generateAppTableName(this.entity),
       datatableName: this.datatableName,
       dropColumns: [{"name": field}]
@@ -234,7 +234,7 @@ export class DataFieldsComponent implements OnInit {
    * @return {string} The name of the application table.
    */
   generateAppTableName(entity) {
-    let entityToUse = entity.toUpperCase();
+    const entityToUse = entity.toUpperCase();
     let apptableName = "";
 
     if (entityToUse === "OU") {

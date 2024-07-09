@@ -158,7 +158,7 @@ export class LoanProductAllocationComponent implements OnInit {
     return loanAllocationProduct;
   }
   submit() {
-    let loanAllocationProduct = this.getLoanAllocationProduct();
+    const loanAllocationProduct = this.getLoanAllocationProduct();
     if (this.router.url.includes("edit")) {
       delete loanAllocationProduct.districtIds;
       const id = this.allocationForm.value.id;

@@ -942,7 +942,7 @@ export class OrganizationService {
    */
   getFileNameFromHttpHeaders(headers): string {
     const contentDispositionHeader = headers.get('Content-Disposition');
-    let result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
+    const result = contentDispositionHeader.split(';')[1].trim().split('=')[1];
     return result.replace(/"/g, '');
   }
 
@@ -956,7 +956,7 @@ export class OrganizationService {
     const contentType = headers.get('Content-Type');
     const blob = new Blob([res.body], { type: contentType });
     const fileName = this.getFileNameFromHttpHeaders(headers);
-    let fileLink = document.createElement("a");
+    const fileLink = document.createElement("a");
     document.body.appendChild(fileLink);
     fileLink.style.display = "none";
     const url = window.URL.createObjectURL(blob);

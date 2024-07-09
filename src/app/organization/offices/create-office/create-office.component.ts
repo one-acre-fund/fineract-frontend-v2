@@ -100,7 +100,7 @@ export class CreateOfficeComponent implements OnInit {
   submit() {
     const hierarchyData = this.officeHierarchy?._database.data;
     if (hierarchyData && hierarchyData.length > 0 && this.showHierarchy) {
-      let hierarchalData = this.convertArrayToObject(hierarchyData[0]);
+      const hierarchalData = this.convertArrayToObject(hierarchyData[0]);
       hierarchalData.descendant = Object.assign({}, hierarchalData.descendant[0]);
       this.officeForm.patchValue({
         countryHierarchy: hierarchalData,

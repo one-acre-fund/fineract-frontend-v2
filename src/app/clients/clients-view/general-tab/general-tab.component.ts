@@ -109,7 +109,7 @@ export class GeneralTabComponent implements OnInit {
 
   ngOnInit() {
     //set page view info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
   }
   /**

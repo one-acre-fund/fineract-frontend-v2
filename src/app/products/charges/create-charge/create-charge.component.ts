@@ -88,7 +88,7 @@ export class CreateChargeComponent implements OnInit {
   createChargeForm() {
     if (this.router.url.includes('edit')) {
       this.isAddingCharge = false;
-      let isExtensibleInferred = this.chargesTemplateData.extensionFrequency ? true : false;
+      const isExtensibleInferred = this.chargesTemplateData.extensionFrequency ? true : false;
       this.chargeForm = this.formBuilder.group({
         name: [this.chargesTemplateData.name, Validators.required],
         active: [this.chargesTemplateData.active],

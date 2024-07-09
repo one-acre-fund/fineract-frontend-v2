@@ -39,7 +39,7 @@ export class SavingProductDetailsStepComponent implements OnInit {
         savingsLoanProductId: this.savingProductsTemplate.loanProductId,
       });
     } else {
-      let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+      const countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
       if (countryId) {
         this.savingProductDetailsForm.patchValue({
           countryId: countryId,
@@ -69,7 +69,7 @@ export class SavingProductDetailsStepComponent implements OnInit {
   }
 
   getLoanProducts() {
-    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    const countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
     let loanProductsObs: Observable<any>;
     if (countryId) {
       loanProductsObs = this.productsService.getLoanProductWithCountryId(countryId);

@@ -39,7 +39,7 @@ export class CaptureImageDialogComponent implements OnInit, AfterViewInit, OnDes
 
   ngOnInit() {
     //set Matomo page info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
 
   }

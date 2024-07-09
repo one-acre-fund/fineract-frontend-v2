@@ -62,7 +62,7 @@ export class TakeSurveyComponent implements OnInit {
 
   ngOnInit() {
     //set Matomo page info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
   }
   // TODO: document the function

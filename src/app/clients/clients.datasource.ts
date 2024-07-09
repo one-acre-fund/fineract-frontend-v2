@@ -41,7 +41,7 @@ export class ClientsDataSource implements DataSource<any> {
     showClosedAccounts: boolean = true
   ) {
     this.clientsSubject.next([]);
-    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    const countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
     let clientsObs: Observable<any>;
     if (countryId) {
       clientsObs = this.clientsService.getClientsByCountry('id', 'ASC', pageIndex * limit, limit, countryId);

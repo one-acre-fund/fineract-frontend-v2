@@ -157,7 +157,7 @@ export class AuthenticationService {
 
       //save the country Id of the individual user
       if (credentials?.officeId != 1) {
-        let selectedCountry = {
+        const selectedCountry = {
           id: credentials.countryId,
           name: credentials.countryName,
         };

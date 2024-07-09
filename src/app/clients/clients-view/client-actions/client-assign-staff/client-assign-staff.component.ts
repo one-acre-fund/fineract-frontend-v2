@@ -48,7 +48,7 @@ export class ClientAssignStaffComponent implements OnInit {
    */
   ngOnInit() {
     //set Matomo page info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
 
     this.staffData = this.clientData.staffOptions;

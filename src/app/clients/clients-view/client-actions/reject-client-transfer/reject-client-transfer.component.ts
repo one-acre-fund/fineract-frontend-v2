@@ -48,7 +48,7 @@ export class RejectClientTransferComponent implements OnInit {
 
   ngOnInit() {
     //set Matomo page info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
 
     this.createRejectClientTransferForm();

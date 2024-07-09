@@ -56,7 +56,7 @@ export class ClientsViewComponent implements OnInit {
 
   ngOnInit() {
     //set page view info
-    let title = document.title || "";
+    const title = document.title || "";
     this.matomoTracker.setDocumentTitle(`${title}`);
 
     this.clientsService.getClientProfileImage(this.clientViewData.id).subscribe(

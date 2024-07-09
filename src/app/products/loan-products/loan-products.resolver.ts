@@ -24,7 +24,7 @@ export class LoanProductsResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    let countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
+    const countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
     if (countryId) {
       return this.productsService.getLoanProductWithCountryId(countryId);
     } else {
