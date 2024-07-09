@@ -1,4 +1,3 @@
-      ---
       name: Lint
 
       on: [push, pull_request]
@@ -16,8 +15,8 @@
             with:
               node-version: '18.x'
 
-         - name: Install dependencies
-           run: npm install
+          - name: Install dependencies
+            run: npm install
 
-         - name: Run ESLint
-           run: npx eslint 'src/**/*.ts'
+          - name: Run ESLint
+            run: npx eslint 'src/**/*.ts'
