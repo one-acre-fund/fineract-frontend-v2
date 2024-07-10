@@ -19,6 +19,7 @@ ENABLE_LINTERS:
   - JSON_PRETTIER
   - HTML_HTMLHINT
   - TYPESCRIPT_ES
+  - TYPESCRIPT_STANDARD
 
 # DISABLE:
 #   - COPYPASTE # Uncomment to enable checks of abusive copy-pastes
