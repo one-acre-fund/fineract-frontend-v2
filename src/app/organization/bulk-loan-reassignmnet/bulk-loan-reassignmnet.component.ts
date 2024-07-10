@@ -31,7 +31,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
   /** Officer Template. */
   officerTemplate: any;
   /** Loans. */
-  loans: any[] = new Array();
+  loans: any[] = [];
   /** Minimum Date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum Date allowed. */

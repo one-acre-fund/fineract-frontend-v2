@@ -371,7 +371,7 @@ export class SystemService {
    * @return {Observable<any>}
    */
   async getDataTableByAppTableName(apptableName: string):  Promise<any> {
-    return await this.http.get(`/datatables?apptable=${apptableName}`).toPromise();;
+    return await this.http.get(`/datatables?apptable=${apptableName}`).toPromise();
   }
 
   /**
@@ -424,7 +424,7 @@ export class SystemService {
  * @returns {Observable<any>} Configurations data by country.
  */
   getConfigurationsByCountry(countryId): Observable<any> {
-    let httpParams = new HttpParams().set('countryId', countryId.toString());
+    const httpParams = new HttpParams().set('countryId', countryId.toString());
     return this.http.get('/configurations', { params: httpParams });
   }
   /**

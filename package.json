@@ -16,7 +16,7 @@
     "build:prod": "node --max-old-space-size=16384 ./node_modules/@angular/cli/bin/ng build --prod --output-hashing=none --base-href=/web-app/",
     "start": "npm run env -s && ng serve --aot --proxy-config proxy.conf.js",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
-    "lint": "ng lint && stylelint \"src/**/*.scss\" --syntax scss && htmlhint \"src\" --config .htmlhintrc",
+    "lint": "eslint . --fix",
     "test": "npm run env -s && ng test",
     "test:ci": "npm run env -s && npm run lint -s && ng test --code-coverage --watch=false",
     "test:cov": "npm run env -s && ng test --code-coverage --watch=false --browsers=ChromeHeadless",
@@ -70,6 +70,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "14.2.13",
+    "@angular-eslint/builder": "^14.4.0",
+    "@angular-eslint/eslint-plugin": "^14.4.0",
+    "@angular-eslint/eslint-plugin-template": "^14.4.0",
+    "@angular-eslint/schematics": "^14.4.0",
+    "@angular-eslint/template-parser": "^14.4.0",
     "@angular/cli": "14.2.13",
     "@angular/compiler-cli": "14.3.0",
     "@angular/language-service": "14.3.0",
@@ -79,7 +84,10 @@
     "@types/jasminewd2": "2.0.6",
     "@types/lodash": "4.14.132",
     "@types/node": "12.11.1",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "codelyzer": "6.0.0",
+    "eslint": "^8.57.0",
     "git-describe": "^4.1.1",
     "hads": "^3.0.3",
     "htmlhint": "0.11.0",
@@ -103,8 +111,7 @@
     "stylelint-scss": "3.6.1",
     "tailwindcss": "^3.3.3",
     "ts-node": "8.2.0",
-    "tslint": "~6.1.0",
-    "typescript": "4.6.4"
+    "typescript": "4.7.4"
   },
   "repository": {
     "type": "git",

@@ -42,7 +42,7 @@ export class ChargesOverviewComponent implements OnInit {
 
   ngOnInit() {
     //set Matomo page info
-    let title = document.title;
+    const title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
 
     this.setLoanClientChargeOverview();

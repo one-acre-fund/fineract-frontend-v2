@@ -41,7 +41,7 @@ export class GroupsDataSource implements DataSource<any> {
     groupActive: boolean = true
   ) {
     this.groupsSubject.next([]);
-    let countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
+    const countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
     let groupsObs: Observable<any>;
     if (countryId) {
       groupsObs = this.groupsService.getGroupsByCountryId(

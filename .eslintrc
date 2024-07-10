@@ -1,0 +1,38 @@
+{
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "build/",
+    "**/*.spec.ts",
+    "**/*.d.ts",
+    "**/*.conf.ts",
+    "**/test.ts",
+    "**/polyfills.ts",
+    "**/version.js"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-case-declarations": "off",
+    "@typescript-eslint/ban-types": "off",
+    "no-prototype-builtins": "off",
+    "no-async-promise-executor": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "no-undef": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "no-cond-assign": "off",
+    "no-constant-condition": "off",
+    "prefer-const": "off",
+    "no-debugger": "off",
+    "no-empty": "off",
+    "no-extra-boolean-cast": "off",
+    "no-useless-escape": "off"
+  }
+}

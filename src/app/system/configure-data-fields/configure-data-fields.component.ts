@@ -77,9 +77,9 @@ export class ConfigureDataFieldsComponent implements OnInit {
 
   routeEntity(entity:any){
     if(this.countryId){
-      let countryName=this.countryList.filter((x:any)=>x.id===this.countryId);
+      const countryName=this.countryList.filter((x:any)=>x.id===this.countryId);
       if(countryName && countryName.length>0){
-        let country=countryName[0].name;
+        const country=countryName[0].name;
         this.router.navigate([`system/configure-field/${entity}/${this.countryId}/${country}`]);
       }
     }
