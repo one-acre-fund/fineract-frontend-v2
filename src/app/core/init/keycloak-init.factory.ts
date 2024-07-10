@@ -7,7 +7,8 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
   return (): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       try {
-        await keycloak
+        if(false) {
+          await keycloak
           .init({
             config: {
               url: `${environment.oauth.serverUrl}`,
@@ -46,6 +47,9 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
               resolve(isLoggedIn);
             });
           });
+        }
+        resolve(true)
+
       } catch (error) {
         reject(error);
       }
