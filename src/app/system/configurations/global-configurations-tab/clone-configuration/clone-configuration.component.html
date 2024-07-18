@@ -14,6 +14,11 @@
                 Value is <strong>required</strong>
               </mat-error>
             </mat-form-field>
+
+            <mat-form-field *ngIf="!configuration.codeId">
+              <mat-label>String Value</mat-label>
+              <input type="string" matInput formControlName="stringValue">
+            </mat-form-field>
             <!-- <mat-form-field>
                 <mat-label>Country</mat-label>
                 <mat-select placeholder="Search" #country required formControlName="countryId">

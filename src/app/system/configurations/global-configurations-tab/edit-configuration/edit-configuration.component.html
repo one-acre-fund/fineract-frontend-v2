@@ -19,6 +19,10 @@
               Configuration Value is <strong>required</strong>
             </mat-error>
           </mat-form-field>
+          <mat-form-field *ngIf="configuration.stringValue">
+            <mat-label>Configuration String Value</mat-label>
+            <input matInput type="string" formControlName="stringValue" />
+          </mat-form-field>
           <mat-form-field *ngIf="configuration.codeId">
             <mat-label>Configuration Value</mat-label>
             <mat-select required formControlName="codeValueId">

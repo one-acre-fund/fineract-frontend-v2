@@ -50,6 +50,7 @@ export class EditConfigurationComponent implements OnInit {
   createConfigurationForm() {
     this.configurationForm = this.formBuilder.group({
       'name': [{ value: this.configuration.name, disabled: true }, Validators.required],
+      'stringValue': [this.configuration.stringValue],
       'value': [this.configuration.value, Validators.required],
       'codeValueId': [this.configuration.codeValueId, this.configuration.codeId ? Validators.required : null],
     });

@@ -64,6 +64,7 @@ export class CloneConfigurationComponent implements OnInit {
     }
     this.configurationForm = this.formBuilder.group({
       value: ['', !this.configuration.codeId ? Validators.required : null],
+      stringValue: [null],
       countryId: [countryId, Validators.required],
       globalConfigId: [this.configId],
       codeValueId: [this.configuration.codeValueId, this.configuration.codeId ? Validators.required : null],
