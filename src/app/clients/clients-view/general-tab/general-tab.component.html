@@ -106,7 +106,7 @@
     <div fxLayout="column" fxFlex="50%">
       <div fxLayout="row" fxLayoutAlign="flex-end">
         <button mat-raised-button class="f-right" color="primary" (click)="toggleLoanAccountsOverview()">
-          {{ showClosedLoanAccounts ? "View Active Accounts" : "View Closed Accounts" }}
+          {{ showClosedLoanAccounts ? 'View Active Accounts' : 'View Closed Accounts' }}
         </button>
       </div>
     </div>
@@ -158,18 +158,6 @@
     <ng-container matColumnDef="Actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
-        <button
-          *ngIf="element.status.active"
-          class="account-action-button"
-          mat-raised-button
-          color="primary"
-          matTooltip="Make Repayment"
-          matTooltipPosition="above"
-          (click)="routeEdit($event)"
-          [routerLink]="['../', 'loans-accounts', element.id, 'actions', 'Make Repayment']"
-        >
-          <i class="fa fa-dollar"></i>
-        </button>
         <span *ngIf="element.status.pendingApproval">
           <button
             class="account-action-button"
@@ -292,7 +280,7 @@
     <div fxLayout="column" fxFlex="50%">
       <div fxLayout="row" fxLayoutAlign="flex-end">
         <button mat-raised-button class="f-right" color="primary" (click)="toggleSavingAccountsOverview()">
-          {{ showClosedSavingAccounts ? "View Active Accounts" : "View Closed Accounts" }}
+          {{ showClosedSavingAccounts ? 'View Active Accounts' : 'View Closed Accounts' }}
         </button>
       </div>
     </div>
