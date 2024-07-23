@@ -1,6 +1,6 @@
 # Release Notes
 
-## 1.1.0-RC.1
+## Version 1.3.0 - Community 1.0.0
 
     * [SER-1406] - Fix create client errors
     * [SER-842] - Allow an authorised user to select an active country so that s/he can make any changes to a specific country
@@ -71,6 +71,9 @@
     * [SER-2818] - Remove templates link to organisation.
     * [SER-2803] - Move build from Azure pipeline to GitHub Actions
     * [SER-2745] - Fix file name in the bulk import downloads to use file name from the API
+    * [SER-2847] - Allow overide of OCR checks if a user has the SKIP_VERIFICATION_CLIENT permission.
+    * [SER-2892] - Search fields on Client Search and Filter Bars are labeled with "Search for Client" and "Filter by Client" respectively and fix null objects in the view jobs interface.
+    * [SER-2926] - Remove loan payment button from the UI
 
 ## Version 1.0.0 - for use with Fineract Web App
 

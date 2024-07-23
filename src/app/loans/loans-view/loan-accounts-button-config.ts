@@ -44,11 +44,11 @@ export class LoansAccountButtonConfiguration {
                         icon: 'icon-dollar',
                         taskPermissionName: 'FORECLOSURE_LOAN',
                     },
-                    {
+                  /*   {
                         name: 'Make Repayment',
                         icon: 'fa fa-dollar',
                         taskPermissionName: 'REPAYMENT_LOAN',
-                    },
+                    }, */
                     {
                         name: 'Undo Disbursal',
                         icon: 'fa fa-undo',
