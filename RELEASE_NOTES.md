@@ -1,6 +1,6 @@
 # Release Notes
 
-## 1.1.0-RC.1
+## Version 1.3.0 - Community 1.0.0
 
     * [SER-1406] - Fix create client errors
     * [SER-842] - Allow an authorised user to select an active country so that s/he can make any changes to a specific country
