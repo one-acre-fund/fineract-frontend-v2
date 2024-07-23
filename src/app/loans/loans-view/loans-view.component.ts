@@ -16,10 +16,9 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 @Component({
   selector: 'mifosx-loans-view',
   templateUrl: './loans-view.component.html',
-  styleUrls: ['./loans-view.component.scss']
+  styleUrls: ['./loans-view.component.scss'],
 })
 export class LoansViewComponent implements OnInit {
-
   /** Loan Details Data */
   loanDetailsData: any;
   /** Loan Datatables */
@@ -35,11 +34,13 @@ export class LoansViewComponent implements OnInit {
   /** Button Configuration */
   buttonConfig: LoansAccountButtonConfiguration;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              public loansService: LoansService,
-              public dialog: MatDialog) {
-    this.route.data.subscribe((data: { loanDetailsData: any, loanDatatables: any}) => {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public loansService: LoansService,
+    public dialog: MatDialog
+  ) {
+    this.route.data.subscribe((data: { loanDetailsData: any; loanDatatables: any }) => {
       this.loanDetailsData = data.loanDetailsData;
       this.loanDatatables = data.loanDatatables;
     });
@@ -48,7 +49,6 @@ export class LoansViewComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.recalculateInterest = this.loanDetailsData.recalculateInterest || true;
     this.status = this.loanDetailsData.status.value;
     this.setConditionalButtons();
@@ -59,39 +59,34 @@ export class LoansViewComponent implements OnInit {
     this.buttonConfig = new LoansAccountButtonConfiguration(this.status);
 
     if (this.status === 'Submitted and pending approval') {
-
       this.buttonConfig.addOption({
-        name: (this.loanDetailsData.loanOfficerName ? 'Change Loan Officer' : 'Assign Loan Officer'),
-        taskPermissionName: 'DISBURSE_LOAN'
+        name: this.loanDetailsData.loanOfficerName ? 'Change Loan Officer' : 'Assign Loan Officer',
+        taskPermissionName: 'DISBURSE_LOAN',
       });
 
       if (this.loanDetailsData.isVariableInstallmentsAllowed) {
         this.buttonConfig.addOption({
           name: 'Edit Repayment Schedule',
-          taskPermissionName: 'ADJUST_REPAYMENT_SCHEDULE'
+          taskPermissionName: 'ADJUST_REPAYMENT_SCHEDULE',
         });
       }
-
     } else if (this.status === 'Approved') {
-
       this.buttonConfig.addButton({
-        name: (this.loanDetailsData.loanOfficerName ? 'Change Loan Officer' : 'Assign Loan Officer'),
+        name: this.loanDetailsData.loanOfficerName ? 'Change Loan Officer' : 'Assign Loan Officer',
         icon: 'fa fa-user',
-        taskPermissionName: 'DISBURSE_LOAN'
+        taskPermissionName: 'DISBURSE_LOAN',
       });
-
     } else if (this.status === 'Active') {
-
       if (this.loanDetailsData.canDisburse) {
         this.buttonConfig.addButton({
           name: 'Disburse',
           icon: 'fa fa-flag',
-          taskPermissionName: 'DISBURSE_LOAN'
+          taskPermissionName: 'DISBURSE_LOAN',
         });
         this.buttonConfig.addButton({
           name: 'Disburse To Savings',
           icon: 'fa fa-flag',
-          taskPermissionName: 'DISBURSETOSAVINGS_LOAN'
+          taskPermissionName: 'DISBURSETOSAVINGS_LOAN',
         });
       }
 
@@ -101,18 +96,17 @@ export class LoansViewComponent implements OnInit {
         this.buttonConfig.addButton({
           name: 'Assign Loan Officer',
           icon: 'fa fa-user',
-          taskPermissionName: 'UPDATELOANOFFICER_LOAN'
+          taskPermissionName: 'UPDATELOANOFFICER_LOAN',
         });
       }
 
       if (this.recalculateInterest) {
-        this.buttonConfig.addButton({
+        /*   this.buttonConfig.addButton({
           name: 'Prepay Loan',
           icon: 'fa fa-money',
           taskPermissionName: 'REPAYMENT_LOAN'
-        });
+        }); */
       }
-
     }
   }
 
@@ -125,11 +119,14 @@ export class LoansViewComponent implements OnInit {
         this.deleteLoanAccount();
         break;
       case 'Modify Application':
-        this.router.navigate(['edit-loans-account'], { relativeTo: this.route});
+        this.router.navigate(['edit-loans-account'], { relativeTo: this.route });
         break;
       case 'Transfer Funds':
         const queryParams: any = { loanId: this.loanId, accountType: 'fromloans' };
-        this.router.navigate(['transfer-funds/make-account-transfer'], { relativeTo: this.route, queryParams: queryParams });
+        this.router.navigate(['transfer-funds/make-account-transfer'], {
+          relativeTo: this.route,
+          queryParams: queryParams,
+        });
         break;
       default:
         this.router.navigate(['actions', button], { relativeTo: this.route });
@@ -142,7 +139,11 @@ export class LoansViewComponent implements OnInit {
    */
   private recoverFromGuarantor() {
     const recoverFromGuarantorDialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { heading: 'Recover from Guarantor', dialogContext: 'Are you sure you want recover from Guarantor', type: 'Mild' }
+      data: {
+        heading: 'Recover from Guarantor',
+        dialogContext: 'Are you sure you want recover from Guarantor',
+        type: 'Mild',
+      },
     });
     recoverFromGuarantorDialogRef.afterClosed().subscribe((response: any) => {
       if (response.confirm) {
@@ -158,7 +159,7 @@ export class LoansViewComponent implements OnInit {
    */
   private deleteLoanAccount() {
     const deleteGuarantorDialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { deleteContext: `with loan id: ${this.loanId}` }
+      data: { deleteContext: `with loan id: ${this.loanId}` },
     });
     deleteGuarantorDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
@@ -176,8 +177,8 @@ export class LoansViewComponent implements OnInit {
   private reload() {
     const clientId = this.clientId;
     const url: string = this.router.url;
-    this.router.navigateByUrl(`/clients/${clientId}/loans-accounts`, { skipLocationChange: true })
+    this.router
+      .navigateByUrl(`/clients/${clientId}/loans-accounts`, { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
   }
-
 }
