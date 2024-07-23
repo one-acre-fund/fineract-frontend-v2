@@ -68,14 +68,14 @@ jobs:
 
       - name: Login to Azure registry
         uses: docker/login-action@v3.0.0
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        # if: ${{ env.SHOULD_PUBLISH == 'true'}}
         with:
           registry: oaftech.azurecr.io
           username: ${{ vars.ACR_PULL_USERNAME }}
           password: ${{ secrets.ACR_PULL_PASSWORD }}
 
       - name: Push an image to container registry
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        # if: ${{ env.SHOULD_PUBLISH == 'true'}}
         run: docker push oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:${{ env.IMAGE_TAGS }}
 
       - name: Use latest image tag
@@ -83,13 +83,13 @@ jobs:
 
       - name: Publish configuration package
         uses: actions/upload-artifact@v4.3.1
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        # if: ${{ env.SHOULD_PUBLISH == 'true'}}
         with:
           name: fineract-frontend-v2
           path: ${{ github.workspace }}/deployment
 
       - name: Configure environment for Deployment
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        # if: ${{ env.SHOULD_PUBLISH == 'true'}}
         run: |
           if [ "${GITHUB_REF}" == "refs/heads/develop" ]; then
             echo "::set-output name=environment::Test"
@@ -98,7 +98,7 @@ jobs:
           fi
 
       - name: Trigger target repository dispatch event
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        # if: ${{ env.SHOULD_PUBLISH == 'true'}}
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
           TARGET_REPO: one-acre-fund/CD-fineract-frontend
