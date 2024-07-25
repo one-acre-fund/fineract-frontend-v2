@@ -4,6 +4,8 @@
     * [SER-2854] - Removed currency control subscription on charges step during loan product update that clears charges on currency change
      * [SER-2929] - Show only active offices when creating clients and load only active offices when searcing offices by country.
 
+## Version 1.3.1 - Community 1.0.0
+    * [SER-2859] - Accept a string value to be passed when creating a new configuration, but only for the 'skip-ocr-credit-score-users' config at this time.
 ## Version 1.3.0 - Community 1.0.0
 
     * [SER-1406] - Fix create client errors

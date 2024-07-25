@@ -17,3 +17,12 @@ table {
 .text-center{
   text-align: center;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+  display: inline-block;
+  vertical-align: bottom;
+}
