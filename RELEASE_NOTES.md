@@ -74,6 +74,7 @@
     * [SER-2847] - Allow overide of OCR checks if a user has the SKIP_VERIFICATION_CLIENT permission.
     * [SER-2892] - Search fields on Client Search and Filter Bars are labeled with "Search for Client" and "Filter by Client" respectively and fix null objects in the view jobs interface.
     * [SER-2926] - Remove loan payment button from the UI
+    * [SER-2854] - Removed currency control subscription on charges step during loan product update that clears charges on currency change
 
 ## Version 1.0.0 - for use with Fineract Web App
 
