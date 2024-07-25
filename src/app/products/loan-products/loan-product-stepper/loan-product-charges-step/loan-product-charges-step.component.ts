@@ -44,7 +44,7 @@ export class LoanProductChargesStepComponent implements OnInit {
     }
     this.pristine = true;
 
-    this.currencyCode.valueChanges.subscribe(() => (this.chargesDataSource = []));
+    //this.currencyCode.valueChanges.subscribe(() => (this.chargesDataSource = []));
     this.multiDisburseLoan.valueChanges.subscribe(() => (this.chargesDataSource = []));
   }
 
