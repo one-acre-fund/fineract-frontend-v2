@@ -1,8 +1,8 @@
 # Release Notes
-## Version 1.3.0 - Community 1.0.0
+## Version 1.3.1 - Community 1.0.0
 
     * [SER-2854] - Removed currency control subscription on charges step during loan product update that clears charges on currency change
-    
+
 ## Version 1.3.0 - Community 1.0.0
 
     * [SER-1406] - Fix create client errors
