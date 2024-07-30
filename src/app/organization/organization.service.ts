@@ -260,7 +260,8 @@ export class OrganizationService {
     return this.http.get(`/countries/${countryId}`);
   }
   searchCountryById(countryId: number) {
-    return this.http.get(`/offices/search?countryId=${countryId}`);
+    const httpParams = new HttpParams().set('activeFlag', 'true');
+    return this.http.get(`/offices/search?countryId=${countryId}`, { params: httpParams });
   }
 
   createOutlet(data: any): Observable<any> {
@@ -934,7 +935,6 @@ export class OrganizationService {
     return this.http.get('/offices/search', { params });
   }
 
-
   /**
    * Get file name from HTTP headers
    * @param headers the HTTP headers
@@ -948,24 +948,24 @@ export class OrganizationService {
 
   /**
    * Download file from API response
-   * 
-   * @param res 
+   *
+   * @param res
    */
-  downloadFileFromAPIResponse (res){
+  downloadFileFromAPIResponse(res) {
     const headers = res.headers;
     const contentType = headers.get('Content-Type');
     const blob = new Blob([res.body], { type: contentType });
     const fileName = this.getFileNameFromHttpHeaders(headers);
-    let fileLink = document.createElement("a");
+    let fileLink = document.createElement('a');
     document.body.appendChild(fileLink);
-    fileLink.style.display = "none";
+    fileLink.style.display = 'none';
     const url = window.URL.createObjectURL(blob);
     fileLink.href = url;
     fileLink.download = fileName;
     fileLink.click();
     setTimeout(() => {
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(fileLink);
-    }, 0)
-}
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(fileLink);
+    }, 0);
+  }
 }

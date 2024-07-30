@@ -12,12 +12,16 @@
             <input matInput required formControlName="name" />
           </mat-form-field>
 
-          <mat-form-field *ngIf="!configuration.codeId">
+          <mat-form-field *ngIf="!configuration.codeId && !configuration.stringValue">
             <mat-label>Configuration Value</mat-label>
             <input matInput required type="number" formControlName="value" />
             <mat-error *ngIf="configurationForm.controls.value.hasError('required')">
               Configuration Value is <strong>required</strong>
             </mat-error>
+          </mat-form-field>
+          <mat-form-field *ngIf="configuration.stringValue">
+            <mat-label>Configuration Value</mat-label>
+            <input matInput type="string" formControlName="stringValue" />
           </mat-form-field>
           <mat-form-field *ngIf="configuration.codeId">
             <mat-label>Configuration Value</mat-label>
