@@ -6,6 +6,7 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
   const service = authService;
   return (): Promise<any> => {
     return new Promise(async (resolve, reject) => {
+      /*
       try {
         await keycloak
           .init({
@@ -49,6 +50,8 @@ export function initializer (keycloak: KeycloakService, authService: Authenticat
       } catch (error) {
         reject(error);
       }
+      */
+      resolve(true);
     });
   };
 }

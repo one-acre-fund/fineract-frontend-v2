@@ -22,7 +22,7 @@ export const environment = {
   apiVersion: window['env']['apiVersion'] || '/v1',
   serverUrl: '',
   oauth: {
-    enabled: true,  // For connecting to Mifos X using OAuth2 Authentication change the value to true
+    enabled: false,  // For connecting to Mifos X using OAuth2 Authentication change the value to true
     serverUrl: window['env']['authServerUrl'] || 'http://localhost:8080/auth',
     realm: window['env']['keycloakRealm'] || 'Fineract',
     client_id: window['env']['keycloakClientId'] || 'login-app',

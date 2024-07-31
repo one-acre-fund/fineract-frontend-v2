@@ -107,7 +107,7 @@ export class AuthenticationService {
     this.alertService.alert({ type: 'Authentication Start', message: 'Please wait...' });
     this.rememberMe = loginContext.remember;
     this.storage = this.rememberMe ? localStorage : sessionStorage;
-    if (environment.oauth.enabled) {
+    if (false) {
       let httpParams = new HttpParams();
       httpParams = httpParams.set('client_id', 'fineract');
       httpParams = httpParams.set('grant_type', 'authorization_code');

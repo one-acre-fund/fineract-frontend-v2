@@ -4,7 +4,7 @@
   // BackEnd Environment variables
   window['env']['fineractApiUrls'] =
     'https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://loans.test.oneacrefund.org,https://localhost:8443';
-  window['env']['fineractApiUrl'] = 'https://loans.test.oneacrefund.org';
+  window['env']['fineractApiUrl'] = 'https://localhost:8443/';
 
   window['env']['authServerUrl'] = '';
 
