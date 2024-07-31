@@ -119,8 +119,16 @@
 
       <button mat-raised-button [matMenuTriggerFor]="Applications"><i class="fa fa-file"></i>Applications</button>
       <mat-menu #Applications="matMenu">
-        <button mat-menu-item [routerLink]="['loans-accounts', 'create']">New Loan Account</button>
-        <button mat-menu-item [routerLink]="['savings-accounts', 'create']">New Savings Account</button>
+        <button mat-menu-item [routerLink]="['loans-accounts', 'create']" *mifosxHasPermission="'CREATE_LOAN'">
+          New Loan Account
+        </button>
+        <button
+          mat-menu-item
+          [routerLink]="['savings-accounts', 'create']"
+          *mifosxHasPermission="'CREATE_SAVINGSACCOUNT'"
+        >
+          New Savings Account
+        </button>
         <!--   <button mat-menu-item *mifosxHasPermission="'CREATE_SHAREACCOUNT'" [routerLink]="['shares-accounts', 'create']">
           New Share Account
         </button>
@@ -142,10 +150,14 @@
 
       <button mat-raised-button [matMenuTriggerFor]="Actions"><i class="fa fa-tasks"></i>Actions</button>
       <mat-menu #Actions="matMenu">
-        <button mat-menu-item (click)="doAction('Close')">Close</button>
-        <button mat-menu-item (click)="doAction('Transfer Client')">Transfer Client</button>
+        <button mat-menu-item (click)="doAction('Close')" *mifosxHasPermission="'CLOSE_CLIENT'">Close</button>
+        <button mat-menu-item (click)="doAction('Transfer Client')" *mifosxHasPermission="'PROPOSETRANSFER_CLIENT'">
+          Transfer Client
+        </button>
         <span *ngIf="clientViewData.status.value === 'Pending'"
-          ><button mat-menu-item (click)="doAction('Activate')">Activate</button></span
+          ><button mat-menu-item (click)="doAction('Activate')" *mifosxHasPermission="'ACTIVATE_CLIENT'">
+            Activate
+          </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Pending'"
           ><button mat-menu-item (click)="doAction('Withdraw')">Withdraw</button></span
@@ -159,7 +171,9 @@
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Closed'"
-          ><button mat-menu-item (click)="doAction('Reactivate')">Reactivate</button></span
+          ><button mat-menu-item (click)="doAction('Reactivate')" *mifosxHasPermission="'REACTIVATE_CLIENT'">
+            Reactivate
+          </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Rejected'"
           ><button mat-menu-item (click)="doAction('Undo Rejection')">Undo Rejection</button></span
