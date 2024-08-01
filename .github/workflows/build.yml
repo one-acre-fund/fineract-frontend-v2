@@ -1,3 +1,4 @@
+---
 name: build pipeline
 
 on:
@@ -47,7 +48,7 @@ jobs:
         run: |
           VERSION_TAG=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
           echo "VERSION_TAG=$VERSION_TAG"
-          
+
           echo "Is Release=$IS_RELEASE"
 
           if [ $IS_RELEASE == 'true' ]; then
