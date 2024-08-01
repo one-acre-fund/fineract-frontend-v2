@@ -1,10 +1,9 @@
 # Release Notes
 ## Version 1.3.3 - Community 1.0.0
-    *
+    * [SER-2955] - Revise the global configuration pages to incorporate the new isStringValue flag field.
 ## Version 1.3.2 - Community 1.0.0
     * [SER-2947] - Show or hide some menus based on user permissions.
     * [SER-2956] - Fix regression on Display Terms&Conditions on loan product page
-
 ## Version 1.3.1 - Community 1.0.0
 
     * [SER-2854] Editing a loan product leads to loss of attached charges 
