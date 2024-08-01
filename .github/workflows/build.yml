@@ -53,7 +53,7 @@ jobs:
 
           echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
           echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_ENV
-          echo "Is Release=${$IS_RELEASE == 'true'}"
+          echo "Is Release=$IS_RELEASE == 'true'"
 
       - name: Install Node Packages
         run: npm install
