@@ -47,13 +47,20 @@ jobs:
         run: |
           VERSION_TAG=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
           echo "VERSION_TAG=$VERSION_TAG"
+          
+          echo "Is Release=$IS_RELEASE"
 
-          IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
+          if [ $IS_RELEASE == 'true' ]; then
+            echo "This is a release"
+            IMAGE_TAGS = $VERSION_TAG
+          else
+            echo "This is a normal build"
+            IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
+          fi
           echo "Tags: $IMAGE_TAGS"
 
           echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
           echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_ENV
-          echo "Is Release=$IS_RELEASE == 'true'"
 
       - name: Install Node Packages
         run: npm install
