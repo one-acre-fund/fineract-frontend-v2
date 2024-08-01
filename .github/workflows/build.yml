@@ -17,6 +17,7 @@ on:
 
 env:
   SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
+  IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -47,14 +48,13 @@ jobs:
           VERSION_TAG=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
           echo "VERSION_TAG=$VERSION_TAG"
 
+          ${{ env.IS_MERGE_ON_MAIN == 'true'}}
           IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
-          echo "IMAGE_SEMANTIC_HASH=$IMAGE_TAGS"
           echo "Tags: $IMAGE_TAGS"
 
           echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
-          echo "IMAGE_SEMANTIC_HASH=$IMAGE_TAGS" >> $GITHUB_ENV
           echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_ENV
-          echo "SHOULD_PUBLISH=$SHOULD_PUBLISH"
+          echo "Is Release=${$IS_RELEASE == 'true'}"
 
       - name: Install Node Packages
         run: npm install
