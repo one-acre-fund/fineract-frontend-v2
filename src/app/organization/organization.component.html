@@ -10,7 +10,7 @@
             <h4 matLine>Manage Offices</h4>
             <p matLine>Add new office or modify or deactivate office or modify hierarchy</p>
           </mat-list-item>
-          <mat-list-item [routerLink]="['rural-outlet']" *mifosxHasPermission="'READ_OUTLET'">
+          <mat-list-item [routerLink]="['rural-outlet']" *mifosxHasPermission="'READ_RURAL_RETAIL_OUTLET'">
             <mat-icon matListIcon>
               <fa-icon icon="calendar-alt" size="sm"></fa-icon>
             </mat-icon>
@@ -118,7 +118,7 @@
             <p matLine>Easy way to reassign all the loan from one LO to another LO</p>
           </mat-list-item>
 
-          <mat-list-item [routerLink]="['tellers']" *mifosxHasPermission="'READ_TELLER'">
+          <mat-list-item [routerLink]="['tellers']" *mifosxHasPermission="'CREATE_TELLER'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
@@ -142,7 +142,7 @@
             <p matLine>Manage payment types</p>
           </mat-list-item>
 
-          <mat-list-item [routerLink]="['sms-campaigns']" *mifosxHasPermission="'VIEW_SMSCAMPAIGNS'">
+          <mat-list-item [routerLink]="['sms-campaigns']" *mifosxHasPermission="'READ_SMSCAMPAIGN'">
             <mat-icon matListIcon>
               <fa-icon icon="envelope" size="sm"></fa-icon>
             </mat-icon>
