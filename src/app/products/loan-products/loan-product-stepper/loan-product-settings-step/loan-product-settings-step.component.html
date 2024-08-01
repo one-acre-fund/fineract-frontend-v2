@@ -1,7 +1,5 @@
 <form [formGroup]="loanProductSettingsForm">
-
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
-
     <!-- <mat-form-field fxFlex="31%">
       <mat-label>Amortization</mat-label>
       <mat-select formControlName="amortizationType" required>
@@ -436,35 +434,36 @@
 
     </div>
 
+    -->
+
     <mat-divider fxFlex="98%"></mat-divider>
 
-    <mat-checkbox *ngIf="enableTermsAndConditions" fxFlex="73%" labelPosition="before"  class="margin-b" formControlName="showTermsAndConditions">
+    <mat-checkbox
+      *ngIf="enableTermsAndConditions"
+      fxFlex="73%"
+      labelPosition="before"
+      class="margin-b"
+      formControlName="showTermsAndConditions"
+    >
       Add terms and conditions
     </mat-checkbox>
 
     <mat-form-field *ngIf="loanProductSettingsForm.value.showTermsAndConditions" fxFlex="31%">
       <mat-label>Terms and Conditions</mat-label>
-      <mat-select formControlName="templateForTermsAndConditions" >
+      <mat-select formControlName="templateForTermsAndConditions">
         <mat-option *ngFor="let loanProductTemplate of loanProductTemplates.value" [value]="loanProductTemplate.id">
           {{ loanProductTemplate.name }}
         </mat-option>
       </mat-select>
-      <mat-error>
-        Terms and condition template is <strong>required</strong>
-      </mat-error>
-    </mat-form-field> -->
-
+      <mat-error> Terms and condition template is <strong>required</strong> </mat-error>
+    </mat-form-field>
   </div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-    <button mat-raised-button matStepperPrevious>
-      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
-      Previous
-    </button>
+    <button mat-raised-button matStepperPrevious><fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp; Previous</button>
     <button mat-raised-button matStepperNext>
       Next&nbsp;&nbsp;
       <fa-icon icon="arrow-right"></fa-icon>
     </button>
   </div>
-
 </form>
