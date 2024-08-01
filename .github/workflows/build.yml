@@ -52,7 +52,7 @@ jobs:
 
           if [ $IS_RELEASE == 'true' ]; then
             echo "This is a release"
-            IMAGE_TAGS = $VERSION_TAG
+            IMAGE_TAGS=$VERSION_TAG
           else
             echo "This is a normal build"
             IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
