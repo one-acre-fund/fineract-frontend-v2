@@ -62,6 +62,10 @@
 
             <br />
             <span *ngIf="clientViewData.mobileNo">Phone No: {{ clientViewData.mobileNo }} &nbsp;</span>
+
+            <span *ngIf="clientViewData.dateOfBirth">
+              | Birth Date: {{ clientViewData.dateOfBirth | dateFormat }} &nbsp;</span
+            >
             <br />
             <span *ngIf="clientViewData.status?.value">Status: {{ clientViewData.status?.value }} &nbsp;</span>
 
