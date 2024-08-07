@@ -14,8 +14,6 @@ export class CloneConfigurationComponent implements OnInit {
   private readonly configLevels: Record<string, any> = {
     "payment-channel": "payment-channel-ou-level"
   };
-  /** Default config for string value */
-  stringValueConfigs: string[] = ["skip-ocr-credit-score-users"];
   /** Global Configuration form. */
   configurationForm: UntypedFormGroup;
   /** Configuration. */
