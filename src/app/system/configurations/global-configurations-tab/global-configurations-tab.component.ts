@@ -18,8 +18,6 @@ export class GlobalConfigurationsTabComponent implements OnInit {
 
   /** Configuration data. */
   configurationData: any;
-  /** Default config for string value */
-  stringValueConfigs: string[] = ["skip-ocr-credit-score-users"];
 
   /** Columns to be displayed in configurations table. */
   displayedColumns: string[] = ['name', 'country', 'ou', 'enabled', 'value', 'actions'];

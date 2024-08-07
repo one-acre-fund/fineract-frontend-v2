@@ -44,7 +44,7 @@
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
         <td mat-cell *matCellDef="let configuration">
-          <ng-container *ngIf="!stringValueConfigs.includes(configuration.name); else elseTemplate">
+          <ng-container *ngIf="!configuration.isStringValue; else elseTemplate">
             {{ configuration.codeValue || configuration.value }}
           </ng-container>
           <ng-template #elseTemplate>
