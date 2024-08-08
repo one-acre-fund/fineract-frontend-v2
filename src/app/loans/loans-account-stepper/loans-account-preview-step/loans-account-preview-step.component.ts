@@ -1,5 +1,6 @@
 /** Angular Imports */
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { environment } from 'environments/environment';
 
 /**
  * Create Loans Account Preview Step
@@ -35,7 +36,7 @@ export class LoansAccountPreviewStepComponent implements OnInit {
     this.isLoanSubmitButtonDisabled = true;
     setTimeout(() => {
       this.isLoanSubmitButtonDisabled = false;
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, environment.loanSubmitButtonDisabledTimeOut * 1000); // Multiply by 1000 to get milliseconds
     
     this.submit.emit()
   }
