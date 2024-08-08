@@ -25,8 +25,19 @@ export class LoansAccountPreviewStepComponent implements OnInit {
   /** Overdue Charges Displayed Columns */
   overdueChargesDisplayedColumns: string[] = ['name', 'type', 'amount', 'collectedon'];
 
+  isLoanSubmitButtonDisabled = false
+
   constructor() { }
 
   ngOnInit() { }
+
+  submitAndDisbleLoanSubmitButton(){
+    this.isLoanSubmitButtonDisabled = true;
+    setTimeout(() => {
+      this.isLoanSubmitButtonDisabled = false;
+    }, 5000); // 5000 milliseconds = 5 seconds
+    
+    this.submit.emit()
+  }
 
 }
