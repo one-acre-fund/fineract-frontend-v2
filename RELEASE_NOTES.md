@@ -4,6 +4,7 @@
 
     * [SER-2961] - Client's Date of Birth (DOB) should be available on the client profile.
     * [SER-2955] - Revise the global configuration pages to incorporate the new isStringValue flag field.
+    * [SER-2902] - Disable loan submit button for a specific period to avoid double clicks.
 ## Version 1.3.2 - Community 1.0.0
 
     * [SER-2947] - Show or hide some menus based on user permissions.
