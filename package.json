@@ -43,7 +43,7 @@
     "@angular/service-worker": "14.3.0",
     "@ckeditor/ckeditor5-angular": "1.2.3",
     "@ckeditor/ckeditor5-build-classic": "21.0.0",
-    "@fortawesome/angular-fontawesome": "^0.10.2",
+    "@fortawesome/angular-fontawesome": "^0.15.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "5.15.4",
     "@ng-select/ng-select": "^9.1.0",
