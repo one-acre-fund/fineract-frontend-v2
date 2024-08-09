@@ -270,7 +270,8 @@ export class LoansService {
    */
   getLoansAccountTemplateResource(entityId: any, isGroup: boolean, productId?: any): Observable<any> {
     let httpParams = new HttpParams().set('activeOnly', 'true')
-                                      .set('staffInSelectedOfficeOnly', 'true');
+                                      .set('staffInSelectedOfficeOnly', 'true')
+                                      .set('withClientEligibilityCheck', 'true');
     httpParams = productId ? httpParams.set('productId', productId) : httpParams;
     httpParams = isGroup ? httpParams.set('groupId', entityId)
                                       .set('templateType', 'gll') :

@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.4 - Community 1.0.0
+
+    * [SER-2664] -  Show only client eligible loan products
+
 ## Version 1.3.3 - Community 1.0.0
 
     * [SER-2961] - Client's Date of Birth (DOB) should be available on the client profile.
