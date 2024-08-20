@@ -1,13 +1,18 @@
 # Release Notes
+
 ## Version 1.3.3 - Community 1.0.0
-    *
+
+    * [SER-2961] - Client's Date of Birth (DOB) should be available on the client profile.
+    * [SER-2955] - Revise the global configuration pages to incorporate the new isStringValue flag field.
+    * [SER-2902] - Disable loan submit button for a specific period to avoid double clicks.
+    * [SER-2664] -  Show only client eligible loan products
 ## Version 1.3.2 - Community 1.0.0
+
     * [SER-2947] - Show or hide some menus based on user permissions.
     * [SER-2956] - Fix regression on Display Terms&Conditions on loan product page
-
 ## Version 1.3.1 - Community 1.0.0
 
-    * [SER-2854] Editing a loan product leads to loss of attached charges 
+    * [SER-2854] Editing a loan product leads to loss of attached charges
     * [SER-2854] - Removed currency control subscription on charges step during loan product update that clears charges on currency change
     * [SER-2929] - Show only active offices when creating clients and load only active offices when searcing offices by country.
     * [SER-2859] - Accept a string value to be passed when creating a new configuration, but only for the 'skip-ocr-credit-score-users' config at this time.
@@ -86,7 +91,6 @@
     * [SER-2847] - Allow overide of OCR checks if a user has the SKIP_VERIFICATION_CLIENT permission.
     * [SER-2892] - Search fields on Client Search and Filter Bars are labeled with "Search for Client" and "Filter by Client" respectively and fix null objects in the view jobs interface.
     * [SER-2926] - Remove loan payment button from the UI
-
 
 ## Version 1.0.0 - for use with Fineract Web App
 
