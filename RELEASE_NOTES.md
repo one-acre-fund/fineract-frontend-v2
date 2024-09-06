@@ -6,6 +6,7 @@
     * [SER-2955] - Revise the global configuration pages to incorporate the new isStringValue flag field.
     * [SER-2902] - Disable loan submit button for a specific period to avoid double clicks.
     * [SER-2664] -  Show only client eligible loan products
+    * [SER-2881] -  Re-enable configuration of the currency multiple from directly on the UI during Loan Definition
 ## Version 1.3.2 - Community 1.0.0
 
     * [SER-2947] - Show or hide some menus based on user permissions.
