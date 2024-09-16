@@ -96,7 +96,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       }
     });
 
-    this.organizationService.searchCountryById(this.countryId).subscribe((res: any) => {
+    this.organizationService.searchCountryById(this.countryId, true).subscribe((res: any) => {
       if (this.router.url.includes('edit')) {
         this.data = res
           .filter((x) => x.status === true)

@@ -48,7 +48,7 @@ export class LoanProductPreviewStepComponent implements OnInit {
   ngOnInit() {
     console.log('loanData', this.loanProduct);
     if (this.loanProduct.officeIds && this.loanProduct.officeIds.length > 0) {
-      this.organizationService.searchCountryById(this.loanProduct.countryId).subscribe((res: any) => {
+      this.organizationService.searchCountryById(this.loanProduct.countryId, true).subscribe((res: any) => {
         const data = res.map((item: any) => ({
           name: item.name,
           id: item.id,

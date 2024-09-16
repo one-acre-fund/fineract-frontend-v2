@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.4 - Community 1.0.0
+
+    * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config
+
 ## Version 1.3.3 - Community 1.0.0
 
     * [SER-2961] - Client's Date of Birth (DOB) should be available on the client profile.
