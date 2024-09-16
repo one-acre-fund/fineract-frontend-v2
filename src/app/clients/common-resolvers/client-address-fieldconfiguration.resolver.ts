@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { ClientsService } from '../clients.service';
  * Client Address Field Configuration resolver.
  */
 @Injectable()
-export class ClientAddressFieldConfigurationResolver implements Resolve<Object> {
+export class ClientAddressFieldConfigurationResolver  {
 
     /**
      * @param {ClientsService} ClientsService Clients service.

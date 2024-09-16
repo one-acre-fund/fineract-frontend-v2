@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { OrganizationService } from '../organization.service';
  * Advance Search Template resolver.
  */
 @Injectable()
-export class AdvanceSearchTemplateResolver implements Resolve<Object> {
+export class AdvanceSearchTemplateResolver  {
 
   /**
    * @param {OrganizationService} organizationService Organization service.

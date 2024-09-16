@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { SystemService } from '../../system.service';
  * Amazon S3 Configuration data resolver.
  */
 @Injectable()
-export class AmazonS3ConfigurationResolver implements Resolve<Object> {
+export class AmazonS3ConfigurationResolver  {
 
   /**
    * @param {SystemService} systemService System service.
