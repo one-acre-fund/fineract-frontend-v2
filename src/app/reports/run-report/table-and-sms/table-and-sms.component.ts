@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, Input, ViewChild, OnChanges } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import { DecimalPipe } from '@angular/common';
 
 /** Custom Servies */

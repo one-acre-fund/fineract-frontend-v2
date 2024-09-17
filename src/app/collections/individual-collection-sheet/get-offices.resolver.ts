@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { CollectionsService } from '../collections.service';
  * Returns all the offices data.
  */
 @Injectable()
-export class GetOfficesResolver implements Resolve<Object> {
+export class GetOfficesResolver  {
 
     /**
      * @param {CollectionsService} CollectionsService Collections service.

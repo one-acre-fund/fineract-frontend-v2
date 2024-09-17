@@ -3,6 +3,7 @@
 ## Version 1.3.4 - Community 1.0.0
 
     * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config
+    * [SER-3125] - Upgrade to Angular 16
 
 ## Version 1.3.3 - Community 1.0.0
 

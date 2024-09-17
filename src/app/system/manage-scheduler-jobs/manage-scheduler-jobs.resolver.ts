@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable, forkJoin } from 'rxjs';
@@ -12,7 +12,7 @@ import { SystemService } from '../system.service';
  * Manage Scheduler Jobs data resolver.
  */
 @Injectable()
-export class ManageSchedulerJobsResolver implements Resolve<Object> {
+export class ManageSchedulerJobsResolver  {
 
   /**
    * @param {SystemService} systemService System service.

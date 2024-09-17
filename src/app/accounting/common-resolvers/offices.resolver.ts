@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { AccountingService } from '../accounting.service';
  * Offices data resolver.
  */
 @Injectable()
-export class OfficesResolver implements Resolve<Object> {
+export class OfficesResolver  {
 
   /**
    * @param {AccountingService} accountingService Accounting service.

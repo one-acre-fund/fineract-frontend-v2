@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { AccountingService } from '../../accounting.service';
  * Financial activity mappings template data resolver.
  */
 @Injectable()
-export class FinancialActivityMappingsTemplateResolver implements Resolve<Object> {
+export class FinancialActivityMappingsTemplateResolver  {
 
   /**
    * @param {AccountingService} accountingService Accounting service.

@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 /** Custom Components */
 import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.component';

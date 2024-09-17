@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { ReportsService } from '../reports.service';
  * Mix Taxononmy data resolver.
  */
 @Injectable()
-export class MixTaxonomyResolver implements Resolve<Object> {
+export class MixTaxonomyResolver  {
 
   /**
    * @param {ReportsService} reportsService Reports service.

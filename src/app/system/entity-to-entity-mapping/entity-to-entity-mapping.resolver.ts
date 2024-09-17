@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { SystemService } from '../system.service';
  * Entity to entity mapping data resolver.
  */
 @Injectable()
-export class EntityToEntityMappingResolver implements Resolve<Object> {
+export class EntityToEntityMappingResolver  {
 
     /**
      * @param {SystemService} systemService System service.

@@ -1,46 +1,50 @@
 /** Angular Imports */
-import { NgModule } from "@angular/core";
-import { LayoutModule } from "@angular/cdk/layout";
-import { DragDropModule } from "@angular/cdk/drag-drop";
-import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
-import { MatBadgeModule } from "@angular/material/badge";
-import { MatButtonModule } from "@angular/material/button";
-import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatCardModule } from "@angular/material/card";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { MatChipsModule } from "@angular/material/chips";
-import { MatNativeDateModule } from "@angular/material/core";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatDividerModule } from "@angular/material/divider";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from "@angular/material/form-field";
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatListModule } from "@angular/material/list";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatPaginatorModule } from "@angular/material/paginator";
-import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { MatRadioModule } from "@angular/material/radio";
-import { MatSelectModule } from "@angular/material/select";
-import { MatSidenavModule } from "@angular/material/sidenav";
-import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { MatSliderModule } from "@angular/material/slider";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
-import { MatSortModule } from "@angular/material/sort";
-import { MatStepperModule } from "@angular/material/stepper";
-import { MatTableModule } from "@angular/material/table";
-import { MatTabsModule } from "@angular/material/tabs";
-import { MatToolbarModule } from "@angular/material/toolbar";
-import { MatTooltipModule } from "@angular/material/tooltip";
-import { MatTreeModule } from "@angular/material/tree";
+import { NgModule } from '@angular/core';
+import { LayoutModule } from '@angular/cdk/layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import {
+  MAT_LEGACY_FORM_FIELD_DEFAULT_OPTIONS as MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatLegacyFormFieldModule as MatFormFieldModule,
+} from '@angular/material/legacy-form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider';
+import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatTreeModule } from '@angular/material/tree';
 //import { MatSelectFilterModule } from "mat-select-filter";
-import { ScrollingModule } from "@angular/cdk/scrolling";
-import { TableVirtualScrollModule } from "ng-table-virtual-scroll";
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { TableVirtualScrollModule } from 'ng-table-virtual-scroll';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 
 /**
  * Material Module
@@ -51,7 +55,6 @@ import { TableVirtualScrollModule } from "ng-table-virtual-scroll";
   exports: [
     DragDropModule,
     FlexLayoutModule,
-    LayoutModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
@@ -89,11 +92,12 @@ import { TableVirtualScrollModule } from "ng-table-virtual-scroll";
     //MatSelectFilterModule,
     ScrollingModule,
     TableVirtualScrollModule,
+    MatDividerModule,
   ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: "standard" },
+      useValue: { appearance: 'standard' },
     },
     {
       provide: STEPPER_GLOBAL_OPTIONS,

@@ -107,13 +107,7 @@ import { QualificationRulesViewComponent } from './loan-products/shared/qualific
  * All components related to product functions should be declared here.
  */
 @NgModule({
-  imports: [
-    SharedModule,
-    ProductsRoutingModule,
-    PipesModule,
-    DirectivesModule,
-    DragulaModule
-  ],
+  imports: [SharedModule, ProductsRoutingModule, PipesModule, DirectivesModule,DragulaModule.forRoot()],
   declarations: [
     ProductsComponent,
     LoanProductsComponent,
@@ -207,8 +201,8 @@ import { QualificationRulesViewComponent } from './loan-products/shared/qualific
     LoanProductAllocationSettingComponent,
     LoanProductAllocationComponent,
     LoanProductQualificationRulesStepComponent,
-    QualificationRulesViewComponent
+    QualificationRulesViewComponent,
   ],
-  providers: [ ]
+  providers: [],
 })
-export class ProductsModule { }
+export class ProductsModule {}

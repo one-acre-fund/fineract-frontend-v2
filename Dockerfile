@@ -1,7 +1,7 @@
 ###############
 ### STAGE 1: Build app
 ###############
-FROM node:16-alpine as builder
+FROM node:19-alpine as builder
 
 RUN apk add --no-cache git
 
@@ -15,7 +15,7 @@ RUN npm cache clear --force &&\
 
   npm config set fetch-retry-maxtimeout 120000 &&\
 
-  npm install --location=global @angular/cli@14.2.13 &&\
+  npm install --location=global @angular/cli@16.2.15 &&\
 
   npm install &&\
 

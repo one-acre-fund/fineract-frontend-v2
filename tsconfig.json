@@ -12,14 +12,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noImplicitAny": false,
-    "target": "es2020",
-    "typeRoots": [
-      "node_modules/@types",
-      "src/typings.d.ts"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ]
+    "target": "ES2022",
+    "typeRoots": ["node_modules/@types", "src/typings.d.ts"],
+    "lib": ["es2017", "dom"],
+    "useDefineForClassFields": false
   }
 }
