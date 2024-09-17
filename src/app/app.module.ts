@@ -3,7 +3,6 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 /** Environment Configuration */
 import { environment } from '../environments/environment';
@@ -45,13 +44,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { KeycloakService } from 'keycloak-angular';
 import { initializer } from './core/init/keycloak-init.factory';
 import { AuthenticationService } from './core/authentication/authentication.service';
-import { FormsModule } from '@angular/forms';
+
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { DragulaModule } from 'ng2-dragula';
 /** Matomo module */
 import { NgxMatomoRouterModule } from '@ngx-matomo/router';
 import { NgxMatomoTrackerModule } from '@ngx-matomo/tracker';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { FormsModule } from '@angular/forms';
 
 /**
  * App Module
