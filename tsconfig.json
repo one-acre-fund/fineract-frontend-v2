@@ -13,14 +13,8 @@
     "experimentalDecorators": true,
     "noImplicitAny": false,
     "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types",
-      "src/typings.d.ts"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types", "src/typings.d.ts"],
+    "lib": ["es2017", "dom"],
     "useDefineForClassFields": false
   }
 }
