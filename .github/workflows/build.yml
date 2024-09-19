@@ -7,8 +7,10 @@ on:
       - master
       - main
       - develop
+      - release/*
       - feature/*
       - hotfix/*
+      - chore/*
   pull_request:
     branches:
       - master
@@ -19,6 +21,7 @@ on:
 env:
   SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
   IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
+  DEPLOYMENT_REPO: 'cd-fineract-frontend'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -121,3 +124,16 @@ jobs:
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           SONAR_TOKEN: "${{ secrets.SONARCLOUD_TOKEN }}"
+  
+  deploy:
+    if: ${{ env.SHOULD_PUBLISH == 'true'}}
+    needs: [ build, sonarcloud ]
+    steps:
+      - name: Dispatch deployment event
+        uses: "./.github/actions/dispatch"
+        with: 
+          GA_TOKEN: ${{ secrets.GA_ARTIFACT_DOWNLOAD  }}
+          RUN_ID: "${{ github.run_id }}"
+          REF: "${{ github.ref }}"
+          DISPATCH_REPO: "${{ env.DEPLOYMENT_REPO }}"
+
