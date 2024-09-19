@@ -50,6 +50,10 @@ npm install
         ng serve -c qa
         ```
 
+Run Megalinter locally before committing your changes with the following command
+    ```
+    docker run -v "${PWD}/:/tmp/lint"  -e VALIDATE_ALL_CODEBASE=false oxsecurity/megalinter-cupcake:v7 
+    ```
 
 The application is using the development server with basic authentication by default. The credentials for the same are:
 
