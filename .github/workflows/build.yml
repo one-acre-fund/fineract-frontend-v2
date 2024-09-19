@@ -127,11 +127,11 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ env.SHOULD_PUBLISH == 'true'}}
     needs: [build, sonarcloud]
     steps:
       - name: Dispatch deployment event
         uses: "./.github/actions/dispatch"
+        if: ${{ env.SHOULD_PUBLISH == 'true'}}
         with:
           GA_TOKEN: ${{ secrets.GA_ARTIFACT_DOWNLOAD  }}
           RUN_ID: "${{ github.run_id }}"
