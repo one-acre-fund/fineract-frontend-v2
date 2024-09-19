@@ -126,6 +126,7 @@ jobs:
           SONAR_TOKEN: "${{ secrets.SONARCLOUD_TOKEN }}"
 
   deploy:
+    runs-on: ubuntu-latest
     if: ${{ env.SHOULD_PUBLISH == 'true'}}
     needs: [build, sonarcloud]
     steps:
