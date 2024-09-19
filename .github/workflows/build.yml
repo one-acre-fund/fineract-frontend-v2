@@ -128,7 +128,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [build, sonarcloud]
-    ## Replicating this as Job-level if does not have access to the fully resolved env context 
+    ## Replicating this as Job-level if does not have access to the fully resolved env context
     if: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
     steps:
       - name: Dispatch deployment event
