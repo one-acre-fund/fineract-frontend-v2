@@ -8,9 +8,6 @@ on:
       - main
       - develop
       - release/*
-      - feature/*
-      - hotfix/*
-      - chore/*
   pull_request:
     branches:
       - master
