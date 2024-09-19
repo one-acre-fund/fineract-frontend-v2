@@ -6,7 +6,7 @@ It is a Single-Page App (SPA) written in standard web technologies [HTML5](http:
 
 ## Getting started using
 
-The latest code is continuously deployed at https://openmf.github.io/web-app/ whenever a PR is merged into the master branch.
+The latest code is continuously deployed at <https://openmf.github.io/web-app/> whenever a PR is merged into the master branch.
 
 ## Getting started developing
 
@@ -37,7 +37,7 @@ npm install
 ```
 
 6. To preview the app, run the following command and navigate to `http://localhost:4200/`.
-    1. 
+    1.
         ```
         ng serve
         ```
@@ -50,6 +50,10 @@ npm install
         ng serve -c qa
         ```
 
+Run Megalinter locally before committing your changes with the following command
+    ```
+    docker run -v "${PWD}/:/tmp/lint"  -e VALIDATE_ALL_CODEBASE=false oxsecurity/megalinter-cupcake:v7
+    ```
 
 The application is using the development server with basic authentication by default. The credentials for the same are:
 
@@ -104,7 +108,7 @@ You can then run a Docker Container from the image above like this:
 docker run -d -p 4200:80 openmf/web-app:latest
 ```
 
-Access the webapp on http://localhost:4200 in your browser.
+Access the webapp on <http://localhost:4200> in your browser.
 
 ### Docker compose
 
@@ -120,7 +124,7 @@ Now to run a new MifosX Web App instance you can simply:
 1. `git clone https://github.com/openMF/web-app.git ; cd web-app`
 1. for windows, use `git clone https://github.com/openMF/web-app.git --config core.autocrlf=input ; cd web-app`
 1. `docker-compose up -d`
-1. Access the webapp on http://localhost:4200 in your browser.
+1. Access the webapp on <http://localhost:4200> in your browser.
 
 You can also setup different confiurations for the MifosX Web App using environment variables:
 
