@@ -1,11 +1,17 @@
 # Release Notes
 
+## Version 1.3.4 - Community 1.0.0
+
+    * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config
+    * [SER-2803] - Added configuration for automatically triggerring deployment with Github Release
+
 ## Version 1.3.3 - Community 1.0.0
 
     * [SER-2961] - Client's Date of Birth (DOB) should be available on the client profile.
     * [SER-2955] - Revise the global configuration pages to incorporate the new isStringValue flag field.
     * [SER-2902] - Disable loan submit button for a specific period to avoid double clicks.
     * [SER-2664] -  Show only client eligible loan products
+    * [SER-2881] -  Re-enable configuration of the currency multiple from directly on the UI during Loan Definition
 ## Version 1.3.2 - Community 1.0.0
 
     * [SER-2947] - Show or hide some menus based on user permissions.

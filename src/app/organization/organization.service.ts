@@ -259,8 +259,8 @@ export class OrganizationService {
   getCountry(countryId: number): Observable<any> {
     return this.http.get(`/countries/${countryId}`);
   }
-  searchCountryById(countryId: number) {
-    const httpParams = new HttpParams().set('activeFlag', 'true');
+  searchCountryById(countryId: number, retrieveOnlyUpToConfiguredOULevel: boolean = false) {
+    const httpParams = new HttpParams().set('activeFlag', 'true').set('retrieveOnlyUpToConfiguredOULevel', JSON.stringify(retrieveOnlyUpToConfiguredOULevel));
     return this.http.get(`/offices/search?countryId=${countryId}`, { params: httpParams });
   }
 
