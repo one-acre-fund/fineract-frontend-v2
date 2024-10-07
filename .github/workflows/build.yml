@@ -134,10 +134,13 @@ jobs:
           fetch-depth: 0
           fetch-tags: true
           show-progress: false
-      - name: Dispatch deployment event
-        uses: "./.github/actions/dispatch"
+      - name: Trigger deployment workflow
+        uses: one-acre-fund/oaf-actions/dispatch@main
         with:
-          GA_TOKEN: ${{ secrets.GA_ARTIFACT_DOWNLOAD  }}
+          TOKEN: "${{ secrets.GA_ARTIFACT_DOWNLOAD }}"
+          CI_REPOSITORY: "${{ github.repository }}"
+          CD_REPOSITORY: "${{ env.DEPLOYMENT_REPO }}"
           RUN_ID: "${{ github.run_id }}"
+          SHA: "${{ github.sha }}"
           REF: "${{ github.ref }}"
-          DISPATCH_REPO: "${{ env.DEPLOYMENT_REPO }}"
+          REF_NAME: "${{ github.ref_name }}"
