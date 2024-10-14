@@ -18,7 +18,7 @@ on:
 env:
   SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
   IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
-  DEPLOYMENT_REPO: 'cd-fineract-frontend'
+  CD_REPOSITORY: 'one-acre-fund/cd-fineract-frontend'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -128,18 +128,12 @@ jobs:
     ## Replicating this as Job-level if does not have access to the fully resolved env context
     if: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
-          show-progress: false
       - name: Trigger deployment workflow
         uses: one-acre-fund/oaf-actions/dispatch@main
         with:
           TOKEN: "${{ secrets.GA_ARTIFACT_DOWNLOAD }}"
           CI_REPOSITORY: "${{ github.repository }}"
-          CD_REPOSITORY: "${{ env.DEPLOYMENT_REPO }}"
+          CD_REPOSITORY: "${{ env.CD_REPOSITORY }}"
           RUN_ID: "${{ github.run_id }}"
           SHA: "${{ github.sha }}"
           REF: "${{ github.ref }}"
