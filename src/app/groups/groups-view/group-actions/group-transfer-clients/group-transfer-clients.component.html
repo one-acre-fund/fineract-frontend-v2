@@ -26,6 +26,9 @@
 
           <mat-form-field>
             <mat-label>Destination Group</mat-label>
+            <span *ngIf="interOfficeTransferEnabled" [ngStyle]="{'color': 'red'}">
+              The following group list contains groups from a different office as the configuration is enabled. This will move also clients with active loans.
+            </span>
             <input matInput formControlName="destinationGroupId" [matAutocomplete]="groupsAutocomplete">
             <mat-error *ngIf="transferClientsForm.controls.destinationGroupId.hasError('required')">
               Destination Group is <strong>required</strong>
