@@ -52,10 +52,12 @@ export class ClientGeneralStepComponent implements OnInit {
    * @param {SettingsService} settingsService Setting service
    * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: UntypedFormBuilder,
+  constructor(
+    private formBuilder: UntypedFormBuilder,
     private dateUtils: Dates,
     private settingsService: SettingsService,
-    private matomoTracker: MatomoTracker) {
+    private matomoTracker: MatomoTracker
+  ) {
     this.setClientForm();
   }
 
@@ -95,7 +97,7 @@ export class ClientGeneralStepComponent implements OnInit {
    * Sets select dropdown options.
    */
   setOptions() {
-    this.officeOptions = this.clientTemplate.officeOptions;
+    this.officeOptions = this.clientTemplate.officeOptions.filter((office: any) => office.status === true);
     this.officeOptionsSliced = this.clientTemplate.officeOptions;
     this.staffOptions = this.clientTemplate.staffOptions;
     this.legalFormOptions = this.clientTemplate.clientLegalFormOptions;
@@ -172,9 +174,8 @@ export class ClientGeneralStepComponent implements OnInit {
    * Client General Details
    */
   get clientGeneralDetails() {
-
     //Matomo log activity
-    this.matomoTracker.trackEvent('clients', 'add.general_info');// change to track right info
+    this.matomoTracker.trackEvent("clients", "add.general_info"); // change to track right info
 
     const generalDetails = this.createClientForm.value;
     const dateFormat = this.settingsService.dateFormat;

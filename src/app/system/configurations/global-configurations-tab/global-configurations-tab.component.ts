@@ -18,6 +18,7 @@ export class GlobalConfigurationsTabComponent implements OnInit {
 
   /** Configuration data. */
   configurationData: any;
+
   /** Columns to be displayed in configurations table. */
   displayedColumns: string[] = ['name', 'country', 'ou', 'enabled', 'value', 'actions'];
   /** Data source for configurations table. */

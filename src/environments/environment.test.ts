@@ -31,6 +31,8 @@ export const environment = {
   //Matomo instance config
   matomoSiteId: window['env']['matomoSiteId'] || 1,
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.test.oneacrefund.org',
+  // Loan submission button disabled timeout in seconds
+  loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
 };
 
 // Server URL

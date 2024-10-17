@@ -267,7 +267,7 @@
   <button mat-raised-button [routerLink]="['../']">
     Cancel
   </button>
-  <button mat-raised-button color="primary" (click)="submit.emit()">
+  <button mat-raised-button color="primary" [disabled]="isLoanSubmitButtonDisabled" (click)="submitAndDisbleLoanSubmitButton()">
     Submit
   </button>
 </div>

@@ -26,4 +26,7 @@
   //Matomo instance config
   window['env']['matomoSiteId'] = '$MATOMO_SITE_ID';
   window['env']['matomoSiteUrl'] = '$MATOMO_SITE_URL';
+
+  // Loan submission button disabled timeout in seconds
+  window['env']['loanSubmitButtonDisabledTimeOut'] = '$LOAN_SUBMIT_DISABLED_TIME_OUT';
 })(this);
