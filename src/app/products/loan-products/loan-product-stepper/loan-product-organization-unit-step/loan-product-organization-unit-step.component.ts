@@ -57,8 +57,8 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
     this.loanProductOrganizationForm.patchValue({
       countryId: this.loanProductsTemplate.countryId,
       officeIds: this.loanProductsTemplate.offices?.officeId,
-      digitsAfterDecimal: 2,
-      inMultiplesOf: 1,
+      digitsAfterDecimal: this.loanProductsTemplate.currency.decimalPlaces,
+      inMultiplesOf: this.loanProductsTemplate.currency.inMultiplesOf,
       installmentAmountInMultiplesOf: 1,
     });
   }
@@ -96,7 +96,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       }
     });
 
-    this.organizationService.searchCountryById(this.countryId).subscribe((res: any) => {
+    this.organizationService.searchCountryById(this.countryId, true).subscribe((res: any) => {
       if (this.router.url.includes('edit')) {
         this.data = res
           .filter((x) => x.status === true)
@@ -144,7 +144,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       officeIds: [this.selectedUnits],
       currencyCode: ['', Validators.required],
       digitsAfterDecimal: ['', Validators.required],
-      inMultiplesOf: ['', Validators.required],
+      inMultiplesOf: ['', Validators.min(1)],
       installmentAmountInMultiplesOf: ['', Validators.required],
     });
     this.loanProductTemplateForm = this.formBuilder.group({

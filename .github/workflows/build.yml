@@ -1,3 +1,4 @@
+---
 name: build pipeline
 
 on:
@@ -6,8 +7,7 @@ on:
       - master
       - main
       - develop
-      - feature/*
-      - hotfix/*
+      - release/*
   pull_request:
     branches:
       - master
@@ -17,6 +17,8 @@ on:
 
 env:
   SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
+  IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
+  DEPLOYMENT_REPO: 'cd-fineract-frontend'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -47,14 +49,19 @@ jobs:
           VERSION_TAG=$(sed 's/.*"version": "\(.*\)".*/\1/;t;d' ./package.json)
           echo "VERSION_TAG=$VERSION_TAG"
 
-          IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
-          echo "IMAGE_SEMANTIC_HASH=$IMAGE_TAGS"
+          echo "Is Release=$IS_RELEASE"
+
+          if [ $IS_RELEASE == 'true' ]; then
+            echo "This is a release"
+            IMAGE_TAGS=$VERSION_TAG
+          else
+            echo "This is a normal build"
+            IMAGE_TAGS="${VERSION_TAG}.$(date '+%Y.%m.%d').${{ github.run_number }}"
+          fi
           echo "Tags: $IMAGE_TAGS"
 
           echo "VERSION_TAG=$VERSION_TAG" >> $GITHUB_ENV
-          echo "IMAGE_SEMANTIC_HASH=$IMAGE_TAGS" >> $GITHUB_ENV
           echo "IMAGE_TAGS=$IMAGE_TAGS" >> $GITHUB_ENV
-          echo "SHOULD_PUBLISH=$SHOULD_PUBLISH"
 
       - name: Install Node Packages
         run: npm install
@@ -113,4 +120,27 @@ jobs:
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          SONAR_TOKEN: "${{ secrets.SONARCLOUD_TOKEN }}"
+          SONAR_TOKEN: "${{ secrets.SONAR_TOKEN }}"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build, sonarcloud]
+    ## Replicating this as Job-level if does not have access to the fully resolved env context
+    if: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          show-progress: false
+      - name: Trigger deployment workflow
+        uses: one-acre-fund/oaf-actions/dispatch@main
+        with:
+          TOKEN: "${{ secrets.GA_ARTIFACT_DOWNLOAD }}"
+          CI_REPOSITORY: "${{ github.repository }}"
+          CD_REPOSITORY: "${{ env.DEPLOYMENT_REPO }}"
+          RUN_ID: "${{ github.run_id }}"
+          SHA: "${{ github.sha }}"
+          REF: "${{ github.ref }}"
+          REF_NAME: "${{ github.ref_name }}"

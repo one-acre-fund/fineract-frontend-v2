@@ -7,11 +7,19 @@
       <form [formGroup]="configurationForm" (ngSubmit)="submit()">
         <mat-card-content>
           <div fxLayout="column">
-            <mat-form-field *ngIf="!configuration.codeId">
+            <mat-form-field *ngIf="!configuration.codeId && !configuration.isStringValue">
               <mat-label>Value</mat-label>
-              <input type="number" matInput required formControlName="value">
+              <input type="number" matInput [required]="!configuration.isStringValue" formControlName="value">
               <mat-error *ngIf="configurationForm.controls.value.hasError('required')">
                 Value is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="!configuration.codeId && configuration.isStringValue">
+              <mat-label>String Value</mat-label>
+              <input type="string" matInput [required]="configuration.isStringValue" formControlName="stringValue">
+              <mat-error *ngIf="configurationForm.controls.stringValue.hasError('required')">
+                String Value is <strong>required</strong>
               </mat-error>
             </mat-form-field>
             <!-- <mat-form-field>

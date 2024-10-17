@@ -14,7 +14,6 @@ export class CloneConfigurationComponent implements OnInit {
   private readonly configLevels: Record<string, any> = {
     "payment-channel": "payment-channel-ou-level"
   };
-
   /** Global Configuration form. */
   configurationForm: UntypedFormGroup;
   /** Configuration. */
@@ -63,7 +62,8 @@ export class CloneConfigurationComponent implements OnInit {
       countryId = this.configuration.country.id;
     }
     this.configurationForm = this.formBuilder.group({
-      value: ['', !this.configuration.codeId ? Validators.required : null],
+      value: [null],
+      stringValue: [null],
       countryId: [countryId, Validators.required],
       globalConfigId: [this.configId],
       codeValueId: [this.configuration.codeValueId, this.configuration.codeId ? Validators.required : null],

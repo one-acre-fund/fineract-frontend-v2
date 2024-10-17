@@ -22,3 +22,4 @@ services:
       - KEYCLOAK_CLIENT_ID=fineract
       - MATOMO_SITE_ID=1
       - MATOMO_SITE_URL=https://analytics.test.oneacrefund.org
+      - LOAN_SUBMIT_DISABLED_TIME_OUT=5
