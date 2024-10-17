@@ -62,7 +62,7 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
     this.transferClientsForm.get('destinationGroupId').valueChanges.subscribe((value: string) => {
       if (value.length >= 2) {
         // check config is enabled
-        var officeId = this.groupData.officeId;
+        let officeId = this.groupData.officeId;
         let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
         this.systemService.getConfigurationByName('allow-group-client-movement-regardless-loan-status-and-office', { countryId })
           .subscribe(config => {
