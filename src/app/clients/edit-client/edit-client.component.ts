@@ -8,7 +8,7 @@ import { ClientsService } from '../clients.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
 import { ClientOtpDialogComponent } from '../client-otp-dialog/client-otp-dialog.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { SystemService } from 'app/system/system.service';
 import { AlertService } from 'app/core/alert/alert.service';
 import { MatomoTracker } from "@ngx-matomo/tracker";

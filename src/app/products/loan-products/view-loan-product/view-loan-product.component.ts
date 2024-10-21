@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { OrganizationService } from "app/organization/organization.service";
 import { OUHierarchy } from "app/hierarchy-generator";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { DeleteDialogComponent } from "app/shared/delete-dialog/delete-dialog.component";
 import { ProductsService } from "app/products/products.service";
 

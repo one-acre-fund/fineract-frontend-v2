@@ -19,17 +19,7 @@ import { CreateTemplateComponent } from './create-template/create-template.compo
  * Templates components should be declared here.
  */
 @NgModule({
-  imports: [
-    CKEditorModule,
-    SharedModule,
-    DirectivesModule,
-    TemplatesRoutingModule
-  ],
-  declarations: [
-    TemplatesComponent,
-    ViewTemplateComponent,
-    EditTemplateComponent,
-    CreateTemplateComponent,
-  ]
+  imports: [CKEditorModule, SharedModule, DirectivesModule, TemplatesRoutingModule],
+  declarations: [TemplatesComponent, ViewTemplateComponent, EditTemplateComponent, CreateTemplateComponent],
 })
-export class TemplatesModule { }
+export class TemplatesModule {}

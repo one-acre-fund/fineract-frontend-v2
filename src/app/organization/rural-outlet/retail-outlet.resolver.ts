@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-   Resolve,
-} from '@angular/router';
+
 import { Observable } from 'rxjs';
 import { OrganizationService } from '../organization.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RetailOutletResolver implements Resolve<object> {
+export class RetailOutletResolver  {
  /*** @param {OrganizationService} organizationService Organization service.*/
   constructor(private organizationService: OrganizationService) {}
 

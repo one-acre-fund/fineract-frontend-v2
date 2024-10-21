@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-   Resolve,
-} from '@angular/router';
+
 import { SystemService } from 'app/system/system.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ManageFieldsDataResolver implements Resolve<Object> {
+export class ManageFieldsDataResolver  {
   /**
    * @param {SystemService} systemService System service.
    */

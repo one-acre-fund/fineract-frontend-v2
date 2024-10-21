@@ -1,6 +1,6 @@
 /** Angular Routes */
 import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
+
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ import { User } from './user.model';
  * Self service users data resolver.
  */
 @Injectable()
-export class UsersResolver implements Resolve<Object> {
+export class UsersResolver  {
 
   /**
    * @param {UserService} userService Self service user service.

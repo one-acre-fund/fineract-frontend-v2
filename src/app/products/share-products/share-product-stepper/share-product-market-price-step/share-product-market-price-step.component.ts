@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit, Input } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormArray } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 /** Dialog Components */
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
@@ -17,10 +17,9 @@ import { Dates } from 'app/core/utils/dates';
 @Component({
   selector: 'mifosx-share-product-market-price-step',
   templateUrl: './share-product-market-price-step.component.html',
-  styleUrls: ['./share-product-market-price-step.component.scss']
+  styleUrls: ['./share-product-market-price-step.component.scss'],
 })
 export class ShareProductMarketPriceStepComponent implements OnInit {
-
   @Input() shareProductsTemplate: any;
 
   shareProductMarketPriceForm: UntypedFormGroup;
@@ -34,22 +33,27 @@ export class ShareProductMarketPriceStepComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    */
 
-  constructor(private formBuilder: UntypedFormBuilder,
-              public dialog: MatDialog,
-              private dateUtils: Dates,
-              private settingsService: SettingsService) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    public dialog: MatDialog,
+    private dateUtils: Dates,
+    private settingsService: SettingsService
+  ) {
     this.createShareProductMarketPriceForm();
   }
 
   ngOnInit() {
     if (this.shareProductsTemplate) {
-      this.shareProductMarketPriceForm.setControl('marketPricePeriods', this.formBuilder.array((this.shareProductsTemplate.marketPrice)));
+      this.shareProductMarketPriceForm.setControl(
+        'marketPricePeriods',
+        this.formBuilder.array(this.shareProductsTemplate.marketPrice)
+      );
     }
   }
 
   createShareProductMarketPriceForm() {
     this.shareProductMarketPriceForm = this.formBuilder.group({
-      'marketPricePeriods': this.formBuilder.array([])
+      marketPricePeriods: this.formBuilder.array([]),
     });
   }
 
@@ -87,7 +91,7 @@ export class ShareProductMarketPriceStepComponent implements OnInit {
 
   deleteMarketPricePeriod(index: number) {
     const deleteMarketPricePeriodDialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { deleteContext: `this` }
+      data: { deleteContext: `this` },
     });
     deleteMarketPricePeriodDialogRef.afterClosed().subscribe((response: any) => {
       if (response.delete) {
@@ -109,7 +113,7 @@ export class ShareProductMarketPriceStepComponent implements OnInit {
         value: values ? values.fromDate : undefined,
         maxDate: new Date(new Date().setFullYear(new Date().getFullYear() + 10)),
         required: true,
-        order: 1
+        order: 1,
       }),
       new InputBase({
         controlName: 'shareValue',
@@ -117,8 +121,8 @@ export class ShareProductMarketPriceStepComponent implements OnInit {
         value: values ? values.shareValue : undefined,
         type: 'number',
         required: true,
-        order: 2
-      })
+        order: 2,
+      }),
     ];
     return formfields;
   }
@@ -133,10 +137,9 @@ export class ShareProductMarketPriceStepComponent implements OnInit {
         ...marketPricePeriod,
         fromDate: this.dateUtils.formatDate(marketPricePeriod.fromDate, dateFormat),
         dateFormat,
-        locale
+        locale,
       });
     }
     return { marketPricePeriods };
   }
-
 }
