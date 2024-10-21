@@ -43,8 +43,8 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     private groupsService: GroupsService,
-    private settingsService: SettingsService,
-    private systemService: SystemService) {
+    private readonly settingsService: SettingsService,
+    private readonly systemService: SystemService) {
     this.route.data.subscribe((data: { groupActionData: any }) => {
       this.groupData = data.groupActionData;
       this.clientMembers = this.groupData.clientMembers;
