@@ -1,5 +1,8 @@
 # Release Notes
 
+## Version 1.3.5 - Community 1.0.0
+    * [SER-2577] - Allow group movement regardless of loan status and office
+
 ## Version 1.3.4 - Community 1.0.0
 
     * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 /** Custom Services */
 import { GroupsService } from 'app/groups/groups.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { SystemService } from 'app/system/system.service';
 
 /**
  * Group Transfer Clients component.
@@ -27,6 +28,7 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
   staffData: any;
   /** Client Members. */
   clientMembers: any[] = [];
+  interOfficeTransferEnabled: boolean = false;
 
   /**
    * Retrieves the offices data from `resolve`.
@@ -35,12 +37,14 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
    * @param {Router} router Router for navigation
    * @param {GroupsService} groupsService GroupsService.
    * @param {SettingsService} settingsService SettingsService
+   * @param {SystemService} systemService SystemService
    */
   constructor(private formBuilder: UntypedFormBuilder,
-              private route: ActivatedRoute,
-              private router: Router,
-              private groupsService: GroupsService,
-              private settingsService: SettingsService) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private groupsService: GroupsService,
+    private readonly settingsService: SettingsService,
+    private readonly systemService: SystemService) {
     this.route.data.subscribe((data: { groupActionData: any }) => {
       this.groupData = data.groupActionData;
       this.clientMembers = this.groupData.clientMembers;
@@ -55,10 +59,21 @@ export class GroupTransferClientsComponent implements OnInit, AfterViewInit {
    * Subscribes to Groups search filter:
    */
   ngAfterViewInit() {
-    this.transferClientsForm.get('destinationGroupId').valueChanges.subscribe( (value: string) => {
+    this.transferClientsForm.get('destinationGroupId').valueChanges.subscribe((value: string) => {
       if (value.length >= 2) {
-        this.groupsService.getFilteredGroups('name', 'ASC', value, this.groupData.officeId)
-          .subscribe( (data: any) => {
+        // check config is enabled
+        let officeId = this.groupData.officeId;
+        let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+        this.systemService.getConfigurationByName('allow-group-client-movement-regardless-loan-status-and-office', { countryId })
+          .subscribe(config => {
+            if (config?.enabled) {
+              officeId = null;
+              this.interOfficeTransferEnabled = true;
+            }
+          });
+
+        this.groupsService.getFilteredGroups('name', 'ASC', value, officeId, countryId)
+          .subscribe((data: any) => {
             this.groupsData = data;
           });
       }

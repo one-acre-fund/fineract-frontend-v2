@@ -78,11 +78,15 @@ export class GroupsService {
     sortOrder: string,
     name: string,
     officeId?: any,
+    countryId?: any,
     orphansOnly?: any
   ): Observable<any> {
     let httpParams = new HttpParams().set("name", name).set("sortOrder", sortOrder).set("orderBy", orderBy);
     if (officeId) {
       httpParams = httpParams.set("officeId", officeId);
+    }
+    if (countryId) {
+      httpParams = httpParams.set("countryId", countryId);
     }
     httpParams = orphansOnly ? httpParams.set("orphansOnly", orphansOnly) : httpParams;
     return this.http.get("/groups", { params: httpParams });
