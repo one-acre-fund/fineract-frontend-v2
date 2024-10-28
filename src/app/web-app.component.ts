@@ -110,13 +110,13 @@ export class WebAppComponent implements OnInit {
       .subscribe(event => {
         const title = event['title'];
         if (title) {
-          this.titleService.setTitle(`${this.translateService.instant(title)} | Mifos X`);
+          this.titleService.setTitle(`${this.translateService.instant(title)} | Fineract`);
         }
         //set Matomo page info
         this.userName = this.authenticationService.getConnectedUsername() ? this.authenticationService.getConnectedUsername() : "";
         this.matomoTracker.setUserId(this.userName); //tracker user ID
 
-        this.matomoTracker.setDocumentTitle(`${this.translateService.instant(title)} | Mifos X`);
+        this.matomoTracker.setDocumentTitle(`${this.translateService.instant(title)} | Fineract`);
       });
 
     // Stores top 100 user activites as local storage object.
