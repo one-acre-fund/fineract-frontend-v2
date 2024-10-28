@@ -2,6 +2,7 @@
 
 ## Version 1.3.5 - Community 1.0.0
     * [SER-2577] - Allow group movement regardless of loan status and office
+    * chore - Change Mifos name on the UI to Fineract
 
 ## Version 1.3.4 - Community 1.0.0
 
