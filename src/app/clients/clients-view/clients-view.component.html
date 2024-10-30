@@ -83,7 +83,7 @@
             Member Of :
 
             <span *ngIf="clientViewData.group">
-              <a [routerLink]="['/groups', clientViewData?.group?.id, 'general']" style="color: white">{{
+              <a [routerLink]="['/groups', clientViewData?.group?.id, 'general']" class="white-text">{{
                 clientViewData?.group?.name
               }}</a
               >&nbsp;
@@ -99,7 +99,7 @@
 
             <span *ngIf="clientViewData.officeHierarchyPath">
               Office:
-              <a [routerLink]="['/organization/offices', clientViewData?.officeId, 'general']" style="color: white">{{
+              <a [routerLink]="['/organization/offices', clientViewData?.officeId, 'general']" class="white-text">{{
                 clientViewData?.officeHierarchyPath
               }}</a
               >&nbsp;
