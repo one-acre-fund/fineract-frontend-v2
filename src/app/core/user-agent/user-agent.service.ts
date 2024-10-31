@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { VERSION } from '@angular/core';
 import { environment } from 'environments/environment';
 
 @Injectable({
@@ -13,11 +12,7 @@ export class UserAgentService {
   }
 
   private generateUserAgent(): string {
-    const appName = environment.appName;
-    const appVersion = VERSION.full; 
-    const isProdEnv = environment.production; 
-
-    return `${appName}/${appVersion} (Production Environment: ${isProdEnv})`;
+    return `${environment.appName}`;
   }
 
   getUserAgent(): string {
