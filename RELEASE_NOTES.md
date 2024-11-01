@@ -1,6 +1,9 @@
 # Release Notes
 
 ## Version 1.3.4 - Community 1.0.0
+    * [SER-3203] - Make country support required in SMS campaign template retrieval to allow fetching country specific SMS provider details
+
+## Version 1.3.4 - Community 1.0.0
 
     * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config
     * [SER-2803] - Added configuration for automatically triggerring deployment with Github Release
