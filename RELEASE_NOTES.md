@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 1.3.4 - Community 1.0.0
+## Version 1.3.4.1 - Community 1.0.0
     * [SER-3203] - Make country support required in SMS campaign template retrieval to allow fetching country specific SMS provider details
 
 ## Version 1.3.4 - Community 1.0.0
