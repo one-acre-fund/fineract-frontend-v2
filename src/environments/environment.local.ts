@@ -7,6 +7,7 @@
 import env from './.env';
 
 export const environment = {
+  appName: window['env']['appName'] || 'fineract-ui',
   production: false,
   version: env.mifos_x.version,
   hash: env.mifos_x.hash,

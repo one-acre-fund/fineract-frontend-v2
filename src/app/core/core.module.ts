@@ -23,6 +23,8 @@ import { ApiPrefixInterceptor } from './http/api-prefix.interceptor';
 import { ErrorHandlerInterceptor } from './http/error-handler.interceptor';
 import { CacheInterceptor } from './http/cache.interceptor';
 import { AuthenticationInterceptor } from './authentication/authentication.interceptor';
+import { UserAgentInterceptor } from './user-agent/user-agent.interceptor';
+
 
 /** Custom Strategies */
 import { RouteReusableStrategy } from './route/route-reusable-strategy';
@@ -86,6 +88,11 @@ import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ProgressInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UserAgentInterceptor,
       multi: true
     },
     {
