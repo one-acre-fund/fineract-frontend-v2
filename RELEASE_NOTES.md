@@ -2,6 +2,7 @@
 
 ## Version 1.3.5 - Community 1.0.0
     * [SER-2577] - Allow group movement regardless of loan status and office
+    * [SER-2543] - Implement the user agent 
 
 ## Version 1.3.4 - Community 1.0.0
 
