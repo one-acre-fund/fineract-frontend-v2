@@ -2,6 +2,7 @@
 
 ## Version 1.3.4.1 - Community 1.0.0
     * [SER-3203] - Make country support required in SMS campaign template retrieval to allow fetching country specific SMS provider details
+    * [SER-3088] - Add country filter on SMS campaigns list API
 
 ## Version 1.3.4 - Community 1.0.0
 
