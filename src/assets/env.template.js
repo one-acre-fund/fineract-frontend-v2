@@ -13,6 +13,7 @@
   window['env']['authServerUrl'] = '$AUTH_SERVER_URL';
   window['env']['keycloakRealm'] = '$KEYCLOAK_REALM';
   window['env']['keycloakClientId'] = '$KEYCLOAK_CLIENT_ID';
+  window['env']['keycloakTokenUrl'] = '$KEYCLOAK_TOKEN_URL';
 
   // Language Environment variables
   window['env']['defaultLanguage'] = '$MIFOS_DEFAULT_LANGUAGE';

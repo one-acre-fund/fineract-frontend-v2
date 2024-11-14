@@ -20,6 +20,8 @@ services:
       - AUTH_SERVER_URL=https://accounts.test.oneacrefund.org
       - KEYCLOAK_REALM=OneAcreFund
       - KEYCLOAK_CLIENT_ID=fineract
+      - KEYCLOAK_TOKEN_URL=https://loans.test.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token
+      - HOME_URL=https://loans.test.oneacrefund.org
       - MATOMO_SITE_ID=1
       - MATOMO_SITE_URL=https://analytics.test.oneacrefund.org
       - LOAN_SUBMIT_DISABLED_TIME_OUT=5
