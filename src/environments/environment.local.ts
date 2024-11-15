@@ -23,10 +23,10 @@ export const environment = {
   serverUrl: '',
   oauth: {
     enabled: true,  // For connecting to Mifos X using OAuth2 Authentication change the value to true
-    serverUrl: window['env']['authServerUrl'] || 'http://localhost:8080/auth',
-    realm: window['env']['keycloakRealm'] || 'Fineract',
-    client_id: window['env']['keycloakClientId'] || 'login-app',
-    tokenUrl: `http://localhost:8080/auth/realms/Fineract/protocol/openid-connect/token`,
+    serverUrl: window['env']['authServerUrl'] || 'https://accounts.test.oneacrefund.org',
+    realm: window['env']['keycloakRealm'] || 'OneAcreFund',
+    client_id: window['env']['keycloakClientId'] || 'fineract',
+    tokenUrl: `https://loans.test.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
     redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
