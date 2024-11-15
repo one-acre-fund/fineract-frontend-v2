@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { OrganizationService } from 'app/organization/organization.service';
 import { ProductsService } from 'app/products/products.service';
+import { SettingsService } from 'app/settings/settings.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -21,7 +22,8 @@ export class SavingProductDetailsStepComponent implements OnInit {
   constructor(
     private formBuilder: UntypedFormBuilder,
     private organizationService: OrganizationService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private settingsService: SettingsService
   ) {
     this.createSavingProductDetailsForm();
     this.getCountries();
@@ -39,7 +41,7 @@ export class SavingProductDetailsStepComponent implements OnInit {
         savingsLoanProductId: this.savingProductsTemplate.loanProductId,
       });
     } else {
-      let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+      let countryId = this.settingsService.getSelectedCountry()?.id;
       if (countryId) {
         this.savingProductDetailsForm.patchValue({
           countryId: countryId,
@@ -69,7 +71,7 @@ export class SavingProductDetailsStepComponent implements OnInit {
   }
 
   getLoanProducts() {
-    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    let countryId = this.settingsService.getSelectedCountry()?.id;
     let loanProductsObs: Observable<any>;
     if (countryId) {
       loanProductsObs = this.productsService.getLoanProductWithCountryId(countryId);

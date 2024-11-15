@@ -330,7 +330,7 @@ export class OrganizationService {
    * @returns {Observable<any>} SMS Campaigns data
    */
   getSmsCampaigns(): Observable<any> {
-    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    let countryId = this.settingsService.getSelectedCountry()?.id;
     const httpParams = new HttpParams().set('countryId', countryId);
     return this.http.get('/smscampaigns', { params: httpParams });
   }

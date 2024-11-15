@@ -13,6 +13,7 @@ import { tap } from "rxjs/operators";
 import { ClientsService } from "./clients.service";
 import { SearchService } from "../search/search.service";
 import { MatomoTracker } from "@ngx-matomo/tracker";
+import { SettingsService } from "app/settings/settings.service";
 
 @Component({
   selector: "mifosx-clients",
@@ -39,7 +40,8 @@ export class ClientsComponent implements OnInit, AfterViewInit {
   constructor(
     private clientsService: ClientsService,
     private searchService: SearchService,
-    private matomoTracker: MatomoTracker
+    private matomoTracker: MatomoTracker,
+    private settingsService: SettingsService
   ) {}
 
   ngOnInit() {
@@ -87,7 +89,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
    * Initializes the data source for clients table and loads the first page.
    */
   getClients() {
-    this.dataSource = new ClientsDataSource(this.clientsService, this.searchService);
+    this.dataSource = new ClientsDataSource(this.clientsService, this.searchService, this.settingsService);
     this.dataSource.getClients(
       this.sort.active,
       this.sort.direction,
@@ -118,7 +120,7 @@ export class ClientsComponent implements OnInit, AfterViewInit {
    */
   applySearch(searchValue: string = "") {
     if (searchValue.length > 0) {
-      this.dataSource = new ClientsDataSource(this.clientsService, this.searchService);
+      this.dataSource = new ClientsDataSource(this.clientsService, this.searchService, this.settingsService);
       this.searchValue = searchValue;
       this.dataSource.searchClients(this.searchValue, this.showClosedAccounts.checked);
     } else {
