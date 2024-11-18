@@ -51,7 +51,10 @@ export class HomeComponent implements OnInit {
       this.username = this.authenticationService.getConnectedUsername();
     }
   }
-
+/*
+  public throwTestError(): void {
+    throw new Error("Sentry Test Error");
+  } */
   /**
    * Sets filtered activities for autocomplete.
    */

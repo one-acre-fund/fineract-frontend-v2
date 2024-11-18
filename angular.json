@@ -70,7 +70,8 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "@ckeditor/ckeditor5-build-classic"
-            ]
+            ],
+            "sourceMap": true
           },
           "configurations": {
             "production": {
