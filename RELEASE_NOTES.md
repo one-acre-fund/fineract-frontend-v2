@@ -6,7 +6,7 @@
     * [SER-3227] - Change link color for group and office labels in the client detail page.
     * [SER-2543] - Implement the user agent
     * [SER-3214] - Use the updated configuration for OTP verification in the UI
-    * [SER-3281] - Integrate Payment UI with Sentry for error analytics
+    * [SER-3281] - Integrate Fineract UI with Sentry for error analytics and tracing
 
 ## Version 1.3.4 - Community 1.0.0
 
