@@ -2,6 +2,9 @@
 
 ## Version 1.3.5 - Community 1.0.0
     * [SER-2577] - Allow group movement regardless of loan status and office
+    * [SER-3227] - Change link color for group and office labels in the client detail page.
+    * [SER-2543] - Implement the user agent 
+    * [SER-3214] - Use the updated configuration for OTP verification in the UI
 
 ## Version 1.3.4 - Community 1.0.0
 

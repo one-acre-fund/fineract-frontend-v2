@@ -25,7 +25,10 @@
   //Matomo instance config
   window['env']['matomoSiteId'] = '';
   window['env']['matomoSiteUrl'] = '';
-  
+
+  //App name
+  window['env']['appName'] = '';
+
   // Loan submission button disabled timeout in seconds
   window['env']['loanSubmitButtonDisabledTimeOut'] = 5;
 })(this);
