@@ -126,6 +126,7 @@ jobs:
   Integration-k8s:
     if: github.event.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
+    needs: [build, sonarcloud]
     environment:
       name: Integration
     steps:
