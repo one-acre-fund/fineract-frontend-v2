@@ -32,6 +32,9 @@ inputs:
   FINERACT_KEYCLOAK_CLIENT_ID:
     description: The client ID of the Keycloak client.
     required: true
+  FINERACT_KEYCLOAK_TOKEN_URL:
+    description: The client ID of the Keycloak client.
+    required: true
   FINERACT_KEYCLOAK_REALM:
     description: The realm of the Keycloak client.
     required: true
@@ -70,6 +73,7 @@ runs:
             FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ inputs.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
             FINERACT_PROXY_URL: "https://${{ inputs.FINERACT_PROXY_URL }}:${{ inputs.FINERACT_PROXY_HTTPS_PORT }}"
             FINERACT_KEYCLOAK_CLIENT_ID: "${{ inputs.FINERACT_KEYCLOAK_CLIENT_ID }}"
+            FINERACT_KEYCLOAK_TOKEN_URL: "${{ inputs.FINERACT_KEYCLOAK_TOKEN_URL }}"
             FINERACT_KEYCLOAK_PUBLIC_CLIENT: true
             FINERACT_KEYCLOAK_API_URL: "${{ inputs.FINERACT_KEYCLOAK_API_URL }}"
             AUTH_SERVER_URL : "${{ inputs.FINERACT_AUTH_URL }}"
