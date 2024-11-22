@@ -15,6 +15,7 @@
 
   window['env']['keycloakRealm'] = '';
   window['env']['keycloakClientId'] = '';
+  window['env']['keycloakTokenUrl'] = '';
 
   // Language Environment variables
   window['env']['defaultLanguage'] = '';
