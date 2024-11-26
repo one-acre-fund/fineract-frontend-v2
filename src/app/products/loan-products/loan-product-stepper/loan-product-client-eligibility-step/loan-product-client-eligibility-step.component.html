@@ -12,14 +12,15 @@
     <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
       <mat-label fxFlex="98%">Client Previously Defaulted</mat-label>
       <mat-form-field fxFlex="32%">
-        <input matInput formControlName="previouslyDefaultedFrom">
+        <input type="number" matInput formControlName="previouslyDefaultedFrom">
       </mat-form-field>
 
       <span>To</span>
 
       <mat-form-field fxFlex="32%">
-        <input matInput formControlName="previouslyDefaultedTo">
+        <input type="number" matInput formControlName="previouslyDefaultedTo">
       </mat-form-field>
+      <mat-error *ngIf="loanProductClientEligibilityForm.errors?.['previouslyDefaultedInvalid'] && (loanProductClientEligibilityForm.touched || loanProductClientEligibilityForm.dirty)">Both values are required</mat-error>
     </div>
     <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
       <mat-label fxFlex="98%">Minimum Credit Repaid</mat-label>
