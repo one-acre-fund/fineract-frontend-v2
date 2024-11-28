@@ -6,7 +6,7 @@ import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { OrganizationService } from '../organization.service';
+import { AuditService } from './audit.service';
 
 /**
  * Audit Trail Search Template data resolver.
@@ -15,16 +15,16 @@ import { OrganizationService } from '../organization.service';
 export class AuditTrailSearchTemplateResolver implements Resolve<Object> {
 
   /**
-   * @param {OrganizationService} organizationService Organization service.
+   * @param {AuditService} auditService Audit service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private auditService: AuditService) {}
 
   /**
    * Returns the Audit Trail Search Template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getAuditTrailSearchTemplate();
+    return this.auditService.getAuditTrailSearchTemplate();
   }
 
 }

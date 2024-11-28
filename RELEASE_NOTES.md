@@ -5,7 +5,7 @@
     * [SER-3227] - Change link color for group and office labels in the client detail page.
     * [SER-2543] - Implement the user agent 
     * [SER-3214] - Use the updated configuration for OTP verification in the UI
-    * [SER-3204] - Redesign the audit view
+    * [SER-3204] - Move the audit page from System to Organization page
 
 ## Version 1.3.4 - Community 1.0.0
 

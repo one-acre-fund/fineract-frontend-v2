@@ -6,7 +6,7 @@ import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 /** Custom Services */
-import { OrganizationService } from '../../organization.service';
+import { AuditService } from '../audit.service';
 
 /**
  * Audit Trail data resolver.
@@ -15,9 +15,9 @@ import { OrganizationService } from '../../organization.service';
 export class AuditTrailResolver implements Resolve<Object> {
 
   /**
-   * @param {OrganizationService} organizationService Organization service.
+   * @param {AuditService} auditService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private auditService: AuditService) {}
 
   /**
    * Returns the Audit Trail data.
@@ -25,7 +25,7 @@ export class AuditTrailResolver implements Resolve<Object> {
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
     const auditTrailId = route.paramMap.get('id');
-    return this.organizationService.getAuditTrail(auditTrailId);
+    return this.auditService.getAuditTrail(auditTrailId);
   }
 
 }
