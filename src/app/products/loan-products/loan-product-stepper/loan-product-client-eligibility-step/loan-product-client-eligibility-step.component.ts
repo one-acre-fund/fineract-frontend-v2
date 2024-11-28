@@ -68,8 +68,9 @@ export class LoanProductClientEligibilityStepComponent implements OnInit {
   get loanProductClientEligibility() {
     const loanProductClientEligibilityFormData = {};
     for (const key in this.loanProductClientEligibilityForm?.value) {
-      if (this.loanProductClientEligibilityForm.value[key]) {
-        loanProductClientEligibilityFormData[key] = this.loanProductClientEligibilityForm.value[key];
+      const value = this.loanProductClientEligibilityForm.value[key]
+      if (value !== undefined && value !== null && value !== '') {
+        loanProductClientEligibilityFormData[key] = value;
       }
     }
 
