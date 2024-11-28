@@ -42,8 +42,6 @@ import { ManageReportsComponent } from './manage-reports/manage-reports.componen
 import { ViewReportComponent } from './manage-reports/view-report/view-report.component';
 import { CreateReportComponent } from './manage-reports/create-report/create-report.component';
 import { EditReportComponent } from './manage-reports/edit-report/edit-report.component';
-import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
-import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
 import { ColumnDialogComponent } from './manage-data-tables/column-dialog/column-dialog.component';
 import { ViewHistorySchedulerJobComponent } from './manage-scheduler-jobs/view-history-scheduler-job/view-history-scheduler-job.component';
 import { EditHookComponent } from './manage-hooks/edit-hook/edit-hook.component';
@@ -112,8 +110,6 @@ import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fi
     CreateHookComponent,
     AddEventDialogComponent,
     ColumnDialogComponent,
-    AuditTrailsComponent,
-    ViewAuditComponent,
     ViewSchedulerJobComponent,
     EditSchedulerJobComponent,
     ViewRoleComponent,
