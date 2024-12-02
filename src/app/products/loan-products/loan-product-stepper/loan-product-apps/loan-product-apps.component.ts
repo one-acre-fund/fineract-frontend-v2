@@ -16,23 +16,19 @@ export class LoanProductAppsComponent implements OnInit {
   loanProductAppsForm: UntypedFormGroup;
   channelData: any = [];
   dataNew: any = [];
+  loanProductChannelIds: Set<number> = new Set();
 
   get channelFormArray() {
     return this.loanProductAppsForm.controls.channels as UntypedFormArray;
   }
 
   constructor(private productService: ProductsService, private formBuilder: UntypedFormBuilder, private router: Router) {
-
     this.createloanProductAppsForm();
-    this.getChannels();
   }
 
   ngOnInit(): void {
-
-    if ( this.router.url.includes('edit') ) {
-      this.loadForm(this.loanProductsTemplate);
-    }
-
+    this.loanProductChannelIds = new Set(this.loanProductsTemplate?.channels?.map((channel: any) => channel.id));
+    this.getChannels();
   }
 
   get line(): UntypedFormGroup {
@@ -58,7 +54,10 @@ export class LoanProductAppsComponent implements OnInit {
   }
 
   private addCheckboxes() {
-    this.channelData.forEach(() => this.channelFormArray.push(new UntypedFormControl(false)));
+    this.channelData.forEach(channel => {
+      const checked = this.loanProductChannelIds.has(channel.id);
+      this.channelFormArray.push(new UntypedFormControl(checked));
+    });
   }
 
   getChannels() {

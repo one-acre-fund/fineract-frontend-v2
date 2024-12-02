@@ -12,9 +12,15 @@
         placeholder="Select a country"
         aria-labelledby="countryOptions"
         [virtualScroll]="true"
+        (change)="onCountryChange($event)"
         required>
       </ng-select>
     </div>
+  </div>
+    
+  <div *ngIf="smsCampaignDetailsForm.controls.countryId.value">
+
+    <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
     
     <mat-form-field fxFlex="48%">
       <mat-label>Campaign Name</mat-label>
@@ -118,7 +124,9 @@
       </mat-error>
     </mat-form-field>
 
-  </div>
+    </div>
+
+</div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%"
     *ngIf="!smsCampaignDetailsForm.controls.runReportId.value">

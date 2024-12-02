@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductsService } from 'app/products/products.service';
 
@@ -53,26 +53,52 @@ export class LoanProductClientEligibilityStepComponent implements OnInit {
         previouslyNotTakenInput: null,
         previouslyTakenCredit: null,
         previouslyNotTakenCredit: null,
-        previouslyDefaultedFrom: [''],
-        previouslyDefaultedTo: [''],
+        previouslyDefaultedFrom: [null],
+        previouslyDefaultedTo: [null],
         minimumCreditRepaid: [''],
         minimumCreditRepaidType: [''],
         clientGroupPreviouslyDefaulted: null,
         clientGroupPreviouslyNotDefaulted: null,
         minimumGroupCreditRepaid: [''],
         minimumGroupCreditRepaidType: ['']
-      });
+      }, { validators: this.previouslyDefaultedValidator });
 
     }
 
   get loanProductClientEligibility() {
     const loanProductClientEligibilityFormData = {};
     for (const key in this.loanProductClientEligibilityForm?.value) {
-      if (this.loanProductClientEligibilityForm.value[key]) {
-        loanProductClientEligibilityFormData[key] = this.loanProductClientEligibilityForm.value[key];
+      const value = this.loanProductClientEligibilityForm.value[key]
+      if (value !== undefined && value !== null && value !== '') {
+        loanProductClientEligibilityFormData[key] = value;
       }
     }
 
     return { clientEligibility: loanProductClientEligibilityFormData };
+  }
+
+  /**
+   * Validates the previously defaulted from and to values. It ensures that both values are either provided or not provided at all.
+   * @param control AbstractControl containing the previously defaulted from and to values.
+   * @returns ValidationErrors if the values are invalid, otherwise null.
+   */
+  previouslyDefaultedValidator: ValidatorFn = (
+    control: AbstractControl,
+  ): ValidationErrors | null => {
+    const fromValueExists = this.valueExists(control.get('previouslyDefaultedFrom'));
+    const toValueExists = this.valueExists(control.get('previouslyDefaultedTo'));
+    if ((fromValueExists && !toValueExists) || (!fromValueExists && toValueExists)) {
+      return { previouslyDefaultedInvalid: true };
+    }
+    return null;
+  };
+
+  /**
+   * Checks if the control has a value.
+   * @param control AbstractControl containing the value to check.
+   * @returns True if the control has a value, otherwise false.
+   */
+  private valueExists(control: AbstractControl): boolean {
+    return control && control.value !== null && control.value !== undefined;
   }
 }

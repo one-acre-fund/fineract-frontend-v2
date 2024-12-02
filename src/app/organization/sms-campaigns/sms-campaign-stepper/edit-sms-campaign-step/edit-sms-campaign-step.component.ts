@@ -7,6 +7,7 @@ import { ReportsService } from 'app/reports/reports.service';
 
 /** Custom Models */
 import { ReportParameter } from 'app/reports/common-models/report-parameter.model';
+import { OrganizationService } from 'app/organization/organization.service';
 
 /**
  * Edit SMS Campaign step.
@@ -49,7 +50,9 @@ export class EditSmsCampaignStepComponent implements OnInit {
    * @param {ReportsService} reportService Reports Service
    */
   constructor(private formBuilder: UntypedFormBuilder,
-              private reportService: ReportsService) {
+              private reportService: ReportsService,
+              private organizationService: OrganizationService
+            ) {
     this.createSMSCampaignDetailsForm();
   }
 
@@ -68,15 +71,20 @@ export class EditSmsCampaignStepComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.triggerTypes = this.smsCampaignTemplate.triggerTypeOptions;
-    this.smsProviders = this.smsCampaignTemplate.smsProviderOptions;
-    this.businessRules = this.smsCampaignTemplate.businessRulesOptions;
-    this.countryOptions = this.smsCampaignTemplate.countryOptions || [];
+    this.organizationService.getSmsCampaignTemplate(this.smsCampaign.country.id, this.smsCampaign.country.name).subscribe({
+      next: (response: any) => {
+        this.triggerTypes = response.triggerTypeOptions;
+        this.smsProviders = response.smsProviderOptions;
+        this.businessRules = response.businessRulesOptions;
+      }
+    });
+    
+    this.countryOptions = this.smsCampaignTemplate || [];
     this.setControlValues();
     this.getParameters();
   }
 
-  /**
+  /** 
    * Passes template parameters emitted from child to parent.
    * @param {any} $event Template Parameters
    */

@@ -330,7 +330,9 @@ export class OrganizationService {
    * @returns {Observable<any>} SMS Campaigns data
    */
   getSmsCampaigns(): Observable<any> {
-    return this.http.get('/smscampaigns');
+    let countryId = this.settingsService.getSelectedCountry()?.id;
+    const httpParams = new HttpParams().set('countryId', countryId);
+    return this.http.get('/smscampaigns', { params: httpParams });
   }
 
   /**
@@ -368,8 +370,9 @@ export class OrganizationService {
   /**
    * @returns {Observable<any>} SMS Campaign template
    */
-  getSmsCampaignTemplate(): Observable<any> {
-    return this.http.get('/smscampaigns/template');
+  getSmsCampaignTemplate(countryId: number, countryName: string): Observable<any> {
+    const httpParams = new HttpParams().set('countryId', countryId.toString()).set('countryName', countryName);
+    return this.http.get('/smscampaigns/template', {params: httpParams});
   }
 
   /**
