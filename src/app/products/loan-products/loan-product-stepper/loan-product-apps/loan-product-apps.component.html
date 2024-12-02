@@ -2,7 +2,7 @@
     <p>Applicable Apps *</p>
     <div formArrayName="channels" class="alignText" *ngFor="let channel of channelFormArray.controls; let i = index">
       <div *ngIf="channelData[i]?.canAccessAllLoans===false">
-        <mat-checkbox fxFlex="32%" [formControlName]="i" [checked]="channelData[i].id">{{channelData[i].name}}</mat-checkbox>
+        <mat-checkbox fxFlex="32%" [formControlName]="i">{{channelData[i].name}}</mat-checkbox>
       </div>
     </div>
 

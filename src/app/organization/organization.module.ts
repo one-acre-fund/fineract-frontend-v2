@@ -77,6 +77,8 @@ import { ViewOutletComponent } from './rural-outlet/view-outlet/view-outlet.comp
 import { EditOutletComponent } from './rural-outlet/edit-outlet/edit-outlet.component';
 import { CreateCurrenciesComponent } from './currencies/create-currencies/create-currencies.component';
 import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-download/bulk-repayment-download.component';
+import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
+import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
 
 /**
  * Organization Module
@@ -160,6 +162,8 @@ import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-dow
     EditOutletComponent,
     CreateCurrenciesComponent,
     BulkRepaymentDownloadComponent,
+    AuditTrailsComponent,
+    ViewAuditComponent
   ]
 })
 export class OrganizationModule { }

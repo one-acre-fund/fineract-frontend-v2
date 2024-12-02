@@ -7,6 +7,7 @@
 import env from './.env';
 
 export const environment = {
+  appName: window['env']['appName'] || 'fineract-ui',
   production: false,
   version: env.mifos_x.version,
   hash: env.mifos_x.hash,
@@ -26,7 +27,7 @@ export const environment = {
     serverUrl: window['env']['authServerUrl'] || 'https://accounts.qa.oneacrefund.org',
     realm: window['env']['keycloakRealm'] || 'OneAcreFund',
     client_id: window['env']['keycloakClientId'] || 'fineract',
-    tokenUrl: `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
+    tokenUrl: window['env']['keycloakTokenUrl'] || `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
     redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
