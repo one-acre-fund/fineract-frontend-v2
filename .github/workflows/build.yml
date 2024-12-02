@@ -126,6 +126,7 @@ jobs:
   Integration-k8s:
     if: github.event.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
+    needs: [build, sonarcloud]
     environment:
       name: Integration
     steps:
@@ -152,6 +153,7 @@ jobs:
           FINERACT_PROXY_HTTP_PORT: "${{ vars.FINERACT_PROXY_HTTP_PORT }}"
           FINERACT_KEYCLOAK_REALM: "${{ vars.FINERACT_KEYCLOAK_REALM }}"
           FINERACT_KEYCLOAK_CLIENT_ID: "${{ vars.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ vars.FINERACT_KEYCLOAK_TOKEN_URL }}"
           FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ vars.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
           FINERACT_KEYCLOAK_API_URL: "${{ vars.FINERACT_KEYCLOAK_API_URL }}"
           FINERACT_HOST_HOME_URL: "${{ vars.FINERACT_HOST_HOME_URL }}"
@@ -189,6 +191,7 @@ jobs:
           FINERACT_PROXY_HTTP_PORT: "${{ vars.FINERACT_PROXY_HTTP_PORT }}"
           FINERACT_KEYCLOAK_REALM: "${{ vars.FINERACT_KEYCLOAK_REALM }}"
           FINERACT_KEYCLOAK_CLIENT_ID: "${{ vars.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ vars.FINERACT_KEYCLOAK_TOKEN_URL }}"
           FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ vars.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
           FINERACT_KEYCLOAK_API_URL: "${{ vars.FINERACT_KEYCLOAK_API_URL }}"
           FINERACT_HOST_HOME_URL: "${{ vars.FINERACT_HOST_HOME_URL }}"
@@ -199,8 +202,8 @@ jobs:
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
   UAT-k8s:
     runs-on: ubuntu-latest
-    # needs: QA-k8s
     if: github.event.ref == 'refs/heads/main' || contains(github.event.ref, 'refs/heads/hotfix/') || contains(github.event.ref, 'refs/heads/release/')
+    needs: [build, sonarcloud]
     environment:
       name: UAT
     steps:
@@ -227,6 +230,7 @@ jobs:
           FINERACT_PROXY_HTTP_PORT: "${{ vars.FINERACT_PROXY_HTTP_PORT }}"
           FINERACT_KEYCLOAK_REALM: "${{ vars.FINERACT_KEYCLOAK_REALM }}"
           FINERACT_KEYCLOAK_CLIENT_ID: "${{ vars.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ vars.FINERACT_KEYCLOAK_TOKEN_URL }}"
           FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ vars.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
           FINERACT_KEYCLOAK_API_URL: "${{ vars.FINERACT_KEYCLOAK_API_URL }}"
           FINERACT_HOST_HOME_URL: "${{ vars.FINERACT_HOST_HOME_URL }}"
@@ -276,6 +280,7 @@ jobs:
           FINERACT_PROXY_HTTP_PORT: "${{ vars.FINERACT_PROXY_HTTP_PORT }}"
           FINERACT_KEYCLOAK_REALM: "${{ vars.FINERACT_KEYCLOAK_REALM }}"
           FINERACT_KEYCLOAK_CLIENT_ID: "${{ vars.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ vars.FINERACT_KEYCLOAK_TOKEN_URL }}"
           FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ vars.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
           FINERACT_KEYCLOAK_API_URL: "${{ vars.FINERACT_KEYCLOAK_API_URL }}"
           FINERACT_HOST_HOME_URL: "${{ vars.FINERACT_HOST_HOME_URL }}"

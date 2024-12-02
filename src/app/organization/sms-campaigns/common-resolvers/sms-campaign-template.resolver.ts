@@ -24,7 +24,7 @@ export class SmsCampaignTemplateResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getSmsCampaignTemplate();
+    return this.organizationService.getCountries();
   }
 
 }

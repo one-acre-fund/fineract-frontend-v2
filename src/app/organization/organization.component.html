@@ -165,6 +165,15 @@
             <h4 matLine>Bulk Import</h4>
             <p matLine>Bulk data import using excel spreadsheet templates for clients, offices, etc.</p>
           </mat-list-item>
+
+          <mat-list-item [routerLink]="['audit-trails']">
+            <mat-icon matListIcon>
+              <fa-icon icon="money-check" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>Audit Trails</h4>
+            <p matLine>Audit logs of all the activities, such as create client, disburse loans etc</p>
+          </mat-list-item>
+          
         </mat-nav-list>
       </div>
     </div>

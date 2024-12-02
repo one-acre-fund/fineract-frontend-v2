@@ -62,6 +62,8 @@ import { EditLoanProvisioningCriteriaComponent } from "./loan-provisioning-crite
 import { StandingInstructionsHistoryComponent } from "./standing-instructions-history/standing-instructions-history.component";
 import { FundMappingComponent } from "./fund-mapping/fund-mapping.component";
 import { CreateHolidayComponent } from "./holidays/create-holiday/create-holiday.component";
+import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
+import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
 
 /** Custom Resolvers */
 import { LoanProvisioningCriteriaResolver } from "./loan-provisioning-criteria/common-resolvers/loan-provisioning-criteria.resolver";
@@ -113,6 +115,8 @@ import { EditRetailOutletResolver } from "./rural-outlet/edit-retail-outlet.reso
 import { CreateCurrenciesComponent } from "./currencies/create-currencies/create-currencies.component";
 import { BulkRepaymentDownloadComponent } from "./bulk-import/bulk-repayment-download/bulk-repayment-download.component";
 import { CountriesResolver } from "./bulk-import/view-bulk-import/country.resolver";
+import { AuditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
+import { AuditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
 
 /** Organization Routes */
 const routes: Routes = [
@@ -755,6 +759,27 @@ const routes: Routes = [
             },
           ],
         },
+        {
+          path: 'audit-trails',
+          data: { title: extract('Audit Trails'), breadcrumb: 'Audit Trails' },
+          children: [
+            {
+              path: '',
+              component: AuditTrailsComponent,
+              resolve: {
+                auditTrailSearchTemplate: AuditTrailSearchTemplateResolver
+              }
+            },
+            {
+              path: ':id',
+              component: ViewAuditComponent,
+              data: { title: extract('View Audit'), routeParamBreadcrumb: 'id' },
+              resolve: {
+                auditTrail: AuditTrailResolver
+              }
+            }
+          ]
+        }
       ],
     },
   ]),
@@ -811,6 +836,8 @@ const routes: Routes = [
     LoanProvisioningCriteriaAndTemplateResolver,
     StandingInstructionsTemplateResolver,
     AdvanceSearchTemplateResolver,
+    AuditTrailSearchTemplateResolver,
+    AuditTrailResolver
   ],
 })
 export class OrganizationRoutingModule {}

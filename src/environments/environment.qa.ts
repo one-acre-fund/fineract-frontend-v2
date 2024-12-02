@@ -14,8 +14,7 @@ export const environment = {
   // For connecting to server running elsewhere update the tenant identifier
   fineractPlatformTenantId: window['env']['fineractPlatformTenantId'] || 'default',
   // For connecting to others servers running elsewhere update the base API URL
-  baseApiUrls:
-    window['env']['fineractApiUrls'] ||
+  baseApiUrls: window['env']['fineractApiUrls'] ||
     'https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://loans.qa.oneacrefund.org,https://localhost:8443',
   // For connecting to server running elsewhere set the base API URL
   baseApiUrl: window['env']['baseApiUrl'] || 'https://loans.qa.oneacrefund.org',
@@ -28,7 +27,7 @@ export const environment = {
     serverUrl: window['env']['authServerUrl'] || 'https://accounts.qa.oneacrefund.org',
     realm: window['env']['keycloakRealm'] || 'OneAcreFund',
     client_id: window['env']['keycloakClientId'] || 'fineract',
-    tokenUrl: `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
+    tokenUrl: window['env']['keycloakTokenUrl'] || `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
     redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home',
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
@@ -39,8 +38,7 @@ export const environment = {
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.qa.oneacrefund.org',
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
-  sentryDsn:
-    window['env']['sentryDsn'] ||
+  sentryDsn: window['env']['sentryDsn'] ||
     'https://test@o454511.ingest.us.sentry.io/test',
 };
 
