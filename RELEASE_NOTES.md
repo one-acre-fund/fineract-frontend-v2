@@ -6,6 +6,7 @@
     * [SER-2543] - Implement the user agent 
     * [SER-3214] - Use the updated configuration for OTP verification in the UI
     * [SER-3204] - Move the audit page from System to Organization page
+    * chore - Change Mifos name on the UI to Fineract
 
 ## Version 1.3.4.2 - Community 1.0.0
     * [SER-3241] - Loan Product UI Fixes - Short name, channels, and client eligibility validation
