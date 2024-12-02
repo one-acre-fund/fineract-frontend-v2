@@ -43,6 +43,7 @@ export class WebAppComponent implements OnInit {
 
   buttonConfig: KeyboardShortcutsConfiguration;
   private userName :string;
+  private environment = environment;
 
   /**
    * @param {Router} router Router for navigation.
@@ -110,13 +111,13 @@ export class WebAppComponent implements OnInit {
       .subscribe(event => {
         const title = event['title'];
         if (title) {
-          this.titleService.setTitle(`${this.translateService.instant(title)} | Fineract`);
+          this.titleService.setTitle(`${this.translateService.instant(title)} | ${environment.appDisplayName}`);
         }
         //set Matomo page info
         this.userName = this.authenticationService.getConnectedUsername() ? this.authenticationService.getConnectedUsername() : "";
         this.matomoTracker.setUserId(this.userName); //tracker user ID
 
-        this.matomoTracker.setDocumentTitle(`${this.translateService.instant(title)} | Fineract`);
+        this.matomoTracker.setDocumentTitle(`${this.translateService.instant(title)} | ${environment.appDisplayName}`);
       });
 
     // Stores top 100 user activites as local storage object.

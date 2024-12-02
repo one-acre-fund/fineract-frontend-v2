@@ -20,10 +20,11 @@ import { Subscription } from 'rxjs';
 })
 export class FooterComponent implements OnInit, OnDestroy {
 
+  environment = environment;
   /** Mifos X version. */
-  version: string = environment.version;
+  version: string = this.environment.version;
   /** Mifos X hash */
-  hash: string = environment.hash;
+  hash: string = this.environment.hash;
   /** Business Date */
   businessDate: Date = null;
 
