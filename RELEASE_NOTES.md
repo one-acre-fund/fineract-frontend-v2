@@ -7,6 +7,13 @@
     * [SER-3214] - Use the updated configuration for OTP verification in the UI
     * [SER-3204] - Move the audit page from System to Organization page
 
+## Version 1.3.4.2 - Community 1.0.0
+    * [SER-3241] - Loan Product UI Fixes - Short name, channels, and client eligibility validation
+
+## Version 1.3.4.1 - Community 1.0.0
+    * [SER-3203] - Make country support required in SMS campaign template retrieval to allow fetching country specific SMS provider details
+    * [SER-3088] - Add country filter on SMS campaigns list API
+
 ## Version 1.3.4 - Community 1.0.0
 
     * [SER-3008] - Added ability to load organisational units (OUs) up to custom levels of the OU hierarchy config

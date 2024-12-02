@@ -10,6 +10,7 @@ import { ReportParameter } from 'app/reports/common-models/report-parameter.mode
 
 /** Custom Components */
 import { BusinessRuleParametersComponent } from './business-rule-parameters/business-rule-parameters.component';
+import { OrganizationService } from 'app/organization/organization.service';
 
 /**
  * SMS Campaign Step Component
@@ -53,7 +54,9 @@ export class SmsCampaignStepComponent implements OnInit {
    * @param {ReportsService} reportService Reports Service
    */
   constructor(private formBuilder: UntypedFormBuilder,
-              private reportService: ReportsService) {
+              private reportService: ReportsService,
+              private organizationService: OrganizationService
+            ) {
     this.createSMSCampaignDetailsForm();
     this.buildDependencies();
   }
@@ -62,9 +65,19 @@ export class SmsCampaignStepComponent implements OnInit {
    * Sets SMS providers and trigger types options.
    */
   ngOnInit() {
-    this.triggerTypes = this.smsCampaignTemplate.triggerTypeOptions;
-    this.smsProviders = this.smsCampaignTemplate.smsProviderOptions;
-    this.countryOptions = this.smsCampaignTemplate.countryOptions || [];
+    
+    this.countryOptions = this.smsCampaignTemplate || [];
+  }
+
+  onCountryChange(event: any) {
+
+    this.organizationService.getSmsCampaignTemplate(event.id, event.name).subscribe({
+      next: (response: any) => {
+        this.triggerTypes = response.triggerTypeOptions;
+        this.smsProviders = response.smsProviderOptions;
+        this.businessRules = response.businessRulesOptions;
+      }
+    });
   }
 
   /**
@@ -148,7 +161,6 @@ export class SmsCampaignStepComponent implements OnInit {
     });
     this.smsCampaignDetailsForm.get('triggerType').valueChanges.subscribe((value: number) => {
       this.templateParameters.emit(null);
-      this.businessRules = this.smsCampaignTemplate.businessRulesOptions;
       if (this.smsCampaignDetailsForm.controls.runReportId.value) {
         this.smsCampaignDetailsForm.get('runReportId').patchValue('');
       }

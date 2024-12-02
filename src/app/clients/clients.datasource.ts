@@ -7,6 +7,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 /** Custom Services */
 import { ClientsService } from './clients.service';
 import { SearchService } from 'app/search/search.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Clients custom data source to implement server side filtering, pagination and sorting.
@@ -23,7 +24,7 @@ export class ClientsDataSource implements DataSource<any> {
    * @param {ClientsService} clientsService Clients Service
    * @param {SearchService} searchService Search Service
    */
-  constructor(private clientsService: ClientsService, private searchService: SearchService) {}
+  constructor(private clientsService: ClientsService, private searchService: SearchService, private settingsService: SettingsService) {}
 
   /**
    * Gets clients on the basis of provided parameters and emits the value.
@@ -41,7 +42,7 @@ export class ClientsDataSource implements DataSource<any> {
     showClosedAccounts: boolean = true
   ) {
     this.clientsSubject.next([]);
-    let countryId = JSON.parse(sessionStorage.getItem('selectedCountry'))?.id;
+    let countryId = this.settingsService.getSelectedCountry()?.id;
     let clientsObs: Observable<any>;
     if (countryId) {
       clientsObs = this.clientsService.getClientsByCountry('id', 'ASC', pageIndex * limit, limit, countryId);

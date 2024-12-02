@@ -129,4 +129,11 @@ export class SettingsService {
     });
   }
 
+  /**
+   * Get selected country
+   */
+  getSelectedCountry() {
+    return JSON.parse(sessionStorage.getItem('selectedCountry'));
+  }
+
 }
