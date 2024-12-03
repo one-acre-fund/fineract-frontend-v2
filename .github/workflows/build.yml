@@ -131,8 +131,8 @@ jobs:
     with:
       environment: "Integration"
     secrets:
-      k8s_url: "${{ secrets.K8S_TEST_URL }}"
-      k8s_secret: "${{ secrets.K8S_TEST_DEFAULT }}"
+      k8s_url: ${{ secrets.K8S_TEST_URL }}
+      k8s_secret: ${{ secrets.K8S_TEST_DEFAULT }}
 
   QA-k8s:
     runs-on: ubuntu-latest
@@ -142,8 +142,8 @@ jobs:
     with:
       environment: "QA"
     secrets:
-      k8s_url: "${{ secrets.K8S_QA_URL }}"
-      k8s_secret: "${{ secrets.K8S_QA_DEFAULT }}"
+      k8s_url: ${{ secrets.K8S_QA_URL }}
+      k8s_secret: ${{ secrets.K8S_QA_DEFAULT }}
 
   UAT-k8s:
     runs-on: ubuntu-latest
