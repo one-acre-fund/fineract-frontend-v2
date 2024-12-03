@@ -6,11 +6,11 @@ on:
       environment:
         required: true
         type: string
-      secrets:
-        k8s_url:
-          required: true
-        k8s_secret:
-          required: true
+    secrets:
+      k8s_url:
+        required: true
+      k8s_secret:
+        required: true
 
 jobs:
   deploy:
