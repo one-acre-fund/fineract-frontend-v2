@@ -22,12 +22,12 @@ export const environment = {
   apiVersion: window['env']['apiVersion'] || '/v1',
   serverUrl: '',
   oauth: {
-    enabled: true,  // For connecting to Mifos X using OAuth2 Authentication change the value to true
+    enabled: true, // For connecting to Mifos X using OAuth2 Authentication change the value to true
     serverUrl: window['env']['authServerUrl'] || 'https://accounts.qa.oneacrefund.org',
     realm: window['env']['keycloakRealm'] || 'OneAcreFund',
     client_id: window['env']['keycloakClientId'] || 'fineract',
     tokenUrl: window['env']['keycloakTokenUrl'] || `https://loans.qa.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token`,
-    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
+    redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home',
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
   supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR',
@@ -37,6 +37,8 @@ export const environment = {
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.qa.oneacrefund.org',
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
+  sentryDsn: window['env']['sentryDsn'] ||
+    'https://test@o454511.ingest.us.sentry.io/test',
 };
 
 // Server URL

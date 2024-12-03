@@ -33,6 +33,7 @@ export const environment = {
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'https://analytics.oneacrefund.org',
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
+  sentryDsn: window['env']['sentryDsn'],
 };
 
 // Server URL

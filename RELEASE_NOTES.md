@@ -1,11 +1,13 @@
 # Release Notes
 
 ## Version 1.3.5 - Community 1.0.0
+
     * [SER-2577] - Allow group movement regardless of loan status and office
     * [SER-3227] - Change link color for group and office labels in the client detail page.
-    * [SER-2543] - Implement the user agent 
+    * [SER-2543] - Implement the user agent
     * [SER-3214] - Use the updated configuration for OTP verification in the UI
     * [SER-3204] - Move the audit page from System to Organization page
+    * [SER-3281] - Integrate Fineract UI with Sentry for error analytics and tracing
     * chore - Change Mifos name on the UI to Fineract
 
 ## Version 1.3.4.2 - Community 1.0.0
@@ -27,10 +29,12 @@
     * [SER-2902] - Disable loan submit button for a specific period to avoid double clicks.
     * [SER-2664] -  Show only client eligible loan products
     * [SER-2881] -  Re-enable configuration of the currency multiple from directly on the UI during Loan Definition
+
 ## Version 1.3.2 - Community 1.0.0
 
     * [SER-2947] - Show or hide some menus based on user permissions.
     * [SER-2956] - Fix regression on Display Terms&Conditions on loan product page
+
 ## Version 1.3.1 - Community 1.0.0
 
     * [SER-2854] Editing a loan product leads to loss of attached charges
