@@ -6,12 +6,11 @@ on:
       environment:
         required: true
         type: string
-      k8s_url:
-        required: true
-        type: string
-      k8s_secret:
-        required: true
-        type: string
+      secrets:
+        k8s_url:
+          required: true
+        k8s_secret:
+          required: true
 
 jobs:
   deploy:
@@ -27,8 +26,8 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           RUN_ID: "${{ github.run_id }}"
           CI_REPOSITORY: "${{ github.repository }}"
-          K8S_URL: "${{ inputs.k8s_url }}"
-          K8S_SECRET: "${{ inputs.k8s_secret }}"
+          K8S_URL: "${{ secrets.k8s_url }}"
+          K8S_SECRET: "${{ secrets.k8s_secret }}"
 
       - uses: "./.github/actions/helm_fineract_frontend"
         with:
