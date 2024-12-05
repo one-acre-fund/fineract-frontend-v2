@@ -10,6 +10,7 @@ import { activities } from './activities';
 /** Custom Services */
 import { AuthenticationService } from '../core/authentication/authentication.service';
 import { KeycloakService } from 'keycloak-angular';
+import { environment } from 'environments/environment';
 
 /**
  * Home component.
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   filteredActivities: Observable<any[]>;
   /** All User Activities. */
   allActivities: any[] = activities;
+  environment = environment;
 
   /**
    * @param {AuthenticationService} authenticationService Authentication Service.

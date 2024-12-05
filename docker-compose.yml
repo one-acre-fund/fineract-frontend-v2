@@ -11,17 +11,17 @@ services:
       - '4200:80'
     environment:
       - FINERACT_API_URLS=https://dev.mifos.io,https://demo.mifos.io,https://qa.mifos.io,https://staging.mifos.io,https://mobile.mifos.io,https://demo.fineract.dev,https://localhost:8443
-      - FINERACT_API_URL=https://loans.test.oneacrefund.org
+      - FINERACT_API_URL=https://loans.integration.oneacrefund.org
       - FINERACT_API_PROVIDER=/fineract-provider/api
       - FINERACT_API_VERSION=/v1
       - FINERACT_PLATFORM_TENANT_IDENTIFIER=default
       - MIFOS_DEFAULT_LANGUAGE=en-US
       - MIFOS_SUPPORTED_LANGUAGES=en-US,fr-FR
-      - AUTH_SERVER_URL=https://accounts.test.oneacrefund.org
+      - AUTH_SERVER_URL=https://accounts.integration.oneacrefund.org
       - KEYCLOAK_REALM=OneAcreFund
       - KEYCLOAK_CLIENT_ID=fineract
-      - KEYCLOAK_TOKEN_URL=https://loans.test.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token
-      - HOME_URL=https://loans.test.oneacrefund.org
+      - KEYCLOAK_TOKEN_URL=https://loans.integration.oneacrefund.org/auth/realms/OneAcreFund/protocol/openid-connect/token
+      - HOME_URL=https://loans.integration.oneacrefund.org
       - MATOMO_SITE_ID=1
-      - MATOMO_SITE_URL=https://analytics.test.oneacrefund.org
+      - MATOMO_SITE_URL=https://analytics.integration.oneacrefund.org
       - LOAN_SUBMIT_DISABLED_TIME_OUT=5

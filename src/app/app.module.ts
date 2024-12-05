@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { APP_INITIALIZER, NgModule } from "@angular/core";
+import { APP_INITIALIZER, ErrorHandler, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
@@ -51,7 +51,8 @@ import { DragulaModule } from "ng2-dragula";
 /** Matomo module */
 import { NgxMatomoRouterModule } from "@ngx-matomo/router";
 import { NgxMatomoTrackerModule } from "@ngx-matomo/tracker";
-
+import * as Sentry from "@sentry/angular";
+import { Router } from "@angular/router";
 /**
  * App Module
  *
@@ -119,6 +120,20 @@ import { NgxMatomoTrackerModule } from "@ngx-matomo/tracker";
       multi: true,
     },
     { provide: MAT_DATE_LOCALE, useValue: "en-GB" },
+    {
+      provide: ErrorHandler,
+      useValue: Sentry.createErrorHandler(),
+    },
+    {
+      provide: Sentry.TraceService,
+      deps: [Router],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: () => () => {},
+      deps: [Sentry.TraceService],
+      multi: true,
+    },
   ],
   bootstrap: [WebAppComponent],
 })

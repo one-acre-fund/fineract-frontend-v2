@@ -12,6 +12,7 @@ import { AuthenticationService } from '../../authentication/authentication.servi
 
 /** Custom Imports */
 import { frequentActivities } from './frequent-activities';
+import { environment } from 'environments/environment';
 
 /**
  * Sidenav component.
@@ -33,6 +34,7 @@ export class SidenavComponent implements OnInit {
   mappedActivities: any[] = [];
   /** Collection of possible frequent activities */
   frequentActivities: any[] = frequentActivities;
+  environment = environment;
 
   /**
    * @param {Router} router Router for navigation.

@@ -245,7 +245,7 @@ export class EditClientComponent implements OnInit {
       return;
     }
     const countryId = this.clientDataAndTemplate.countryId;
-    this.systemService.getConfigurationByName('country-client-identity-ocr-validation-required', { countryId })
+    this.systemService.getConfigurationByName('country-client-phone-number-otp-expiry-period', { countryId })
     .subscribe(config => {
       if (config?.enabled) {
         this.initiateOtpValidation(formMobileNo, countryId);

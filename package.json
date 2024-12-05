@@ -1,6 +1,6 @@
 {
   "name": "mifosx-web-app",
-  "version": "1.3.4.2.1",
+  "version": "1.3.5",
   "description": "MifosX Web App is the default web application built on top of the Fineract platform for the Mifos user community leveraging the popular Angular framework.",
   "keywords": [
     "mifos",
@@ -24,7 +24,8 @@
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean -sort --marker extract",
     "docs": "hads ./docs -o",
     "env": "node version.js",
-    "postinstall": "node version.js && ngcc"
+    "postinstall": "node version.js && ngcc",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org one-acre-fund --project fineract-ui ./dist/web-app && sentry-cli sourcemaps upload --org one-acre-fund --project fineract-ui ./dist/web-app"
   },
   "dependencies": {
     "@angular-devkit/schematics": "^14.2.13",
@@ -51,6 +52,9 @@
     "@ngx-matomo/tracker": "^3.2.1",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "@sentry/angular": "^8.38.0",
+    "@sentry/cli": "^2.38.2",
+    "@sentry/tracing": "^7.114.0",
     "@tailwindcss/forms": "^0.5.4",
     "chart.js": "3.0.0-alpha",
     "core-js": "2.6.12",
