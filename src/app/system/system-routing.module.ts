@@ -88,6 +88,9 @@ import { ConfigureDataFieldsComponent } from './configure-data-fields/configure-
 import { ManageDataFieldResolver } from './configure-data-fields/manage-data-field.resolver';
 import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
 import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/manage-fields-data.resolver';
+import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
+import { PaymentProviderConfigurationResolver } from './external-services/payment-provider/payment-provider.resolver';
+import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -239,7 +242,35 @@ const routes: Routes = [
                   }
                 }
               ]
-            }
+            },
+            {
+              path: 'payment-provider',
+              data: { title: extract('View Payment providers Configuration'), breadcrumb: 'Payment Providers' },
+              children: [
+                {
+                  path: '',
+                  component: PaymentProviderComponent,
+                  resolve: {
+                    paymentProviderConfiguration: PaymentProviderConfigurationResolver
+                  }
+                },
+                {
+                  path: 'add',
+                  component: AddPaymentProviderComponent,
+                  resolve: {
+                    paymentProviderOptions: PaymentProviderConfigurationResolver
+                  }
+                },
+                {
+                  path: 'edit',
+                  data: { title: extract('Edit Payment providers Configuration'), breadcrumb: 'Edit' },
+                  component: EditSMSComponent,
+                  resolve: {
+                    smsConfiguration: SMSConfigurationResolver
+                  }
+                }
+              ]
+            },
           ]
         },
         {
@@ -629,6 +660,7 @@ const routes: Routes = [
     EmailConfigurationResolver,
     SMSConfigurationResolver,
     NotificationConfigurationResolver,
+    PaymentProviderConfigurationResolver,
     AccountNumberPreferencesResolver,
     AccountNumberPreferencesTemplateResolver,
     AccountNumberPreferenceResolver,

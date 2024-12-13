@@ -471,6 +471,24 @@ export class SystemService {
 
   /**
    * @param {string} externalConfigurationName External Configuration Name.
+   * @returns {Observable<any>} External Configuration.
+   */
+  searchExternalConfiguration(externalConfigurationName: string, countryId: number, officeId: number): Observable<any> {
+    let httpParams = new HttpParams();
+    if(externalConfigurationName){
+      httpParams = httpParams.set('externalConfigurationName', externalConfigurationName);
+    }
+    if(countryId){
+      httpParams = httpParams.set('countryId', countryId.toString());
+    }
+    if(officeId){
+      httpParams = httpParams.set('officeId', officeId.toString());
+    }
+    return this.http.get(`/externalservice` , { params: httpParams });
+  }
+
+  /**
+   * @param {string} externalConfigurationName External Configuration Name.
    * @param {any} externalConfiguration External Configuration.
    * @returns {Observable<any>}
    */
