@@ -3,89 +3,129 @@
     <form [formGroup]="addPaymentProviderForm" (ngSubmit)="submit()">
       <mat-card-content>
         <div fxLayout="row">
-          <div fxFlex="25%" fxLayout="column"></div>
-          <div fxFlex="50%" fxLayout="column">
-            <mat-label>Provider Name</mat-label>
-            <input matInput required formControlName="provider_name" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.provider_name.hasError('required')">
-              Provider Name is <strong>required</strong>
-            </mat-error>
+          <div fxFlex="20%" fxLayout="column"></div>
+          <div fxFlex="60%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Provider Name</mat-label>
+              <input matInput required formControlName="provider_name" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.provider_name.hasError('required')">
+                Provider Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
           </div>
-          <div fxFlex="25%" fxLayout="column"></div>
+          <div fxFlex="20%" fxLayout="column"></div>
         </div>
 
         <div fxLayout="row">
-          <div fxFlex="50%" fxLayout="column">
-            <mat-label>Country</mat-label>
-            <mat-select required formControlName="country_id">
-              <mat-option *ngFor="let country of countryOptions" [value]="country.id">
-                {{ country.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="addPaymentProviderForm.controls.country_id.hasError('required')">
-              Country is <strong>required</strong>
-            </mat-error>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Country</mat-label>
+              <mat-select required formControlName="country_id">
+                <mat-option *ngFor="let country of countryOptions" [value]="country.id">
+                  {{ country.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addPaymentProviderForm.controls.country_id.hasError('required')">
+                Country is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
           </div>
-          <div fxFlex="50%" fxLayout="column">
-            <mat-label>Office</mat-label>
-            <mat-select required formControlName="office_id">
-              <mat-option *ngFor="let office of officeOptions" [value]="office.id">
-                {{ office.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="addPaymentProviderForm.controls.office_id.hasError('required')">
-              Office is <strong>required</strong>
-            </mat-error>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Office</mat-label>
+              <mat-select required formControlName="office_id">
+                <mat-option *ngFor="let office of officeOptions" [value]="office.id">
+                  {{ office.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addPaymentProviderForm.controls.office_id.hasError('required')">
+                Office is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
           </div>
         </div>
 
-        <div fxLayout="column">
-          <mat-form-field>
-            <mat-label>Business Identification</mat-label>
-            <input matInput required formControlName="business_id" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.business_id.hasError('required')">
-              Business Identification is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div fxLayout="row">
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Business Identification</mat-label>
+              <input matInput required formControlName="business_id" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.business_id.hasError('required')">
+                Business Identification is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Sub entity code</mat-label>
+              <input matInput required formControlName="sub_entity_code" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.sub_entity_code.hasError('required')">
+                Sub entity code is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-          <mat-form-field>
-            <mat-label>Sub entity code</mat-label>
-            <input matInput required formControlName="sub_entity_code" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.sub_entity_code.hasError('required')">
-              Sub entity code is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div fxLayout="row">
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Base URL</mat-label>
+              <input matInput required formControlName="base_url" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.base_url.hasError('required')">
+                Base URL is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Authentication endpoint</mat-label>
+              <input matInput required formControlName="authentication_endpoint" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.authentication_endpoint.hasError('required')">
+                Authentication endpoint is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-          <mat-form-field>
-            <mat-label>Base URL</mat-label>
-            <input matInput required formControlName="base_url" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.base_url.hasError('required')">
-              Base URL is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div fxLayout="row">
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Authentication type</mat-label>
+              <mat-select required formControlName="authentication_type">
+                <mat-option *ngFor="let authenticationType of authenticationTypeOptions" [value]="authenticationType.id">
+                  {{ authenticationType.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addPaymentProviderForm.controls.authentication_type.hasError('required')">
+                Authentication type is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-          <mat-form-field>
-            <mat-label>Authentication endpoint</mat-label>
-            <input matInput required formControlName="authentication_endpoint" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.authentication_endpoint.hasError('required')">
-              Authentication endpoint is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input matInput required formControlName="username" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.username.hasError('required')">
-              Username is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput required formControlName="password" />
-            <mat-error *ngIf="addPaymentProviderForm.controls.password.hasError('required')">
-              Password is <strong>required</strong>
-            </mat-error>
-          </mat-form-field>
+        <div fxLayout="row">
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput required formControlName="username" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.username.hasError('required')">
+                Username is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput required formControlName="password" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.password.hasError('required')">
+                Password is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </mat-card-content>
 

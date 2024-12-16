@@ -89,7 +89,6 @@ import { ManageDataFieldResolver } from './configure-data-fields/manage-data-fie
 import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
 import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/manage-fields-data.resolver';
 import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
-import { PaymentProviderConfigurationResolver } from './external-services/payment-provider/payment-provider.resolver';
 import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
 
 const routes: Routes = [
@@ -245,21 +244,16 @@ const routes: Routes = [
             },
             {
               path: 'payment-provider',
-              data: { title: extract('View Payment providers Configuration'), breadcrumb: 'Payment Providers' },
+              data: { title: extract('Payment Providers Configuration'), breadcrumb: 'Payment Providers' },
               children: [
                 {
                   path: '',
-                  component: PaymentProviderComponent,
-                  resolve: {
-                    paymentProviderConfiguration: PaymentProviderConfigurationResolver
-                  }
+                  component: PaymentProviderComponent
                 },
                 {
                   path: 'add',
-                  component: AddPaymentProviderComponent,
-                  resolve: {
-                    paymentProviderOptions: PaymentProviderConfigurationResolver
-                  }
+                  data: { title: extract('Add Payment providers Configuration'), breadcrumb: 'Add' },
+                  component: AddPaymentProviderComponent
                 },
                 {
                   path: 'edit',
@@ -660,7 +654,6 @@ const routes: Routes = [
     EmailConfigurationResolver,
     SMSConfigurationResolver,
     NotificationConfigurationResolver,
-    PaymentProviderConfigurationResolver,
     AccountNumberPreferencesResolver,
     AccountNumberPreferencesTemplateResolver,
     AccountNumberPreferenceResolver,

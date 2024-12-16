@@ -18,7 +18,7 @@
 </div>
 <div *ngIf="countryId">
   <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
-    <button mat-raised-button color="primary" [routerLink]="['add']">
+    <button mat-raised-button color="primary" [routerLink]="['add']" (click)="navigateToAdd()">
       <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp; Add Provider
     </button>
   </div>

@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
+import { ExternalServiceConfigurationService } from '../external-services.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-payment-provider',
@@ -24,21 +26,28 @@ export class PaymentProviderComponent implements OnInit {
   /** Sorter for Payment provider configuration table. */
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private route: ActivatedRoute, private systemService: SystemService) {
-    this.route.data.subscribe((data: { paymentProviderConfiguration: any }) => {
-      this.paymentProviderConfigurationData = data.paymentProviderConfiguration;
-      console.log('Inside PaymentProviderComponent. ', this.paymentProviderConfigurationData);
-      this.countryOptions = this.paymentProviderConfigurationData;
-    });
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private systemService: SystemService,
+    private externalServiceConfigurationService: ExternalServiceConfigurationService,
+    private settingsService: SettingsService
+  ) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.externalServiceConfigurationService.getExternalServiceTemplate(null).subscribe({
+      next: (data) => {
+        this.countryOptions = data.countryOptions;
+        this.countryId = this.settingsService.getSelectedCountry()?.id;
+      },
+    });
+  }
 
   onCountryChange(event: any) {
     this.setCountryPaymentProviders(event.id);
     this.systemService.searchExternalConfiguration(this.serviceName, event.id, null).subscribe({
       next: (data: any) => {
-        console.log('Payment Provider Configuration Data: ', data);
         this.dataSource.data = data;
       },
     });
@@ -48,8 +57,13 @@ export class PaymentProviderComponent implements OnInit {
    * Initializes the data source and sorter for payment provider table.
    */
   setCountryPaymentProviders(countryId: number) {
-    console.log('Calling payment provider for Country: ', countryId);
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
+  }
+
+  navigateToAdd(){
+    if(this.countryId){
+      this.router.navigate([`add`], { relativeTo: this.route, state: { countryId: this.countryId } });
+    }
   }
 }
