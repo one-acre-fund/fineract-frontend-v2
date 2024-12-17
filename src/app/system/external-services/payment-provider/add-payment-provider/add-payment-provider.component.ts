@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
+import { AddExternalServiceModel, AddPaymentProviderPropertyModel } from '../../external-service.model';
 
 @Component({
   selector: 'mifosx-add-payment-provider',
@@ -10,6 +11,8 @@ import { ExternalServiceConfigurationService } from '../../external-services.ser
   styleUrls: ['./add-payment-provider.component.scss'],
 })
 export class AddPaymentProviderComponent implements OnInit {
+  private readonly serviceName: string = 'PAYMENT_PROVIDER';
+
   /** Payment Provider Form */
   countryId: any;
   addPaymentProviderForm: UntypedFormGroup;
@@ -24,7 +27,6 @@ export class AddPaymentProviderComponent implements OnInit {
 
   constructor(
     private formBuilder: UntypedFormBuilder,
-    private systemService: SystemService,
     private route: ActivatedRoute,
     private router: Router, 
     private externalServiceConfigurationService: ExternalServiceConfigurationService
@@ -42,8 +44,8 @@ export class AddPaymentProviderComponent implements OnInit {
     this.setPaymentProviderForm();
   }
 
-  onCountryChange(event: any) {
-    this.externalServiceConfigurationService.getExternalServiceTemplate(event.id).subscribe({
+  onCountryChange() {
+    this.externalServiceConfigurationService.getExternalServiceTemplate(this.addPaymentProviderForm.value.country_id).subscribe({
       next: (data) => {
         this.officeOptions = data.officeOptions;
       },
@@ -58,6 +60,7 @@ export class AddPaymentProviderComponent implements OnInit {
       country_id: [this.countryId, Validators.required],
       office_id: [null],
       base_url: ['', Validators.required],
+      account_creation_endpoint: ['', Validators.required],
       authentication_endpoint: ['', Validators.required],
       authentication_type: ['', Validators.required],
       business_id: ['', Validators.required],
@@ -72,7 +75,17 @@ export class AddPaymentProviderComponent implements OnInit {
    * if successful redirects to view Payment provider page.
    */
   submit() {
-    this.systemService.updateExternalConfiguration('PAYMENT_PROVIDER', this.addPaymentProviderForm.value).subscribe({
+    const paymentProviderData: AddExternalServiceModel = new AddExternalServiceModel();
+    paymentProviderData.serviceName = this.serviceName;
+    paymentProviderData.countryId = this.addPaymentProviderForm.value.country_id;
+    const properties: AddPaymentProviderPropertyModel = this.addPaymentProviderForm.value;
+    paymentProviderData.values = [
+      {
+        officeId: this.addPaymentProviderForm.value.office_id,
+        properties: properties
+      },
+    ];
+    this.externalServiceConfigurationService.addExternalServiceConfiguration(paymentProviderData).subscribe({
       next: () => this.router.navigate(['../'], { relativeTo: this.route }),
       error: (error: any) => {
         console.log('Error: ', error);

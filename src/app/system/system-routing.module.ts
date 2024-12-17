@@ -90,6 +90,7 @@ import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fi
 import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/manage-fields-data.resolver';
 import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
 import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
+import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -258,10 +259,7 @@ const routes: Routes = [
                 {
                   path: 'edit',
                   data: { title: extract('Edit Payment providers Configuration'), breadcrumb: 'Edit' },
-                  component: EditSMSComponent,
-                  resolve: {
-                    smsConfiguration: SMSConfigurationResolver
-                  }
+                  component: EditPaymentProviderComponent
                 }
               ]
             },

@@ -20,7 +20,7 @@
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>Country</mat-label>
-              <mat-select required formControlName="country_id">
+              <mat-select required formControlName="country_id" (selectionChange)="onCountryChange()">
                 <mat-option *ngFor="let country of countryOptions" [value]="country.id">
                   {{ country.name }}
                 </mat-option>
@@ -79,6 +79,18 @@
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Account creation endpoint</mat-label>
+              <input matInput required formControlName="account_creation_endpoint" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.account_creation_endpoint.hasError('required')">
+                Account creation endpoint is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>Authentication endpoint</mat-label>

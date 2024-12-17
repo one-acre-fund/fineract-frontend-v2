@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
 import { ExternalServiceConfigurationService } from '../external-services.service';
 import { SettingsService } from 'app/settings/settings.service';
+import { GetExternalServiceModel } from '../external-service.model';
 
 @Component({
   selector: 'mifosx-payment-provider',
@@ -13,9 +14,9 @@ import { SettingsService } from 'app/settings/settings.service';
 })
 export class PaymentProviderComponent implements OnInit {
   /** Payment provider configuration data. */
-  paymentProviderConfigurationData: any;
+  paymentProviderData: GetExternalServiceModel[];
   /** Columns to be displayed in Payment provider configuration table. */
-  displayedColumns: string[] = ['name', 'value'];
+  displayedColumns: string[] = ['providerName', 'office', 'businessId', 'subEntityCode', 'actions'];
   /** Data source for Payment provider configuration table. */
   dataSource: MatTableDataSource<any>;
 
@@ -32,25 +33,22 @@ export class PaymentProviderComponent implements OnInit {
     private systemService: SystemService,
     private externalServiceConfigurationService: ExternalServiceConfigurationService,
     private settingsService: SettingsService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     this.externalServiceConfigurationService.getExternalServiceTemplate(null).subscribe({
       next: (data) => {
         this.countryOptions = data.countryOptions;
         this.countryId = this.settingsService.getSelectedCountry()?.id;
+        if (this.countryId) {
+          this.setCountryPaymentProviders(this.countryId);
+        }
       },
     });
   }
 
   onCountryChange(event: any) {
     this.setCountryPaymentProviders(event.id);
-    this.systemService.searchExternalConfiguration(this.serviceName, event.id, null).subscribe({
-      next: (data: any) => {
-        this.dataSource.data = data;
-      },
-    });
   }
 
   /**
@@ -59,11 +57,39 @@ export class PaymentProviderComponent implements OnInit {
   setCountryPaymentProviders(countryId: number) {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
+    this.systemService.searchExternalConfiguration(this.serviceName, countryId, null).subscribe({
+      next: (data: any) => {
+        this.paymentProviderData = data;
+        data.forEach((element: GetExternalServiceModel) => {
+          this.dataSource.data.push({
+            id: element.id,
+            office: element.office,
+            serviceName: element.serviceName,
+            providerName: element.propertiesData.filter((property) => property.name === 'provider_name')[0].value,
+            businessId: element.propertiesData.filter((property) => property.name === 'business_id')[0].value,
+            subEntityCode: element.propertiesData.filter((property) => property.name === 'sub_entity_code')[0].value,
+          });
+        });
+        this.dataSource.sort = this.sort;
+      },
+    });
   }
 
-  navigateToAdd(){
-    if(this.countryId){
+  navigateToAdd() {
+    if (this.countryId) {
       this.router.navigate([`add`], { relativeTo: this.route, state: { countryId: this.countryId } });
     }
+  }
+
+  /**
+   * Edit country external service.
+   */
+  navigateToEditExternalService(countryExternalService: any) {
+    console.log('countryExternalServiceId', countryExternalService);
+    const selectedCountryExternalService = this.paymentProviderData.find((data) => data.id === countryExternalService.id);
+    this.router.navigate([`edit`], { relativeTo: this.route, state: { countryExternalService: selectedCountryExternalService } });
+
+    //Track Matomo event for undoing client charge
+    // this.matomoTracker.trackEvent('clients', 'undoCharges', transactionId);
   }
 }

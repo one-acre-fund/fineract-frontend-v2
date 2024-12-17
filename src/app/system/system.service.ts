@@ -476,7 +476,7 @@ export class SystemService {
   searchExternalConfiguration(externalConfigurationName: string, countryId: number, officeId: number): Observable<any> {
     let httpParams = new HttpParams();
     if(externalConfigurationName){
-      httpParams = httpParams.set('externalConfigurationName', externalConfigurationName);
+      httpParams = httpParams.set('serviceName', externalConfigurationName);
     }
     if(countryId){
       httpParams = httpParams.set('countryId', countryId.toString());
