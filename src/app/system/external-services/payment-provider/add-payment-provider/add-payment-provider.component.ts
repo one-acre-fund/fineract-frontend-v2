@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SystemService } from 'app/system/system.service';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
 import { AddExternalServiceModel, AddPaymentProviderPropertyModel } from '../../external-service.model';
 
@@ -11,7 +10,6 @@ import { AddExternalServiceModel, AddPaymentProviderPropertyModel } from '../../
   styleUrls: ['./add-payment-provider.component.scss'],
 })
 export class AddPaymentProviderComponent implements OnInit {
-  private readonly serviceName: string = 'PAYMENT_PROVIDER';
 
   /** Payment Provider Form */
   countryId: any;
@@ -76,7 +74,7 @@ export class AddPaymentProviderComponent implements OnInit {
    */
   submit() {
     const paymentProviderData: AddExternalServiceModel = new AddExternalServiceModel();
-    paymentProviderData.serviceName = this.serviceName;
+    paymentProviderData.serviceName = ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME;
     paymentProviderData.countryId = this.addPaymentProviderForm.value.country_id;
     const properties: AddPaymentProviderPropertyModel = this.addPaymentProviderForm.value;
     paymentProviderData.values = [

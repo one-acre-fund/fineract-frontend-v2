@@ -14,6 +14,8 @@ import { AddExternalServiceModel } from './external-service.model';
   providedIn: 'root'
 })
 export class ExternalServiceConfigurationService {
+
+  public static PAYMENT_PROVIDER_SERVICE_NAME: string = 'PAYMENT_PROVIDER';
   
   /**
    * @param {HttpClient} http Http Client to send requests.

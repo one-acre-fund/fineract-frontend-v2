@@ -3,6 +3,7 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
 import { GetExternalServiceModel } from '../../external-service.model';
+import { ExternalServiceConfigurationService } from '../../external-services.service';
 
 @Component({
   selector: 'mifosx-edit-payment-provider',
@@ -47,9 +48,10 @@ export class EditPaymentProviderComponent implements OnInit {
     this.countryOptions.push({ id: country?.id, name: country?.name });
     this.officeOptions.push({ id: office?.id, name: office?.name });
     this.editPaymentProviderForm = this.formBuilder.group({
-      provider_name: [this.getExternalServiceProperty('provider_name'), Validators.required],
-      country_id: [country?.id, Validators.required],
-      office_id: [office?.id],
+      countryExternalServiceId: [this.countryExternalService.id],
+      provider_name: [{value: this.getExternalServiceProperty('provider_name'), disabled: true}, Validators.required],
+      country_id: [{value: country?.id, disabled: true}, Validators.required],
+      office_id: [{value: office?.id, disabled: true}],
       base_url: [this.getExternalServiceProperty('base_url'), Validators.required],
       account_creation_endpoint: [this.getExternalServiceProperty('account_creation_endpoint'), Validators.required],
       authentication_endpoint: [this.getExternalServiceProperty('authentication_endpoint'), Validators.required],
@@ -67,7 +69,7 @@ export class EditPaymentProviderComponent implements OnInit {
    */
   submit() {
     this.systemService
-      .updateExternalConfiguration('PAYMENT_PROVIDER', this.editPaymentProviderForm.value)
+      .updateExternalConfiguration(ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME, this.editPaymentProviderForm.value)
       .subscribe((response: any) => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });

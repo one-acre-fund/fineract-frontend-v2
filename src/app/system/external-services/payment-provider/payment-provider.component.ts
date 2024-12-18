@@ -22,7 +22,6 @@ export class PaymentProviderComponent implements OnInit {
 
   countryOptions: any = [];
   countryId: any;
-  private readonly serviceName: string = 'PAYMENT_PROVIDER';
 
   /** Sorter for Payment provider configuration table. */
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -57,7 +56,7 @@ export class PaymentProviderComponent implements OnInit {
   setCountryPaymentProviders(countryId: number) {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.systemService.searchExternalConfiguration(this.serviceName, countryId, null).subscribe({
+    this.systemService.searchExternalConfiguration(ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME, countryId, null).subscribe({
       next: (data: any) => {
         this.paymentProviderData = data;
         data.forEach((element: GetExternalServiceModel) => {

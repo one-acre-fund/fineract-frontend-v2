@@ -7,7 +7,7 @@
             <div fxFlex="60%" fxLayout="column">
               <mat-form-field>
                 <mat-label>Provider Name</mat-label>
-                <input matInput required formControlName="provider_name" readonly/>
+                <input matInput formControlName="provider_name" />
                 <mat-error *ngIf="editPaymentProviderForm.controls.provider_name.hasError('required')">
                   Provider Name is <strong>required</strong>
                 </mat-error>
@@ -20,7 +20,7 @@
             <div fxFlex="40%" fxLayout="column">
               <mat-form-field>
                 <mat-label>Country</mat-label>
-                <mat-select required formControlName="country_id" readonly>
+                <mat-select required formControlName="country_id" >
                   <mat-option *ngFor="let country of countryOptions" [value]="country.id">
                     {{ country.name }}
                   </mat-option>
@@ -34,7 +34,7 @@
             <div fxFlex="40%" fxLayout="column">
               <mat-form-field>
                 <mat-label>Office</mat-label>
-                <mat-select required formControlName="office_id" readonly>
+                <mat-select required formControlName="office_id">
                   <mat-option *ngFor="let office of officeOptions" [value]="office.id">
                     {{ office.name }}
                   </mat-option>
