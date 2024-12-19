@@ -11,12 +11,11 @@ import { AddExternalServiceModel } from './external-service.model';
  * External service Configuration data service.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ExternalServiceConfigurationService {
+  public static readonly PAYMENT_PROVIDER_SERVICE_NAME: string = 'PAYMENT_PROVIDER';
 
-  public static PAYMENT_PROVIDER_SERVICE_NAME: string = 'PAYMENT_PROVIDER';
-  
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
@@ -28,10 +27,10 @@ export class ExternalServiceConfigurationService {
    */
   getExternalServiceTemplate(countryId: number): Observable<any> {
     let httpParams = new HttpParams();
-    if(countryId) {
+    if (countryId) {
       httpParams = httpParams.set('countryId', countryId);
     }
-    return this.http.get(`/externalservice/template` , { params: httpParams });
+    return this.http.get(`/externalservice/template`, { params: httpParams });
   }
 
   addExternalServiceConfiguration(data: AddExternalServiceModel): Observable<any> {

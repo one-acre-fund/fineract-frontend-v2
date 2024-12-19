@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
 import { GetExternalServiceModel } from '../../external-service.model';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
+import { MatomoTracker } from '@ngx-matomo/tracker';
 
 @Component({
   selector: 'mifosx-edit-payment-provider',
@@ -11,26 +12,27 @@ import { ExternalServiceConfigurationService } from '../../external-services.ser
   styleUrls: ['./edit-payment-provider.component.scss'],
 })
 export class EditPaymentProviderComponent implements OnInit {
-
   countryExternalService: GetExternalServiceModel;
   /** Payment Provider Form */
   editPaymentProviderForm: UntypedFormGroup;
-  
+
   officeOptions: any = [];
   countryOptions: any = [];
   authenticationTypeOptions = [
     { id: 'Basic', name: 'Basic Authentication' },
     { id: 'Bearer', name: 'Bearer Authentication' },
     { id: 'ApiKey', name: 'API Key Authentication' },
-  ]
+  ];
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private systemService: SystemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private matomoTracker: MatomoTracker
   ) {
-    console.log("Route state: ", this.router.getCurrentNavigation().extras.state);
+    let title = document.title;
+    this.matomoTracker.setDocumentTitle(`${title}`);
     this.countryExternalService = this.router.getCurrentNavigation().extras.state.countryExternalService;
   }
 
@@ -42,18 +44,19 @@ export class EditPaymentProviderComponent implements OnInit {
    * Creates Payment Provider form.
    */
   setPaymentProviderForm() {
-    console.log("Inside edit payment provider form");
+    console.log('Inside edit payment provider form');
     const country = this.countryExternalService.country;
     const office = this.countryExternalService.office;
     this.countryOptions.push({ id: country?.id, name: country?.name });
     this.officeOptions.push({ id: office?.id, name: office?.name });
     this.editPaymentProviderForm = this.formBuilder.group({
       countryExternalServiceId: [this.countryExternalService.id],
-      provider_name: [{value: this.getExternalServiceProperty('provider_name'), disabled: true}, Validators.required],
-      country_id: [{value: country?.id, disabled: true}, Validators.required],
-      office_id: [{value: office?.id, disabled: true}],
+      provider_name: [{ value: this.getExternalServiceProperty('provider_name'), disabled: true }, Validators.required],
+      country_id: [{ value: country?.id, disabled: true }, Validators.required],
+      office_id: [{ value: office?.id, disabled: true }],
       base_url: [this.getExternalServiceProperty('base_url'), Validators.required],
       account_creation_endpoint: [this.getExternalServiceProperty('account_creation_endpoint'), Validators.required],
+      bank_code: [this.getExternalServiceProperty('bank_code'), Validators.required],
       authentication_endpoint: [this.getExternalServiceProperty('authentication_endpoint'), Validators.required],
       authentication_type: [this.getExternalServiceProperty('authentication_type'), Validators.required],
       business_id: [this.getExternalServiceProperty('business_id'), Validators.required],
@@ -68,9 +71,14 @@ export class EditPaymentProviderComponent implements OnInit {
    * if successful redirects to view Payment provider page.
    */
   submit() {
+    this.matomoTracker.trackEvent('externalService', 'addPaymentProvider');
     this.systemService
-      .updateExternalConfiguration(ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME, this.editPaymentProviderForm.value)
+      .updateExternalConfiguration(
+        ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME,
+        this.editPaymentProviderForm.value
+      )
       .subscribe((response: any) => {
+        this.matomoTracker.trackEvent('externalService', 'addPaymentProviderSuccess', response.resourceId);
         this.router.navigate(['../'], { relativeTo: this.route });
       });
   }

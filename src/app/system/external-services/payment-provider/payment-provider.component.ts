@@ -56,22 +56,24 @@ export class PaymentProviderComponent implements OnInit {
   setCountryPaymentProviders(countryId: number) {
     this.dataSource = new MatTableDataSource();
     this.dataSource.sort = this.sort;
-    this.systemService.searchExternalConfiguration(ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME, countryId, null).subscribe({
-      next: (data: any) => {
-        this.paymentProviderData = data;
-        data.forEach((element: GetExternalServiceModel) => {
-          this.dataSource.data.push({
-            id: element.id,
-            office: element.office,
-            serviceName: element.serviceName,
-            providerName: element.propertiesData.filter((property) => property.name === 'provider_name')[0].value,
-            businessId: element.propertiesData.filter((property) => property.name === 'business_id')[0].value,
-            subEntityCode: element.propertiesData.filter((property) => property.name === 'sub_entity_code')[0].value,
+    this.systemService
+      .searchExternalConfiguration(ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME, countryId, null)
+      .subscribe({
+        next: (data: any) => {
+          this.paymentProviderData = data;
+          data.forEach((element: GetExternalServiceModel) => {
+            this.dataSource.data.push({
+              id: element.id,
+              office: element.office,
+              serviceName: element.serviceName,
+              providerName: element.propertiesData.filter((property) => property.name === 'provider_name')[0].value,
+              businessId: element.propertiesData.filter((property) => property.name === 'business_id')[0].value,
+              subEntityCode: element.propertiesData.filter((property) => property.name === 'sub_entity_code')[0].value,
+            });
           });
-        });
-        this.dataSource.sort = this.sort;
-      },
-    });
+          this.dataSource.sort = this.sort;
+        },
+      });
   }
 
   navigateToAdd() {
@@ -85,10 +87,12 @@ export class PaymentProviderComponent implements OnInit {
    */
   navigateToEditExternalService(countryExternalService: any) {
     console.log('countryExternalServiceId', countryExternalService);
-    const selectedCountryExternalService = this.paymentProviderData.find((data) => data.id === countryExternalService.id);
-    this.router.navigate([`edit`], { relativeTo: this.route, state: { countryExternalService: selectedCountryExternalService } });
-
-    //Track Matomo event for undoing client charge
-    // this.matomoTracker.trackEvent('clients', 'undoCharges', transactionId);
+    const selectedCountryExternalService = this.paymentProviderData.find(
+      (data) => data.id === countryExternalService.id
+    );
+    this.router.navigate([`edit`], {
+      relativeTo: this.route,
+      state: { countryExternalService: selectedCountryExternalService },
+    });
   }
 }
