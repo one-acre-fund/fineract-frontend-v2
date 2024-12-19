@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.6 - Community 1.0.0
+
+    * [SER-3259] - External Service: Add new page for payment provider configuration
+
 ## Version 1.3.5 - Community 1.0.0
 
     * [SER-2577] - Allow group movement regardless of loan status and office

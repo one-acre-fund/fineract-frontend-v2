@@ -1,0 +1,61 @@
+<div class="container m-b-20" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="20px">
+  <div class="country-search">
+    <label for="country">Country</label>
+    <ng-select
+      #countryddl
+      [items]="countryOptions"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Select a country"
+      [(ngModel)]="countryId"
+      aria-labelledby="country"
+      (change)="onCountryChange($event)"
+      [virtualScroll]="true"
+    >
+    </ng-select>
+    <mat-error *ngIf="!countryId"> Country is <strong>required</strong> </mat-error>
+  </div>
+</div>
+<div *ngIf="countryId">
+  <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
+    <button mat-raised-button color="primary" [routerLink]="['add']" (click)="navigateToAdd()">
+      <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp; Add Provider
+    </button>
+  </div>
+
+  <div class="container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="providerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Provider Name</th>
+        <td mat-cell *matCellDef="let configuration">{{ configuration.providerName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="office">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Office</th>
+        <td mat-cell *matCellDef="let configuration">{{ configuration.office.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="businessId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Business Identification</th>
+        <td mat-cell *matCellDef="let configuration">{{ configuration.businessId }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subEntityCode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Office Code</th>
+        <td mat-cell *matCellDef="let configuration">{{ configuration.subEntityCode }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element" [ngClass]="{ strikeoff: element.reversed }">
+          <button mat-icon-button color="primary" (click)="navigateToEditExternalService(element)">
+            <fa-icon icon="pen"></fa-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

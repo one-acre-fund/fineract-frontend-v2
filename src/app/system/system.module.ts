@@ -63,6 +63,9 @@ import { GlobalConfigurationsTabComponent } from './configurations/global-config
 import { CloneConfigurationComponent } from './configurations/global-configurations-tab/clone-configuration/clone-configuration.component';
 import { ConfigureDataFieldsComponent } from './configure-data-fields/configure-data-fields.component';
 import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
+import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
+import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
+import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
 
 @NgModule({
   imports: [
@@ -125,7 +128,10 @@ import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fi
     GlobalConfigurationsTabComponent,
     CloneConfigurationComponent,
     ConfigureDataFieldsComponent,
-    DataFieldsComponent
+    DataFieldsComponent,
+    PaymentProviderComponent,
+    AddPaymentProviderComponent,
+    EditPaymentProviderComponent
   ],
 })
 export class SystemModule { }

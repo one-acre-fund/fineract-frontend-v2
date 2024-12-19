@@ -88,6 +88,9 @@ import { ConfigureDataFieldsComponent } from './configure-data-fields/configure-
 import { ManageDataFieldResolver } from './configure-data-fields/manage-data-field.resolver';
 import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fields.component';
 import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/manage-fields-data.resolver';
+import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
+import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
+import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -239,7 +242,27 @@ const routes: Routes = [
                   }
                 }
               ]
-            }
+            },
+            {
+              path: 'payment-provider',
+              data: { title: extract('Payment Providers Configuration'), breadcrumb: 'Payment Providers' },
+              children: [
+                {
+                  path: '',
+                  component: PaymentProviderComponent
+                },
+                {
+                  path: 'add',
+                  data: { title: extract('Add Payment providers Configuration'), breadcrumb: 'Add' },
+                  component: AddPaymentProviderComponent
+                },
+                {
+                  path: 'edit',
+                  data: { title: extract('Edit Payment providers Configuration'), breadcrumb: 'Edit' },
+                  component: EditPaymentProviderComponent
+                }
+              ]
+            },
           ]
         },
         {
