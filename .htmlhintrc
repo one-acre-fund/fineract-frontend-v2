@@ -13,7 +13,7 @@
   "doctype-html5": true,
   "id-class-value": false,
   "style-disabled": true,
-  "inline-style-disabled": true,
+  "inline-style-disabled": false,
   "inline-script-disabled": true,
   "space-tab-mixed-disabled": "true",
   "id-class-ad-disabled": true,
