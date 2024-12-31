@@ -2,15 +2,26 @@
   <div fxLayout="row" fxLayoutAlign="start center">
     <div class="search-box">
       <mat-form-field>
-        <input matInput placeholder="Filter by Client" (keyup)="applyFilter($event.target.value)" />
+        <input
+          matInput
+          placeholder="{{ 'labels.oaf.Filter by Client' | translate }}"
+          (keyup)="applyFilter($event.target.value)"
+        />
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Search by Client" (keydown.enter)="applySearch($event.target.value)" #search />
+        <input
+          matInput
+          placeholder="{{ 'labels.oaf.Search by Client' | translate }}"
+          (keydown.enter)="applySearch($event.target.value)"
+          #search
+        />
       </mat-form-field>
       <button mat-icon-button (click)="applySearch(search.value)" fxHide.lt-sm="true">
         <fa-icon icon="search" size="sm" matTooltip="Search"></fa-icon>
       </button>
-      <mat-checkbox #showClosedAccounts labelPosition="after">Show Closed Accounts </mat-checkbox>
+      <mat-checkbox #showClosedAccounts labelPosition="after">{{
+        'labels.inputs.Show Closed Accounts' | translate
+      }}</mat-checkbox>
     </div>
     <div class="action-button" fxLayoutGap="25px">
       <button
@@ -19,10 +30,10 @@
         [routerLink]="['../', 'organization', 'bulk-import', 'Clients']"
         *mifosxHasPermission="'CREATE_CLIENT'"
       >
-        <fa-icon icon="download"></fa-icon>&nbsp;&nbsp;Import Client
+        <fa-icon icon="download"></fa-icon>{{ 'labels.buttons.Import Client' | translate }}
       </button>
       <button mat-raised-button color="primary" [routerLink]="['create']" *mifosxHasPermission="'CREATE_CLIENT'">
-        <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Create Client
+        <fa-icon icon="plus"></fa-icon>{{ 'labels.buttons.Create Client' | translate }}
       </button>
     </div>
   </div>
@@ -30,25 +41,29 @@
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- Name Column -->
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="displayName">Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="displayName">{{ 'labels.inputs.name' | translate }}</th>
         <td mat-cell *matCellDef="let row">{{ row.displayName }}</td>
       </ng-container>
 
       <!-- Account no Column -->
       <ng-container matColumnDef="clientno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="accountNo">Account #</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="accountNo">
+          {{ 'labels.inputs.Account No' | translate }}
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.accountNo }}</td>
       </ng-container>
 
       <!-- External ID Column -->
       <ng-container matColumnDef="externalid">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="externalId">ExternalID</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="externalId">
+          {{ 'labels.inputs.External Id' | translate }}
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.externalId }}</td>
       </ng-container>
 
       <!-- Status Column -->
       <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Status' | translate }}</th>
         <td mat-cell *matCellDef="let row">
           <div [ngClass]="row.status.code | statusLookup"><fa-icon icon="stop"></fa-icon> {{ row.status.value }}</div>
         </td>
@@ -56,13 +71,17 @@
 
       <!-- Color Column -->
       <ng-container matColumnDef="office">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="officeName">OfficeName</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="officeName">
+          {{ 'labels.inputs.Office Name' | translate }}
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.officeName }}</td>
       </ng-container>
 
       <!-- ID Column -->
       <ng-container matColumnDef="officeHierarchyPath">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="officeHierarchyPath">OU Path</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header="officeHierarchyPath">
+          {{ 'labels.oaf.OU Path' | translate }}
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.officeHierarchyPath }}</td>
       </ng-container>
 
@@ -81,5 +100,12 @@
       [pageSizeOptions]="[10, 25, 50, 100]"
       showFirstLastButtons
     ></mat-paginator>
+  </div>
+
+  <div class="alert" [hidden]="!notExistsClientsToFilter">
+    <div class="message">
+      <i class="fa fa-exclamation-circle alert-check"></i>
+      {{ 'labels.text.No client was found' | translate }}
+    </div>
   </div>
 </mat-card>

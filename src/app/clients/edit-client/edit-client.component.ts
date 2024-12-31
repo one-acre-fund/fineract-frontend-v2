@@ -11,7 +11,7 @@ import { ClientOtpDialogComponent } from '../client-otp-dialog/client-otp-dialog
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SystemService } from 'app/system/system.service';
 import { AlertService } from 'app/core/alert/alert.service';
-import { MatomoTracker } from "@ngx-matomo/tracker";
+import { MatomoTracker } from '@ngx-matomo/tracker';
 
 /**
  * Edit Client Component
@@ -19,10 +19,9 @@ import { MatomoTracker } from "@ngx-matomo/tracker";
 @Component({
   selector: 'mifosx-edit-client',
   templateUrl: './edit-client.component.html',
-  styleUrls: ['./edit-client.component.scss']
+  styleUrls: ['./edit-client.component.scss'],
 })
 export class EditClientComponent implements OnInit {
-
   /** Minimum date allowed. */
   minDate = new Date(2000, 0, 1);
   /** Maximum date allowed. */
@@ -50,6 +49,8 @@ export class EditClientComponent implements OnInit {
   /** Gender Options */
   genderOptions: any;
 
+  legalFormId = 1;
+
   /**
    * Fetches client template data from `resolve`
    * @param {FormBuilder} formBuilder Form Builder
@@ -60,7 +61,8 @@ export class EditClientComponent implements OnInit {
    * @param {SettingsService} settingsService Settings Service
    * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private formBuilder: UntypedFormBuilder,
+  constructor(
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private clientsService: ClientsService,
@@ -69,14 +71,14 @@ export class EditClientComponent implements OnInit {
     private matomoTracker: MatomoTracker,
     private dialog: MatDialog,
     private systemService: SystemService,
-    private alertService: AlertService) {
+    private alertService: AlertService
+  ) {
     this.route.data.subscribe((data: { clientDataAndTemplate: any }) => {
       this.clientDataAndTemplate = data.clientDataAndTemplate;
     });
   }
 
   ngOnInit() {
-
     //set Matomo page info
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
@@ -84,22 +86,28 @@ export class EditClientComponent implements OnInit {
     this.createEditClientForm();
     this.setOptions();
     this.buildDependencies();
+    this.legalFormId = 1;
     this.editClientForm.patchValue({
-      'officeId': this.clientDataAndTemplate.officeId,
-      'staffId': this.clientDataAndTemplate.staffId,
-      'legalFormId': this.clientDataAndTemplate.legalForm && this.clientDataAndTemplate.legalForm.id,
-      'accountNo': this.clientDataAndTemplate.accountNo,
-      'externalId': this.clientDataAndTemplate.externalId,
-      'genderId': this.clientDataAndTemplate.gender && this.clientDataAndTemplate.gender.id,
-      'isStaff': this.clientDataAndTemplate.isStaff,
-      'active': this.clientDataAndTemplate.active,
-      'mobileNo': this.clientDataAndTemplate.mobileNo,
-      'emailAddress': this.clientDataAndTemplate.emailAddress,
-      'dateOfBirth': this.clientDataAndTemplate.dateOfBirth && new Date(this.clientDataAndTemplate.dateOfBirth),
-      'clientTypeId': this.clientDataAndTemplate.clientType && this.clientDataAndTemplate.clientType.id,
-      'clientClassificationId': this.clientDataAndTemplate.clientClassification && this.clientDataAndTemplate.clientClassification.id,
-      'submittedOnDate': this.clientDataAndTemplate.timeline.submittedOnDate && new Date(this.clientDataAndTemplate.timeline.submittedOnDate),
-      'activationDate': this.clientDataAndTemplate.timeline.activatedOnDate && new Date(this.clientDataAndTemplate.timeline.activatedOnDate)
+      officeId: this.clientDataAndTemplate.officeId,
+      staffId: this.clientDataAndTemplate.staffId,
+      legalFormId: this.clientDataAndTemplate.legalForm && this.clientDataAndTemplate.legalForm.id,
+      accountNo: this.clientDataAndTemplate.accountNo,
+      externalId: this.clientDataAndTemplate.externalId,
+      genderId: this.clientDataAndTemplate.gender && this.clientDataAndTemplate.gender.id,
+      isStaff: this.clientDataAndTemplate.isStaff,
+      active: this.clientDataAndTemplate.active,
+      mobileNo: this.clientDataAndTemplate.mobileNo,
+      emailAddress: this.clientDataAndTemplate.emailAddress,
+      dateOfBirth: this.clientDataAndTemplate.dateOfBirth && new Date(this.clientDataAndTemplate.dateOfBirth),
+      clientTypeId: this.clientDataAndTemplate.clientType && this.clientDataAndTemplate.clientType.id,
+      clientClassificationId:
+        this.clientDataAndTemplate.clientClassification && this.clientDataAndTemplate.clientClassification.id,
+      submittedOnDate:
+        this.clientDataAndTemplate.timeline.submittedOnDate &&
+        new Date(this.clientDataAndTemplate.timeline.submittedOnDate),
+      activationDate:
+        this.clientDataAndTemplate.timeline.activatedOnDate &&
+        new Date(this.clientDataAndTemplate.timeline.activatedOnDate),
     });
   }
 
@@ -108,21 +116,21 @@ export class EditClientComponent implements OnInit {
    */
   createEditClientForm() {
     this.editClientForm = this.formBuilder.group({
-      'officeId': [{ value: '', disabled: true }],
-      'staffId': [''],
-      'legalFormId': [''],
-      'isStaff': [false],
-      'active': [false],
-      'accountNo': [{ value: '', disabled: true }],
-      'externalId': [''],
-      'genderId': [''],
-      'mobileNo': [''],
-      'emailAddress': ['', Validators.email],
-      'dateOfBirth': [''],
-      'clientTypeId': [''],
-      'clientClassificationId': [''],
-      'submittedOnDate': ['', Validators.required],
-      'activationDate': ['']
+      officeId: [{ value: '', disabled: true }],
+      staffId: [''],
+      legalFormId: [''],
+      isStaff: [false],
+      active: [false],
+      accountNo: [{ value: '', disabled: true }],
+      externalId: [''],
+      genderId: [''],
+      mobileNo: [''],
+      emailAddress: ['', Validators.email],
+      dateOfBirth: [''],
+      clientTypeId: [''],
+      clientClassificationId: [''],
+      submittedOnDate: ['', Validators.required],
+      activationDate: [''],
     });
   }
 
@@ -148,21 +156,42 @@ export class EditClientComponent implements OnInit {
       if (legalFormId === 1) {
         this.editClientForm.removeControl('fullname');
         this.editClientForm.removeControl('clientNonPersonDetails');
-        this.editClientForm.addControl('firstname', new UntypedFormControl(this.clientDataAndTemplate.firstname, Validators.required));
+        this.editClientForm.addControl(
+          'firstname',
+          new UntypedFormControl(this.clientDataAndTemplate.firstname, Validators.required)
+        );
         this.editClientForm.addControl('middlename', new UntypedFormControl(this.clientDataAndTemplate.middlename));
-        this.editClientForm.addControl('lastname', new UntypedFormControl(this.clientDataAndTemplate.lastname, Validators.required));
+        this.editClientForm.addControl(
+          'lastname',
+          new UntypedFormControl(this.clientDataAndTemplate.lastname, Validators.required)
+        );
       } else {
         this.editClientForm.removeControl('firstname');
         this.editClientForm.removeControl('middlename');
         this.editClientForm.removeControl('lastname');
-        this.editClientForm.addControl('fullname', new UntypedFormControl(this.clientDataAndTemplate.fullname, Validators.required));
-        this.editClientForm.addControl('clientNonPersonDetails', this.formBuilder.group({
-          'constitutionId': [this.clientDataAndTemplate.clientNonPersonDetails.constitution && this.clientDataAndTemplate.clientNonPersonDetails.constitution.id],
-          'incorpValidityTillDate': [this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate && new Date(this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate)],
-          'incorpNumber': [this.clientDataAndTemplate.clientNonPersonDetails.incorpNumber],
-          'mainBusinessLineId': [this.clientDataAndTemplate.clientNonPersonDetails.mainBusinessLine && this.clientDataAndTemplate.clientNonPersonDetails.mainBusinessLine.id],
-          'remarks': [this.clientDataAndTemplate.clientNonPersonDetails.remarks]
-        }));
+        this.editClientForm.addControl(
+          'fullname',
+          new UntypedFormControl(this.clientDataAndTemplate.fullname, Validators.required)
+        );
+        this.editClientForm.addControl(
+          'clientNonPersonDetails',
+          this.formBuilder.group({
+            constitutionId: [
+              this.clientDataAndTemplate.clientNonPersonDetails.constitution &&
+                this.clientDataAndTemplate.clientNonPersonDetails.constitution.id,
+            ],
+            incorpValidityTillDate: [
+              this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate &&
+                new Date(this.clientDataAndTemplate.clientNonPersonDetails.incorpValidityTillDate),
+            ],
+            incorpNumber: [this.clientDataAndTemplate.clientNonPersonDetails.incorpNumber],
+            mainBusinessLineId: [
+              this.clientDataAndTemplate.clientNonPersonDetails.mainBusinessLine &&
+                this.clientDataAndTemplate.clientNonPersonDetails.mainBusinessLine.id,
+            ],
+            remarks: [this.clientDataAndTemplate.clientNonPersonDetails.remarks],
+          })
+        );
       }
     });
   }
@@ -176,19 +205,24 @@ export class EditClientComponent implements OnInit {
     const editClientFormValue: any = this.editClientForm.getRawValue();
     const clientData = {
       ...editClientFormValue,
-      dateOfBirth: editClientFormValue.dateOfBirth && this.dateUtils.formatDate(editClientFormValue.dateOfBirth, dateFormat),
-      submittedOnDate: editClientFormValue.submittedOnDate && this.dateUtils.formatDate(editClientFormValue.submittedOnDate, dateFormat),
+      dateOfBirth:
+        editClientFormValue.dateOfBirth && this.dateUtils.formatDate(editClientFormValue.dateOfBirth, dateFormat),
+      submittedOnDate:
+        editClientFormValue.submittedOnDate &&
+        this.dateUtils.formatDate(editClientFormValue.submittedOnDate, dateFormat),
       activationDate: this.dateUtils.formatDate(editClientFormValue.activationDate, dateFormat),
       dateFormat,
-      locale
+      locale,
     };
     delete clientData.officeId;
     if (editClientFormValue.clientNonPersonDetails) {
       clientData.clientNonPersonDetails = {
         ...editClientFormValue.clientNonPersonDetails,
-        incorpValidityTillDate: editClientFormValue.clientNonPersonDetails.incorpValidityTillDate && this.dateUtils.formatDate(editClientFormValue.clientNonPersonDetails.incorpValidityTillDate, dateFormat),
+        incorpValidityTillDate:
+          editClientFormValue.clientNonPersonDetails.incorpValidityTillDate &&
+          this.dateUtils.formatDate(editClientFormValue.clientNonPersonDetails.incorpValidityTillDate, dateFormat),
         dateFormat,
-        locale
+        locale,
       };
     } else {
       clientData.clientNonPersonDetails = {};
@@ -198,7 +232,6 @@ export class EditClientComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'updateClient', this.clientDataAndTemplate.id);
 
     this.clientsService.updateClient(this.clientDataAndTemplate.id, clientData).subscribe(() => {
-
       //Track Matomo event in clients module
       this.matomoTracker.trackEvent('clients', 'updateClientSuccess', this.clientDataAndTemplate.id);
 
@@ -212,23 +245,25 @@ export class EditClientComponent implements OnInit {
    * @param countryId The client's country ID
    */
   private openOtpDialog(phoneNumber: string, countryId: number): void {
-    this.systemService.getConfigurationByName('country-client-phone-number-otp-length', { countryId })
-    .subscribe(config => {
-      if (config?.enabled && config?.value > 3) {
-        const otpDialog = this.dialog.open(ClientOtpDialogComponent, {
-          data: { mobileNo: phoneNumber,
-                  countryId: countryId,
-                  otpLength: config.value
-           }
-        });
-        this.updateAfterOtpValidation(otpDialog);
-      } else {
-        this.alertService.alert({
-          type: 'Configuration Error',
-          message: 'Invalid OTP length configuration. Please contact your administrator.'
-        });
-      }
-    });
+    this.systemService
+      .getConfigurationByName('country-client-phone-number-otp-length', { countryId })
+      .subscribe((config) => {
+        if (config?.enabled && config?.value > 3) {
+          const otpDialog = this.dialog.open(ClientOtpDialogComponent, {
+            data: { mobileNo: phoneNumber, countryId: countryId, otpLength: config.value },
+          });
+          this.updateAfterOtpValidation(otpDialog);
+        } else {
+          this.alertService.alert({
+            type: 'Configuration Error',
+            message: 'Invalid OTP length configuration. Please contact your administrator.',
+          });
+        }
+      });
+  }
+
+  getDateLabel(legalFormId: number, values: string[]): string {
+    return legalFormId === 1 ? values[0] : values[1];
   }
 
   /**
@@ -245,14 +280,15 @@ export class EditClientComponent implements OnInit {
       return;
     }
     const countryId = this.clientDataAndTemplate.countryId;
-    this.systemService.getConfigurationByName('country-client-phone-number-otp-expiry-period', { countryId })
-    .subscribe(config => {
-      if (config?.enabled) {
-        this.initiateOtpValidation(formMobileNo, countryId);
-      } else {
-        this.updateClient();
-      }
-    })
+    this.systemService
+      .getConfigurationByName('country-client-phone-number-otp-expiry-period', { countryId })
+      .subscribe((config) => {
+        if (config?.enabled) {
+          this.initiateOtpValidation(formMobileNo, countryId);
+        } else {
+          this.updateClient();
+        }
+      });
   }
 
   /**
@@ -260,7 +296,7 @@ export class EditClientComponent implements OnInit {
    * @param otpDialog OTP Dialog that got opened
    */
   private updateAfterOtpValidation(otpDialog: MatDialogRef<ClientOtpDialogComponent, any>): void {
-    otpDialog.afterClosed().subscribe(validOtp => {
+    otpDialog.afterClosed().subscribe((validOtp) => {
       if (validOtp) {
         this.updateClient();
       }
@@ -276,14 +312,14 @@ export class EditClientComponent implements OnInit {
     if (!mobileNo) {
       this.alertService.alert({
         type: 'Validation Error',
-        message: 'Please provide a valid phone number for OTP validation.'
+        message: 'Please provide a valid phone number for OTP validation.',
       });
       return;
     }
     if (!mobileNo.startsWith('+')) {
       mobileNo = `+${mobileNo}`;
     }
-    this.clientsService.generateClientOTP(countryId, {mobilePhoneNumber: mobileNo}).subscribe(() => {
+    this.clientsService.generateClientOTP(countryId, { mobilePhoneNumber: mobileNo }).subscribe(() => {
       this.openOtpDialog(mobileNo, countryId);
     });
   }

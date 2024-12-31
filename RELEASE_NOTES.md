@@ -2,6 +2,7 @@
 
 ## Version 1.3.6 - Community 1.0.0
 
+    * [SER-3363] - Implement label translation in Client related UIs
     * [SER-3259] - External Service: Add new page for payment provider configuration
 
 ## Version 1.3.5 - Community 1.0.0
@@ -15,9 +16,11 @@
     * chore - Change Mifos name on the UI to Fineract
 
 ## Version 1.3.4.2 - Community 1.0.0
+
     * [SER-3241] - Loan Product UI Fixes - Short name, channels, and client eligibility validation
 
 ## Version 1.3.4.1 - Community 1.0.0
+
     * [SER-3203] - Make country support required in SMS campaign template retrieval to allow fetching country specific SMS provider details
     * [SER-3088] - Add country filter on SMS campaigns list API
 

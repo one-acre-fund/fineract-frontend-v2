@@ -41,4 +41,8 @@ export class ClientPreviewStepComponent {
     return (this.clientAddressFieldConfig.find((fieldObj: any) => fieldObj.field === fieldName))?.isEnabled;
   }
 
+  getDateLabel(legalFormId: number, values: string[]): string {
+    return legalFormId === 1 ? values[0] : values[1];
+  }
+
 }
