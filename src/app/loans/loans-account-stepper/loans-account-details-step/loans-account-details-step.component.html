@@ -76,7 +76,7 @@
       />
       <mat-datepicker-toggle matSuffix [for]="disbursementPicker"></mat-datepicker-toggle>
       <mat-datepicker #disbursementPicker></mat-datepicker>
-      <mat-error *ngIf="loansAccountDetailsForm.controls.submittedOnDate?.hasError('required')">
+      <mat-error *ngIf="loansAccountDetailsForm.controls.expectedDisbursementDate?.hasError('required')">
         {{ 'labels.inputs.Disbursement on' | translate }} {{ 'labels.commons.is' | translate }}
         <strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>

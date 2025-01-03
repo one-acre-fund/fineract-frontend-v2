@@ -10,7 +10,7 @@
     </button>
   </span> -->
   <button mat-raised-button color="warn" *mifosxHasPermission="'ADJUST_LOAN'" (click)="undoTransaction()">
-    <fa-icon icon="undo"></fa-icon>&nbsp;&nbsp;{{ 'label.buttons.Undo' | translate }}Undo buttons
+    <fa-icon icon="undo"></fa-icon>&nbsp;&nbsp;{{ 'label.buttons.Undo' | translate }}
   </button>
 </div>
 
@@ -74,7 +74,7 @@
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.routingCode" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Receipt No' | translate }}
+            {{ 'label.inputs.Routing Code' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.routingCode" fxFlex="50%">
