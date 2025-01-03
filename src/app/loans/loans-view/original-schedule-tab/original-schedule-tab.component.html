@@ -1,7 +1,7 @@
 <div class="container">
   <table mat-table [dataSource]="originalScheduleDetails.periods" matSort>
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Date' | translate }}</th>
       <td mat-cell *matCellDef="let ele">{{ ele.dueDate | dateFormat }}</td>
       <td mat-footer-cell *matFooterCellDef>
         <b> {{ 'labels.inputs.Total' | translate }}</b>

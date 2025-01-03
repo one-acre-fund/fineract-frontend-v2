@@ -58,19 +58,26 @@
           <div class="mat-row">
             <div class="mat-cell">{{ 'labels.inputs.Activation Date' | translate }}</div>
             <div class="mat-cell">
-              {{ (transferClientsForm.get('destinationGroupId').value.activationDate | dateFormat) || 'Not Activated' }}
+              {{
+                (transferClientsForm.get('destinationGroupId').value.activationDate | dateFormat) ||
+                  ('labels.text.Not Activated' | translate)
+              }}
             </div>
           </div>
           <div class="mat-row">
             <div class="mat-cell">{{ 'labels.inputs.Staff' | translate }}</div>
             <div class="mat-cell">
-              {{ transferClientsForm.get('destinationGroupId').value.staffName || 'Unassigned' }}
+              {{
+                transferClientsForm.get('destinationGroupId').value.staffName || ('labels.text.Unassigned' | translate)
+              }}
             </div>
           </div>
           <div class="mat-row">
             <div class="mat-cell">{{ 'labels.inputs.External Id' | translate }}</div>
             <div class="mat-cell">
-              {{ transferClientsForm.get('destinationGroupId').value.externalId || 'Unassigned' }}
+              {{
+                transferClientsForm.get('destinationGroupId').value.externalId || ('labels.text.Unassigned' | translate)
+              }}
             </div>
           </div>
         </div>

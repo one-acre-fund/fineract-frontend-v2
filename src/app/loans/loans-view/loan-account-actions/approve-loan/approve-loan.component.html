@@ -33,11 +33,6 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>{{ 'labels.inputs.Approved Amount' | translate }} </mat-label>
-            <input matInput type="number" formControlName="approvedLoanAmount" />
-          </mat-form-field>
-
-          <mat-form-field>
             <mat-label>{{ 'labels.inputs.Transaction Amount' | translate }}</mat-label>
             <input matInput type="number" required formControlName="approvedLoanAmount" />
             <mat-error *ngIf="approveLoanForm.controls.approvedLoanAmount.hasError('required')">
