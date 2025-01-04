@@ -279,7 +279,12 @@
       "Credit Score Limits": "Credit Score Limits",
       "Limit": "Limit",
       "Skip Verification": "Skip Verification",
-      "Reactivate Reason": "Reactivate Reason"
+      "Reactivate Reason": "Reactivate Reason",
+      "Inter Office Enabled": " The following group list contains groups from a different office as the configuration is enabled. This will move also clients with active loans.",
+      "Interest Amount": "Interest Amount",
+      "Search by Name": "Search by Name",
+      "hideDeletedGuarantors": "Hide Deleted Guarantors",
+      "showDeletedGuarantors": "Show Deleted Guarantors"
     },
     "accounting": {
       "Accrual (periodic)": "Accrual (periodic)",
@@ -2565,7 +2570,8 @@
       "Redeem Shares": "Redeem Shares",
       "Approve Additional Shares": "Approve Additional Shares",
       "Reject Additional Shares": "Reject Additional Shares",
-      "XBRL": "XBRL"
+      "XBRL": "XBRL",
+      "Top up loan": "Top up Loan"
     },
     "placeholders": {
       "Add new server": "Add new server",

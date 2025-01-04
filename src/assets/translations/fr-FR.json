@@ -279,7 +279,12 @@
       "Credit Score Limits": "Limites de score de crédit",
       "Limit": "Limite",
       "Skip Verification": "Passer la vérification",
-      "Reactivate Reason": "Motif de réactivation"
+      "Reactivate Reason": "Motif de réactivation",
+      "Inter Office Enabled": "La liste de groupes suivante contient des groupes d'un autre bureau car la configuration est activée. Cela déplacera également les clients ayant des prêts actifs.",
+      "Interest Amount": "Montant des intérêts",
+      "Search by Name": "Rechercher par nom",
+      "hideDeletedGuarantors": "Masquer les garants supprimés",
+      "showDeletedGuarantors": "Afficher les garants supprimés"
     },
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",
@@ -2564,7 +2569,8 @@
       "Redeem Shares": "Racheter des actions",
       "Approve Additional Shares": "Approuver des partages supplémentaires",
       "Reject Additional Shares": "Rejeter les partages supplémentaires",
-      "XBRL": "XBRL"
+      "XBRL": "XBRL",
+      "Top up loan": "Complément de prêt"
     },
     "placeholders": {
       "Add new server": "Ajouter un nouveau serveur",
