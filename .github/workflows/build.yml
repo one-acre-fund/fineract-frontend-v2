@@ -144,6 +144,8 @@ jobs:
     secrets:
       k8s_url: ${{ secrets.K8S_QA_URL }}
       k8s_secret: ${{ secrets.K8S_QA_DEFAULT }}
+      DEPLOYMENT_ACR_PULL_PASSWORD: ${{ secrets.ACR_PULL_PASSWORD }}
+      DEPLOYMENT_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   UAT-k8s:
     runs-on: ubuntu-latest
