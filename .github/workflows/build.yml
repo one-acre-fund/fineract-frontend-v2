@@ -132,6 +132,8 @@ jobs:
     secrets:
       k8s_url: ${{ secrets.K8S_TEST_URL }}
       k8s_secret: ${{ secrets.K8S_TEST_DEFAULT }}
+      DEPLOYMENT_ACR_PULL_PASSWORD: ${{ secrets.ACR_PULL_PASSWORD }}
+      DEPLOYMENT_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   QA-k8s:
     needs: Integration-k8s

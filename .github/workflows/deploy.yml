@@ -11,6 +11,10 @@ on:
         required: true
       k8s_secret:
         required: true
+      DEPLOYMENT_ACR_PULL_PASSWORD:
+        required: true
+      DEPLOYMENT_SENTRY_DSN:
+        required: true
 
 jobs:
   deploy:
@@ -32,7 +36,7 @@ jobs:
       - uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
+          ACR_PULL_PASSWORD: "${{ secrets.DEPLOYMENT_ACR_PULL_PASSWORD }}"
           ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -50,4 +54,4 @@ jobs:
           FINERACT_API_URL: "${{ vars.FINERACT_API_URL }}"
           MATOMO_SITE_ID: "${{ vars.MATOMO_SITE_ID }}"
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
-          SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
+          SENTRY_DSN: "${{ secrets.DEPLOYMENT_SENTRY_DSN }}"
