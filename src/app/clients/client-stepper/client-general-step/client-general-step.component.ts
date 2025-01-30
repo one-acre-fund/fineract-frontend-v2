@@ -1,19 +1,19 @@
 /** Angular Imports */
-import { Component, OnInit, Input } from "@angular/core";
-import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } from "@angular/forms";
-import { Dates } from "app/core/utils/dates";
+import { Component, OnInit, Input } from '@angular/core';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
+import { Dates } from 'app/core/utils/dates';
 
 /** Custom Services */
-import { SettingsService } from "app/settings/settings.service";
-import { MatomoTracker } from "@ngx-matomo/tracker";
+import { SettingsService } from 'app/settings/settings.service';
+import { MatomoTracker } from '@ngx-matomo/tracker';
 
 /**
  * Create Client Component
  */
 @Component({
-  selector: "mifosx-client-general-step",
-  templateUrl: "./client-general-step.component.html",
-  styleUrls: ["./client-general-step.component.scss"],
+  selector: 'mifosx-client-general-step',
+  templateUrl: './client-general-step.component.html',
+  styleUrls: ['./client-general-step.component.scss'],
 })
 export class ClientGeneralStepComponent implements OnInit {
   /** Minimum date allowed. */
@@ -75,21 +75,21 @@ export class ClientGeneralStepComponent implements OnInit {
    */
   setClientForm() {
     this.createClientForm = this.formBuilder.group({
-      officeId: ["", Validators.required],
-      staffId: [""],
-      legalFormId: [""],
+      officeId: ['', Validators.required],
+      staffId: [''],
+      legalFormId: [''],
       isStaff: [false],
       active: [false],
       addSavings: [false],
-      accountNo: [""],
-      externalId: [""],
-      genderId: [""],
-      mobileNo: [""],
-      emailAddress: ["", Validators.email],
-      dateOfBirth: [""],
-      clientTypeId: [""],
-      clientClassificationId: [""],
-      submittedOnDate: [""],
+      accountNo: [''],
+      externalId: [''],
+      genderId: [''],
+      mobileNo: [''],
+      emailAddress: ['', Validators.email],
+      dateOfBirth: [''],
+      clientTypeId: [''],
+      clientClassificationId: [''],
+      submittedOnDate: [''],
     });
   }
 
@@ -120,54 +120,58 @@ export class ClientGeneralStepComponent implements OnInit {
    * Adds controls conditionally.
    */
   buildDependencies() {
-    this.createClientForm.get("legalFormId").valueChanges.subscribe((legalFormId: any) => {
+    this.createClientForm.get('legalFormId').valueChanges.subscribe((legalFormId: any) => {
       if (legalFormId === 1) {
-        this.createClientForm.removeControl("fullname");
-        this.createClientForm.removeControl("clientNonPersonDetails");
+        this.createClientForm.removeControl('fullname');
+        this.createClientForm.removeControl('clientNonPersonDetails');
         this.createClientForm.addControl(
-          "firstname",
-          new UntypedFormControl("", [Validators.required, Validators.pattern("(^[A-z]).*")])
+          'firstname',
+          new UntypedFormControl('', [Validators.required, Validators.pattern('(^[A-z]).*')])
         );
-        this.createClientForm.addControl("middlename", new UntypedFormControl("", Validators.pattern("(^[A-z]).*")));
+        this.createClientForm.addControl('middlename', new UntypedFormControl('', Validators.pattern('(^[A-z]).*')));
         this.createClientForm.addControl(
-          "lastname",
-          new UntypedFormControl("", [Validators.required, Validators.pattern("(^[A-z]).*")])
+          'lastname',
+          new UntypedFormControl('', [Validators.required, Validators.pattern('(^[A-z]).*')])
         );
       } else {
-        this.createClientForm.removeControl("firstname");
-        this.createClientForm.removeControl("middlename");
-        this.createClientForm.removeControl("lastname");
+        this.createClientForm.removeControl('firstname');
+        this.createClientForm.removeControl('middlename');
+        this.createClientForm.removeControl('lastname');
         this.createClientForm.addControl(
-          "fullname",
-          new UntypedFormControl("", [Validators.required, Validators.pattern("(^[A-z]).*")])
+          'fullname',
+          new UntypedFormControl('', [Validators.required, Validators.pattern('(^[A-z]).*')])
         );
         this.createClientForm.addControl(
-          "clientNonPersonDetails",
+          'clientNonPersonDetails',
           this.formBuilder.group({
-            constitutionId: [""],
-            incorpValidityTillDate: [""],
-            incorpNumber: [""],
-            mainBusinessLineId: [""],
-            remarks: [""],
+            constitutionId: [''],
+            incorpValidityTillDate: [''],
+            incorpNumber: [''],
+            mainBusinessLineId: [''],
+            remarks: [''],
           })
         );
       }
     });
-    this.createClientForm.get("legalFormId").patchValue(1);
-    this.createClientForm.get("active").valueChanges.subscribe((active: boolean) => {
+    this.createClientForm.get('legalFormId').patchValue(1);
+    this.createClientForm.get('active').valueChanges.subscribe((active: boolean) => {
       if (active) {
-        this.createClientForm.addControl("activationDate", new UntypedFormControl("", Validators.required));
+        this.createClientForm.addControl('activationDate', new UntypedFormControl('', Validators.required));
       } else {
-        this.createClientForm.removeControl("activationDate");
+        this.createClientForm.removeControl('activationDate');
       }
     });
-    this.createClientForm.get("addSavings").valueChanges.subscribe((active: boolean) => {
+    this.createClientForm.get('addSavings').valueChanges.subscribe((active: boolean) => {
       if (active) {
-        this.createClientForm.addControl("savingsProductId", new UntypedFormControl("", Validators.required));
+        this.createClientForm.addControl('savingsProductId', new UntypedFormControl('', Validators.required));
       } else {
-        this.createClientForm.removeControl("savingsProductId");
+        this.createClientForm.removeControl('savingsProductId');
       }
     });
+  }
+
+  getDateLabel(legalFormId: number, values: string[]): string {
+    return legalFormId === 1 ? values[0] : values[1];
   }
 
   /**
@@ -175,13 +179,13 @@ export class ClientGeneralStepComponent implements OnInit {
    */
   get clientGeneralDetails() {
     //Matomo log activity
-    this.matomoTracker.trackEvent("clients", "add.general_info"); // change to track right info
+    this.matomoTracker.trackEvent('clients', 'add.general_info'); // change to track right info
 
     const generalDetails = this.createClientForm.value;
     const dateFormat = this.settingsService.dateFormat;
     const locale = this.settingsService.language.code;
     for (const key in generalDetails) {
-      if (generalDetails[key] === "" || key === "addSavings") {
+      if (generalDetails[key] === '' || key === 'addSavings') {
         delete generalDetails[key];
       }
     }

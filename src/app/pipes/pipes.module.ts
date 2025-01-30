@@ -7,13 +7,39 @@ import { ChargesPenaltyFilterPipe } from './charges-penalty-filter.pipe';
 import { FindPipe } from './find.pipe';
 import { UrlToStringPipe } from './url-to-string.pipe';
 import { DateFormatPipe } from './date-format.pipe';
+import { TranslatePipe } from './translate.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule
+  imports: [CommonModule],
+  declarations: [
+    StatusLookupPipe,
+    AccountsFilterPipe,
+    ChargesFilterPipe,
+    ChargesPenaltyFilterPipe,
+    FindPipe,
+    UrlToStringPipe,
+    DateFormatPipe,
+    TranslatePipe,
   ],
-  declarations: [StatusLookupPipe, AccountsFilterPipe, ChargesFilterPipe, ChargesPenaltyFilterPipe, FindPipe, UrlToStringPipe, DateFormatPipe],
-  providers: [StatusLookupPipe, AccountsFilterPipe, ChargesFilterPipe, ChargesPenaltyFilterPipe, FindPipe, UrlToStringPipe, DateFormatPipe],
-  exports: [StatusLookupPipe, AccountsFilterPipe, ChargesFilterPipe, ChargesPenaltyFilterPipe, FindPipe, UrlToStringPipe, DateFormatPipe]
+  providers: [
+    StatusLookupPipe,
+    AccountsFilterPipe,
+    ChargesFilterPipe,
+    ChargesPenaltyFilterPipe,
+    FindPipe,
+    UrlToStringPipe,
+    DateFormatPipe,
+    TranslatePipe,
+  ],
+  exports: [
+    StatusLookupPipe,
+    AccountsFilterPipe,
+    ChargesFilterPipe,
+    ChargesPenaltyFilterPipe,
+    FindPipe,
+    UrlToStringPipe,
+    DateFormatPipe,
+    TranslatePipe,
+  ],
 })
-export class PipesModule { }
+export class PipesModule {}

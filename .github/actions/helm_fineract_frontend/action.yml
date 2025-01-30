@@ -59,6 +59,9 @@ inputs:
   MATOMO_SITE_ID:
     description: The ID of the Matomo site.
     required: true
+  SENTRY_DSN:
+    description: The Sentry DSN.
+    required: true
 runs:
   using: composite
   steps:
@@ -81,6 +84,7 @@ runs:
             HOST_HOME_URL : "${{ inputs.FINERACT_HOST_HOME_URL }}"
             MATOMO_SITE_URL : "${{ inputs.MATOMO_SITE_URL }}"
             MATOMO_SITE_ID : "${{ inputs.MATOMO_SITE_ID }}"
+            SENTRY_DSN : "${{ inputs.SENTRY_DSN }}"
 
           initContainers:
             - name: wait-for-fineract-backend

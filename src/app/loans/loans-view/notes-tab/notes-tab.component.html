@@ -1,29 +1,40 @@
 <div class="tab-container mat-typography">
   <h3>Notes</h3>
   <div>
-    <form #formRef="ngForm" [formGroup]="noteForm" fxLayout="row" fxLayoutAlign="start baseline" fxLayoutGap="20px"
-      (ngSubmit)="submit()">
+    <form
+      #formRef="ngForm"
+      [formGroup]="noteForm"
+      fxLayout="row"
+      fxLayoutAlign="start baseline"
+      fxLayoutGap="20px"
+      (ngSubmit)="submit()"
+    >
       <mat-form-field fxFlex="calc(90%-20px)">
-        <textarea formControlName="note" matInput placeholder="Write a note ...."></textarea>
+        <textarea
+          formControlName="note"
+          matInput
+          placeholder="{{ 'labels.text.Write a note' | translate }}  ...."
+        ></textarea>
       </mat-form-field>
       <button mat-raised-button fxFlex color="primary" [disabled]="!noteForm.valid">
-        <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp; Add
+        <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp; {{ 'labels.buttons.Add' | translate }}
       </button>
     </form>
   </div>
   <mat-list>
-    <mat-list-item *ngFor="let loanNote of loanNotes; let i=index;">
+    <mat-list-item *ngFor="let loanNote of loanNotes; let i = index">
       <fa-icon icon="sticky-note" matListIcon></fa-icon>
-      <h3 matLine>{{loanNote.note}} </h3>
+      <h3 matLine>{{ loanNote.note }}</h3>
       <p matLine>
-        <span>Created by: {{loanNote.createdByUsername}}</span><br />
-        <span>Date: {{loanNote.createdOn  | dateFormat}}</span>
+        <span>{{ 'labels.inputs.Created By' | translate }}: {{ loanNote.createdByUsername }}</span
+        ><br />
+        <span>{{ 'labels.inputs.Date' | translate }}: {{ loanNote.createdOn | dateFormat }}</span>
       </p>
       <div fxLayout="row" fxLayoutAlign="flex-start">
-        <button mat-button color="primary" (click)="editNote(loanNote.id,loanNote.note,i)">
+        <button mat-button color="primary" (click)="editNote(loanNote.id, loanNote.note, i)">
           <fa-icon icon="edit"></fa-icon>
         </button>
-        <button mat-button color="warn" (click)="deleteNote(loanNote.id,i)">
+        <button mat-button color="warn" (click)="deleteNote(loanNote.id, i)">
           <fa-icon icon="trash"></fa-icon>
         </button>
       </div>

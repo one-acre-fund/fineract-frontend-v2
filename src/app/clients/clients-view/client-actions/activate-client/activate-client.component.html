@@ -3,7 +3,7 @@
     <form [formGroup]="activateClientForm" (ngSubmit)="submit()">
       <mat-card-content fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
         <mat-form-field fxFlex (click)="activationDatePicker.open()">
-          <mat-label>Activated On Date</mat-label>
+          <mat-label>{{ 'labels.inputs.Activated On Date' | translate }}</mat-label>
           <input
             matInput
             [min]="minDate"
@@ -15,7 +15,8 @@
           <mat-datepicker-toggle matSuffix [for]="activationDatePicker"></mat-datepicker-toggle>
           <mat-datepicker #activationDatePicker></mat-datepicker>
           <mat-error *ngIf="activateClientForm.controls.activationDate.hasError('required')">
-            Activated On Date is <strong>required</strong>
+            {{ 'labels.inputs.Activated On Date' | translate }} {{ 'labels.commons.is' | translate }}
+            <strong>{{ 'labels.commons.required' | translate }}</strong>
           </mat-error>
         </mat-form-field>
 
@@ -25,13 +26,17 @@
           *mifosxHasPermission="'SKIP_VERIFICATION_CLIENT'"
           fxFlex
         >
-          Skip Verification
+          {{ 'labels.oaf.Skip Verification' | translate }}
         </mat-checkbox>
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../../']">Cancel</button>
-        <button mat-raised-button color="accent" [disabled]="!activateClientForm.valid">Confirm</button>
+        <button type="button" mat-raised-button [routerLink]="['../../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
+        <button mat-raised-button color="accent" [disabled]="!activateClientForm.valid">
+          {{ 'labels.buttons.Confirm' | translate }}
+        </button>
       </mat-card-actions>
     </form>
   </mat-card>

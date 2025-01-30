@@ -63,7 +63,7 @@
             ],
             "scripts": [],
             "allowedCommonJsDependencies": ["lodash", "@ckeditor/ckeditor5-build-classic"],
-            "sourceMap": true
+            "sourceMap": false
           },
           "configurations": {
             "production": {

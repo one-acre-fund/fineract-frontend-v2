@@ -1,0 +1,76 @@
+name: Deploy Workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
+    secrets:
+      k8s_url:
+        required: true
+      k8s_secret:
+        required: true
+      DEPLOYMENT_ACR_PULL_PASSWORD:
+        required: true
+      DEPLOYMENT_SENTRY_DSN:
+        required: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: one-acre-fund/oaf-actions/helm_setup@main
+        with:
+          ARTIFACT_NAME: "fineract-frontend-v2"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          RUN_ID: "${{ github.run_id }}"
+          CI_REPOSITORY: "${{ github.repository }}"
+          K8S_URL: "${{ secrets.k8s_url }}"
+          K8S_SECRET: "${{ secrets.k8s_secret }}"
+
+      # - name: Start Maintenance Window
+      #   id: start_maintenance
+      #   uses: one-acre-fund/uptime-kuma-create-maintenance@1.0.0
+      #   with:
+      #     UPTIME_USERNAME: ${{ secrets.UPTIME_USERNAME }}
+      #     UPTIME_PASSWORD: ${{ secrets.UPTIME_PASSWORD }}
+      #     UPTIME_API_URL: ${{ vars.UPTIME_API_URL }}
+      #     MAINTENANCE_TITLE: "Service Deployment"
+      #     MONITOR_ID: ${{ vars.MONITOR_ID }}
+      #     MONITOR_NAME: ${{ vars.MONITOR_NAME }}
+
+      - uses: "./.github/actions/helm_fineract_frontend"
+        with:
+          NAMESPACE: "${{ vars.NAMESPACE }}"
+          ACR_PULL_PASSWORD: "${{ secrets.DEPLOYMENT_ACR_PULL_PASSWORD }}"
+          ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
+          REPLICAS: "${{ vars.REPLICAS }}"
+          RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
+          FINERACT_PROXY_URL: "${{ vars.FINERACT_PROXY_URL }}"
+          FINERACT_PROXY_HTTPS_PORT: "${{ vars.FINERACT_PROXY_HTTPS_PORT }}"
+          FINERACT_PROXY_HTTP_PORT: "${{ vars.FINERACT_PROXY_HTTP_PORT }}"
+          FINERACT_KEYCLOAK_REALM: "${{ vars.FINERACT_KEYCLOAK_REALM }}"
+          FINERACT_KEYCLOAK_CLIENT_ID: "${{ vars.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ vars.FINERACT_KEYCLOAK_TOKEN_URL }}"
+          FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ vars.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
+          FINERACT_KEYCLOAK_API_URL: "${{ vars.FINERACT_KEYCLOAK_API_URL }}"
+          FINERACT_HOST_HOME_URL: "${{ vars.FINERACT_HOST_HOME_URL }}"
+          FINERACT_BASE_URL: "${{ vars.FINERACT_BASE_URL }}"
+          FINERACT_AUTH_URL: "${{ vars.FINERACT_AUTH_URL }}"
+          FINERACT_API_URL: "${{ vars.FINERACT_API_URL }}"
+          MATOMO_SITE_ID: "${{ vars.MATOMO_SITE_ID }}"
+          MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
+          SENTRY_DSN: "${{ secrets.DEPLOYMENT_SENTRY_DSN }}"
+
+      # - name: Delete Maintenance Window
+      #   uses: one-acre-fund/uptime-kuma-delete-maintenance@1.0.0
+      #   with:
+      #      UPTIME_USERNAME: ${{ secrets.UPTIME_USERNAME }}
+      #      UPTIME_PASSWORD: ${{ secrets.UPTIME_PASSWORD }}
+      #      UPTIME_API_URL: ${{ vars.UPTIME_API_URL }}
+      #      MAINTENANCE_ID: ${{ steps.start_maintenance.outputs.maintenance_id }}

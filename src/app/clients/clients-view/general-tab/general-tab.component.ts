@@ -1,62 +1,62 @@
 /** Angular Imports */
-import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 /** Custom Services. */
-import { ClientsService } from "app/clients/clients.service";
-import { MatomoTracker } from "@ngx-matomo/tracker";
+import { ClientsService } from 'app/clients/clients.service';
+import { MatomoTracker } from '@ngx-matomo/tracker';
 
 /**
  * General Tab component.
  */
 @Component({
-  selector: "mifosx-general-tab",
-  templateUrl: "./general-tab.component.html",
-  styleUrls: ["./general-tab.component.scss"],
+  selector: 'mifosx-general-tab',
+  templateUrl: './general-tab.component.html',
+  styleUrls: ['./general-tab.component.scss'],
 })
 export class GeneralTabComponent implements OnInit {
   /** Open Loan Accounts Columns */
   openLoansColumns: string[] = [
-    "Account No",
-    "Loan Account",
-    "Original Loan",
-    "Loan Balance",
-    "Amount Paid",
-    "Type",
-    "Actions",
+    'Account No',
+    'Loan Account',
+    'Original Loan',
+    'Loan Balance',
+    'Amount Paid',
+    'Type',
+    'Actions',
   ];
   /** Closed Loan Accounts Columns */
   closedLoansColumns: string[] = [
-    "Account No",
-    "Loan Account",
-    "Original Loan",
-    "Loan Balance",
-    "Amount Paid",
-    "Type",
-    "Closed Date",
+    'Account No',
+    'Loan Account',
+    'Original Loan',
+    'Loan Balance',
+    'Amount Paid',
+    'Type',
+    'Closed Date',
   ];
   /** Open Savings Accounts Columns */
-  openSavingsColumns: string[] = ["Account No", "Saving Account", "Last Active", "Balance", "Actions"];
+  openSavingsColumns: string[] = ['Account No', 'Saving Account', 'Last Active', 'Balance', 'Actions'];
   /** Closed Savings Accounts Columns */
-  closedSavingsColumns: string[] = ["Account No", "Saving Account", "Closed Date"];
+  closedSavingsColumns: string[] = ['Account No', 'Saving Account', 'Closed Date'];
   /** Open Shares Accounts Columns */
   openSharesColumns: string[] = [
-    "Account No",
-    "Share Account",
-    "Approved Shares",
-    "Pending For Approval Shares",
-    "Actions",
+    'Account No',
+    'Share Account',
+    'Approved Shares',
+    'Pending For Approval Shares',
+    'Actions',
   ];
   /** Closed Shares Accounts Columns */
   closedSharesColumns: string[] = [
-    "Account No",
-    "Share Account",
-    "Approved Shares",
-    "Pending For Approval Shares",
-    "Closed Date",
+    'Account No',
+    'Share Account',
+    'Approved Shares',
+    'Pending For Approval Shares',
+    'Closed Date',
   ];
   /** Upcoming Charges Columns */
-  upcomingChargesColumns: string[] = ["Name", "Due as of", "Due", "Paid", "Waived", "Outstanding", "Actions"];
+  upcomingChargesColumns: string[] = ['Name', 'Due as of', 'Due', 'Paid', 'Waived', 'Outstanding', 'Actions'];
 
   /** Client Account Data */
   clientAccountData: any;
@@ -91,7 +91,8 @@ export class GeneralTabComponent implements OnInit {
    * @param {Router} router Router
    * @param {MatomoTracker} matomoTracker Matomo tracker service
    */
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private clientService: ClientsService,
     private router: Router,
     private matomoTracker: MatomoTracker
@@ -103,13 +104,13 @@ export class GeneralTabComponent implements OnInit {
       // this.shareAccounts = data.clientAccountsData.shareAccounts;
       this.upcomingCharges = data.clientChargesData.pageItems;
       this.clientSummary = data.clientSummary ? data.clientSummary[0] : null;
-      this.clientid = this.route.parent.snapshot.params["clientId"];
+      this.clientid = this.route.parent.snapshot.params['clientId'];
     });
   }
 
   ngOnInit() {
     //set page view info
-    let title = document.title || "";
+    let title = document.title || '';
     this.matomoTracker.setDocumentTitle(`${title}`);
   }
   /**
@@ -181,10 +182,18 @@ export class GeneralTabComponent implements OnInit {
    * @param {any} loanId Loan Id
    */
   routeTransferFund(loanId: any) {
-    const queryParams: any = { loanId: loanId, accountType: "fromloans" };
-    this.router.navigate(["../", "loans-accounts", loanId, "transfer-funds", "make-account-transfer"], {
+    const queryParams: any = { loanId: loanId, accountType: 'fromloans' };
+    this.router.navigate(['../', 'loans-accounts', loanId, 'transfer-funds', 'make-account-transfer'], {
       relativeTo: this.route,
       queryParams: queryParams,
     });
+  }
+
+  viewAccountsLabel(closed: boolean): string {
+    if (closed) {
+      return 'labels.buttons.View Active Accounts';
+    } else {
+      return 'labels.buttons.View Closed Accounts';
+    }
   }
 }
