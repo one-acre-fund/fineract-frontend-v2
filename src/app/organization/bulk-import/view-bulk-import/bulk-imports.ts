@@ -133,4 +133,11 @@ export const BulkImports = [
       permission: 'READ_CLIENT',
       formFields: 1
     },
+    {
+      name: 'Account Transfer Transaction',
+      entityType: 'accounttransferstransaction',
+      urlSuffix: '/accounttransfers',
+      permission: 'READ_CLIENT',
+      formFields: 1
+    },
   ];
