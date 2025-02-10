@@ -1,4 +1,3 @@
----
 name: Helm Fineract Frontend
 description: GitHub Action for deploying ingresses.
 inputs:
