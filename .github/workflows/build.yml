@@ -67,7 +67,7 @@ jobs:
         uses: docker/login-action@v3.3.0
         if: ${{ env.SHOULD_PUBLISH == 'true'}}
         with:
-          registry: oaftech.azurecr.io
+          registry: ${{ vars.ACR_REGISTRY }}
           username: ${{ vars.ACR_PULL_USERNAME }}
           password: ${{ secrets.ACR_PULL_PASSWORD }}
 
@@ -75,7 +75,7 @@ jobs:
         uses: docker/Build-push-action@v6.13.0
         with:
           push: ${{ env.SHOULD_PUBLISH == 'true'}}
-          tags: oaftech.azurecr.io/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
+          tags: ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
           context: ${{ github.workspace }}
 
       - name: Use latest image tag
@@ -145,6 +145,7 @@ jobs:
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
+          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
           ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
           ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
@@ -189,6 +190,7 @@ jobs:
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
+          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
           ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
           ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
@@ -233,6 +235,7 @@ jobs:
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
+          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
           ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
           ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
@@ -288,6 +291,7 @@ jobs:
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
+          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
           ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
           ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"

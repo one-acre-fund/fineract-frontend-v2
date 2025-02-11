@@ -1,6 +1,10 @@
 name: Helm Fineract Frontend
 description: GitHub Action for deploying ingresses.
+
 inputs:
+  ACR_REGISTRY:
+    description: The Azure Container Registry.
+    required: true
   ACR_PULL_PASSWORD:
     description: The password for the Azure Container Registry.
     required: true
@@ -32,7 +36,7 @@ inputs:
     description: The client ID of the Keycloak client.
     required: true
   FINERACT_KEYCLOAK_TOKEN_URL:
-    description: The client ID of the Keycloak client.
+    description: The Token URL of the Keycloak client.
     required: true
   FINERACT_KEYCLOAK_REALM:
     description: The realm of the Keycloak client.
@@ -61,53 +65,46 @@ inputs:
   SENTRY_DSN:
     description: The Sentry DSN.
     required: true
+
 runs:
   using: composite
   steps:
     - name: Create Values File
       run: |
-        mkdir -p "${{ github.workspace }}/deployment"
-        touch "${{ github.workspace }}/deployment/my-values.yaml"
+        cat <<EOF > "${{ github.workspace }}/fineract-values.yaml"
+        commonconfig:
+          FINERACT_KEYCLOAK_REALM: "${{ inputs.FINERACT_KEYCLOAK_REALM }}"
+          FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ inputs.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
+          FINERACT_PROXY_URL: "https://${{ inputs.FINERACT_PROXY_URL }}:${{ inputs.FINERACT_PROXY_HTTPS_PORT }}"
+          FINERACT_KEYCLOAK_CLIENT_ID: "${{ inputs.FINERACT_KEYCLOAK_CLIENT_ID }}"
+          FINERACT_KEYCLOAK_TOKEN_URL: "${{ inputs.FINERACT_KEYCLOAK_TOKEN_URL }}"
+          FINERACT_KEYCLOAK_PUBLIC_CLIENT: true
+          FINERACT_KEYCLOAK_API_URL: "${{ inputs.FINERACT_KEYCLOAK_API_URL }}"
+          AUTH_SERVER_URL: "${{ inputs.FINERACT_AUTH_URL }}"
+          FINERACT_API_URL: "${{ inputs.FINERACT_API_URL }}"
+          HOST_HOME_URL: "${{ inputs.FINERACT_HOST_HOME_URL }}"
+          MATOMO_SITE_URL: "${{ inputs.MATOMO_SITE_URL }}"
+          MATOMO_SITE_ID: "${{ inputs.MATOMO_SITE_ID }}"
+          SENTRY_DSN: "${{ inputs.SENTRY_DSN }}"
 
-        echo "
-          commonconfig:
-            FINERACT_KEYCLOAK_REALM: "${{ inputs.FINERACT_KEYCLOAK_REALM }}"
-            FINERACT_KEYCLOAK_AUTH_SERVER_URL: "${{ inputs.FINERACT_KEYCLOAK_AUTH_SERVER_URL }}"
-            FINERACT_PROXY_URL: "https://${{ inputs.FINERACT_PROXY_URL }}:${{ inputs.FINERACT_PROXY_HTTPS_PORT }}"
-            FINERACT_KEYCLOAK_CLIENT_ID: "${{ inputs.FINERACT_KEYCLOAK_CLIENT_ID }}"
-            FINERACT_KEYCLOAK_TOKEN_URL: "${{ inputs.FINERACT_KEYCLOAK_TOKEN_URL }}"
-            FINERACT_KEYCLOAK_PUBLIC_CLIENT: true
-            FINERACT_KEYCLOAK_API_URL: "${{ inputs.FINERACT_KEYCLOAK_API_URL }}"
-            AUTH_SERVER_URL : "${{ inputs.FINERACT_AUTH_URL }}"
-            FINERACT_API_URL : "${{ inputs.FINERACT_API_URL }}"
-            HOST_HOME_URL : "${{ inputs.FINERACT_HOST_HOME_URL }}"
-            MATOMO_SITE_URL : "${{ inputs.MATOMO_SITE_URL }}"
-            MATOMO_SITE_ID : "${{ inputs.MATOMO_SITE_ID }}"
-            SENTRY_DSN : "${{ inputs.SENTRY_DSN }}"
+        initContainers:
+          - name: wait-for-fineract-backend
+            image: busybox
+            command: ['sh', '-c', 'until wget -q -O- http://${{ inputs.FINERACT_PROXY_URL }}:${{ inputs.FINERACT_PROXY_HTTP_PORT }}/fineract-provider/actuator/health; do echo waiting for fineract backend; sleep 2; done;']
 
-          initContainers:
-            - name: wait-for-fineract-backend
-              image: busybox
-              command: ['sh', '-c', 'until wget -q -O- http://${{ inputs.FINERACT_PROXY_URL }}:${{ inputs.FINERACT_PROXY_HTTP_PORT }}/fineract-provider/actuator/health; do echo waiting for fineract backend; sleep 2; done;']
-              restartPolicy: Never
-
-          replicaCount: ${{ inputs.REPLICAS }} " > "${{ github.workspace }}/deployment/my-values.yaml"
+        replicaCount: ${{ inputs.REPLICAS }}
+        EOF
       shell: bash
-    - name: Helm Install fineract frontend
-      run: |-
+
+    - name: Helm Install Fineract Frontend
+      run: |
         export HELM_EXPERIMENTAL_OCI=1
-
-        echo ${{ inputs.ACR_PULL_PASSWORD }} | helm registry login oaftech.azurecr.io --username ${{ inputs.ACR_PULL_USERNAME }} --password-stdin
-
-        echo "Downloading chart to cache..."
-        helm pull oci://oaftech.azurecr.io/helm/fineract-frontend --untar
+        echo "${{ inputs.ACR_PULL_PASSWORD }}" | helm registry login ${{ inputs.ACR_REGISTRY }} --username "${{ inputs.ACR_PULL_USERNAME }}" --password-stdin
 
         helm upgrade --install \
-          ${{ inputs.RELEASE_NAME }} \
-          --values ${{ github.workspace }}/fineract-frontend-v2/values.yaml \
-          --values my-values.yaml \
-          --namespace=${{ inputs.NAMESPACE }} \
-          --debug \
-          fineract-frontend
+          "${{ inputs.RELEASE_NAME }}" \
+          --values "${{ github.workspace }}/fineract-values.yaml" \
+          --namespace "${{ inputs.NAMESPACE }}" \
+          --debug --wait \
+          oci://${{ inputs.ACR_REGISTRY }}/helm/fineract-frontend
       shell: bash
-      working-directory: "${{ github.workspace }}/deployment"
