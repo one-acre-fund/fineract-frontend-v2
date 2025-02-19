@@ -11,6 +11,9 @@ inputs:
   ACR_PULL_USERNAME:
     description: The username for the Azure Container Registry.
     required: true
+  ARTIFACT_NAME:
+    description: The name of the artifact.
+    required: true
   NAMESPACE:
     description: The namespace to deploy the ingresses.
     required: true
@@ -104,6 +107,7 @@ runs:
         helm upgrade --install \
           "${{ inputs.RELEASE_NAME }}" \
           --values "${{ github.workspace }}/fineract-values.yaml" \
+          --values "${{ github.workspace }}/${{ inputs.ARTIFACT_NAME }}/values.yaml" \
           --namespace "${{ inputs.NAMESPACE }}" \
           --debug --wait \
           oci://${{ inputs.ACR_REGISTRY }}/helm/fineract-frontend
