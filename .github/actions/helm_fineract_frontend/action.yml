@@ -103,6 +103,7 @@ runs:
 
         helm upgrade --install \
           "${{ inputs.RELEASE_NAME }}" \
+          --values "${{ github.workspace }}/deployment/values.yaml" \
           --values "${{ github.workspace }}/fineract-values.yaml" \
           --namespace "${{ inputs.NAMESPACE }}" \
           --debug --wait \
