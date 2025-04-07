@@ -17,11 +17,7 @@ export class AddPaymentProviderComponent implements OnInit {
 
   officeOptions: any = [];
   countryOptions: any = [];
-  authenticationTypeOptions = [
-    { id: 'Basic', name: 'Basic Authentication' },
-    { id: 'Bearer', name: 'Bearer Authentication' },
-    { id: 'ApiKey', name: 'API Key Authentication' },
-  ];
+  authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
