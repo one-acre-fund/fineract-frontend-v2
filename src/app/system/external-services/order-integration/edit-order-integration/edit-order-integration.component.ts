@@ -42,7 +42,6 @@ export class EditOrderIntegrationComponent implements OnInit {
       this.countryExternalService = navigation.extras.state.countryExternalService;
     } else {
       console.error('Navigation state missing required data');
-      this.router.navigate(['../../'], { relativeTo: this.route });
     }
   }
 
