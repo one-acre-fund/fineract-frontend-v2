@@ -45,6 +45,9 @@ export class OrderIntegrationComponent implements OnInit {
           });
           this.dataSource.sort = this.sort;
         },
+        error: (error: any) => {
+          console.error('Error retrieving order integration configuration:', error);
+        },
       });
   }
 
@@ -52,6 +55,10 @@ export class OrderIntegrationComponent implements OnInit {
    * Edit country external service.
    */
   navigateToEditExternalService() {
+    if (!this.orderIntegrationConfigurationData || this.orderIntegrationConfigurationData.length === 0) {
+      console.error('No order integration configuration found to edit');
+      return;
+    }
     this.router.navigate([`edit`], {
       relativeTo: this.route,
       state: { countryExternalService: this.orderIntegrationConfigurationData[0] },

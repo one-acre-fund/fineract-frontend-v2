@@ -5,9 +5,12 @@
         <div fxLayout="column">
           <mat-form-field>
             <mat-label>Base URL</mat-label>
-            <input matInput required formControlName="base_url" />
+            <input matInput required formControlName="base_url" pattern="https?://.+"/>
             <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('required')">
               Base URL is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('pattern')">
+             Please enter a valid URL starting with http:// or https://
             </mat-error>
           </mat-form-field>
 
@@ -52,7 +55,7 @@
 
           <mat-form-field>
             <mat-label>Password</mat-label>
-            <input matInput required formControlName="password" />
+            <input matInput required formControlName="password" type="password" />
             <mat-error *ngIf="orderIntegrationConfigurationForm.controls.password.hasError('required')">
               Password is <strong>required</strong>
             </mat-error>

@@ -37,7 +37,13 @@ export class EditOrderIntegrationComponent implements OnInit {
   ) {
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    this.countryExternalService = this.router.getCurrentNavigation().extras.state.countryExternalService;
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation && navigation.extras && navigation.extras.state) {
+      this.countryExternalService = navigation.extras.state.countryExternalService;
+    } else {
+      console.error('Navigation state missing required data');
+      this.router.navigate(['../../'], { relativeTo: this.route });
+    }
   }
 
   /**
@@ -52,12 +58,48 @@ export class EditOrderIntegrationComponent implements OnInit {
    */
   setOrderIntegrationConfigurationForm() {
     this.orderIntegrationConfigurationForm = this.formBuilder.group({
-      base_url: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'base_url'), Validators.required],
-      get_order_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'get_order_endpoint'), Validators.required],
-      authentication_type: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_type'), Validators.required],
-      authentication_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_endpoint'), Validators.required],
-      username: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'username'), Validators.required],
-      password: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'password'), Validators.required],
+      base_url: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'base_url'
+        ),
+        Validators.required,
+      ],
+      get_order_endpoint: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'get_order_endpoint'
+        ),
+        Validators.required,
+      ],
+      authentication_type: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'authentication_type'
+        ),
+        Validators.required,
+      ],
+      authentication_endpoint: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'authentication_endpoint'
+        ),
+        Validators.required,
+      ],
+      username: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'username'
+        ),
+        Validators.required,
+      ],
+      password: [
+        this.externalServiceConfigurationService.getExternalServicePropertyByName(
+          this.countryExternalService,
+          'password'
+        ),
+        Validators.required,
+      ],
     });
   }
 
@@ -69,9 +111,17 @@ export class EditOrderIntegrationComponent implements OnInit {
     this.matomoTracker.trackEvent('externalService', 'editOrderIntegration');
 
     this.systemService
-      .updateExternalConfiguration(ExternalServiceConfigurationService.ORDER_INTEGRATION_SERVICE, this.orderIntegrationConfigurationForm.value)
-      .subscribe((response: any) => {
-        this.router.navigate(['../'], { relativeTo: this.route });
+      .updateExternalConfiguration(
+        ExternalServiceConfigurationService.ORDER_INTEGRATION_SERVICE,
+        this.orderIntegrationConfigurationForm.value
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.router.navigate(['../'], { relativeTo: this.route });
+        },
+        error: (error: any) => {
+          console.error('Error updating order integration configuration:', error);
+        },
       });
   }
 }

@@ -7,7 +7,7 @@
   
   <div class="container mat-elevation-z8">
   
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource.data?.length > 0">
   
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
