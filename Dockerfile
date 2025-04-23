@@ -11,14 +11,10 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 COPY ./ /usr/src/app/
 
-RUN npm cache clear --force &&\
-
-  npm config set fetch-retry-maxtimeout 120000 &&\
-
-  npm install --location=global @angular/cli@14.2.13 &&\
-
-  npm install &&\
-
+RUN npm cache clear --force && \
+  npm config set fetch-retry-maxtimeout 120000 && \
+  npm install --location=global @angular/cli@14.2.13 && \
+  npm install && \
   ng build --configuration production --output-path=/dist
 
 ###############

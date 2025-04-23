@@ -5,6 +5,7 @@
     * [SER-3363] - Implement label translation in Client related UIs
     * [SER-3259] - External Service: Add new page for payment provider configuration
     * [SER-3364] - Implement label translation in Groups and Loans related UIs
+    * [SER-3313] - Add bulk account transaction transfer
 
 ## Version 1.3.5 - Community 1.0.0
 
