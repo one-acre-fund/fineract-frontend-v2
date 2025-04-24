@@ -10,8 +10,7 @@
     * [SER-3259] - External Service: Add new page for payment provider configuration
     * [SER-3364] - Implement label translation in Groups and Loans related UIs
     * [SER-3313] - Add bulk account transaction transfer
-    * [CP-3538] - Show the transfer description in the view transaction interface if the reapyment is from account transfer
-
+    * [CP-3538] - Show the transfer description in the view transaction interface if the repayment is from account transfer
 ## Version 1.3.5 - Community 1.0.0
 
     * [SER-2577] - Allow group movement regardless of loan status and office
