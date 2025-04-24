@@ -268,7 +268,13 @@
     "validation.msg.savingsproduct.shortName.exceeds.max.length": "Le nom court ne peut pas contenir plus de {{params[0].value}} caractères.",
     "validation.msg.savingsproduct.withdrawalFeeAmount.cannot.be.blank": "Le montant des frais de retrait est obligatoire.",
     "validation.msg.savingsproduct.withdrawalFeeAmount.not.zero.or.greater": "Le montant des frais de retrait doit être supérieur ou égal à zéro s’il est indiqué.",
-    "validation.msg.savingsproduct.withdrawalFeeType.is.not.one.of.expected.enumerations": "Le type de période de frais de retrait est obligatoire."
+    "validation.msg.savingsproduct.withdrawalFeeType.is.not.one.of.expected.enumerations": "Le type de période de frais de retrait est obligatoire.",
+    "validation.msg.charge.penalty.cannot.be.blank": "Le champ pénalité ne peut pas être vide.",
+    "validation.msg.charge.extensible.cannot.be.blank": "Le champ extensible ne peut pas être vide.",
+    "validation.msg.charge.country.cannot.be.blank": "Le pays ne peut pas être vide.",
+    "validation.msg.charge.extensionFrequency.cannot.be.blank": "La fréquence d'extension ne peut pas être vide.",
+    "validation.msg.charge.feeFrequency.cannot.be.blank": "La fréquence des frais ne peut pas être vide.",
+    "validation.msg.charge.extensible.is.not.active": "Extensible ne peut être sélectionné que pour les frais actifs."
   },
   "labels": {
     "oaf": {

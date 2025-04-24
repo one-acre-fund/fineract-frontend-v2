@@ -1,7 +1,7 @@
 <div class="container">
   <mat-card>
     <mat-card-header class="mat-header">
-      <strong style="float: left;">{{chargeData.name}}</strong>
+      <strong style="float: left">{{ chargeData.name }}</strong>
       <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_CHARGE'">
         <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp; Edit
       </button>
@@ -22,61 +22,69 @@
         </thead>
         <tbody>
           <tr>
-            <td class="mat-body-strong">Charge Type</td>
-            <td class="mat-body-strong">{{ chargeData.penalty === true ? 'Penalty' : 'Charge' }}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Charge Type' | translate }}</td>
+            <td class="mat-body-strong">
+              {{
+                chargeData.penalty === true
+                  ? ('labels.inputs.Penalty' | translate)
+                  : ('labels.inputs.Charge' | translate)
+              }}
+            </td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Country</td>
-            <td class="mat-body-strong">{{ chargeData.countryName}}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Country' | translate }}</td>
+            <td class="mat-body-strong">{{ chargeData.countryName }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Currency</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Currency' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.currency.name }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Amount</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Amount' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.amount }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Charge Time Type</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Charge Time Type' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.chargeTimeType.value }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Charge Applies To</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Charge Applies To' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.chargeAppliesTo.value }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Charge Calculation Type</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Charge Calculation Type' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.chargeCalculationType.value }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Charge Payment Mode</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Charge Payment Mode' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.chargePaymentMode.value }}</td>
           </tr>
           <tr>
-            <td class="mat-body-strong">Active</td>
-            <td class="mat-body-strong">{{ chargeData.active === true ? 'Yes' : 'No' }}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Active' | translate }}</td>
+            <td class="mat-body-strong">
+              {{ chargeData.active === true ? ('labels.inputs.Yes' | translate) : ('labels.inputs.No' | translate) }}
+            </td>
           </tr>
           <tr *ngIf="chargeData.feeFrequency">
-            <td class="mat-body-strong">Fee Frequency</td>
-            <td class="mat-body-strong">{{ chargeData.feeFrequency.value}}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Fee Frequency' | translate }}</td>
+            <td class="mat-body-strong">{{ chargeData.feeFrequency.value }}</td>
           </tr>
           <tr *ngIf="chargeData.feeInterval">
-            <td class="mat-body-strong">Frequency Interval</td>
-            <td class="mat-body-strong">{{ chargeData.feeInterval}}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Frequency Interval' | translate }}</td>
+            <td class="mat-body-strong">{{ chargeData.feeInterval }}</td>
           </tr>
           <tr *ngIf="chargeData.extensionFrequency">
-            <td class="mat-body-strong">Extension Frequency</td>
-            <td class="mat-body-strong">{{ chargeData.extensionFrequency}}</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Extension Frequency' | translate }}</td>
+            <td class="mat-body-strong">{{ chargeData.extensionFrequency }}</td>
           </tr>
           <tr *ngIf="chargeData.incomeOrLiabilityAccount">
-            <td class="mat-body-strong">Income from Charges</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Income from Charges' | translate }}</td>
             <td class="mat-body-strong">
               {{ chargeData.incomeOrLiabilityAccount.name + ' (' + chargeData.incomeOrLiabilityAccount.glCode + ')' }}
             </td>
           </tr>
           <tr *ngIf="chargeData.taxGroup">
-            <td class="mat-body-strong">Tax Group</td>
+            <td class="mat-body-strong">{{ 'labels.inputs.Tax Group' | translate }}</td>
             <td class="mat-body-strong">{{ chargeData.taxGroup.name }}</td>
           </tr>
         </tbody>

@@ -4,17 +4,17 @@
       <mat-card-content>
         <div fxLayout="column">
           <div fxFlex="48%" fxLayout="row" fxLayout.lt-md="column" class="rule-wrapper office-div" *ngIf="officeName">
-            <mat-label fxFlex="10%">Office</mat-label>
+            <mat-label fxFlex="10%">{{ 'labels.inputs.Office' | translate }}</mat-label>
             <mat-radio-group fxFlex="50%" fxLayout="row" fxLayoutGap="5%" formControlName="id">
               <p>{{ officeName }}</p>
             </mat-radio-group>
           </div>
 
           <div fxFlex="48%" fxLayout="row" fxLayout.lt-md="column" class="rule-wrapper">
-            <mat-label fxFlex="50%">Repayment Allocation</mat-label>
+            <mat-label fxFlex="50%">{{ 'labels.inputs.Repayment Allocation' | translate }}</mat-label>
             <mat-radio-group fxFlex="50%" fxLayout="row" fxLayoutGap="5%" formControlName="repaymentChoice">
-              <mat-radio-button value="CLIENT_CHOICE">Client Choice</mat-radio-button>
-              <mat-radio-button value="SYSTEM_CHOICE">System Choice</mat-radio-button>
+              <mat-radio-button value="CLIENT_CHOICE">{{ 'labels.inputs.Client Choice' | translate }}</mat-radio-button>
+              <mat-radio-button value="SYSTEM_CHOICE">{{ 'labels.inputs.System Choice' | translate }}</mat-radio-button>
             </mat-radio-group>
           </div>
 
@@ -75,7 +75,7 @@
               </mat-error>
             </mat-form-field> -->
 
-            <div >
+            <div>
               <label for="country">Country</label>
               <ng-select
                 #country

@@ -1,20 +1,19 @@
 <form [formGroup]="loanProductAppsForm">
-    <p>Applicable Apps *</p>
-    <div formArrayName="channels" class="alignText" *ngFor="let channel of channelFormArray.controls; let i = index">
-      <div *ngIf="channelData[i]?.canAccessAllLoans===false">
-        <mat-checkbox fxFlex="32%" [formControlName]="i">{{channelData[i].name}}</mat-checkbox>
-      </div>
+  <p>{{ 'labels.Applicable Apps' | translate }} *</p>
+  <div formArrayName="channels" class="alignText" *ngFor="let channel of channelFormArray.controls; let i = index">
+    <div *ngIf="channelData[i]?.canAccessAllLoans === false">
+      <mat-checkbox fxFlex="32%" [formControlName]="i">{{ channelData[i].name }}</mat-checkbox>
     </div>
+  </div>
 
-    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-        <button mat-raised-button matStepperPrevious disabled>
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
-          Previous
-        </button>
-        <button mat-raised-button matStepperNext>
-          Next&nbsp;&nbsp;
-          <fa-icon icon="arrow-right"></fa-icon>
-        </button>
-      </div>
-
+  <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+    <button mat-raised-button matStepperPrevious disabled>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      {{ 'labels.buttons.Previous' | translate }}
+    </button>
+    <button mat-raised-button matStepperNext>
+      {{ 'labels.buttons.Next' | translate }}&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
 </form>
