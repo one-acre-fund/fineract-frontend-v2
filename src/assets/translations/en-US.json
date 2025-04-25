@@ -284,7 +284,8 @@
       "Interest Amount": "Interest Amount",
       "Search by Name": "Search by Name",
       "hideDeletedGuarantors": "Hide Deleted Guarantors",
-      "showDeletedGuarantors": "Show Deleted Guarantors"
+      "showDeletedGuarantors": "Show Deleted Guarantors",
+      "transferDescription": "Transfer Description"
     },
     "accounting": {
       "Accrual (periodic)": "Accrual (periodic)",
