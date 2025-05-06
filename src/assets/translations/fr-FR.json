@@ -284,7 +284,8 @@
       "Interest Amount": "Montant des intérêts",
       "Search by Name": "Rechercher par nom",
       "hideDeletedGuarantors": "Masquer les garants supprimés",
-      "showDeletedGuarantors": "Afficher les garants supprimés"
+      "showDeletedGuarantors": "Afficher les garants supprimés",
+      "transferDescription": "Description du transfert"
     },
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",
