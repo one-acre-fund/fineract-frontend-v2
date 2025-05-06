@@ -1,13 +1,8 @@
 <div class="container">
-
   <mat-card>
-
     <div fxLayout="row" fxLayout.lt-md="column">
-
       <div fxFlex="50%">
-
         <mat-nav-list>
-
           <mat-list-item [routerLink]="['amazon-s3']">
             <mat-icon matListIcon>
               <fa-icon icon="cloud" size="sm"></fa-icon>
@@ -31,15 +26,11 @@
             <h4 matLine>Payment Providers</h4>
             <p matLine>Payment Providers Configuration</p>
           </mat-list-item>
-
         </mat-nav-list>
-
       </div>
 
       <div fxFlex="50%">
-
         <mat-nav-list>
-
           <mat-list-item [routerLink]="['email']">
             <mat-icon matListIcon>
               <fa-icon icon="envelope" size="sm"></fa-icon>
@@ -56,12 +47,15 @@
             <p matLine>Notification Service Configuration</p>
           </mat-list-item>
 
+          <mat-list-item [routerLink]="['order-integration']">
+            <mat-icon matListIcon>
+              <fa-icon icon="shopping-cart" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>Order Integration Service</h4>
+            <p matLine>Order Integration Service Configuration</p>
+          </mat-list-item>
         </mat-nav-list>
-
       </div>
-
     </div>
-
   </mat-card>
-
 </div>

@@ -2,8 +2,9 @@
 
 ## Version 1.3.7 - Community 1.0.0
 
-    * [SER-3502] - Send country when submitting the account transfer bulk upload
+    * [CP-3502] - Send country when submitting the account transfer bulk upload
     * [CP-3538] - Show the transfer description in the view transaction interface if the repayment is from account transfer
+    * [CP-3288] - External Service: Add new pages for order integration configuration
 
 ## Version 1.3.6 - Community 1.0.0
 

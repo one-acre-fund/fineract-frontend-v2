@@ -66,6 +66,8 @@ import { DataFieldsComponent } from './configure-data-fields/data-fields/data-fi
 import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
 import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
 import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
+import { OrderIntegrationComponent } from 'app/system/external-services/order-integration/order-integration.component';
+import { EditOrderIntegrationComponent } from './external-services/order-integration/edit-order-integration/edit-order-integration.component';
 
 @NgModule({
   imports: [
@@ -131,7 +133,9 @@ import { EditPaymentProviderComponent } from './external-services/payment-provid
     DataFieldsComponent,
     PaymentProviderComponent,
     AddPaymentProviderComponent,
-    EditPaymentProviderComponent
+    EditPaymentProviderComponent,
+    OrderIntegrationComponent,
+    EditOrderIntegrationComponent,
   ],
 })
 export class SystemModule { }

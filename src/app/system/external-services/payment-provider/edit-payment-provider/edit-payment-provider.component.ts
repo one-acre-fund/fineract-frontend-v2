@@ -18,15 +18,12 @@ export class EditPaymentProviderComponent implements OnInit {
 
   officeOptions: any = [];
   countryOptions: any = [];
-  authenticationTypeOptions = [
-    { id: 'Basic', name: 'Basic Authentication' },
-    { id: 'Bearer', name: 'Bearer Authentication' },
-    { id: 'ApiKey', name: 'API Key Authentication' },
-  ];
+  authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
     private systemService: SystemService,
+    private externalServiceConfigurationService: ExternalServiceConfigurationService,
     private route: ActivatedRoute,
     private router: Router,
     private matomoTracker: MatomoTracker
@@ -44,25 +41,25 @@ export class EditPaymentProviderComponent implements OnInit {
    * Creates Payment Provider form.
    */
   setPaymentProviderForm() {
-    console.log('Inside edit payment provider form');
+    console.debug('Inside edit payment provider form');
     const country = this.countryExternalService.country;
     const office = this.countryExternalService.office;
     this.countryOptions.push({ id: country?.id, name: country?.name });
     this.officeOptions.push({ id: office?.id, name: office?.name });
     this.editPaymentProviderForm = this.formBuilder.group({
       countryExternalServiceId: [this.countryExternalService.id],
-      provider_name: [{ value: this.getExternalServiceProperty('provider_name'), disabled: true }, Validators.required],
+      provider_name: [{ value: this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'provider_name'), disabled: true }, Validators.required],
       country_id: [{ value: country?.id, disabled: true }, Validators.required],
       office_id: [{ value: office?.id, disabled: true }],
-      base_url: [this.getExternalServiceProperty('base_url'), Validators.required],
-      account_creation_endpoint: [this.getExternalServiceProperty('account_creation_endpoint'), Validators.required],
-      bank_code: [this.getExternalServiceProperty('bank_code'), Validators.required],
-      authentication_endpoint: [this.getExternalServiceProperty('authentication_endpoint'), Validators.required],
-      authentication_type: [this.getExternalServiceProperty('authentication_type'), Validators.required],
-      business_id: [this.getExternalServiceProperty('business_id'), Validators.required],
-      sub_entity_code: [this.getExternalServiceProperty('sub_entity_code'), Validators.required],
-      username: [this.getExternalServiceProperty('username'), Validators.required],
-      password: [this.getExternalServiceProperty('password'), Validators.required],
+      base_url: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'base_url'), Validators.required],
+      account_creation_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'account_creation_endpoint'), Validators.required],
+      bank_code: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'bank_code'), Validators.required],
+      authentication_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_endpoint'), Validators.required],
+      authentication_type: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_type'), Validators.required],
+      business_id: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'business_id'), Validators.required],
+      sub_entity_code: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'sub_entity_code'), Validators.required],
+      username: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'username'), Validators.required],
+      password: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'password'), Validators.required],
     });
   }
 
@@ -83,7 +80,5 @@ export class EditPaymentProviderComponent implements OnInit {
       });
   }
 
-  getExternalServiceProperty(name: string) {
-    return this.countryExternalService.propertiesData.filter((property) => property.name === name)[0]?.value;
-  }
+  
 }
