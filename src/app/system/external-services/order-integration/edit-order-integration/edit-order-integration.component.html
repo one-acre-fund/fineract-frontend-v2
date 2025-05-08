@@ -1,0 +1,78 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="orderIntegrationConfigurationForm" (ngSubmit)="submit()">
+      <mat-card-content>
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-label>Base URL</mat-label>
+            <input matInput required formControlName="base_url" pattern="https?://.+"/>
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('required')">
+              Base URL is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('pattern')">
+             Please enter a valid URL starting with http:// or https://
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Get Order Endpoint</mat-label>
+            <input matInput required formControlName="get_order_endpoint" />
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.get_order_endpoint.hasError('required')">
+              Get Order Endpoint is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Authentication Type</mat-label>
+            <mat-select required formControlName="authentication_type">
+              <mat-option
+                *ngFor="let authenticationType of authenticationTypeOptions"
+                [value]="authenticationType.id"
+              >
+                {{ authenticationType.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.authentication_type.hasError('required')">
+              Authentication Type is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Authentication Endpoint</mat-label>
+            <input matInput required formControlName="authentication_endpoint" />
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.authentication_endpoint.hasError('required')">
+              Authentication Endpoint is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input matInput required formControlName="username" />
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.username.hasError('required')">
+              Username is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput required formControlName="password" type="password" />
+            <mat-error *ngIf="orderIntegrationConfigurationForm.controls.password.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
+        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!orderIntegrationConfigurationForm.valid || orderIntegrationConfigurationForm.pristine"
+        >
+          Submit
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

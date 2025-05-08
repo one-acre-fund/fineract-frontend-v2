@@ -91,6 +91,8 @@ import { ManageFieldsDataResolver } from './configure-data-fields/data-fields/ma
 import { PaymentProviderComponent } from './external-services/payment-provider/payment-provider.component';
 import { AddPaymentProviderComponent } from './external-services/payment-provider/add-payment-provider/add-payment-provider.component';
 import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
+import { OrderIntegrationComponent } from './external-services/order-integration/order-integration.component';
+import { EditOrderIntegrationComponent } from './external-services/order-integration/edit-order-integration/edit-order-integration.component';
 
 const routes: Routes = [
   Route.withShell([
@@ -260,6 +262,21 @@ const routes: Routes = [
                   path: 'edit',
                   data: { title: extract('Edit Payment providers Configuration'), breadcrumb: 'Edit' },
                   component: EditPaymentProviderComponent
+                }
+              ]
+            },
+            {
+              path: 'order-integration',
+              data: { title: extract('Order Integration Service Configuration'), breadcrumb: 'Order Integration Service' },
+              children: [
+                {
+                  path: '',
+                  component: OrderIntegrationComponent
+                },
+                {
+                  path: 'edit',
+                  data: { title: extract('Edit Order Integration Service Configuration'), breadcrumb: 'Edit' },
+                  component: EditOrderIntegrationComponent
                 }
               ]
             },
