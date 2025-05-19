@@ -2,7 +2,7 @@
 
 ## Version 1.3.7.1 - Community 1.0.0
 
-    * [CP-3502] - Rename Loan Dates for Kenya to match their expectation
+    * [CP-3527] - Rename Loan Dates for Kenya to match their expectation
 
 ## Version 1.3.7 - Community 1.0.0
 
