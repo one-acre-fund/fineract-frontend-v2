@@ -42,11 +42,13 @@ export class GeneralTabComponent implements OnInit {
     if (!Array.isArray(periods) || periods.length === 0) {
       return null;
     }
-
-    return this.loanDetails.repaymentSchedule.periods
+    const validDueDates = this.loanDetails.repaymentSchedule.periods
       .filter(period => period.dueDate && Array.isArray(period.dueDate))
-      .map(period => new Date(period.dueDate[0], period.dueDate[1] - 1, period.dueDate[2]))
-      .reduce((latest, current) => (current > latest) ? current : latest, new Date(0));
+      .map(period => new Date(period.dueDate[0], period.dueDate[1] - 1, period.dueDate[2]));
+
+    if (validDueDates.length === 0) {
+      return null;
+    }
   }
 
   ngOnInit() {
