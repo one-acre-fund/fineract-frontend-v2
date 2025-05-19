@@ -49,6 +49,8 @@ export class GeneralTabComponent implements OnInit {
     if (validDueDates.length === 0) {
       return "";
     }
+    const latestDate = new Date(Math.max(...validDueDates.map(date => date.getTime())));
+    return latestDate.toISOString();
   }
 
   ngOnInit() {
