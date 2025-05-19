@@ -38,10 +38,11 @@ export class GeneralTabComponent implements OnInit {
   }
 
   getLatestDueDate(): string {
-    if (!this.loanDetails?.repaymentSchedule.periods || !this.loanDetails.repaymentSchedule.periods.length) {
+    const periods = this.loanDetails?.repaymentSchedule?.periods;
+    if (!Array.isArray(periods) || periods.length === 0) {
       return null;
     }
-    
+
     return this.loanDetails.repaymentSchedule.periods
       .filter(period => period.dueDate && Array.isArray(period.dueDate))
       .map(period => new Date(period.dueDate[0], period.dueDate[1] - 1, period.dueDate[2]))
