@@ -37,6 +37,22 @@ export class GeneralTabComponent implements OnInit {
     });
   }
 
+  getLatestDueDate(): string {
+    const periods = this.loanDetails?.repaymentSchedule?.periods;
+    if (!Array.isArray(periods) || periods.length === 0) {
+      return "";
+    }
+    const validDueDates = this.loanDetails.repaymentSchedule.periods
+      .filter(period => period.dueDate && Array.isArray(period.dueDate))
+      .map(period => new Date(period.dueDate[0], period.dueDate[1] - 1, period.dueDate[2]));
+
+    if (validDueDates.length === 0) {
+      return "";
+    }
+    const latestDate = new Date(Math.max(...validDueDates.map(date => date.getTime())));
+    return latestDate.toISOString();
+  }
+
   ngOnInit() {
     this.status = this.loanDetails.value;
     if (this.loanDetails.summary) {
