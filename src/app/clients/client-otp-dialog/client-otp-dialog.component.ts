@@ -15,6 +15,7 @@ export class ClientOtpDialogComponent implements OnInit {
   resendDisabled: boolean = true;
   ngOtpConfig: any;
   @ViewChild(NgOtpInputComponent, { static: false}) ngOtpInputRef: NgOtpInputComponent;
+  isSubmitting: boolean = false;
 
   constructor(private dialogRef: MatDialogRef<ClientOtpDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private clientsService: ClientsService) {
@@ -58,7 +59,7 @@ export class ClientOtpDialogComponent implements OnInit {
    */
   onOtpChange(otp) {
     this.otp = otp;
-    if (otp.length === this.ngOtpConfig.length) {
+    if (otp.length === this.ngOtpConfig.length && !this.isSubmitting) {
       this.submit();
     }
   }
@@ -67,14 +68,25 @@ export class ClientOtpDialogComponent implements OnInit {
    * Submits the OTP to validate
    */
   private submit() {
+    if (this.isSubmitting) return;
+
+    this.isSubmitting = true;
+
     const otpData = {
       otpCode: this.otp,
       mobilePhoneNumber: this.data.mobileNo
     };
-    this.clientsService.validateClientOTP(this.data.countryId, otpData).subscribe(() => {
-      this.dialogRef.close(true);
-    }, () => {
-      this.resetOtpInput();
+
+    this.clientsService.validateClientOTP(this.data.countryId, otpData).subscribe({
+      next: () => {
+        this.dialogRef.close(true);
+      },
+      error: () => {
+        this.resetOtpInput();
+      },
+      complete: () => {
+        this.isSubmitting = false;
+      }
     });
   }
 
