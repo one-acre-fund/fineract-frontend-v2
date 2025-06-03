@@ -362,12 +362,12 @@
       "Default number of repayments": "Nombre de remboursements par défaut",
       "Product Name is required": "Le nom du produit est requis",
       "Short Name is required": "Le nom court est requis",
-      "Drag & Reorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité"
+      "DragReorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité"
     },
     "boolean": {
       "Yes": "Oui",
       "No": "Non"
-    }
+    },
      "transferDescription": "Description du transfert",
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",

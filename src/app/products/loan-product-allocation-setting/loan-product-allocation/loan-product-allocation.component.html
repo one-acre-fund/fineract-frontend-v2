@@ -44,7 +44,7 @@
               allocationForm.controls.repaymentChoice.value == 'SYSTEM_CHOICE'
             "
           >
-            <mat-label fxFlex="50%">{{ 'labels.oaf.Drag & Reorder Liability Priorities' | translate }}</mat-label>
+            <mat-label fxFlex="50%">{{ 'labels.oaf.DragReorder Liability Priorities' | translate }}</mat-label>
             <div class="options" dragula="liabilityPriorityDragula" [(dragulaModel)]="loanTypeOptionsModel">
               <p *ngFor="let option of loanTypeOptions">
                 {{ option.name }}

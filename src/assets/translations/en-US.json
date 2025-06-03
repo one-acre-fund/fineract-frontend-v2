@@ -364,7 +364,7 @@
       "Default number of repayments": "Default number of repayments",
       "Product Name is required": "Product Name is required",
       "Short Name is required": "Short Name is required",
-      "Drag & Reorder Liability Priorities": "Drag & Reorder Liability Priorities"
+      "DragReorder Liability Priorities": "Drag & Reorder Liability Priorities"
     },
     "boolean": {
       "Yes": "Yes",
