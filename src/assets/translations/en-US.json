@@ -370,6 +370,7 @@
       "Yes": "Yes",
       "No": "No"
     },
+    "transferDescription": "Transfer Description",
     "accounting": {
       "Accrual (periodic)": "Accrual (periodic)",
       "Accrual (upfront)": "Accrual (upfront)",

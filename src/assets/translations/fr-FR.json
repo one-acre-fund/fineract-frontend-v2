@@ -367,7 +367,8 @@
     "boolean": {
       "Yes": "Oui",
       "No": "Non"
-    },
+    }
+     "transferDescription": "Description du transfert",
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",
       "Accrual (upfront)": "Accumulation (d'avance)",

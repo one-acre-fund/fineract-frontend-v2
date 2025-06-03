@@ -5,7 +5,7 @@
       <p>{{ 'labels.inputs.Number of Repayments' | translate }} :{{ loanDetails?.numberOfRepayments }}</p>
 
       <p>
-        {{ 'labels.inputs.Maturity Date' | translate }} :{{ loanDetails?.timeline.expectedMaturityDate | dateFormat }}
+        {{ 'labels.inputs.Maturity Date' | translate }} :{{ getLatestDueDate() | dateFormat }}
       </p>
     </div>
   </ng-container>
