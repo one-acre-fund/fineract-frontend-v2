@@ -25,7 +25,7 @@
         [items]="countries"
         bindLabel="name"
         bindValue="id"
-        placeholder="Select Country"
+        placeholder="{{ 'labels.commons.Select Country' | translate }}"
         formControlName="countryId"
         aria-labelledby="country"
         (change)="search($event)"

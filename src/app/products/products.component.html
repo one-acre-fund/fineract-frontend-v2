@@ -12,39 +12,39 @@
             <mat-icon matListIcon>
               <fa-icon icon="briefcase" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Loan Products</h4>
-            <p matLine>Add new loan product or modify or inactivate loan product</p>
+            <h4 matLine>{{ 'labels.heading.Loan Products' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Add new loan product or modify or inactivate loan product' | translate }}</p>
           </mat-list-item>
           <mat-list-item [routerLink]="['/loanproductallocationsettings']" *mifosxHasPermission="'READ_LOANPAYMENTALLOCATIONSETTING'">
             <mat-icon matListIcon>
               <fa-icon icon="table" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Loan payment allocation setting</h4>
-            <p matLine>Loan payment allocation setting</p>
+            <h4 matLine>{{ 'labels.commons.Loan payment allocation setting' | translate }}</h4>
+            <p matLine>{{ 'labels.commons.Loan payment allocation setting' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['saving-products']" *mifosxHasPermission="'READ_SAVINGSPRODUCT'">
             <mat-icon matListIcon>
               <fa-icon icon="briefcase" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Savings Products</h4>
-            <p matLine>Add new savings product or modify or inactivate savings product</p>
+            <h4 matLine>{{ 'labels.heading.Savings Products' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Add new savings product or modify or inactivate savings product' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['share-products']" *mifosxHasPermission="'READ_SHAREPRODUCT'">
             <mat-icon matListIcon>
               <fa-icon icon="briefcase" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Share Products</h4>
-            <p matLine>Add new share product or modify or inactivate share product</p>
+            <h4 matLine>{{ 'labels.heading.Share Products' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Add new share product or modify or inactivate share product' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['charges']" *mifosxHasPermission="'READ_CHARGE'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Charges</h4>
-            <p matLine>Define charges/penalties for loan products, savings and deposit products</p>
+            <h4 matLine>{{ 'labels.heading.Charges' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define charges/penalties for loan products, savings and deposit products' | translate }}</p>
           </mat-list-item>
         </mat-nav-list>
 
@@ -58,40 +58,40 @@
             <mat-icon matListIcon>
               <fa-icon icon="random" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Products Mix</h4>
-            <p matLine>Defines rules for taking multiple rules</p>
+            <h4 matLine>{{ 'labels.heading.Products Mix' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Defines rules for taking multiple rules' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['fixed-deposit-products']" *mifosxHasPermission="'READ_FIXEDDEPOSITPRODUCT'">
             <mat-icon matListIcon>
               <fa-icon icon="briefcase" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Fixed Deposit Products</h4>
-            <p matLine>Add, modify or inactivate a Fixed deposit product</p>
+            <h4 matLine>{{ 'labels.heading.Fixed Deposit Products' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Add, modify or inactivate a Fixed deposit product' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['recurring-deposit-products']" *mifosxHasPermission="'READ_RECURRINGDEPOSITPRODUCT'">
             <mat-icon matListIcon>
               <fa-icon icon="briefcase" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Recurring Deposit Products</h4>
-            <p matLine>Add, modify or inactivate a Recurring Deposit product</p>
+            <h4 matLine>{{ 'labels.heading.Recurring Deposit Products' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Add, modify or inactivate a Recurring Deposit product' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['tax-configurations']" *mifosxHasPermission="'READ_TAXGROUP'">
             <mat-icon matListIcon>
               <fa-icon icon="cogs" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Tax Configurations</h4>
-            <p matLine>Define Tax components and Tax groups</p>
+            <h4 matLine>{{ 'labels.heading.Manage Tax Configurations' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define Tax components and Tax groups' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['floating-rates']" *mifosxHasPermission="'READ_FLOATINGRATE'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Floating Rates</h4>
-            <p matLine>Define floating rates for loan products</p>
+            <h4 matLine>{{ 'labels.heading.Floating Rates' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define floating rates for loan products' | translate }}</p>
           </mat-list-item>
 
         </mat-nav-list>

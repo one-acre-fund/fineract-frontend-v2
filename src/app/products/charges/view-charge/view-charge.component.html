@@ -3,17 +3,13 @@
     <mat-card-header class="mat-header">
       <strong style="float: left">{{ chargeData.name }}</strong>
       <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_CHARGE'">
-        <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp; Edit
-      </button>
+        <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
       <button mat-raised-button color="warn" (click)="deleteCharge()" *mifosxHasPermission="'DELETE_CHARGE'">
-        <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp; Delete
-      </button>
+        <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
     </mat-card-header>
     <mat-card-content>
       <table>
-        <caption class="display-none">
-          Rural Outlet
-        </caption>
+        <caption class="display-none">{{ 'labels.commons.Rural Outlet' | translate }}</caption>
         <thead>
           <tr>
             <th></th>

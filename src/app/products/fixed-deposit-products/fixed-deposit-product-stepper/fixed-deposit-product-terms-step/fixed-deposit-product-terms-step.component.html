@@ -47,11 +47,11 @@
           {{ interestPostingPeriodType.value }}
         </mat-option>
       </mat-select>
-      <mat-error> Interest Posting Period is <strong>required</strong> </mat-error>
+      <mat-error>{{ 'labels.commons.Interest Posting Period is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Interest Calculated using</mat-label>
+      <mat-label>{{ 'labels.inputs.Interest Calculated using' | translate }}</mat-label>
       <mat-select formControlName="interestCalculationType" required>
         <mat-option
           *ngFor="let interestCalculationType of interestCalculationTypeData"
@@ -60,11 +60,11 @@
           {{ interestCalculationType.value }}
         </mat-option>
       </mat-select>
-      <mat-error> Interest Calculated using is <strong>required</strong> </mat-error>
+      <mat-error>{{ 'labels.commons.Interest Calculated using is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Days in Year</mat-label>
+      <mat-label>{{ 'labels.inputs.Days in Year' | translate }}</mat-label>
       <mat-select formControlName="interestCalculationDaysInYearType" required>
         <mat-option
           *ngFor="let interestCalculationDaysInYearType of interestCalculationDaysInYearTypeData"
@@ -73,12 +73,12 @@
           {{ interestCalculationDaysInYearType.value }}
         </mat-option>
       </mat-select>
-      <mat-error> Days in Year is <strong>required</strong> </mat-error>
+      <mat-error>{{ 'labels.commons.Days in Year is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
     </mat-form-field>
   </div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-    <button mat-raised-button matStepperPrevious><fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp; Previous</button>
+    <button mat-raised-button matStepperPrevious><fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Previous' | translate }}</button>
     <button mat-raised-button matStepperNext>
       Next&nbsp;&nbsp;
       <fa-icon icon="arrow-right"></fa-icon>

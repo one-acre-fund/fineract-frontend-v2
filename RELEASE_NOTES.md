@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.7 - Community 1.0.0
+
+    * [SER-3365] - Implement label translation in Product related UIs
+
 ## Version 1.3.6 - Community 1.0.0
 
     * [SER-3363] - Implement label translation in Client related UIs
