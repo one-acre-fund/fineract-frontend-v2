@@ -313,7 +313,7 @@ The translation script now properly handles:
 
 - ng-template elements with various directives
 - Text content with HTML entities and extra whitespace
-- Static UI labels inside Angular structural directives (*ngIf, *ngFor)
+- Static UI labels inside Angular structural directives (*ngIf,*ngFor)
 - Complex nested Angular component structures
 - Material Design components (mat-option, matStepLabel, etc.)
 

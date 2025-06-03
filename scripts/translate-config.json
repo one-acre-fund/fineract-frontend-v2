@@ -277,14 +277,6 @@
     "<!--",
     "-->"
   ],
-  "filePatterns": [
-    "src/**/*.component.html",
-    "src/**/*.html"
-  ],
-  "excludeDirectories": [
-    "node_modules",
-    "dist",
-    "e2e",
-    ".git"
-  ]
+  "filePatterns": ["src/**/*.component.html", "src/**/*.html"],
+  "excludeDirectories": ["node_modules", "dist", "e2e", ".git"]
 }
