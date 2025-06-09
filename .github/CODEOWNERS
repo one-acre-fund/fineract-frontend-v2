@@ -1,1 +1,8 @@
-.github/ @one-acre-fund/devops
+# CODEOWNERS file for Fineract Frontend v2
+# This file defines code ownership for different parts of the project
+# Users and teams mentioned here will be automatically requested for review
+# when someone opens a pull request that modifies code in the specified paths
+
+# Global ownership - all files by default
+* @muchendu221
+
