@@ -1,5 +1,7 @@
 # Release Notes
+## Version 1.3.6.1 - Community 1.0.0
 
+    * [SER-3598] - Ensure OTP is validated only once per user action to prevent concurrent calls
 ## Version 1.3.6 - Community 1.0.0
 
     * [SER-3363] - Implement label translation in Client related UIs
