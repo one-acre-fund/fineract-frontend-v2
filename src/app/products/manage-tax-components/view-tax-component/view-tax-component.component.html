@@ -1,8 +1,6 @@
 <div class="container m-b-20" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end" fxLayoutGap="2%">
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_TAXCOMPONENT'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
 </div>
 
 <div class="container">
@@ -13,57 +11,43 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ taxComponentData.name }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Percentage
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.catalogs.Percentage' | translate }}</div>
 
         <div fxFlex="50%">
           {{ taxComponentData.percentage }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.debitAccountType">
-          Debit Account Type
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.debitAccountType">{{ 'labels.inputs.Debit Account Type' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="taxComponentData.debitAccountType">
           {{ taxComponentData.debitAccountType.value }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.debitAccount">
-          Debit Account
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.debitAccount">{{ 'labels.inputs.Debit Account' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="taxComponentData.debitAccount">
           {{ taxComponentData.debitAccount.name}}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.creditAccountType">
-          Credit Account Type
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.creditAccountType">{{ 'labels.inputs.Credit Account Type' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="taxComponentData.creditAccountType">
           {{ taxComponentData.creditAccountType.value }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.creditAccount">
-          Credit Account
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="taxComponentData.creditAccount">{{ 'labels.inputs.Credit Account' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="taxComponentData.creditAccount">
           {{ taxComponentData.creditAccount.name }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Start date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.oaf.Start date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ taxComponentData.startDate  | dateFormat }}

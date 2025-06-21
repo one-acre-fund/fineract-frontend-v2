@@ -1,6 +1,6 @@
 <form [formGroup]="loanProductOrganizationForm">
-    <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
-          <!-- <mat-form-field fxFlex="52%">
+  <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+    <!-- <mat-form-field fxFlex="52%">
           <mat-label>Country</mat-label>
             <mat-select placeholder="Search" #countryId required formControlName="countryId" (selectionChange)="search($event)">
               <mat-select-filter
@@ -18,64 +18,68 @@
             </mat-error>
           </mat-form-field> -->
 
-          <div fxFlex="52%">
-            <label for="country">Country</label>
-            <ng-select
-              #country
-              [items]="countries"
-              bindLabel="name"
-              bindValue="id"
-              placeholder="Select Country"
-              formControlName="countryId"
-              aria-labelledby="country"
-              (change)="search($event)"
-              [virtualScroll]="true"
-            >
-            </ng-select>
-          </div>
-
-
-
-          <div fxFlex="50%">
-            Organization Units:
-            <mifosx-country-tree-view
-              *ngIf="treeDataSource?.length>0"
-              [treeDataSource]="treeDataSource"
-              (checkedOffices)="getCheckedUnits($event)">
-            </mifosx-country-tree-view>
-          </div>
+    <div fxFlex="52%">
+      <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
+      <ng-select
+        #country
+        [items]="countries"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="{{ 'labels.commons.Select Country' | translate }}"
+        formControlName="countryId"
+        aria-labelledby="country"
+        (change)="search($event)"
+        [virtualScroll]="true"
+      >
+      </ng-select>
     </div>
 
-    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-      <mat-form-field fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">
-        <mat-error *ngIf="!isCountryHasActiveCurrency">
-          There is no active currency set for this country <strong>{{ countryName }}</strong>
-        </mat-error>
-        <mat-label>Currency</mat-label>
-        <input matInput formControlName="currencyCode" [value]="loanProductsTemplate?.currencyCode" [readonly]="true" disabled>
-      </mat-form-field>
+    <div fxFlex="50%">
+      {{ 'labels.oaf.Organization Units' | translate }}:
+      <mifosx-country-tree-view
+        *ngIf="treeDataSource?.length > 0"
+        [treeDataSource]="treeDataSource"
+        (checkedOffices)="getCheckedUnits($event)"
+      >
+      </mifosx-country-tree-view>
     </div>
+  </div>
 
-    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-      <mat-form-field fxFlex="50%">
-        <mat-label>Digits After Decimal</mat-label>
-        <input type="number" matInput formControlName="digitsAfterDecimal" required>
-      </mat-form-field>
-      <mat-form-field fxFlex="50%">
-        <mat-label>In Multiples Of</mat-label>
-        <input type="number" matInput formControlName="inMultiplesOf" required>
-      </mat-form-field>
-    </div>
+  <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+    <mat-form-field fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">
+      <mat-error *ngIf="!isCountryHasActiveCurrency">
+        {{ 'labels.oaf.No Active Currency' | translate }} <strong>{{ countryName }}</strong>
+      </mat-error>
+      <mat-label>{{ 'labels.inputs.Currency' | translate }}</mat-label>
+      <input
+        matInput
+        formControlName="currencyCode"
+        [value]="loanProductsTemplate?.currencyCode"
+        [readonly]="true"
+        disabled
+      />
+    </mat-form-field>
+  </div>
 
-    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-        <button mat-raised-button matStepperPrevious disabled>
-          <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
-          Previous
-        </button>
-        <button mat-raised-button matStepperNext>
-          Next&nbsp;&nbsp;
-          <fa-icon icon="arrow-right"></fa-icon>
-        </button>
-      </div>
+  <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+    <mat-form-field fxFlex="50%">
+      <mat-label>{{ 'labels.oaf.Digits After Decimal' | translate }}</mat-label>
+      <input type="number" matInput formControlName="digitsAfterDecimal" required />
+    </mat-form-field>
+    <mat-form-field fxFlex="50%">
+      <mat-label>{{ 'labels.oaf.In Multiples Of' | translate }}</mat-label>
+      <input type="number" matInput formControlName="inMultiplesOf" required />
+    </mat-form-field>
+  </div>
 
+  <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+    <button mat-raised-button matStepperPrevious disabled>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
+      {{ 'labels.buttons.Previous' | translate }}
+    </button>
+    <button mat-raised-button matStepperNext>
+      {{ 'labels.buttons.Next' | translate }}&nbsp;&nbsp;
+      <fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
 </form>

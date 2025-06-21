@@ -1,13 +1,12 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
   <button mat-raised-button color="primary" [routerLink]="['create']" *mifosxHasPermission="'CREATE_SAVINGSPRODUCT'">
-    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp; Create Saving Product
-  </button>
+    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.commons.Create Saving Product' | translate }}</button>
 </div>
 
 <div class="container">
   <div fxLayout="row">
     <mat-form-field fxFlex>
-      <mat-label>Filter</mat-label>
+      <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)" />
     </mat-form-field>
   </div>
@@ -15,22 +14,22 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Name' | translate }}</th>
         <td mat-cell *matCellDef="let savingProduct">{{ savingProduct.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="shortName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Short Name</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.oaf.Short Name' | translate }}</th>
         <td mat-cell *matCellDef="let savingProduct">{{ savingProduct.shortName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="currency">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Currency' | translate }}</th>
         <td mat-cell *matCellDef="let savingProduct">{{ savingProduct.currency?.code }}</td>
       </ng-container>
 
       <ng-container matColumnDef="loanproduct">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Loan Product</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.heading.Loan Product' | translate }}</th>
         <td mat-cell *matCellDef="let savingProduct">{{ savingProduct.loanProductName ?? '' }}</td>
       </ng-container>
 

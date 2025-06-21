@@ -89,7 +89,7 @@
             {{ transactionData.paymentDetailData.receiptNumber }}
           </div>
 
-          <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%" class="mat-body-strong">Bank No.</div>
+          <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%" class="mat-body-strong">{{ 'labels.commons.Bank No.' | translate }}</div>
 
           <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%">
             {{ transactionData.paymentDetailData.bankNumber }}
