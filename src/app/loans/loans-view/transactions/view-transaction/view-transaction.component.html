@@ -10,7 +10,7 @@
     </button>
   </span> -->
   <button mat-raised-button color="warn" *mifosxHasPermission="'ADJUST_LOAN'" (click)="undoTransaction()">
-    <fa-icon icon="undo"></fa-icon>&nbsp;&nbsp;{{ 'label.buttons.Undo' | translate }}
+    <fa-icon icon="undo"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Undo' | translate }}
   </button>
 </div>
 
@@ -18,31 +18,31 @@
   <mat-card>
     <mat-card-content>
       <div fxLayout="row wrap" class="content">
-        <div fxFlex="50%" class="mat-body-strong">{{ 'label.inputs.Transaction Id' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Transaction Id' | translate }}</div>
 
         <div fxFlex="50%">
           {{ transactionData.id }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">{{ 'label.inputs.Type' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Type' | translate }}</div>
 
         <div fxFlex="50%">
           {{ transactionData.type.value }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">{{ 'label.inputs.Transaction Date' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Transaction Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ transactionData.date | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">{{ 'label.inputs.Currency' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Currency' | translate }}</div>
 
         <div fxFlex="50%">
           {{ transactionData.currency.name }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">{{ 'label.inputs.Amount' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Amount' | translate }}</div>
 
         <div fxFlex="50%">
           {{ transactionData.amount }}
@@ -50,7 +50,7 @@
 
         <ng-container *ngIf="transactionData.paymentDetailData">
           <div *ngIf="transactionData.paymentDetailData.paymentType" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Payment Type' | translate }}
+            {{ 'labels.inputs.Payment Type' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.paymentType" fxFlex="50%">
@@ -58,7 +58,7 @@
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.accountNumber" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Account No' | translate }}
+            {{ 'labels.inputs.Account No' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.accountNumber" fxFlex="50%">
@@ -66,7 +66,7 @@
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.checkNumber" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Cheque Number' | translate }}
+            {{ 'labels.inputs.Cheque Number' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.checkNumber" fxFlex="50%">
@@ -74,7 +74,7 @@
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.routingCode" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Routing Code' | translate }}
+            {{ 'labels.inputs.Routing Code' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.routingCode" fxFlex="50%">
@@ -82,14 +82,14 @@
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.receiptNumber" fxFlex="50%" class="mat-body-strong">
-            {{ 'label.inputs.Receipt No' | translate }}
+            {{ 'labels.inputs.Receipt No' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.receiptNumber" fxFlex="50%">
             {{ transactionData.paymentDetailData.receiptNumber }}
           </div>
 
-          <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%" class="mat-body-strong">Bank No.</div>
+          <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%" class="mat-body-strong">{{ 'labels.commons.Bank No.' | translate }}</div>
 
           <div *ngIf="transactionData.paymentDetailData.bankNumber" fxFlex="50%">
             {{ transactionData.paymentDetailData.bankNumber }}
@@ -100,13 +100,21 @@
             fxFlex="50%"
             class="mat-body-strong"
           >
-            {{ 'label.inputs.Phone Number' | translate }}
+            {{ 'labels.inputs.Phone Number' | translate }}
           </div>
 
           <div *ngIf="transactionData.paymentDetailData.paymentConfirmation?.mobilePhoneNumber" fxFlex="50%">
             {{ transactionData.paymentDetailData.paymentConfirmation?.mobilePhoneNumber }}
           </div>
         </ng-container>
+
+        <div *ngIf="transactionData.transfer" fxFlex="50%" class="mat-body-strong">
+          {{ 'labels.oaf.transferDescription' | translate }}
+        </div>
+
+        <div *ngIf="transactionData.transfer" fxFlex="50%">
+          {{ transactionData.transfer?.transferDescription }}
+        </div>
       </div>
     </mat-card-content>
   </mat-card>

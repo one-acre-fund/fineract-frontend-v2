@@ -10,18 +10,15 @@
       <div fxLayout="row" fxLayoutAlign="flex-end">
         <span *mifosxHasPermission="'CREATE_' + datatableName">
           <button mat-raised-button color="primary" (click)="add()" *ngIf="!dataObject.data[0]">
-            <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Add
-          </button>
+            <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Add' | translate }}</button>
         </span>
         <span *mifosxHasPermission="'UPDATE_' + datatableName">
           <button mat-raised-button color="primary" (click)="edit()" *ngIf="dataObject.data[0]">
-            <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;Edit
-          </button>
+            <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
         </span>
         <span *mifosxHasPermission="'DELETE_' + datatableName" class="delete-button">
           <button mat-raised-button color="warn" (click)="delete()" *ngIf="dataObject.data[0]">
-            <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Delete
-          </button>
+            <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
         </span>
       </div>
     </div>

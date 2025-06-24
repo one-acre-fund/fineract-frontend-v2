@@ -20,7 +20,7 @@
             <tr>
               <td>{{ 'labels.inputs.Loan Officer' | translate }}</td>
               <td>
-                {{ dataObject.loanOfficerName }} <span *ngIf="!dataObject.loanOfficerName">Unassigned</span>
+                {{ dataObject.loanOfficerName }} <span *ngIf="!dataObject.loanOfficerName">{{ 'labels.inputs.Unassigned' | translate }}</span>
                 <span *ngIf="dataObject.loanOfficerName">
                   <fa-icon icon="times"></fa-icon>
                 </span>

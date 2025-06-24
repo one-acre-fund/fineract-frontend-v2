@@ -4,17 +4,17 @@
       <mat-card-content>
         <div fxLayout="column">
           <div fxFlex="48%" fxLayout="row" fxLayout.lt-md="column" class="rule-wrapper office-div" *ngIf="officeName">
-            <mat-label fxFlex="10%">Office</mat-label>
+            <mat-label fxFlex="10%">{{ 'labels.inputs.Office' | translate }}</mat-label>
             <mat-radio-group fxFlex="50%" fxLayout="row" fxLayoutGap="5%" formControlName="id">
               <p>{{ officeName }}</p>
             </mat-radio-group>
           </div>
 
           <div fxFlex="48%" fxLayout="row" fxLayout.lt-md="column" class="rule-wrapper">
-            <mat-label fxFlex="50%">Repayment Allocation</mat-label>
+            <mat-label fxFlex="50%">{{ 'labels.inputs.Repayment Allocation' | translate }}</mat-label>
             <mat-radio-group fxFlex="50%" fxLayout="row" fxLayoutGap="5%" formControlName="repaymentChoice">
-              <mat-radio-button value="CLIENT_CHOICE">Client Choice</mat-radio-button>
-              <mat-radio-button value="SYSTEM_CHOICE">System Choice</mat-radio-button>
+              <mat-radio-button value="CLIENT_CHOICE">{{ 'labels.inputs.Client Choice' | translate }}</mat-radio-button>
+              <mat-radio-button value="SYSTEM_CHOICE">{{ 'labels.inputs.System Choice' | translate }}</mat-radio-button>
             </mat-radio-group>
           </div>
 
@@ -25,10 +25,12 @@
             class="rule-wrapper"
             *ngIf="allocationForm.controls.repaymentChoice.value == 'SYSTEM_CHOICE'"
           >
-            <mat-label fxFlex="50%">System Choice</mat-label>
+            <mat-label fxFlex="50%">{{ 'labels.inputs.System Choice' | translate }}</mat-label>
             <mat-radio-group fxFlex="50%" fxLayout="row" fxLayoutGap="5%" formControlName="systemChoice">
-              <mat-radio-button value="DUE_DATE">Due Date</mat-radio-button>
-              <mat-radio-button value="LIABILITY">Liability</mat-radio-button>
+              <mat-radio-button value="DUE_DATE">{{ 'labels.inputs.Due Date' | translate }}</mat-radio-button>
+              <mat-radio-button value="LIABILITY">{{
+                'labels.inputs.accounting.LIABILITY' | translate
+              }}</mat-radio-button>
             </mat-radio-group>
           </div>
 
@@ -42,7 +44,7 @@
               allocationForm.controls.repaymentChoice.value == 'SYSTEM_CHOICE'
             "
           >
-            <mat-label fxFlex="50%">Drag & Reorder Liability Priorities</mat-label>
+            <mat-label fxFlex="50%">{{ 'labels.oaf.DragReorder Liability Priorities' | translate }}</mat-label>
             <div class="options" dragula="liabilityPriorityDragula" [(dragulaModel)]="loanTypeOptionsModel">
               <p *ngFor="let option of loanTypeOptions">
                 {{ option.name }}
@@ -75,14 +77,14 @@
               </mat-error>
             </mat-form-field> -->
 
-            <div >
-              <label for="country">Country</label>
+            <div>
+              <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
               <ng-select
                 #country
                 [items]="countries"
                 bindLabel="name"
                 bindValue="id"
-                placeholder="Select Country"
+                placeholder="{{ 'labels.commons.Select Country' | translate }}"
                 formControlName="countryId"
                 aria-labelledby="country"
                 (change)="search($event)"
@@ -92,8 +94,8 @@
             </div>
           </div>
           <div fxFlex="50%" *ngIf="!officeName">
-            Assign Offices:
-            <mifosx-country-tree-view
+            {{ 'labels.commons.Assign Offices' | translate
+            }}<mifosx-country-tree-view
               *ngIf="treeDataSource?.length > 0"
               [treeDataSource]="treeDataSource"
               (checkedOffices)="getCheckedUnits($event)"
@@ -103,8 +105,10 @@
         </div>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="!officeName ? ['../'] : ['../../']">Cancel</button>
-        <button mat-raised-button color="primary">Submit</button>
+        <button type="button" mat-raised-button [routerLink]="!officeName ? ['../'] : ['../../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
+        <button mat-raised-button color="primary">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

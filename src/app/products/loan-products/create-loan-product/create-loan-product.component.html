@@ -1,7 +1,5 @@
 <div class="container">
-
   <mat-horizontal-stepper class="mat-elevation-z8" labelPosition="bottom" #loanProductStepper>
-
     <ng-template matStepperIcon="number">
       <fa-icon icon="pencil-alt" size="sm"></fa-icon>
     </ng-template>
@@ -23,55 +21,51 @@
     </ng-template>
 
     <mat-step [stepControl]="loanProductDetailsForm">
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.DETAILS' | translate }}</ng-template>
 
-      <ng-template matStepLabel>DETAILS</ng-template>
-
-      <mifosx-loan-product-details-step [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-details-step>
-
+      <mifosx-loan-product-details-step
+        [loanProductsTemplate]="loanProductsTemplate"
+      ></mifosx-loan-product-details-step>
     </mat-step>
 
-
     <mat-step [stepControl]="loanProductOrganizationForm">
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.ORGANIZATION_UNITS' | translate }}</ng-template>
 
-      <ng-template matStepLabel>ORGANIZATION UNITS</ng-template>
-
-      <mifosx-loan-product-organization-unit-step [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-organization-unit-step>
-
+      <mifosx-loan-product-organization-unit-step
+        [loanProductsTemplate]="loanProductsTemplate"
+      ></mifosx-loan-product-organization-unit-step>
     </mat-step>
 
     <mat-step [stepControl]="loanProductAppsForm">
-
-      <ng-template matStepLabel>APPS</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.APPS' | translate }}</ng-template>
 
       <mifosx-loan-product-apps [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-apps>
     </mat-step>
 
     <mat-step [stepControl]="loanProductTermsForm">
-
-      <ng-template matStepLabel>TERMS</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.TERMS' | translate }}</ng-template>
 
       <mifosx-loan-product-terms-step [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-terms-step>
-
     </mat-step>
 
     <mat-step [stepControl]="loanProductClientEligibilityForm">
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.CLIENT_ELIGIBILITY' | translate }}</ng-template>
 
-      <ng-template matStepLabel>CLIENT ELIGIBILITY</ng-template>
-
-      <mifosx-loan-product-client-eligibility-step [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-client-eligibility-step>
-
+      <mifosx-loan-product-client-eligibility-step
+        [loanProductsTemplate]="loanProductsTemplate"
+      ></mifosx-loan-product-client-eligibility-step>
     </mat-step>
 
     <mat-step [stepControl]="loanProductQualificationRuleForm" *ngIf="isQualificationRequired">
-      <ng-template matStepLabel>QUALIFICATION RULES</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.QUALIFICATION_RULES' | translate }}</ng-template>
 
-      <mifosx-loan-product-qualification-rules-step [loanProductsTemplate]="loanProductsTemplate"></mifosx-loan-product-qualification-rules-step>
+      <mifosx-loan-product-qualification-rules-step
+        [loanProductsTemplate]="loanProductsTemplate"
+      ></mifosx-loan-product-qualification-rules-step>
     </mat-step>
 
-
     <mat-step [stepControl]="loanProductSettingsForm">
-
-      <ng-template matStepLabel>SETTINGS</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.SETTINGS' | translate }}</ng-template>
 
       <mifosx-loan-product-settings-step
         [loanProductsTemplate]="loanProductsTemplate"
@@ -80,12 +74,10 @@
         [enableTermsAndConditions]="enableTermsAndConditions"
       >
       </mifosx-loan-product-settings-step>
-
     </mat-step>
 
     <mat-step>
-
-      <ng-template matStepLabel>CHARGES</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.CHARGES' | translate }}</ng-template>
 
       <mifosx-loan-product-charges-step
         [loanProductsTemplate]="loanProductsTemplate"
@@ -93,12 +85,10 @@
         [multiDisburseLoan]="loanProductSettingsForm.get('multiDisburseLoan')"
       >
       </mifosx-loan-product-charges-step>
-
     </mat-step>
 
     <mat-step [stepControl]="loanProductAccountingForm">
-
-      <ng-template matStepLabel>ACCOUNTING</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.ACCOUNTING' | translate }}</ng-template>
 
       <mifosx-loan-product-accounting-step
         [loanProductsTemplate]="loanProductsTemplate"
@@ -106,12 +96,10 @@
         [loanProductFormValid]="loanProductFormValid"
       >
       </mifosx-loan-product-accounting-step>
-
     </mat-step>
 
     <mat-step state="preview" *ngIf="loanProductFormValid" completed>
-
-      <ng-template matStepLabel>PREVIEW</ng-template>
+      <ng-template matStepLabel>{{ 'labels.loanProductSteps.PREVIEW' | translate }}</ng-template>
 
       <mifosx-loan-product-preview-step
         [loanProductsTemplate]="loanProductsTemplate"
@@ -120,9 +108,6 @@
         (submit)="submit()"
       >
       </mifosx-loan-product-preview-step>
-
     </mat-step>
-
   </mat-horizontal-stepper>
-
 </div>

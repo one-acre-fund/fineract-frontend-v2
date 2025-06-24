@@ -217,7 +217,7 @@ export class ViewBulkImportComponent implements OnInit {
       }
     }
     let countryId = null;
-    if (this.bulkImport.name == 'Loan Repayments') {
+    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction') {
       countryId = this.bulkImportForm.get('countryId').value;
       if (!countryId) {
         return this.alertService.alert({

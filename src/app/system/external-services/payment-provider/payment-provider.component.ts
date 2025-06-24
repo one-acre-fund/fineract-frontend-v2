@@ -86,7 +86,7 @@ export class PaymentProviderComponent implements OnInit {
    * Edit country external service.
    */
   navigateToEditExternalService(countryExternalService: any) {
-    console.log('countryExternalServiceId', countryExternalService);
+    console.debug('countryExternalServiceId', countryExternalService);
     const selectedCountryExternalService = this.paymentProviderData.find(
       (data) => data.id === countryExternalService.id
     );
