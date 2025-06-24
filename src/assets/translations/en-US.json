@@ -1154,7 +1154,9 @@
       "You have created": "You have created",
       "You can drag and drop the rows to set a Payment Allocations order": "You can drag and drop the rows to set a Payment Allocations order",
       "successfully select option": "successfully. Please select from the options below to proceed further.",
-      "Map Charge-off reasons to Expense accounts": "Map Charge-off reasons to Expense accounts"
+      "Map Charge-off reasons to Expense accounts": "Map Charge-off reasons to Expense accounts",
+      "Status": "Status",
+      "Sub Status": "Sub Status"
     },
     "inputs": {
       "accounting": {

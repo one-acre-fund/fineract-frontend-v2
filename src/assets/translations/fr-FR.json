@@ -1153,7 +1153,9 @@
       "You have created": "Vous avez créé",
       "You can drag and drop the rows to set a Payment Allocations order": "Vous pouvez faire glisser et déposer les lignes pour définir un ordre de répartition des paiements",
       "successfully select option": "avec succès. Veuillez sélectionner parmi les options ci-dessous pour continuer.",
-      "Map Charge-off reasons to Expense accounts": "Cartographier les motifs de radiation sur les comptes de dépenses"
+      "Map Charge-off reasons to Expense accounts": "Cartographier les motifs de radiation sur les comptes de dépenses",
+      "Status": "Statut",
+      "Sub Status": "Sous-statut"
     },
     "inputs": {
       "accounting": {

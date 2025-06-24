@@ -7,6 +7,10 @@
       <p>
         {{ 'labels.inputs.Maturity Date' | translate }} :{{ loanDetails?.timeline.expectedMaturityDate | dateFormat }}
       </p>
+
+      <p>{{ 'labels.heading.Status' | translate }} :{{ loanDetails?.status.value }}</p>
+
+      <p *ngIf="loanDetails.subStatus">{{ 'labels.heading.Sub Status' | translate }} :{{ loanDetails?.subStatus.value }}</p>
     </div>
   </ng-container>
 
