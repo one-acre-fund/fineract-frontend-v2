@@ -3455,6 +3455,14 @@
       "Dashboard": "Tableau de bord",
       "Home": "Maison",
       "Login": "Se connecter"
+    },
+    "subStatus": {
+      "Foreclosed": "Saisi",
+      "AwaitingCreditScore": "En attente du score de crédit",
+      "FailedCreditScoreCheck": "Échec de la vérification du score de crédit",
+      "SANCTIONED": "Sanctionné",
+      "BLACKLISTED": "Liste noire",
+      "Invalid": "Invalide"
     }
   },
   "languages": {
