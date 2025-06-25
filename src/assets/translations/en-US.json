@@ -1307,7 +1307,9 @@
       "successfully select option": "successfully. Please select from the options below to proceed further.",
       "Map Charge-off reasons to Expense accounts": "Map Charge-off reasons to Expense accounts",
       "Delete Interest Rate Chart": "Delete Interest Rate Chart",
-      "Floating Rate Period": "Floating Rate Period"
+      "Floating Rate Period": "Floating Rate Period",
+      "Status": "Status",
+      "Sub Status": "Sub Status"
     },
     "inputs": {
       "accounting": {

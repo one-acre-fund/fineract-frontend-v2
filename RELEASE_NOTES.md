@@ -1,6 +1,10 @@
 # Release Notes
 
 
+## Version 1.3.8 - Community 1.0.0
+
+    * [CP-3564] - Show loan status and substatus on loan view
+
 ## Version 1.3.7.2 - Community 1.0.0
 
     * [SER-3365] - Implement label translation in Product related UIs
