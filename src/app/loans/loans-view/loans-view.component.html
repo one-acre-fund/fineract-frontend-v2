@@ -35,6 +35,12 @@
                 <span *ngIf="loanDetailsData.group">
                   {{ 'labels.inputs.Group Name' | translate }} : {{ loanDetailsData.group.name }}
                 </span>
+                <span *ngIf="loanDetailsData.status">
+                  {{ 'labels.heading.Status' | translate }} : {{ ('labels.status.' + loanDetailsData?.status?.value) | translate }}
+                </span>
+                <span *ngIf="loanDetailsData.subStatus">
+                  - {{ ('labels.subStatus.' + loanDetailsData?.subStatus?.value) | translate }}
+                </span>
               </h3>
             </div>
 
