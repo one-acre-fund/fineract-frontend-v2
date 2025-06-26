@@ -3476,6 +3476,14 @@
       "Dashboard": "Dashboard",
       "Home": "Home",
       "Login": "Login"
+    },
+    "subStatus": {
+      "Foreclosed": "Foreclosed",
+      "AwaitingCreditScore": "Awaiting Credit Score",
+      "FailedCreditScoreCheck": "Failed Credit Score Check",
+      "SANCTIONED": "Sanctioned",
+      "BLACKLISTED": "Blacklisted",
+      "Invalid": "Invalid"
     }
   },
   "languages": {
