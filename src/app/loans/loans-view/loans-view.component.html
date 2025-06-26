@@ -39,7 +39,7 @@
                   {{ 'labels.heading.Status' | translate }} : {{ ('labels.status.' + loanDetailsData?.status?.value) | translate }}
                 </span>
                 <span *ngIf="loanDetailsData.subStatus">
-                  {{ 'labels.heading.Sub Status' | translate }} : {{ ('labels.subStatus.' + loanDetailsData?.subStatus?.value) | translate }}
+                  - {{ ('labels.subStatus.' + loanDetailsData?.subStatus?.value) | translate }}
                 </span>
               </h3>
             </div>
