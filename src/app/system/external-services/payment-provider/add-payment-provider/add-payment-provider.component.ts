@@ -62,12 +62,38 @@ export class AddPaymentProviderComponent implements OnInit {
       bank_code: ['', Validators.required],
       base_url: ['', Validators.required],
       account_creation_endpoint: ['', Validators.required],
-      authentication_endpoint: ['', Validators.required],
+      authentication_endpoint: [''],
       authentication_type: ['', Validators.required],
       business_id: ['', Validators.required],
       sub_entity_code: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: [''],
+      password: [''],
+    });
+
+    this.handleAuthTypeChanges();
+ }
+  /**
+   * Handles changes in authentication type and updates validators accordingly.
+   */
+  handleAuthTypeChanges() {
+    this.addPaymentProviderForm.get('authentication_type')?.valueChanges.subscribe(authType => {
+      const endpointControl = this.addPaymentProviderForm.get('authentication_endpoint');
+      const usernameControl = this.addPaymentProviderForm.get('username');
+      const passwordControl = this.addPaymentProviderForm.get('password');
+
+      if (authType?.toLowerCase() === 'apikey') {
+        endpointControl?.clearValidators();
+        usernameControl?.clearValidators();
+        passwordControl?.setValidators([Validators.required]);
+      } else {
+        endpointControl?.setValidators([Validators.required]);
+        usernameControl?.setValidators([Validators.required]);
+        passwordControl?.setValidators([Validators.required]);
+      }
+
+      endpointControl?.updateValueAndValidity();
+      usernameControl?.updateValueAndValidity();
+      passwordControl?.updateValueAndValidity();
     });
   }
 
@@ -96,6 +122,6 @@ export class AddPaymentProviderComponent implements OnInit {
         console.log('Error while adding the payment provider: ', error);
       },
     });
-    
+
   }
 }

@@ -100,16 +100,6 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxFlex="10%" fxLayout="column"></div>
-          <div fxFlex="40%" fxLayout="column">
-            <mat-form-field>
-              <mat-label>Authentication endpoint</mat-label>
-              <input matInput required formControlName="authentication_endpoint" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">
-                Authentication endpoint is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
         </div>
 
         <div fxLayout="row">
@@ -129,13 +119,23 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>Authentication endpoint</mat-label>
+              <input matInput formControlName="authentication_endpoint" />
+              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">
+                Authentication endpoint is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>Username</mat-label>
-              <input matInput required formControlName="username" />
+              <input matInput formControlName="username" />
               <mat-error *ngIf="editPaymentProviderForm.controls.username.hasError('required')">
                 Username is <strong>required</strong>
               </mat-error>
