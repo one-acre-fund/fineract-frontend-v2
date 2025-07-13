@@ -5,14 +5,13 @@
     <div fxLayoutAlign="flex-end" class="action-button m-b-20">
       <span>
         <button mat-raised-button color="primary" [routerLink]="['create']">
-          <fa-icon icon="plus"></fa-icon> Create Outlet
-        </button>
+          <fa-icon icon="plus"></fa-icon>{{ 'labels.commons.Create Outlet' | translate }}</button>
       </span>
     </div>
 
     <div fxLayout="row" fxLayoutGap="20px">
       <mat-form-field fxFlex>
-        <mat-label>Filter</mat-label>
+        <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
         <input matInput (keyup)="applyFilter($event.target.value)">
       </mat-form-field>
     </div>
@@ -20,33 +19,31 @@
     <div class="mat-elevation-z8">
 
       <table mat-table [dataSource]="dataSource" matSort>
-        <caption class="display-none">Rural Outlet</caption>
+        <caption class="display-none">{{ 'labels.commons.Rural Outlet' | translate }}</caption>
         <ng-container matColumnDef="name">
 
 
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Office Name </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Office Name' | translate }}</th>
           <td mat-cell *matCellDef="let offices"> {{ offices.name }} </td>
         </ng-container>
 
         <ng-container matColumnDef="externalId">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> External ID </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.External ID' | translate }}</th>
           <td mat-cell *matCellDef="let offices"> {{ offices.externalId }} </td>
         </ng-container>
 
         <ng-container matColumnDef="openingDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Opened On </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Opened On' | translate }}</th>
           <td mat-cell *matCellDef="let offices"> {{ offices.openingDate  | dateFormat }} </td>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.buttons.Actions' | translate }}</th>
           <td mat-cell *matCellDef="let offices" (click)="$event.stopPropagation()">
             <button type="button" mat-raised-button color="warn" *ngIf="offices.status===true" (click)="deactivateOutlet(offices.id,false)">
-              <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Deactivate
-            </button>
+              <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Deactivate' | translate }}</button>
             <button type="button" mat-raised-button color="primary" *ngIf="offices.status===false" (click)="deactivateOutlet(offices.id,true)">
-              <em class="fa fa-unlock-alt"></em>&nbsp;&nbsp;Activate           
-            </button>
+              <em class="fa fa-unlock-alt"></em>&nbsp;&nbsp;{{ 'labels.buttons.Activate' | translate }}</button>
           </td>
         </ng-container>
 

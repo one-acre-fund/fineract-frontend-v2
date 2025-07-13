@@ -1,12 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_TELLER'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
   <button mat-raised-button color="warn" (click)="deleteTeller()" *mifosxHasPermission="'DELETE_TELLER'">
-    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
-    Delete
-  </button>
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
 </div>
 
 <div class="container">
@@ -17,49 +13,37 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Teller Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Teller Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ tellerData.name }}
         </div>
         
-        <div fxFlex="50%" class="mat-body-strong">
-          Office
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Office' | translate }}</div>
 
         <div fxFlex="50%">
           {{ tellerData.officeName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="tellerData.description">
-          Description
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="tellerData.description">{{ 'labels.inputs.Description' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="tellerData.description">
           {{ tellerData.description }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Start Date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Start Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ tellerData.startDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="tellerData.endDate">
-          End Date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="tellerData.endDate">{{ 'labels.inputs.End Date' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="tellerData.endDate">
           {{ tellerData.endDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Status
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Status' | translate }}</div>
 
         <div fxFlex="50%">
           {{ tellerData.status | titlecase }}

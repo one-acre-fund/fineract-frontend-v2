@@ -33,13 +33,13 @@
           </mat-form-field> -->
 
           <div>
-            <label for="country">Country</label>
+            <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
             <ng-select
               #country
               [items]="listCountries"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Country"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
               formControlName="countryId"
               aria-labelledby="country"
               (change)="search($event)"
@@ -49,15 +49,14 @@
           </div>
 
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
             <input matInput required formControlName="name" />
-            <mat-error *ngIf="outletForm.controls.name.hasError('required')">
-              Outlet name is <strong>required</strong>
+            <mat-error *ngIf="outletForm.controls.name.hasError('required')">{{ 'labels.commons.Outlet name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field (click)="openedOnDatePicker.open()">
-            <mat-label>Opened On</mat-label>
+            <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -68,19 +67,16 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openedOnDatePicker></mat-datepicker>
-            <mat-error *ngIf="outletForm.controls.openingDate.hasError('required')">
-              Opening Date is <strong>required</strong>
+            <mat-error *ngIf="outletForm.controls.openingDate.hasError('required')">{{ 'labels.inputs.Opening Date is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>External Id</mat-label>
+            <mat-label>{{ 'labels.inputs.External Id' | translate }}</mat-label>
             <input matInput formControlName="externalId" />
           </mat-form-field>
 
-          <div class="">
-            Assigned Offices:
-            <mifosx-country-tree-view
+          <div class="">{{ 'labels.commons.Assigned Offices' | translate }}<mifosx-country-tree-view
               *ngIf="treeDataSource.length > 0"
               [treeDataSource]="treeDataSource"
               (checkedOffices)="getCheckedOffices($event)"
@@ -89,8 +85,8 @@
         </div>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary">Submit</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

@@ -4,7 +4,7 @@
       <mat-card-content>
         <div fxLayout="column">
           <mat-form-field>
-            <mat-label>Country</mat-label>
+            <mat-label>{{ 'labels.oaf.Country' | translate }}</mat-label>
             <mat-select name="country" disabled formControlName="countryId">
               <mat-option *ngFor="let country of listCountries" [value]="country.id">
                 {{ country.name }}
@@ -12,27 +12,25 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-label>Name</mat-label>
+            <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
             <input matInput required formControlName="name" />
-            <mat-error> Name <strong>is required</strong> </mat-error>
+            <mat-error>{{ 'labels.inputs.Name' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong> </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Opened On</mat-label>
+            <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input matInput required disabled formControlName="openingDate" [matDatepicker]="openingDatePicker" />
             <mat-datepicker-toggle matSuffix [for]="openingDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openingDatePicker></mat-datepicker>
-            <mat-error> Date <strong>is required</strong> </mat-error>
+            <mat-error>{{ 'labels.commons.Date' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong> </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>External Id</mat-label>
+            <mat-label>{{ 'labels.inputs.External Id' | translate }}</mat-label>
             <input matInput formControlName="externalId" />
           </mat-form-field>
 
-          <div class="">
-            Assigned Offices:
-            <mifosx-country-tree-view
+          <div class="">{{ 'labels.commons.Assigned Offices' | translate }}<mifosx-country-tree-view
               *ngIf="treeDataSource?.length>0"
               [treeDataSource]="treeDataSource"
               (checkedOffices)="getCheckedOffices($event)"
@@ -41,8 +39,8 @@
         </div>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary">Submit</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>
