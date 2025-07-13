@@ -68,9 +68,9 @@
               >
                 <mat-list dense>
                   <mat-list-item
-                    *ngFor="let office of officeList.split(','); let i = index"
+                    *ngFor="let office of officeArray; let i = index"
                     class="office-list-item"
-                    [class.mat-list-item-divider]="i < officeList.split(',').length - 1"
+                    [class.mat-list-item-divider]="i < officeArray.length - 1"
                     style="height: 40px; padding: 8px 16px"
                   >
                     <mat-icon matListIcon style="margin-right: 12px">business</mat-icon>
@@ -80,10 +80,10 @@
                   </mat-list-item>
                 </mat-list>
               </div>
-              <div class="office-count-info m-t-10" *ngIf="officeList.split(',').length > 5">
+              <div class="office-count-info m-t-10" *ngIf="officeArray.length > 5">
                 <mat-chip-list>
                   <mat-chip color="primary" selected>
-                    {{ officeList.split(',').length }} {{ 'labels.commons.offices total' | translate }}
+                    {{ officeArray.length }} {{ 'labels.commons.offices total' | translate }}
                   </mat-chip>
                 </mat-chip-list>
               </div>
