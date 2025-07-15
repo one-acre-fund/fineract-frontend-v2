@@ -8,9 +8,9 @@
         (ngSubmit)="addFund()" *mifosxHasPermission="'CREATE_FUND'">
 
         <mat-form-field fxFlex="calc(90%-20px)">
-          <textarea formControlName="name" matInput placeholder="New Fund"></textarea>
+          <textarea formControlName="name" matInput placeholder="{{ 'labels.commons.New Fund' | translate }}"></textarea>
             <mat-error *ngIf="fundForm.controls.name.hasError('required')">
-                <strong>Required field</strong>
+                <strong>{{ 'labels.commons.Required field' | translate }}</strong>
             </mat-error>
         </mat-form-field>
 

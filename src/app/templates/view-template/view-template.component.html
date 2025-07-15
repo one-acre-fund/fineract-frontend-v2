@@ -1,14 +1,10 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
 
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_TEMPLATE'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
 
   <button mat-raised-button color="warn" (click)="delete()" *mifosxHasPermission="'DELETE_TEMPLATE'">
-    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
-    Delete
-  </button>
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
 
 </div>
 
@@ -20,33 +16,25 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ templateData.name }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Entity
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Entity' | translate }}</div>
 
         <div fxFlex="50%">
           {{ templateData.entity }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Type
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Type' | translate }}</div>
 
         <div fxFlex="50%">
           {{ templateData.type }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Text
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Text' | translate }}</div>
 
         <div fxFlex="50%" [innerHTML]="templateData.text"></div>
 

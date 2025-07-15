@@ -20,13 +20,13 @@
           </mat-form-field> -->
 
           <div>
-            <label for="splitOffice">Select Office To Split</label>
+            <label for="splitOffice">{{ 'labels.commons.Select Office To Split' | translate }}</label>
             <ng-select
               #splitOffice
               [items]="splitOffices"
               bindLabel="officeHierarchyPath"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="splitId"
               aria-labelledby="splitId"
               (change)="filterparentOffices($event)"
@@ -35,7 +35,7 @@
             </ng-select>
           </div>
 
-         <!--  <mat-form-field>
+          <!--  <mat-form-field>
             <mat-label>First Office Parent</mat-label>
 
             <mat-select placeholder="Search" #firstParent required formControlName="firstParentId">
@@ -60,13 +60,13 @@
           </mat-form-field> -->
 
           <div>
-            <label for="firstParent">First Office Parent</label>
+            <label for="firstParent">{{ 'labels.commons.First Office Parent' | translate }}</label>
             <ng-select
               #firstParent
               [items]="firstParentOfficeData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="firstParentId"
               aria-labelledby="firstParentId"
               [virtualScroll]="true"
@@ -75,10 +75,11 @@
           </div>
 
           <mat-form-field>
-            <mat-label>First Office</mat-label>
+            <mat-label>{{ 'labels.commons.First Office' | translate }}</mat-label>
             <input required matInput formControlName="firstOfficeName" />
-            <mat-error *ngIf="splitOfficeForm.controls.firstOfficeName.hasError('required')">
-              First Office Name is <strong>required</strong>
+            <mat-error *ngIf="splitOfficeForm.controls.firstOfficeName.hasError('required')"
+              >{{ 'labels.inputs.First Office Name is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
@@ -112,15 +113,14 @@
             </mat-error>
           </mat-form-field> -->
 
-
           <div>
-            <label for="firstParent">First Office Child</label>
+            <label for="firstParent">{{ 'labels.commons.First Office Child' | translate }}</label>
             <ng-select
               #firstParent
               [items]="firstchildOfficeData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="firstOfficeChildIds"
               aria-labelledby="firstOfficeChildIds"
               [multiple]="true"
@@ -130,9 +130,8 @@
             </ng-select>
           </div>
 
-
           <mat-form-field (click)="openedOnDatePicker.open()">
-            <mat-label>First Office Opened On</mat-label>
+            <mat-label>{{ 'labels.commons.First Office Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -143,51 +142,25 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openedOnDatePicker></mat-datepicker>
-            <mat-error *ngIf="splitOfficeForm.controls.firstOpeningDate.hasError('required')">
-              Opening Date is <strong>required</strong>
+            <mat-error *ngIf="splitOfficeForm.controls.firstOpeningDate.hasError('required')"
+              >{{ 'labels.inputs.Opening Date is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>First External ID</mat-label>
+            <mat-label>{{ 'labels.commons.First External ID' | translate }}</mat-label>
             <input matInput formControlName="firstExternalId" />
           </mat-form-field>
 
-          <!-- Second Office -->
-
-          <!-- <mat-form-field>
-            <mat-label>Second Office Parent</mat-label>
-
-            <mat-select placeholder="Search" #secondParent required formControlName="secondParentId">
-              <mat-select-filter
-                *ngIf="secondParent.focused"
-                [array]="secondParentOfficeData"
-                (filteredReturn)="secondParentOfficesSliced = $event"
-                [displayMember]="'name'"
-              >
-              </mat-select-filter>
-              <mat-option
-                *ngFor="let office of secondParentOfficeData"
-                [value]="office.id"
-                [class.hide]="!isFiltered(office, 2)"
-              >
-                {{ office.name }}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="splitOfficeForm.controls.secondParentId.hasError('required')">
-              Second Office Parent is <strong>required</strong>
-            </mat-error>
-          </mat-form-field> -->
-
-
           <div>
-            <label for="secondParent">Second Office Parent</label>
+            <label for="secondParent">{{ 'labels.commons.Second Office Parent' | translate }}</label>
             <ng-select
               #secondParent
               [items]="secondParentOfficeData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="secondParentId"
               aria-labelledby="secondParentId"
               [virtualScroll]="true"
@@ -195,16 +168,16 @@
             </ng-select>
           </div>
 
-
           <mat-form-field>
-            <mat-label>Second Office</mat-label>
+            <mat-label>{{ 'labels.commons.Second Office' | translate }}</mat-label>
             <input required matInput formControlName="secondOfficeName" />
-            <mat-error *ngIf="splitOfficeForm.controls.secondOfficeName.hasError('required')">
-              Second Office Name is <strong>required</strong>
+            <mat-error *ngIf="splitOfficeForm.controls.secondOfficeName.hasError('required')"
+              >{{ 'labels.inputs.Second Office Name is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
-         <!--  <mat-form-field>
+          <!--  <mat-form-field>
             <mat-label>Second Office Child</mat-label>
             <mat-select
               placeholder="Search"
@@ -234,16 +207,14 @@
             </mat-error>
           </mat-form-field> -->
 
-
-
           <div>
-            <label for="firstParent">Second Office Child</label>
+            <label for="firstParent">{{ 'labels.commons.Second Office Child' | translate }}</label>
             <ng-select
               #firstParent
               [items]="secondchildOfficeData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="secondOfficeChildIds"
               aria-labelledby="secondOfficeChildIds"
               [multiple]="true"
@@ -253,9 +224,8 @@
             </ng-select>
           </div>
 
-
           <mat-form-field (click)="openedOnDatePicker.open()">
-            <mat-label>Second Office Opened On</mat-label>
+            <mat-label>{{ 'labels.commons.Second Office Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -266,27 +236,30 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openedOnDatePicker></mat-datepicker>
-            <mat-error *ngIf="splitOfficeForm.controls.secondOpeningDate.hasError('required')">
-              Opening Date is <strong>required</strong>
+            <mat-error *ngIf="splitOfficeForm.controls.secondOpeningDate.hasError('required')"
+              >{{ 'labels.inputs.Opening Date is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Second External ID</mat-label>
+            <mat-label>{{ 'labels.commons.Second External ID' | translate }}</mat-label>
             <input matInput formControlName="secondExternalId" />
           </mat-form-field>
         </div>
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
         <button
           mat-raised-button
           color="primary"
           [disabled]="!splitOfficeForm.valid"
           *mifosxHasPermission="'CREATE_OFFICE'"
         >
-          Submit
+          {{ 'labels.buttons.Submit' | translate }}
         </button>
       </mat-card-actions>
     </form>

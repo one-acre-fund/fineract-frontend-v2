@@ -1,12 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_CASHIER'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
   <button mat-raised-button color="warn" (click)="deleteCashier()" *mifosxHasPermission="'DELETECASHIER_TELLER'">
-    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
-    Delete
-  </button>
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
 </div>
 
 
@@ -18,49 +14,37 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="header">
-          Name
-        </div>
+        <div fxFlex="50%" class="header">{{ 'labels.inputs.Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ cashierData.staffName}}
         </div>
 
-        <div fxFlex="50%" class="header">
-          Teller
-        </div>
+        <div fxFlex="50%" class="header">{{ 'labels.inputs.Teller' | translate }}</div>
 
         <div fxFlex="50%">
           {{ cashierData.tellerName }}
         </div>
 
-        <div fxFlex="50%" class="header" *ngIf="cashierData.description !== ''">
-          Description
-        </div>
+        <div fxFlex="50%" class="header" *ngIf="cashierData.description !== ''">{{ 'labels.inputs.Description' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="cashierData.description !== ''">
           {{ cashierData.description }}
         </div>
 
-        <div fxFlex="50%" class="header">
-          Start Date
-        </div>
+        <div fxFlex="50%" class="header">{{ 'labels.inputs.Start Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ cashierData.startDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="header">
-          End Date
-        </div>
+        <div fxFlex="50%" class="header">{{ 'labels.inputs.End Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ cashierData.endDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="header">
-          Full Day?
-        </div>
+        <div fxFlex="50%" class="header">{{ 'labels.inputs.Full Day' | translate }}</div>
 
         <div fxFlex="50%">
           {{ cashierData.isFullDay }}

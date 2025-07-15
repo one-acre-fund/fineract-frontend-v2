@@ -1,78 +1,63 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_STAFF'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}
   </button>
 </div>
 
 <div class="container">
-
   <mat-card>
-
     <mat-card-content>
-
       <div fxLayout="row wrap" class="content">
-
-        <div fxFlex="50%" class="mat-body-strong">
-          First Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.First Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ employeeData.firstname }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Last Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Last Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ employeeData.lastname }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Office
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Office' | translate }}</div>
 
         <div fxFlex="50%">
           {{ employeeData.officeName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Is Loan Officer
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Is Loan Officer' | translate }}</div>
 
         <div fxFlex="50%">
-          {{ employeeData.isLoanOfficer === true ? 'Yes' : 'No' }}
+          {{
+            employeeData.isLoanOfficer === true ? ('labels.buttons.Yes' | translate) : ('labels.buttons.No' | translate)
+          }}
         </div>
 
         <div fxFlex="50%" class="mat-body-strong" *ngIf="employeeData.mobileNo">
-          Mobile Number for SMS
+          {{ 'labels.inputs.Mobile Number for SMS' | translate }}
         </div>
 
         <div fxFlex="50%" *ngIf="employeeData.mobileNo">
           {{ employeeData.mobileNo }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Status
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Status' | translate }}</div>
 
         <div fxFlex="50%">
-          {{ employeeData.isActive === true ? 'Active' : 'Inactive' }}
+          {{
+            employeeData.isActive === true
+              ? ('labels.catalogs.Active' | translate)
+              : ('labels.catalogs.Inactive' | translate)
+          }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Joining Date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Joining Date' | translate }}</div>
 
         <div fxFlex="50%">
-          {{ employeeData.joiningDate  | dateFormat }}
+          {{ employeeData.joiningDate | dateFormat }}
         </div>
-
       </div>
-
     </mat-card-content>
-
   </mat-card>
-
 </div>

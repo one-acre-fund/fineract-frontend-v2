@@ -4,7 +4,7 @@
       <mat-card-content>
         <div fxLayout="column">
           <div floatLabel="always" appearance="outline" class="full-width radio-container mb-1">
-            <mat-label class="ou-label">Is the OU a country</mat-label>
+            <mat-label class="ou-label">{{ 'labels.commons.Is the OU a country' | translate }}</mat-label>
             <input
               disabled
               class="custom-radio"
@@ -16,7 +16,7 @@
               name="country"
               [checked]="officeForm.controls.country?.value"
             />
-            <label class="mat-label-for" for="yes">Yes</label>
+            <label class="mat-label-for" for="yes">{{ 'labels.buttons.Yes' | translate }}</label>
             <input
               disabled
               class="custom-radio"
@@ -28,13 +28,12 @@
               name="country"
               [checked]="!officeForm.controls.country?.value"
             />
-            <label class="mat-label-for" for="no">No</label>
+            <label class="mat-label-for" for="no">{{ 'labels.buttons.No' | translate }}</label>
           </div>
           <mat-form-field>
-            <mat-label>Offices</mat-label>
+            <mat-label>{{ 'labels.heading.Offices' | translate }}</mat-label>
             <input matInput required formControlName="name" />
-            <mat-error *ngIf="officeForm.controls.name.hasError('required')">
-              Office <strong>is required</strong>
+            <mat-error *ngIf="officeForm.controls.name.hasError('required')">{{ 'labels.inputs.Office' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
@@ -55,13 +54,13 @@
           </mat-form-field> -->
 
           <div>
-            <label for="parentId">Parent Office</label>
+            <label for="parentId">{{ 'labels.inputs.Parent Office' | translate }}</label>
             <ng-select
               #office
               [items]="allowedParents"
               bindLabel="officeHierarchyPath"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="parentId"
               aria-labelledby="parentId"
               [virtualScroll]="true"
@@ -70,7 +69,7 @@
           </div>
 
           <mat-form-field (click)="openingDatePicker.open()">
-            <mat-label>Opened On</mat-label>
+            <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -81,13 +80,12 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openingDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openingDatePicker></mat-datepicker>
-            <mat-error *ngIf="officeForm.controls.openingDate.hasError('required')">
-              Date <strong>is required</strong>
+            <mat-error *ngIf="officeForm.controls.openingDate.hasError('required')">{{ 'labels.commons.Date' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>External ID</mat-label>
+            <mat-label>{{ 'labels.inputs.External ID' | translate }}</mat-label>
             <input matInput formControlName="externalId" />
           </mat-form-field>
         </div>
@@ -97,10 +95,8 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../general']">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="!officeForm.valid" *mifosxHasPermission="'UPDATE_OFFICE'">
-          Submit
-        </button>
+        <button type="button" mat-raised-button [routerLink]="['../general']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary" [disabled]="!officeForm.valid" *mifosxHasPermission="'UPDATE_OFFICE'">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

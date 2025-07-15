@@ -1,42 +1,102 @@
 <div class="tab-container mat-typography">
   <div class="container">
     <mat-card>
-      <div *ngIf="errMsg">Unable to delete outlet</div>
+      <div *ngIf="errMsg">{{ 'labels.commons.Unable to delete outlet' | translate }}</div>
       <div fxLayoutAlign="flex-end" class="action-button m-b-20">
         <span class="mr-1">
           <button mat-raised-button color="primary" [routerLink]="['edit']">
-            <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;Edit Rural Outlet
+            <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.commons.Edit Rural Outlet' | translate }}
           </button>
         </span>
         <span>
           <button mat-raised-button color="warn" (click)="deleteRuralOutlet()">
-            <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Delete Rural Outlet
+            <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.commons.Delete Rural Outlet' | translate }}
           </button>
         </span>
       </div>
 
-      <mat-list-item>
-        Parent Office : {{ retailOutletData?.name }}
-      </mat-list-item>
+      <!-- Rural Outlet Details Section -->
+      <mat-card-header>
+        <mat-card-title>{{ 'labels.heading.Details' | translate }}</mat-card-title>
+      </mat-card-header>
 
-      <mat-list-item>
-        Opened On : {{ retailOutletData?.openingDate ? (retailOutletData?.openingDate | dateFormat) : 'Unassigned' }}
-      </mat-list-item>
+      <mat-card-content class="m-t-10">
+        <div fxLayout="column" fxLayoutGap="16px">
+          <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+            <div fxFlex="50">
+              <mat-list>
+                <mat-list-item>
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <strong>{{ 'labels.inputs.Name' | translate }}:</strong>
+                    <span>{{ retailOutletData?.name || 'Unassigned' }}</span>
+                  </div>
+                </mat-list-item>
 
-      <mat-list-item>
-        External Id : {{ retailOutletData?.externalId ? retailOutletData?.externalId : 'Unassigned' }}
-      </mat-list-item>
+                <mat-list-item>
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <strong>{{ 'labels.inputs.Opened On' | translate }}:</strong>
+                    <span>{{
+                      retailOutletData?.openingDate ? (retailOutletData?.openingDate | dateFormat) : 'Unassigned'
+                    }}</span>
+                  </div>
+                </mat-list-item>
 
-      <mat-list-item class="assignedoffices">
-          <div fxLayout="row" fxLayoutGap="10">
-            <div fxFlex="10%">
-              <p>Assigned Office :</p>
+                <mat-list-item>
+                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <strong>{{ 'labels.inputs.External ID' | translate }}:</strong>
+                    <span>{{ retailOutletData?.externalId || 'Unassigned' }}</span>
+                  </div>
+                </mat-list-item>
+              </mat-list>
             </div>
-            <div fxFlex="90%">
-              {{officeList}}
-              </div>
+          </div>
         </div>
-      </mat-list-item>
+      </mat-card-content>
+
+      <!-- Assigned Offices Section -->
+      <mat-card-content class="m-t-20">
+        <mat-card-subtitle class="m-b-10">
+          <strong>{{ 'labels.commons.Assigned Offices' | translate }}</strong>
+        </mat-card-subtitle>
+
+        <mat-card class="mat-elevation-z2">
+          <mat-card-content>
+            <div *ngIf="officeList && officeList.trim(); else noOffices">
+              <div
+                class="office-list-container"
+                style="max-height: 400px; overflow-y: auto; border: 1px solid #e0e0e0; border-radius: 4px"
+              >
+                <mat-list dense>
+                  <mat-list-item
+                    *ngFor="let office of officeArray; let i = index"
+                    class="office-list-item"
+                    [class.mat-list-item-divider]="i < officeArray.length - 1"
+                    style="height: 40px; padding: 8px 16px"
+                  >
+                    <mat-icon matListIcon style="margin-right: 12px">business</mat-icon>
+                    <div matLine>
+                      <strong>{{ office.trim() }}</strong>
+                    </div>
+                  </mat-list-item>
+                </mat-list>
+              </div>
+              <div class="office-count-info m-t-10" *ngIf="officeArray.length > 5">
+                <mat-chip-list>
+                  <mat-chip color="primary" selected>
+                    {{ officeArray.length }} {{ 'labels.commons.offices total' | translate }}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
+            <ng-template #noOffices>
+              <div class="no-offices-container" fxLayout="column" fxLayoutAlign="center center" style="padding: 40px">
+                <mat-icon style="font-size: 48px; color: #9e9e9e; margin-bottom: 16px">business_center</mat-icon>
+                <em style="color: #757575">{{ 'labels.commons.No offices assigned' | translate }}</em>
+              </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </mat-card-content>
     </mat-card>
   </div>
 </div>

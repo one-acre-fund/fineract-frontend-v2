@@ -9,7 +9,7 @@
         <div fxLayout="column">
 
           <div fxLayout="row" fxLayout.lt-md="column">
-            <mat-label fxFlex="50%" class="mat-h4">Working Days</mat-label>
+            <mat-label fxFlex="50%" class="mat-h4">{{ 'labels.heading.Working Days' | translate }}</mat-label>
             <div fxFlex="50%" fxLayout="column" formArrayName="recurrence">
               <div *ngFor="let day of recurrence.controls; let i = index;">
                 <mat-checkbox labelPosition="after" [formControlName]="i">
@@ -20,7 +20,7 @@
           </div>
 
           <mat-form-field>
-            <mat-label>Payments due on non working days</mat-label>
+            <mat-label>{{ 'labels.inputs.Payments due on non working days' | translate }}</mat-label>
             <mat-select formControlName="repaymentRescheduleType">
               <mat-option *ngFor="let repaymentRescheduleType of repaymentRescheduleTypeData" [value]="repaymentRescheduleType.id">
                 {{ repaymentRescheduleType.value }}
@@ -28,17 +28,15 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-checkbox labelPosition="before" formControlName="extendTermForDailyRepayments">
-            Extend the term for loans following a daily repayment schedule
-          </mat-checkbox>
+          <mat-checkbox labelPosition="before" formControlName="extendTermForDailyRepayments">{{ 'labels.inputs.Loans daily repayment schedule' | translate }}</mat-checkbox>
 
         </div>
 
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="workingDaysForm.pristine" *mifosxHasPermission="'UPDATE_WORKINGDAYS'">Submit</button>
+        <button mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary" [disabled]="workingDaysForm.pristine" *mifosxHasPermission="'UPDATE_WORKINGDAYS'">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
 
     </form>
