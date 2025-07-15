@@ -1,16 +1,10 @@
 <div class="container m-b-20" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end" fxLayoutGap="2%">
   <button mat-raised-button color="primary" [routerLink]="['edit']">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
   <button mat-raised-button color="warn" (click)="delete()">
-    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
-    Delete
-  </button>
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
   <button mat-raised-button color="primary" (click)="changeUserPassword()">
-    <fa-icon icon="cog"></fa-icon>&nbsp;&nbsp;
-    Change Password
-  </button>
+    <fa-icon icon="cog"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Change Password' | translate }}</button>
 </div>
 
 <div class="container">
@@ -21,50 +15,38 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Login Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Login Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ userData.username }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          First Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.First Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ userData.firstname }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Last Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Last Name' | translate }}</div>
 
         <div fxFlex="50%">
           {{ userData.lastname }}
         </div>
 
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="userData.email">
-          Email
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="userData.email">{{ 'labels.inputs.Email' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="userData.email">
           {{ userData.email }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Office
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Office' | translate }}</div>
 
         <div fxFlex="50%">
           {{ userData.officeName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Roles
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Roles' | translate }}</div>
 
         <div fxFlex="50%">
           <span *ngFor="let role of userData.selectedRoles">

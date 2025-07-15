@@ -1,14 +1,10 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
 
     <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_DATATABLE'">
-        <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-        Edit
-    </button>
+        <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
 
     <button mat-raised-button color="warn" (click)="delete()" *mifosxHasPermission="'DELETE_DATATABLE'">
-        <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;
-        Delete
-    </button>
+        <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
 
 </div>
 
@@ -19,9 +15,7 @@
         <mat-card-content>
 
             <div fxLayout="row wrap" fxLayout.lt-md="column" fxLayoutGap="12px">
-                <div class="mat-body-strong">
-                    Associated With
-                </div>
+                <div class="mat-body-strong">{{ 'labels.inputs.Associated With' | translate }}</div>
                 <div>
                     {{ dataTableData.applicationTableName }}
                 </div>
@@ -39,32 +33,32 @@
     <table mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="columnName">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Field Name </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Field Name' | translate }}</th>
             <td mat-cell *matCellDef="let dataTableColumn"> {{ dataTableColumn.columnName }} </td>
         </ng-container>
 
         <ng-container matColumnDef="columnDisplayType">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Type' | translate }}</th>
             <td mat-cell *matCellDef="let dataTable"> {{ dataTable.columnDisplayType }} </td>
         </ng-container>
 
         <ng-container matColumnDef="columnLength">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Length </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Length' | translate }}</th>
             <td mat-cell *matCellDef="let dataTable"> {{ dataTable.columnLength }} </td>
         </ng-container>
 
         <ng-container matColumnDef="columnCode">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Code </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Code' | translate }}</th>
             <td mat-cell *matCellDef="let dataTable"> {{ dataTable.columnCode }} </td>
         </ng-container>
 
         <ng-container matColumnDef="isColumnPrimaryKey">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Mandatory </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Mandatory' | translate }}</th>
             <td mat-cell *matCellDef="let dataTable">
                 <fa-icon *ngIf="dataTable.isColumnPrimaryKey" icon="check-circle" size="lg" class="column-primary-key"
-                    matTooltip="Yes" matTooltipPosition="right"></fa-icon>
+                    matTooltip="{{ 'labels.buttons.Yes' | translate }}" matTooltipPosition="right"></fa-icon>
                 <fa-icon *ngIf="!dataTable.isColumnPrimaryKey" icon="times-circle" size="lg"
-                    class="not-column-primary-key" matTooltip="No" matTooltipPosition="right"></fa-icon>
+                    class="not-column-primary-key" matTooltip="{{ 'labels.buttons.No' | translate }}" matTooltipPosition="right"></fa-icon>
             </td>
         </ng-container>
 

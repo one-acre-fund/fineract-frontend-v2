@@ -1,28 +1,29 @@
 <div class="container space">
-    <mat-card>
-      <mat-card-header fxLayout="column" class="header">
-        <h1>Clone Configuration</h1>
-        <hr>
-      </mat-card-header>
-      <form [formGroup]="configurationForm" (ngSubmit)="submit()">
-        <mat-card-content>
-          <div fxLayout="column">
-            <mat-form-field *ngIf="!configuration.codeId && !configuration.isStringValue">
-              <mat-label>Value</mat-label>
-              <input type="number" matInput [required]="!configuration.isStringValue" formControlName="value">
-              <mat-error *ngIf="configurationForm.controls.value.hasError('required')">
-                Value is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
+  <mat-card>
+    <mat-card-header fxLayout="column" class="header">
+      <h1>{{ 'labels.commons.Clone Configuration' | translate }}</h1>
+      <hr />
+    </mat-card-header>
+    <form [formGroup]="configurationForm" (ngSubmit)="submit()">
+      <mat-card-content>
+        <div fxLayout="column">
+          <mat-form-field *ngIf="!configuration.codeId && !configuration.isStringValue">
+            <mat-label>{{ 'labels.inputs.Value' | translate }}</mat-label>
+            <input type="number" matInput [required]="!configuration.isStringValue" formControlName="value" />
+            <mat-error *ngIf="configurationForm.controls.value.hasError('required')"
+              >{{ 'labels.commons.Value is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+            </mat-error>
+          </mat-form-field>
 
-            <mat-form-field *ngIf="!configuration.codeId && configuration.isStringValue">
-              <mat-label>String Value</mat-label>
-              <input type="string" matInput [required]="configuration.isStringValue" formControlName="stringValue">
-              <mat-error *ngIf="configurationForm.controls.stringValue.hasError('required')">
-                String Value is <strong>required</strong>
-              </mat-error>
-            </mat-form-field>
-            <!-- <mat-form-field>
+          <mat-form-field *ngIf="!configuration.codeId && configuration.isStringValue">
+            <mat-label>{{ 'labels.inputs.String Value' | translate }}</mat-label>
+            <input type="text" matInput [required]="configuration.isStringValue" formControlName="stringValue" />
+            <mat-error *ngIf="configurationForm.controls.stringValue.hasError('required')"
+              >{{ 'labels.commons.String Value is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+            </mat-error>
+          </mat-form-field>
+          <!-- <mat-form-field>
                 <mat-label>Country</mat-label>
                 <mat-select placeholder="Search" #country required formControlName="countryId">
                   <mat-select-filter *ngIf="country.focused" [array]="listCountries" (filteredReturn)="listCountriesSliced=$event"
@@ -38,60 +39,61 @@
                 </mat-error>
               </mat-form-field> -->
 
-              <div *ngIf="configuration.codeId" class="mb-1">
-                <label for="codeValue">Value</label>
-                <ng-select
-                  #codeValue
-                  [items]="configuration.options"
-                  bindLabel="name"
-                  bindValue="id"
-                  placeholder="Value"
-                  formControlName="codeValueId"
-                  aria-labelledby="codeValue"
-                  [virtualScroll]="true"
-                >
-                </ng-select>
-              </div>
-
-              <div >
-                <label for="country">Country</label>
-                <ng-select
-                  #country
-                  [items]="listCountries"
-                  bindLabel="name"
-                  bindValue="id"
-                  placeholder="Select Country"
-                  formControlName="countryId"
-                  aria-labelledby="country"
-                  [virtualScroll]="true"
-                  (change)="onCountryChange($event.id)"
-                >
-                </ng-select>
-              </div>
-
-              <div *ngIf="offices.length > 0" class="mt-1">
-                <label for="office">OU</label>
-                <ng-select
-                  #office
-                  [items]="offices"
-                  bindLabel="name"
-                  bindValue="id"
-                  placeholder="Select OU"
-                  formControlName="officeId"
-                  aria-labelledby="office"
-                  [virtualScroll]="true"
-                >
-                </ng-select>
-              </div>
-
-
+          <div *ngIf="configuration.codeId" class="mb-1">
+            <label for="codeValue">{{ 'labels.inputs.Value' | translate }}</label>
+            <ng-select
+              #codeValue
+              [items]="configuration.options"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.inputs.Value' | translate }}"
+              formControlName="codeValueId"
+              aria-labelledby="codeValue"
+              [virtualScroll]="true"
+            >
+            </ng-select>
           </div>
-        </mat-card-content>
-        <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-          <button type="button" mat-raised-button [routerLink]="['../../']"> Cancel </button>
-          <button mat-raised-button color="primary" [disabled]="configurationForm.pristine || !configurationForm.valid">
-            Submit </button>
-        </mat-card-actions>
-      </form>
-    </mat-card>
-  </div>
+
+          <div>
+            <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
+            <ng-select
+              #country
+              [items]="listCountries"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
+              formControlName="countryId"
+              aria-labelledby="country"
+              [virtualScroll]="true"
+              (change)="onCountryChange($event.id)"
+            >
+            </ng-select>
+          </div>
+
+          <div *ngIf="offices.length > 0" class="mt-1">
+            <label for="office">OU</label>
+            <ng-select
+              #office
+              [items]="offices"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select OU' | translate }}"
+              formControlName="officeId"
+              aria-labelledby="office"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
+        <button type="button" mat-raised-button [routerLink]="['../../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
+        <button mat-raised-button color="primary" [disabled]="configurationForm.pristine || !configurationForm.valid">
+          {{ 'labels.buttons.Submit' | translate }}
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>
