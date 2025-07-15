@@ -72,6 +72,12 @@
     </mat-form-field>
   </div>
 
+    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+      <mat-checkbox fxFlex="100%" labelPosition="before" formControlName="roundDownCalculatedValues">
+        Always round down calculated decimal values to the nearest whole number?
+      </mat-checkbox>
+    </div>
+
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
     <button mat-raised-button matStepperPrevious disabled>
       <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;

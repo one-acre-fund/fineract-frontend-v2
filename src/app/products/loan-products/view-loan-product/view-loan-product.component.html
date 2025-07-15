@@ -76,6 +76,11 @@
         </div>
 
         <div fxFlexFill>
+          <span fxFlex="40%">Always round down calculated decimal values to the nearest whole number?:</span>
+          <span fxFlex="60%">{{ loanProduct.roundDownCalculatedValues }}</span>
+        </div>
+        
+        <div fxFlexFill>
           <span fxFlex="40%">{{ 'labels.inputs.Installment in multiples of' | translate }}</span>
           <span fxFlex="60%">{{ loanProduct.installmentAmountInMultiplesOf }}</span>
         </div>
