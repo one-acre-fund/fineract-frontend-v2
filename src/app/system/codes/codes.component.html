@@ -1,15 +1,13 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
   <button mat-raised-button color="primary" [routerLink]="['create']" *mifosxHasPermission="'CREATE_CODE'">
-    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;
-    Create Code
-  </button>
+    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Create Code' | translate }}</button>
 </div>
 
 <div class="container">
 
   <div fxLayout="row">
     <mat-form-field fxFlex>
-      <mat-label>Filter</mat-label>
+      <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
   </div>
@@ -17,15 +15,15 @@
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Code Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Code Name' | translate }}</th>
         <td mat-cell *matCellDef="let code"> {{ code.name }} </td>
       </ng-container>
 
       <ng-container matColumnDef="systemDefined">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> System Defined </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.System Defined' | translate }}</th>
         <td mat-cell *matCellDef="let code">
-          <fa-icon *ngIf="code.systemDefined" icon="check-circle" size="lg" class="system-defined" matTooltip="Yes" matTooltipPosition="right"></fa-icon>
-          <fa-icon *ngIf="!code.systemDefined" icon="times-circle" size="lg" class="not-system-defined" matTooltip="No" matTooltipPosition="right"></fa-icon>
+          <fa-icon *ngIf="code.systemDefined" icon="check-circle" size="lg" class="system-defined" matTooltip="{{ 'labels.buttons.Yes' | translate }}" matTooltipPosition="right"></fa-icon>
+          <fa-icon *ngIf="!code.systemDefined" icon="times-circle" size="lg" class="not-system-defined" matTooltip="{{ 'labels.buttons.No' | translate }}" matTooltipPosition="right"></fa-icon>
         </td>
       </ng-container>
 
