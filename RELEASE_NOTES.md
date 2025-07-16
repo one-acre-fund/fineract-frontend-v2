@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.9.1 - Community 1.0.0
+
+    * [CP-3646] - Allow loan charges to optionally be rounded down to the nearest whole number
+
 ## Version 1.3.9 - Community 1.0.0
 
     * [CP-3366] - Translation in Organisation related UI
