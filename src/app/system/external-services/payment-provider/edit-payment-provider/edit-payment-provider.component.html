@@ -6,10 +6,9 @@
           <div fxFlex="20%" fxLayout="column"></div>
           <div fxFlex="60%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Provider Name</mat-label>
+              <mat-label>{{ 'labels.inputs.Provider Name' | translate }}</mat-label>
               <input matInput formControlName="provider_name" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.provider_name.hasError('required')">
-                Provider Name is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.provider_name.hasError('required')">{{ 'labels.inputs.Provider Name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -19,28 +18,26 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Country</mat-label>
+              <mat-label>{{ 'labels.oaf.Country' | translate }}</mat-label>
               <mat-select required formControlName="country_id">
                 <mat-option *ngFor="let country of countryOptions" [value]="country.id">
                   {{ country.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="editPaymentProviderForm.controls.country_id.hasError('required')">
-                Country is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.country_id.hasError('required')">{{ 'labels.commons.Country is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Office</mat-label>
+              <mat-label>{{ 'labels.inputs.Office' | translate }}</mat-label>
               <mat-select required formControlName="office_id">
                 <mat-option *ngFor="let office of officeOptions" [value]="office.id">
                   {{ office.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="editPaymentProviderForm.controls.office_id.hasError('required')">
-                Office is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.office_id.hasError('required')">{{ 'labels.commons.Office is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -49,20 +46,18 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Business Identification</mat-label>
+              <mat-label>{{ 'labels.commons.Business Identification' | translate }}</mat-label>
               <input matInput required formControlName="business_id" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.business_id.hasError('required')">
-                Business Identification is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.business_id.hasError('required')">{{ 'labels.commons.Business Identification is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Sub entity code</mat-label>
+              <mat-label>{{ 'labels.commons.Sub entity code' | translate }}</mat-label>
               <input matInput required formControlName="sub_entity_code" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.sub_entity_code.hasError('required')">
-                Sub entity code is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.sub_entity_code.hasError('required')">{{ 'labels.commons.Sub entity code is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -71,20 +66,18 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Base URL</mat-label>
+              <mat-label>{{ 'labels.commons.Base URL' | translate }}</mat-label>
               <input matInput required formControlName="base_url" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.base_url.hasError('required')">
-                Base URL is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.base_url.hasError('required')">{{ 'labels.commons.Base URL is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Account creation endpoint</mat-label>
+              <mat-label>{{ 'labels.commons.Account creation endpoint' | translate }}</mat-label>
               <input matInput required formControlName="account_creation_endpoint" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.account_creation_endpoint.hasError('required')">
-                Account creation endpoint is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.account_creation_endpoint.hasError('required')">{{ 'labels.commons.Account creation endpoint is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -93,20 +86,18 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Bank code</mat-label>
+              <mat-label>{{ 'labels.commons.Bank code' | translate }}</mat-label>
               <input matInput required formControlName="bank_code" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.bank_code.hasError('required')">
-                Bank code is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.bank_code.hasError('required')">{{ 'labels.commons.Bank code is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Authentication endpoint</mat-label>
+              <mat-label>{{ 'labels.commons.Authentication endpoint' | translate }}</mat-label>
               <input matInput required formControlName="authentication_endpoint" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">
-                Authentication endpoint is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">{{ 'labels.commons.Authentication endpoint is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -115,7 +106,7 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Authentication type</mat-label>
+              <mat-label>{{ 'labels.commons.Authentication type' | translate }}</mat-label>
               <mat-select required formControlName="authentication_type">
                 <mat-option
                   *ngFor="let authenticationType of authenticationTypeOptions"
@@ -124,8 +115,7 @@
                   {{ authenticationType.name }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_type.hasError('required')">
-                Authentication type is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_type.hasError('required')">{{ 'labels.commons.Authentication type is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -134,20 +124,18 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Username</mat-label>
+              <mat-label>{{ 'labels.inputs.Username' | translate }}</mat-label>
               <input matInput required formControlName="username" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.username.hasError('required')">
-                Username is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.username.hasError('required')">{{ 'labels.commons.Username is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
           <div fxFlex="10%" fxLayout="column"></div>
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>Password</mat-label>
+              <mat-label>{{ 'labels.inputs.Password' | translate }}</mat-label>
               <input matInput required formControlName="password" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.password.hasError('required')">
-                Password is <strong>required</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.password.hasError('required')">{{ 'labels.commons.Password is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
@@ -155,14 +143,12 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
         <button
           mat-raised-button
           color="primary"
           [disabled]="!editPaymentProviderForm.valid || editPaymentProviderForm.pristine"
-        >
-          Submit
-        </button>
+        >{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

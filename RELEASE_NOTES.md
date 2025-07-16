@@ -7,6 +7,7 @@
 
     * Translations
         * [CP-3366] - Translation in Organisation related UI
+        * [CP-3367] - Translation in System related UI
 
     * Miscellaneous
         * [CP-1689] - Configure Real User Monitoring with Elastic APM

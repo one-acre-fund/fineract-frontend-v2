@@ -1,7 +1,7 @@
 <div class="container">
   <div fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex>
-      <mat-label>Filter</mat-label>
+      <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)" />
     </mat-form-field>
   </div>
@@ -30,27 +30,25 @@
       </mat-form-field> -->
 
       <div class="country-search">
-        <label for="country">Country</label>
+        <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
         <ng-select
           #countryddl
           [items]="countryList"
           bindLabel="name"
           bindValue="id"
-          placeholder="Select Country"
+          placeholder="{{ 'labels.commons.Select Country' | translate }}"
           [(ngModel)]="countryId"
           aria-labelledby="country"
           [virtualScroll]="true"
         >
         </ng-select>
-        <mat-error *ngIf="!countryId"> Country is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="!countryId">{{ 'labels.commons.Country is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
       </div>
     </div>
     <table mat-table [dataSource]="dataSource" matSort matSortActive="entity" matSortDirection="asc">
-      <caption class="display-none">
-        Manage Configuration
-      </caption>
+      <caption class="display-none">{{ 'labels.commons.Manage Configuration' | translate }}</caption>
       <ng-container matColumnDef="entity">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Module</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.commons.Module' | translate }}</th>
         <td mat-cell *matCellDef="let config">{{ config.entity }}</td>
       </ng-container>
 

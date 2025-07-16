@@ -135,7 +135,7 @@ const getTranslationMappings = () => {
     are: "labels.commons.are",
     "must be": "labels.commons.must be",
     invalid: "labels.commons.invalid",
-    Active: "labels.commons.Active",
+    Active: "labels.inputs.Active",
     Inactive: "labels.commons.Inactive",
     Pending: "labels.commons.Pending",
     Approved: "labels.commons.Approved",

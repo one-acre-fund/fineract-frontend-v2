@@ -1,11 +1,7 @@
 <div class="container m-b-20" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="end" fxLayoutGap="2%">
   <button mat-raised-button color="primary" [routerLink]="['edit']">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
-  <button mat-raised-button color="primary" [routerLink]="['viewhistory']">
-    View History
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
+  <button mat-raised-button color="primary" [routerLink]="['viewhistory']">{{ 'labels.buttons.View History' | translate }}</button>
 </div>
 
 <div class="container">
@@ -16,36 +12,28 @@
 
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Job Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Job Name' | translate }}</div>
           
         <div fxFlex="50%">
           {{ jobData.displayName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Cron Expression
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Cron Expression' | translate }}</div>
 
         <div fxFlex="50%">
           {{ jobData.cronExpression }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Is Active Job?
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Is Active Job' | translate }}</div>
 
         <div fxFlex="50%">
           {{ jobData.active }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Follow
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Follow' | translate }}</div>
 
         <div fxFlex="50%">
-          <a href="http://www.cronmaker.com/">	Click Here To Generate Cron Expression </a>
+          <a href="http://www.cronmaker.com/">{{ 'labels.text.Click Here To Generate Cron Expression' | translate }}</a>
         </div>
 
       </div>

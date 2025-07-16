@@ -1,15 +1,13 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
   <button mat-raised-button color="primary" [routerLink]="['create']" *mifosxHasPermission="'CREATE_DATATABLE'">
-    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;
-    Create Data Table
-  </button>
+    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Create Data Table' | translate }}</button>
 </div>
 
 <div class="container">
 
   <div fxLayout="row" fxLayoutGap="20px">
     <mat-form-field fxFlex>
-      <mat-label>Filter</mat-label>
+      <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
   </div>
@@ -19,12 +17,12 @@
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="registeredTableName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Table Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Data Table Name' | translate }}</th>
         <td mat-cell *matCellDef="let dataTable"> {{ dataTable.registeredTableName }} </td>
       </ng-container>
 
       <ng-container matColumnDef="applicationTableName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Associated With </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Associated With' | translate }}</th>
         <td mat-cell *matCellDef="let dataTable"> {{ dataTable.applicationTableName }} </td>
       </ng-container>
 
