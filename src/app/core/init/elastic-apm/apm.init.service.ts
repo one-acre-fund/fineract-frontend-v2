@@ -26,7 +26,7 @@ export class ApmInitService {
           serverUrl: environment.apm.serverUrl
         });
 
-        var username = this.authenticationService.getConnectedUsername();
+        const username = this.authenticationService.getConnectedUsername();
         apm.setUserContext({
           username: username,
           id: username
