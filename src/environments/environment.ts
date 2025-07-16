@@ -38,10 +38,6 @@ export const environment = {
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
   sentryDsn: window['env']['sentryDsn'] || 'https://test@o454511.ingest.us.sentry.io/4508318875844608',
-  apm: {
-    serviceName: commonEnvironments.appName,
-    serverUrl: 'http://apm-server-apm-server.elk:8200'
-  },
 
 };
 

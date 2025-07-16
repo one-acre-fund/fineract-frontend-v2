@@ -39,8 +39,8 @@ export const environment = {
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
   sentryDsn: window['env']['sentryDsn'] || '',
   apm: {
-    serviceName: commonEnvironments.appName,
-    serverUrl: 'http://localhost:59183'
+    ...commonEnvironments.apm,
+    serverUrl: window['env']['apmServerUrl'] || 'http://localhost:59183'
   },
 
 };
