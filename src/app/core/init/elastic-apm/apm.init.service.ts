@@ -21,7 +21,8 @@ export class ApmInitService {
   init(): Promise<void> {
     return new Promise((resolve) => {
       if (environment.apm?.serviceName) {
-        const apm = this.apmService.init({
+        try{
+          const apm = this.apmService.init({
           serviceName: environment.apm.serviceName,
           serverUrl: environment.apm.serverUrl
         });
@@ -31,6 +32,10 @@ export class ApmInitService {
           username: username,
           id: username
         })
+        }
+        catch (error) {
+          console.error('Error initializing APM:', error);
+        }
       }
       resolve();
     });
