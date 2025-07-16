@@ -78,7 +78,7 @@
         <mat-card-content>
           <div fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column" fxLayout="row wrap" [formGroupName]="questionIndex">
             <div fxFlex="98%" fxLayout="row wrap" fxLayoutGap="2%" fxLayoutAlign="space-between center">
-              <h2 class="mat-h2">Question {{ questionIndex + 1 }}</h2>
+              <h2 class="mat-h2">{{ 'labels.heading.Question' | translate }} {{ questionIndex + 1 }}</h2>
               <button
                 mat-raised-button
                 color="warn"
