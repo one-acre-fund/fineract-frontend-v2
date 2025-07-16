@@ -4,13 +4,13 @@
       <mat-card-content>
         <div fxLayout="column">
           <div>
-            <label for="parentId">Parent Office</label>
+            <label for="parentId">{{ 'labels.inputs.Parent Office' | translate }}</label>
             <ng-select
               #office
               [items]="officeData"
               bindLabel="officeHierarchyPath"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="parentId"
               aria-labelledby="parentId"
               (change)="fetchByHierarchyLevelByOfficeId($event)"
@@ -18,47 +18,14 @@
             >
             </ng-select>
           </div>
-          <!--   <mat-form-field>
-                  <mat-label>Parent Office</mat-label>
-                  <mat-select placeholder="Search" #parentOffice required formControlName="parentId" (selectionChange)="fetchByHierarchyLevelByOfficeId($event)">
-                    <mat-select-filter *ngIf="parentOffice.focused" [array]="officeData" (filteredReturn)="officeDataSliced=$event"
-                      [displayMember]="'name'">
-                    </mat-select-filter>
-                    <mat-option *ngFor="let office of officeData" [value]="office.id"
-                      [class.hide]="!isFiltered(office,0)">
-                      {{office.name}}
-                    </mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="combineOfficeForm.controls.parentId.hasError('required')">
-                    Parent Office is <strong>required</strong>
-                  </mat-error>
-                </mat-form-field> -->
-
-          <!--  <mat-form-field>
-
-                    <mat-label>Source Office</mat-label>
-                    <mat-select placeholder="Search" #sourceOffice multiple required formControlName="mergingOfficeIds" >
-                      <mat-select-filter *ngIf="sourceOffice.focused" [array]="sourceOfficeData" (filteredReturn)="sourceOfficeDataSliced=$event"
-                        [displayMember]="'name'">
-                      </mat-select-filter>
-                      <mat-option *ngFor="let office of sourceOfficeData" [value]="office.id"
-                        [class.hide]="!isFiltered(office,1)">
-                        {{office.name}}
-                      </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="combineOfficeForm.controls.mergingOfficeIds.hasError('required')">
-                        Source Office is <strong>required</strong>
-                    </mat-error>
-                  </mat-form-field> -->
-
           <div>
-            <label for="sourceOffice">Source Office</label>
+            <label for="sourceOffice">{{ 'labels.commons.Source Office' | translate }}</label>
             <ng-select
               #sourceOffice
               [items]="sourceOfficeData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="mergingOfficeIds"
               aria-labelledby="sourceOffice"
               [virtualScroll]="true"
@@ -68,15 +35,14 @@
           </div>
 
           <mat-form-field>
-            <mat-label>Destination Office</mat-label>
+            <mat-label>{{ 'labels.commons.Destination Office' | translate }}</mat-label>
             <input required matInput formControlName="name" />
-            <mat-error *ngIf="combineOfficeForm.controls.name.hasError('required')">
-              Office is <strong>required</strong>
+            <mat-error *ngIf="combineOfficeForm.controls.name.hasError('required')">{{ 'labels.commons.Office is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field (click)="openedOnDatePicker.open()">
-            <mat-label>Opened On</mat-label>
+            <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -87,28 +53,25 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openedOnDatePicker></mat-datepicker>
-            <mat-error *ngIf="combineOfficeForm.controls.openingDate.hasError('required')">
-              Opening Date is <strong>required</strong>
+            <mat-error *ngIf="combineOfficeForm.controls.openingDate.hasError('required')">{{ 'labels.inputs.Opening Date is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>External ID</mat-label>
+            <mat-label>{{ 'labels.inputs.External ID' | translate }}</mat-label>
             <input matInput formControlName="externalId" />
           </mat-form-field>
         </div>
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">{{ 'labels.buttons.Cancel' | translate }}</button>
         <button
           mat-raised-button
           color="primary"
           [disabled]="!combineOfficeForm.valid"
           *mifosxHasPermission="'CREATE_OFFICE'"
-        >
-          Submit
-        </button>
+        >{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </form>
   </mat-card>

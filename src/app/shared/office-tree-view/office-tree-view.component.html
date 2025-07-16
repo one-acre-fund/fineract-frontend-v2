@@ -4,13 +4,13 @@
       class="tree-button mat-focus-indicator mat-raised-button mat-button-base mat-primary"
       (click)="officeTree.treeControl.collapseAll()"
     >
-      Collapse All
+      {{ 'labels.buttons.Collapse All' | translate }}
     </button>
     <button
       class="tree-button mat-focus-indicator mat-raised-button mat-button-base mat-primary"
       (click)="officeTree.treeControl.expandAll()"
     >
-      Expand All
+      {{ 'labels.buttons.Expand All' | translate }}
     </button>
   </div>
   <mat-tree #officeTree [dataSource]="dataSource" [treeControl]="treeControl">

@@ -9,27 +9,23 @@
         <div fxLayout="column">
 
           <mat-form-field>
-            <mat-label>Payment Type</mat-label>
+            <mat-label>{{ 'labels.heading.Payment Type' | translate }}</mat-label>
             <input required matInput formControlName="name">
-            <mat-error *ngIf="paymentTypeForm.controls.name.hasError('required')">
-              Payment Type is <strong>required</strong>
+            <mat-error *ngIf="paymentTypeForm.controls.name.hasError('required')">{{ 'labels.commons.Payment Type is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Description</mat-label>
+            <mat-label>{{ 'labels.inputs.Description' | translate }}</mat-label>
             <textarea matInput formControlName="description"></textarea>
           </mat-form-field>
   
-          <mat-checkbox labelPosition="before" formControlName="isCashPayment" class="status">
-            Is Cash Payment?
-          </mat-checkbox>
+          <mat-checkbox labelPosition="before" formControlName="isCashPayment" class="status">{{ 'labels.inputs.Is Cash Payment' | translate }}</mat-checkbox>
 
           <mat-form-field>
-            <mat-label>Position</mat-label>
+            <mat-label>{{ 'labels.inputs.Position' | translate }}</mat-label>
             <input required matInput formControlName="position">
-            <mat-error *ngIf="paymentTypeForm.controls.position.hasError('required')">
-              Position is <strong>required</strong>
+            <mat-error *ngIf="paymentTypeForm.controls.position.hasError('required')">{{ 'labels.commons.Position is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
           
@@ -38,8 +34,8 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-        <button mat-raised-button color="primary" [disabled]="!paymentTypeForm.valid" *mifosxHasPermission="'CREATE_PAYMENTTYPE'">Submit</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary" [disabled]="!paymentTypeForm.valid" *mifosxHasPermission="'CREATE_PAYMENTTYPE'">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
 
     </form>

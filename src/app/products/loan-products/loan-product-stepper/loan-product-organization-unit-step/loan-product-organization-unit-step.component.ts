@@ -60,6 +60,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       digitsAfterDecimal: this.loanProductsTemplate.currency.decimalPlaces,
       inMultiplesOf: this.loanProductsTemplate.currency.inMultiplesOf,
       installmentAmountInMultiplesOf: 1,
+      roundDownCalculatedValues: this.loanProductsTemplate.roundDownCalculatedValues
     });
   }
 
@@ -146,6 +147,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       digitsAfterDecimal: ['', Validators.required],
       inMultiplesOf: ['', Validators.min(1)],
       installmentAmountInMultiplesOf: ['', Validators.required],
+      roundDownCalculatedValues: [false]
     });
     this.loanProductTemplateForm = this.formBuilder.group({
       loanProductTemplates: [''],

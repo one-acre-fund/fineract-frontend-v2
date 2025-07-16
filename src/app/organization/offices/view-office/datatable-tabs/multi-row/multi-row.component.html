@@ -7,13 +7,11 @@
     <div class="action-button m-b-5" fxLayoutGap="10px">
       <span *mifosxHasPermission="'CREATE_' + datatableName">
         <button mat-raised-button color="primary" (click)="add()">
-          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Add
-        </button>
+          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Add' | translate }}</button>
       </span>
       <span *mifosxHasPermission="'DELETE_' + datatableName">
         <button class="delete-button" mat-raised-button color="warn" (click)="delete()" *ngIf="showDeleteBotton">
-          <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Delete All
-        </button>
+          <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete All' | translate }}</button>
       </span>
     </div>
   </div>

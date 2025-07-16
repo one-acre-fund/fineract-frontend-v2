@@ -15,6 +15,11 @@ export class ViewOutletComponent  {
   retailOutletData: any;
   officeList: any;
   errMsg: string = undefined;
+  
+  get officeArray(): string[] {
+    return this.officeList ? this.officeList.split(',') : [];
+  }
+
   constructor(private organizationService: OrganizationService,
     private route: ActivatedRoute, private dialog: MatDialog, private router: Router,
     private alertService: AlertService) {

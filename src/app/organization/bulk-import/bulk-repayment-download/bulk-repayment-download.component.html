@@ -2,7 +2,7 @@
   <div fxLayoutGap="2%" class="m-b-20">
     <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="100%">
       <h3>
-        <strong>Repayments Download</strong>
+        <strong>{{ 'labels.commons.Repayments Download' | translate }}</strong>
       </h3>
 
       <form [formGroup]="repaymentDownloadForm">
@@ -27,13 +27,13 @@
             </div> -->
 
           <div fxFlex="48%">
-            <label for="officeId">Country</label>
+            <label for="officeId">{{ 'labels.oaf.Country' | translate }}</label>
             <ng-select
               #country
               [items]="countriesData"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Country"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
               formControlName="countryId"
               aria-labelledby="officeId"
               [virtualScroll]="true"
@@ -43,7 +43,7 @@
 
           <div fxFlex="48%">
             <mat-form-field fxFlex="90%" (click)="repaymentDatePicker.open()">
-              <mat-label>Date</mat-label>
+              <mat-label>{{ 'labels.commons.Date' | translate }}</mat-label>
               <input matInput [matDatepicker]="repaymentDatePicker" formControlName="repaymentsDate" />
               <mat-datepicker-toggle matSuffix [for]="repaymentDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #repaymentDatePicker></mat-datepicker>
@@ -58,8 +58,7 @@
         (click)="downloadRepaymentDownload()"
         *mifosxHasPermission="'READ_CLIENT'"
       >
-        <i class="fa fa-download"></i>&nbsp;&nbsp;Download
-      </button>
+        <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
     </mat-card>
   </div>
 </div>

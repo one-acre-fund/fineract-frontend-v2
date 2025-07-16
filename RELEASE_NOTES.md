@@ -1,5 +1,12 @@
 # Release Notes
 
+## Version 1.3.9.1 - Community 1.0.0
+
+    * [CP-3646] - Allow loan charges to optionally be rounded down to the nearest whole number
+
+## Version 1.3.9 - Community 1.0.0
+
+    * [CP-3366] - Translation in Organisation related UI
 
 ## Version 1.3.9 - Community 1.0.0
 
@@ -22,7 +29,6 @@
     * [CP-3502] - Send country when submitting the account transfer bulk upload
     * [CP-3538] - Show the transfer description in the view transaction interface if the repayment is from account transfer
     * [CP-3288] - External Service: Add new pages for order integration configuration
-
 
 ## Version 1.3.6 - Community 1.0.0
 
