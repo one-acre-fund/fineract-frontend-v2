@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
-import { AddExternalServiceModel, AddPaymentProviderPropertyModel } from '../../external-service.model';
+import {AddExternalServiceModel, AddPaymentProviderPropertyModel, APIKEY} from '../../external-service.model';
 import { MatomoTracker } from '@ngx-matomo/tracker';
 
 @Component({
@@ -81,7 +81,7 @@ export class AddPaymentProviderComponent implements OnInit {
       const usernameControl = this.addPaymentProviderForm.get('username');
       const passwordControl = this.addPaymentProviderForm.get('password');
 
-      if (authType?.toLowerCase() === 'apikey') {
+      if (authType?.toLowerCase() === APIKEY) {
         endpointControl?.clearValidators();
         usernameControl?.clearValidators();
         passwordControl?.setValidators([Validators.required]);

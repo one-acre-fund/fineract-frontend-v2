@@ -1,10 +1,13 @@
 # Release Notes
 
 
+## Version 1.3.9 - Community 1.0.0
+
+    * [CP-3554] - Modify payment provider form validation to cater for providers using API key as authentication method
+
 ## Version 1.3.8 - Community 1.0.0
 
     * [CP-3564] - Show loan status and substatus on loan view
-    * [CP-3554] - Automate virtual account creation for SquadCO
 
 ## Version 1.3.7.2 - Community 1.0.0
 
