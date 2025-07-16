@@ -8,6 +8,7 @@
 ## Version 1.3.9 - Community 1.0.0
 
     * [CP-3366] - Translation in Organisation related UI
+    * [CP-3367] - Translation in System related UI
 
 ## Version 1.3.8 - Community 1.0.0
 
