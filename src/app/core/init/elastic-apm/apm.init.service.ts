@@ -20,23 +20,27 @@ export class ApmInitService {
 
   init(): Promise<void> {
     return new Promise((resolve) => {
-      if (environment.apm?.serviceName) {
-        try{
+      
+      try {
+        if (environment.apm?.serviceName) {
           const apm = this.apmService.init({
-          serviceName: environment.apm.serviceName,
-          serverUrl: environment.apm.serverUrl
-        });
+            serviceName: environment.apm.serviceName,
+            serverUrl: environment.apm.serverUrl
+          });
 
-        const username = this.authenticationService.getConnectedUsername();
-        apm.setUserContext({
-          username: username,
-          id: username
-        })
-        }
-        catch (error) {
-          console.error('Error initializing APM:', error);
+          const username = this.authenticationService.getConnectedUsername();
+          if(username) {
+            apm.setUserContext({
+              username: username,
+              id: username
+            })
+          }
         }
       }
+      catch (error) {
+        console.error('Error initializing APM:', error);
+      }
+
       resolve();
     });
   }
