@@ -9,7 +9,7 @@
             <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('required')">{{ 'labels.commons.Base URL is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
             <mat-error *ngIf="orderIntegrationConfigurationForm.controls.base_url.hasError('pattern')">
-             Please enter a valid URL starting with http:// or https://
+             {{ 'labels.errors.Invalid URL' | translate }}
             </mat-error>
           </mat-form-field>
 
