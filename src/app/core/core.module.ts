@@ -40,6 +40,7 @@ import { BreadcrumbComponent } from './shell/breadcrumb/breadcrumb.component';
 import { ContentComponent } from './shell/content/content.component';
 import { InjectionToken } from '@angular/core';
 import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
+import { ApmInitService } from './init/elastic-apm/apm.init.service';
 
 /**
  * Core Module
@@ -85,6 +86,7 @@ import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy,
     },
+    ApmInitService,
   ],
 })
 export class CoreModule {

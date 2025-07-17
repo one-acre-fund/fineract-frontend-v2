@@ -37,7 +37,11 @@ export const environment = {
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'http://localhost',
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
-  sentryDsn: window['env']['sentryDsn'] || ''
+  sentryDsn: window['env']['sentryDsn'] || '',
+  apm: {
+    ...commonEnvironments.apm,
+    serverUrl: window['env']['apmServerUrl'] || 'http://localhost:59183'
+  },
 
 };
 
