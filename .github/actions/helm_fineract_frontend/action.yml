@@ -91,7 +91,7 @@ runs:
           MATOMO_SITE_URL: "${{ inputs.MATOMO_SITE_URL }}"
           MATOMO_SITE_ID: "${{ inputs.MATOMO_SITE_ID }}"
           SENTRY_DSN: "${{ inputs.SENTRY_DSN }}"
-          APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
+          APM_SERVER_URL: "${{ inputs.APM_SERVER_URL }}"
 
         initContainers:
           - name: wait-for-fineract-backend
