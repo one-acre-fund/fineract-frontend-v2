@@ -67,10 +67,12 @@
           {{ centerSummaryData.overdueClientLoans }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'labels.inputs.Next Meeting Date' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
+          {{ 'labels.inputs.Next Meeting Date' | translate }}
+        </div>
 
         <div fxFlex="50%" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
-          {{ centerSummaryData.collectionMeetingCalendar.nextTenRecurringDates[0]  | dateFormat }}
+          {{ centerData.collectionMeetingCalendar.nextTenRecurringDates[0] | dateFormat }}
         </div>
 
         <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.humanReadable">{{ 'labels.inputs.Meeting Frequency' | translate }}</div>
