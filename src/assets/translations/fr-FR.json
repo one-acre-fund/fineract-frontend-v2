@@ -363,7 +363,10 @@
       "Default number of repayments": "Nombre de remboursements par défaut",
       "Product Name is required": "Le nom du produit est requis",
       "Short Name is required": "Le nom court est requis",
-      "DragReorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité"
+      "DragReorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité",
+      "New Joiner windows after qualifications": "Fenêtres de nouveaux adhérents après qualifications",
+      "Minimum qualified members": "Nombre minimum de membres qualifiés",
+      "Order pickup window after qualifications": "Fenêtre de collecte de commandes après qualifications"
     },
     "boolean": {
       "Yes": "Oui",

@@ -365,7 +365,10 @@
       "Default number of repayments": "Idadi ya kawaida ya malipo",
       "Product Name is required": "Jina la Bidhaa linahitajika",
       "Short Name is required": "Jina Fupi linahitajika",
-      "DragReorder Liability Priorities": "Buruta na Upange Vipaumbele vya Madeni"
+      "DragReorder Liability Priorities": "Buruta na Upange Vipaumbele vya Madeni",
+      "New Joiner windows after qualifications": "Madirisha ya wajiunga wapya baada ya kuhitimu",
+      "Minimum qualified members": "Idadi ya chini ya wanachama waliohitimu",
+      "Order pickup window after qualifications": "Dirisha la kuchukua oda baada ya kuhitimu"
     },
     "boolean": {
       "Yes": "Ndiyo",

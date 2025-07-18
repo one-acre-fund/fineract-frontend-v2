@@ -365,7 +365,10 @@
       "Default number of repayments": "Default number of repayments",
       "Product Name is required": "Product Name is required",
       "Short Name is required": "Short Name is required",
-      "DragReorder Liability Priorities": "Drag & Reorder Liability Priorities"
+      "DragReorder Liability Priorities": "Drag & Reorder Liability Priorities",
+      "New Joiner windows after qualifications": "New Joiner windows after qualifications",
+      "Minimum qualified members": "Minimum qualified members",
+      "Order pickup window after qualifications": "Order pickup window after qualifications"
     },
     "boolean": {
       "Yes": "Yes",
