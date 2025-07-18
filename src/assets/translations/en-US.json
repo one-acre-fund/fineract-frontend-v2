@@ -901,6 +901,7 @@
       "Manage Rural Retail Outlet": "Manage Rural Retail Outlet",
       "Manage rural retail outlet": "Manage rural retail outlet",
       "Create terms and conditions, etc.": "Create terms and conditions, etc.",
+      "Create Outlet": "Create Outlet",
       "Bank No.": "Bank No.",
       "Select Country": "Select Country",
       "Rural Outlet": "Rural Outlet",
@@ -1041,7 +1042,24 @@
       "Configure Data Fields": "Configure Data Fields",
       "Configure new field to any module": "Configure new field to any module",
       "Define or modify roles and associated permissions": "Define or modify roles and associated permissions",
-      "Schedule a job, modify or delete jobs": "Schedule a job, modify or delete jobs"
+      "Schedule a job, modify or delete jobs": "Schedule a job, modify or delete jobs",
+      "Unable to delete outlet": "Unable to delete outlet",
+      "Edit Rural Outlet": "Edit Rural Outlet",
+      "Delete Rural Outlet": "Delete Rural Outlet",
+      "Assigned Offices": "Assigned Offices",
+      "offices total": "offices total",
+      "No offices assigned": "No offices assigned",
+      "Outlet name is": "Outlet name is",
+      "Approved Shares": "Approved Shares",
+      "8 characters long": "8 characters long",
+      "Country Hierarchy": "Country Hierarchy",
+      "Add New": "Add New",
+      "Add Level": "Add Level",
+      "Add new Level": "Add new Level",
+      "Remove Level": "Remove Level",
+      "Add Office": "Add Office",
+      "app-logo": "app-logo",
+      "app-user-photo": "app-user-photo"
     },
     "heading": {
       "Actions": "Actions",
@@ -2234,6 +2252,7 @@
       "Opening Balances Contra Account": "Opening Balances Contra Account",
       "Opening Balances Date": "Opening Balances Date",
       "Opening Date": "Opening Date",
+      "Opening Date is": "Opening Date is",
       "Option": "Option",
       "Order": "Order",
       "Original": "Original",
@@ -2753,7 +2772,9 @@
       "Report Name is": "Report Name is",
       "Job Name is": "Job Name is",
       "Country Code is": "Country Code is",
-      "Role Name is": "Role Name is"
+      "Role Name is": "Role Name is",
+      "Amount Disbursed": "Amount Disbursed",
+      "Enter Level Name": "Enter Level Name"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Accounting",

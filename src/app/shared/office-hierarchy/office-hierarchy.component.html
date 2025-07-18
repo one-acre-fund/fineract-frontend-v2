@@ -1,11 +1,9 @@
 <div class="mat-card mat-focus-indicator">
     <div class="col-8">
-        <h3>Country Hierarchy</h3>
+        <h3>{{ 'labels.commons.Country Hierarchy' | translate }}</h3>
     </div>
   <div class="col-4">
-    <button type="button" (click)="hasData=true" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary pull-right">
-        Add New
-       </button>
+    <button type="button" (click)="hasData=true" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary pull-right">{{ 'labels.commons.Add New' | translate }}</button>
   </div>
     
     
@@ -18,10 +16,10 @@
         >
           <button type="button" mat-icon-button disabled></button>
           <mat-form-field>
-            <mat-label>Enter Level Name</mat-label>
+            <mat-label>{{ 'labels.inputs.Enter Level Name' | translate }}</mat-label>
             <input matInput #itemValue />
           </mat-form-field>
-          <button type="button" mat-button (click)="saveNode(node, itemValue.value)" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary">Add Level</button>
+          <button type="button" mat-button (click)="saveNode(node, itemValue.value)" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary">{{ 'labels.commons.Add Level' | translate }}</button>
         </mat-tree-node>
       
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
@@ -41,11 +39,11 @@
       
           
           <input matInput type="text" value="{{node.levelName}}">
-          <button type="button" mat-icon-button title="Add new Level" (click)="addNewItem(node)" *ngIf="!node.hasChild">
-            <mat-icon>add</mat-icon>
+          <button type="button" mat-icon-button title="{{ 'labels.commons.Add new Level' | translate }}" (click)="addNewItem(node)" *ngIf="!node.hasChild">
+            <mat-icon>{{ 'labels.buttons.Add' | translate }}</mat-icon>
           </button>
-          <button type="button" mat-icon-button title="Remove Level" (click)="removeItem(node)" *ngIf="!node.hasChild && node.level>0">
-            <mat-icon>remove</mat-icon>
+          <button type="button" mat-icon-button title="{{ 'labels.commons.Remove Level' | translate }}" (click)="removeItem(node)" *ngIf="!node.hasChild && node.level>0">
+            <mat-icon>{{ 'labels.buttons.Remove' | translate }}</mat-icon>
           </button>
         </mat-tree-node>
       </mat-tree>

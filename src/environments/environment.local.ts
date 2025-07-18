@@ -30,7 +30,7 @@ export const environment = {
     redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
-  supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR',
+  supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR,sw-KE',
   headOfficeID: window['env']['headOfficeID'] || '1',
   //Matomo instance config
   matomoSiteId: window['env']['matomoSiteId'] || 1,
