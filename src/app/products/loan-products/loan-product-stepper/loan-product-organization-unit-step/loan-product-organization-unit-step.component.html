@@ -46,7 +46,7 @@
   </div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-    <mat-form-field fxFlex="100%" fxFlex.xs="100%" fxFlex.sm="50%">
+    <mat-form-field fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="50%">
       <mat-error *ngIf="!isCountryHasActiveCurrency">
         {{ 'labels.oaf.No Active Currency' | translate }} <strong>{{ countryName }}</strong>
       </mat-error>
@@ -59,6 +59,19 @@
         disabled
       />
     </mat-form-field>
+     <div fxFlex="50%">
+      <label for="roundingModeOnCalculatedValues">{{ 'labels.oaf.Rounding mode' | translate }}</label>
+      <ng-select
+        [items]="roundingModes"
+        bindLabel="modeLabel"
+        bindValue="modeValue"
+        placeholder="{{ 'labels.oaf.Rounding mode' | translate }}"
+        formControlName="roundingModeOnCalculatedValues"
+        aria-labelledby="roundingModeOnCalculatedValues"
+        [virtualScroll]="false"
+      >
+      </ng-select>
+    </div>
   </div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
@@ -71,12 +84,6 @@
       <input type="number" matInput formControlName="inMultiplesOf" required />
     </mat-form-field>
   </div>
-
-    <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-      <mat-checkbox fxFlex="100%" labelPosition="before" formControlName="roundDownCalculatedValues">
-        {{ 'labels.oaf.Round down calculated decimal values' | translate }}
-      </mat-checkbox>
-    </div>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
     <button mat-raised-button matStepperPrevious disabled>
