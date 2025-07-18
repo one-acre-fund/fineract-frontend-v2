@@ -26,65 +26,49 @@
     <mat-tab label="Details">
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.firstName">
-          First Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.firstName">{{ 'labels.inputs.First Name' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.firstName">
           {{ clientData.firstName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.middleName">
-          Middle Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.middleName">{{ 'labels.inputs.Middle Name' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.middleName">
           {{ clientData.middleName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.lastName">
-          Last Name
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.lastName">{{ 'labels.inputs.Last Name' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.lastName">
           {{ clientData.lastName }}
         </div>
         
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.dateOfBirth">
-          Date of Birth
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.dateOfBirth">{{ 'labels.inputs.Date Of Birth' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.dateOfBirth">
           {{ clientData.dateOfBirth  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.mobileNo">
-          Mobile Number
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.mobileNo">{{ 'labels.inputs.Mobile Number' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.mobileNo">
           {{ clientData.mobileNo }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Activation Date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Activation Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ clientData.activationDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.officeName">
-          Associated Office
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.officeName">{{ 'labels.inputs.Associated Office' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.officeName">
           {{ clientData.officeName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.staffName">
-          Associated Staff
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="clientData.staffName">{{ 'labels.inputs.Associated Staff' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="clientData.staffName">
           {{ clientData.staffName }}

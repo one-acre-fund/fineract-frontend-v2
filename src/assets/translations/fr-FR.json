@@ -897,6 +897,7 @@
       "Manage Rural Retail Outlet": "Gérer les points de vente ruraux",
       "Manage rural retail outlet": "Gérer les points de vente ruraux",
       "Create terms and conditions, etc.": "Créer des termes et conditions, etc.",
+      "Create Outlet": "Créer un point de vente",
       "Bank No.": "No. de banque",
       "Select Country": "Sélectionner le pays",
       "Rural Outlet": "Point de vente rural",
@@ -1036,7 +1037,24 @@
       "Configure Data Fields": "Configurer les champs de données",
       "Configure new field to any module": "Configurer un nouveau champ pour n'importe quel module",
       "Define or modify roles and associated permissions": "Définir ou modifier les rôles et les autorisations associées",
-      "Schedule a job, modify or delete jobs": "Planifier un travail, modifier ou supprimer des travaux"
+      "Schedule a job, modify or delete jobs": "Planifier un travail, modifier ou supprimer des travaux",
+      "Unable to delete outlet": "Impossible de supprimer le point de vente",
+      "Edit Rural Outlet": "Modifier le point de vente rural",
+      "Delete Rural Outlet": "Supprimer le point de vente rural",
+      "Assigned Offices": "Bureaux assignés",
+      "offices total": "bureaux au total",
+      "No offices assigned": "Aucun bureau assigné",
+      "Outlet name is": "Le nom du point de vente est",
+      "Approved Shares": "Approved Shares",
+      "8 characters long": "8 characters long",
+      "Country Hierarchy": "Country Hierarchy",
+      "Add New": "Add New",
+      "Add Level": "Add Level",
+      "Add new Level": "Add new Level",
+      "Remove Level": "Remove Level",
+      "Add Office": "Add Office",
+      "app-logo": "app-logo",
+      "app-user-photo": "app-user-photo"
     },
     "heading": {
       "Actions": "Actions",
@@ -2229,6 +2247,7 @@
       "Opening Balances Contra Account": "Soldes d'ouverture du compte de contrepartie :",
       "Opening Balances Date": "Date des soldes d'ouverture",
       "Opening Date": "Date d'ouverture",
+      "Opening Date is": "La date d'ouverture est",
       "Option": "Option",
       "Order": "Commande",
       "Original": "Original",
@@ -2729,7 +2748,9 @@
       "Report Name is": "Le nom du rapport est",
       "Job Name is": "Le nom du travail est",
       "Country Code is": "Le code pays est",
-      "Role Name is": "Le nom du rôle est"
+      "Role Name is": "Le nom du rôle est",
+      "Amount Disbursed": "Montant décaissé",
+      "Enter Level Name": "Entrez le nom du niveau"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",

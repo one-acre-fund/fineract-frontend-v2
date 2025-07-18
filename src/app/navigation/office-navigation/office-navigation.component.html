@@ -19,25 +19,19 @@
 <mat-card-content>
   <div fxLayout="row wrap" class="content">
 
-    <div fxFlex="50%" class="mat-body-strong">
-      Opened On
-    </div>
+    <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Opened On' | translate }}</div>
 
     <div fxFlex="50%">
       {{ officeData.openingDate  | dateFormat }}
     </div>
 
-    <div fxFlex="50%" class="mat-body-strong" *ngIf="officeData.parentName">
-      Parent officeData
-    </div>
+    <div fxFlex="50%" class="mat-body-strong" *ngIf="officeData.parentName">{{ 'labels.inputs.Parent officeData' | translate }}</div>
 
     <div fxFlex="50%" *ngIf="officeData.parentName">
       {{ officeData.parentName }}
     </div>
 
-    <div fxFlex="50%" class="mat-body-strong">
-      Number of Staff
-    </div>
+    <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Number of Staff' | translate }}</div>
 
     <div fxFlex="50%">
       {{ employeeData ? employeeData.length : '' }}
