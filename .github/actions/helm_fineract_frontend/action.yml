@@ -68,6 +68,8 @@ inputs:
   SENTRY_DSN:
     description: The Sentry DSN.
     required: true
+  APM_SERVER_URL:
+    description: The URL of the APM server.
 
 runs:
   using: composite
@@ -89,6 +91,7 @@ runs:
           MATOMO_SITE_URL: "${{ inputs.MATOMO_SITE_URL }}"
           MATOMO_SITE_ID: "${{ inputs.MATOMO_SITE_ID }}"
           SENTRY_DSN: "${{ inputs.SENTRY_DSN }}"
+          APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
 
         initContainers:
           - name: wait-for-fineract-backend
