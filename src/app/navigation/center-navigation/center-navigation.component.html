@@ -4,7 +4,7 @@
     <div class="mat-typography">
       <mat-card-title>
         <h2>
-          {{ centerData.name }} 
+          {{ centerData.name }}
           <span [className]="centerData.status.code | statusLookup">
             <fa-icon matTooltip="{{ centerData.status.value }}" matTooltipPosition="right" icon="circle" size="lg"></fa-icon>
           </span>
@@ -67,10 +67,12 @@
           {{ centerSummaryData.overdueClientLoans }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">{{ 'labels.inputs.Next Meeting Date' | translate }}</div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
+          {{ 'labels.inputs.Next Meeting Date' | translate }}
+        </div>
 
         <div fxFlex="50%" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
-          {{ centerSummaryData.collectionMeetingCalendar.nextTenRecurringDates[0]  | dateFormat }}
+          {{ centerData.collectionMeetingCalendar.nextTenRecurringDates[0] | dateFormat }}
         </div>
 
         <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.humanReadable">{{ 'labels.inputs.Meeting Frequency' | translate }}</div>
@@ -85,7 +87,7 @@
           {{ groupData ? groupData.length : '' }}
         </div>
 
-      </div>    
+      </div>
     </mat-tab>
 
     <mat-tab label="Loan Accounts" *ngIf="centerAccountsData && centerAccountsData.loanAccounts">
@@ -95,7 +97,7 @@
     <mat-tab label="Savings Accounts" *ngIf="centerAccountsData && centerAccountsData.savingsAccounts">
       <mifosx-savings-account-table [savingsAccountData]="centerAccountsData.savingsAccounts"></mifosx-savings-account-table>
     </mat-tab>
-    
+
   </mat-tab-group>
 
 </mat-card-content>

@@ -92,15 +92,6 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div fxFlex="10%" fxLayout="column"></div>
-          <div fxFlex="40%" fxLayout="column">
-            <mat-form-field>
-              <mat-label>{{ 'labels.commons.Authentication endpoint' | translate }}</mat-label>
-              <input matInput required formControlName="authentication_endpoint" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">{{ 'labels.commons.Authentication endpoint is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
         </div>
 
         <div fxLayout="row">
@@ -116,6 +107,16 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="editPaymentProviderForm.controls.authentication_type.hasError('required')">{{ 'labels.commons.Authentication type is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>{{ 'labels.commons.Authentication endpoint' | translate }}</mat-label>
+              <input matInput required formControlName="authentication_endpoint" />
+              <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">{{ 'labels.commons.Authentication endpoint is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>

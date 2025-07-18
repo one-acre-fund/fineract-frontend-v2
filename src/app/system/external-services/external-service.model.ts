@@ -36,3 +36,5 @@ export class GetExternalServicePropertyModel {
   name: string;
   value: string;
 }
+
+export const APIKEY = 'apikey';

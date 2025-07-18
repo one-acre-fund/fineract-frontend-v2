@@ -4,11 +4,14 @@
 
     * Loans & Payments
         * [CP-3646] - Allow loan charges to optionally be rounded down to the nearest whole number
+    * External Services
+        * [CP-3554] - Modify payment provider form validation to cater for providers using API key as authentication method
+
 
     * Translations
         * [CP-3366] - Translation in Organisation related UI
         * [CP-3367] - Translation in System related UI
-        * [CP-3721] - Implement translation in Shared, Home,navigation UIs
+        * [CP-3721] - Implement translation in shared, home,navigation UIs
 
     * Miscellaneous
         * [CP-1689] - Configure Real User Monitoring with Elastic APM
