@@ -53,6 +53,11 @@ import { NgxMatomoRouterModule } from '@ngx-matomo/router';
 import { NgxMatomoTrackerModule } from '@ngx-matomo/tracker';
 import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
+import { apmInitializer, ApmInitService } from './core/init/elastic-apm/apm.init.service';
+import { ApmModule } from '@elastic/apm-rum-angular';
+
+
+
 /**
  * App Module
  *
@@ -113,6 +118,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       trackerUrl: environment.matomoSiteUrl, // your matomo server root url
     }),
     NgxMatomoRouterModule,
+    ApmModule,
   ],
   declarations: [WebAppComponent, NotFoundComponent],
   providers: [
@@ -137,6 +143,12 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: APP_INITIALIZER,
       useFactory: () => () => {},
       deps: [Sentry.TraceService],
+      multi: true,
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: apmInitializer,
+      deps: [ApmInitService],
       multi: true,
     },
   ],
