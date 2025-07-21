@@ -12,6 +12,7 @@
         * [CP-3366] - Translation in Organisation related UI
         * [CP-3367] - Translation in System related UI
 
+## Version 1.3.8.1 - Community 1.0.0
     * Miscellaneous
         * [CP-1689] - Configure Real User Monitoring with Elastic APM
 
