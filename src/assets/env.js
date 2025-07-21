@@ -34,4 +34,7 @@
 
   // Loan submission button disabled timeout in seconds
   window['env']['loanSubmitButtonDisabledTimeOut'] = 5;
+
+  //APM
+  window['env']['apmServerUrl'] = '';
 })(this);
