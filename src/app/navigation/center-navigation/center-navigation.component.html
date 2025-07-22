@@ -4,7 +4,7 @@
     <div class="mat-typography">
       <mat-card-title>
         <h2>
-          {{ centerData.name }} 
+          {{ centerData.name }}
           <span [className]="centerData.status.code | statusLookup">
             <fa-icon matTooltip="{{ centerData.status.value }}" matTooltipPosition="right" icon="circle" size="lg"></fa-icon>
           </span>
@@ -25,87 +25,69 @@
     <mat-tab label="Details">
       <div fxLayout="row wrap" class="content">
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Activation Date
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Activation Date' | translate }}</div>
 
         <div fxFlex="50%">
           {{ centerData.activationDate  | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Associated Officer
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Associated Officer' | translate }}</div>
 
         <div fxFlex="50%">
           {{ centerData.staffName }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">
-          Number of Active Clients
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">{{ 'labels.inputs.Number of Active Clients' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerSummaryData">
           {{ centerSummaryData.activeClients }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">
-          Number of Active Client Loans
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">{{ 'labels.inputs.Number of Active Client Loans' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerSummaryData">
           {{ centerSummaryData.activeClientLoans }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">
-          Number of Active Client Borrowers
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">{{ 'labels.inputs.Number of Active Client Borrowers' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerSummaryData">
           {{ centerSummaryData.activeClientBorrowers }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">
-          Number of Active Overdue Group Loans
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">{{ 'labels.inputs.Number of Active Overdue Group Loans' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerSummaryData">
           {{ centerSummaryData.overdueGroupLoans }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">
-          Number of Active Overdue Client Loans
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerSummaryData">{{ 'labels.inputs.Number of Active Overdue Client Loans' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerSummaryData">
           {{ centerSummaryData.overdueClientLoans }}
         </div>
 
         <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
-          Next Meeting Date
+          {{ 'labels.inputs.Next Meeting Date' | translate }}
         </div>
 
         <div fxFlex="50%" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.nextTenRecurringDates[0]">
-          {{ centerSummaryData.collectionMeetingCalendar.nextTenRecurringDates[0]  | dateFormat }}
+          {{ centerData.collectionMeetingCalendar.nextTenRecurringDates[0] | dateFormat }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.humanReadable">
-          Meeting Frequency
-        </div>
+        <div fxFlex="50%" class="mat-body-strong" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.humanReadable">{{ 'labels.inputs.Meeting Frequency' | translate }}</div>
 
         <div fxFlex="50%" *ngIf="centerData.collectionMeetingCalendar && centerData.collectionMeetingCalendar.humanReadable">
           {{ centerSummaryData.collectionMeetingCalendar.humanReadable }}
         </div>
 
-        <div fxFlex="50%" class="mat-body-strong">
-          Number of Groups
-        </div>
+        <div fxFlex="50%" class="mat-body-strong">{{ 'labels.inputs.Number of Groups' | translate }}</div>
 
         <div fxFlex="50%">
           {{ groupData ? groupData.length : '' }}
         </div>
 
-      </div>    
+      </div>
     </mat-tab>
 
     <mat-tab label="Loan Accounts" *ngIf="centerAccountsData && centerAccountsData.loanAccounts">
@@ -115,7 +97,7 @@
     <mat-tab label="Savings Accounts" *ngIf="centerAccountsData && centerAccountsData.savingsAccounts">
       <mifosx-savings-account-table [savingsAccountData]="centerAccountsData.savingsAccounts"></mifosx-savings-account-table>
     </mat-tab>
-    
+
   </mat-tab-group>
 
 </mat-card-content>

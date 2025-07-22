@@ -11,6 +11,7 @@
     * Translations
         * [CP-3366] - Translation in Organisation related UI
         * [CP-3367] - Translation in System related UI
+        * [CP-3721] - Implement translation in shared, home,navigation UIs
 
 ## Version 1.3.8.1 - Community 1.0.0
     * Miscellaneous

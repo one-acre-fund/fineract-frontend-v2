@@ -17,7 +17,7 @@
     <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
       <button mat-icon-button disabled></button>
       <btn class="normal"></btn> {{ node.name }}
-      <btn *ngIf="!node.isLowestOU" class="add-office" title="Add Office" (click)="createOffice(node.id)">
+      <btn *ngIf="!node.isLowestOU" class="add-office" title="{{ 'labels.commons.Add Office' | translate }}" (click)="createOffice(node.id)">
         <i class="fa fa-plus"></i>
       </btn>
     </mat-tree-node>
@@ -28,7 +28,7 @@
         </mat-icon>
       </button>
       {{ node.name }}
-      <btn *ngIf="!node.isLowestOU" class="add-office" title="Add Office" (click)="createOffice(node.id)">
+      <btn *ngIf="!node.isLowestOU" class="add-office" title="{{ 'labels.commons.Add Office' | translate }}" (click)="createOffice(node.id)">
         <i class="fa fa-plus"></i>
       </btn>
     </mat-tree-node>
