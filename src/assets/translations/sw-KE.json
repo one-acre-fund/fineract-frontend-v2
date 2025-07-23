@@ -1062,7 +1062,10 @@
       "Remove Level": "Ondoa Kiwango",
       "Add Office": "Ongeza Ofisi",
       "app-logo": "nembo-ya-programu",
-      "app-user-photo": "picha-ya-mtumiaji-wa-programu"
+      "app-user-photo": "picha-ya-mtumiaji-wa-programu",
+      "Combine Office": "Unganisha Ofisi",
+      "Split Office": "Gawa Ofisi",
+      "Office Hierarchy": "Utaratibu wa Ofisi"
     },
     "heading": {
       "Actions": "Vitendo",

@@ -1062,7 +1062,10 @@
       "Remove Level": "Remove Level",
       "Add Office": "Add Office",
       "app-logo": "app-logo",
-      "app-user-photo": "app-user-photo"
+      "app-user-photo": "app-user-photo",
+      "Combine Office": "Combine Office",
+      "Split Office": "Split office",
+      "Office Hierarchy": "Office Hierarchy"
     },
     "heading": {
       "Actions": "Actions",

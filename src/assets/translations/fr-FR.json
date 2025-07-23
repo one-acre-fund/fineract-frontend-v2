@@ -1058,7 +1058,10 @@
       "Remove Level": "Supprimer le niveau",
       "Add Office": "Ajouter un bureau",
       "app-logo": "app-logo",
-      "app-user-photo": "app-user-photo"
+      "app-user-photo": "app-user-photo",
+      "Combine Office": "Bureau Combiné",
+      "Split Office": "Bureau Divisé",
+      "Office Hierarchy": "Hiérarchie de Bureau"
     },
     "heading": {
       "Actions": "Actions",
