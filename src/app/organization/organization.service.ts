@@ -72,7 +72,8 @@ export class OrganizationService {
    * @returns {Observable<any>} Offices data
    */
   getOffices(): Observable<any> {
-    return this.http.get('/offices');
+    const httpParams = new HttpParams().set('includeOfficeHierarchyPath', true.toString());
+    return this.http.get('/offices', { params: httpParams });
   }
 
   /**
@@ -112,7 +113,9 @@ export class OrganizationService {
    * @returns {Observable<any>} Office.
    */
   getOffice(officeId: string, template: boolean = false): Observable<any> {
-    const httpParams = new HttpParams().set('template', template.toString());
+    const httpParams = new HttpParams()
+      .set('template', template.toString())
+      .set('includeOfficeHierarchyPath', true.toString());
     return this.http.get(`/offices/${officeId}`, { params: httpParams });
   }
 
@@ -260,7 +263,9 @@ export class OrganizationService {
     return this.http.get(`/countries/${countryId}`);
   }
   searchCountryById(countryId: number, retrieveOnlyUpToConfiguredOULevel: boolean = false) {
-    const httpParams = new HttpParams().set('activeFlag', 'true').set('retrieveOnlyUpToConfiguredOULevel', JSON.stringify(retrieveOnlyUpToConfiguredOULevel));
+    const httpParams = new HttpParams()
+      .set('activeFlag', 'true')
+      .set('retrieveOnlyUpToConfiguredOULevel', JSON.stringify(retrieveOnlyUpToConfiguredOULevel));
     return this.http.get(`/offices/search?countryId=${countryId}`, { params: httpParams });
   }
 
@@ -372,7 +377,7 @@ export class OrganizationService {
    */
   getSmsCampaignTemplate(countryId: number, countryName: string): Observable<any> {
     const httpParams = new HttpParams().set('countryId', countryId.toString()).set('countryName', countryName);
-    return this.http.get('/smscampaigns/template', {params: httpParams});
+    return this.http.get('/smscampaigns/template', { params: httpParams });
   }
 
   /**
@@ -935,6 +940,8 @@ export class OrganizationService {
    * @returns {Observable<any>} - An observable that emits the search results.
    */
   searchOffices(params: Record<string, any>): Observable<any> {
+    //adding includeOfficeHierarchyPath=true to the params to include office hierarchy path in the response
+    params.includeOfficeHierarchyPath = 'true';
     return this.http.get('/offices/search', { params });
   }
 
@@ -972,7 +979,7 @@ export class OrganizationService {
     }, 0);
   }
 
-   /**
+  /**
    * @param {any} filterBy Properties by which entries should be filtered.
    * @param {string} orderBy Property by which entries should be sorted.
    * @param {string} sortOrder Sort order: ascending or descending.
@@ -980,7 +987,7 @@ export class OrganizationService {
    * @param {number} limit Number of entries within the page.
    * @returns {Observable<any>} Audit Trails.
    */
-   getAuditTrails(filterBy: any, orderBy: string, sortOrder: string, offset: number, limit: number): Observable<any> {
+  getAuditTrails(filterBy: any, orderBy: string, sortOrder: string, offset: number, limit: number): Observable<any> {
     let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())

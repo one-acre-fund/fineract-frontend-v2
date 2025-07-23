@@ -27,7 +27,8 @@ export class ClientsService {
       .set('displayName', displayName)
       .set('orphansOnly', orphansOnly.toString())
       .set('sortOrder', sortOrder)
-      .set('orderBy', orderBy);
+      .set('orderBy', orderBy)
+      .set('includeOfficeHierarchyPath', true.toString());
     if (officeId) {
       httpParams = httpParams.set('officeId', officeId);
     }
@@ -39,7 +40,8 @@ export class ClientsService {
       .set('offset', offset.toString())
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
-      .set('orderBy', orderBy);
+      .set('orderBy', orderBy)
+      .set('includeOfficeHierarchyPath', true.toString());
     return this.http.get('/clients', { params: httpParams });
   }
 
@@ -55,7 +57,8 @@ export class ClientsService {
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
       .set('orderBy', orderBy)
-      .set('countryId', countryId);
+      .set('countryId', countryId)
+      .set('includeOfficeHierarchyPath', true.toString());
     return this.http.get('/clients', { params: httpParams });
   }
 
@@ -64,11 +67,12 @@ export class ClientsService {
   }
 
   getClientData(clientId: string) {
-    return this.http.get(`/clients/${clientId}`);
+    const httpParams = new HttpParams().set('includeOfficeHierarchyPath', 'true');
+    return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
   getClientDatawithCreditScore(clientId: string) {
-    const httpParams = new HttpParams().set('includeCreditScores', 'true');
+    const httpParams = new HttpParams().set('includeCreditScores', 'true').set('includeOfficeHierarchyPath', 'true');
     return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 

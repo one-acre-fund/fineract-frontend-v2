@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.9.1 - Community 1.0.0
+
+    * [CP-3734] - Show OU Path for client, groups and offices
+
 ## Version 1.3.9 - Community 1.0.0
 
     * Loans & Payments
@@ -14,9 +18,9 @@
         * [CP-3721] - Implement translation in shared, home,navigation UIs
 
 ## Version 1.3.8.1 - Community 1.0.0
+
     * Miscellaneous
         * [CP-1689] - Configure Real User Monitoring with Elastic APM
-
 
 ## Version 1.3.8 - Community 1.0.0
 
