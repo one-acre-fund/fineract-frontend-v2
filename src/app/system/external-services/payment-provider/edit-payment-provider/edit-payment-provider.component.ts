@@ -61,7 +61,7 @@ export class EditPaymentProviderComponent implements OnInit {
       authentication_endpoint: [getProp('authentication_endpoint')],
       authentication_type: [getProp('authentication_type'), Validators.required],
       business_id: [getProp('business_id'), Validators.required],
-      sub_entity_code: [getProp('sub_entity_code'), Validators.required],
+      sub_entity_code: [getProp('sub_entity_code')],
       username: [getProp('username')],
       password: [getProp('password')],
     });
@@ -81,19 +81,30 @@ export class EditPaymentProviderComponent implements OnInit {
       if (authType?.toLowerCase() === APIKEY) {
         endpointControl?.clearValidators();
         usernameControl?.clearValidators();
-        passwordControl?.setValidators([Validators.required]);
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
       } else {
         endpointControl?.setValidators([Validators.required]);
         usernameControl?.setValidators([Validators.required]);
-        passwordControl?.setValidators([Validators.required]);
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
       }
-
-      endpointControl?.updateValueAndValidity();
-      usernameControl?.updateValueAndValidity();
+      // Password is always required
+      passwordControl?.setValidators([Validators.required]);
       passwordControl?.updateValueAndValidity();
     };
     updateValidators(authTypeControl?.value);
     authTypeControl?.valueChanges.subscribe(updateValidators);
+  }
+
+  /**
+   * Helper to check if a control has the required validator
+   */
+  hasRequiredValidator(controlName: string): boolean {
+    const control = this.editPaymentProviderForm.get(controlName);
+    if (!control || !control.validator) return false;
+    const validator = control.validator({} as any);
+    return !!(validator && validator['required']);
   }
 
   /**

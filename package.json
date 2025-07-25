@@ -71,7 +71,7 @@
     "lodash": "4.17.21",
     "moment": "^2.29.4",
     "ng-otp-input": "^1.9.3",
-    "ng-table-virtual-scroll": "^1.5.1",
+    "ng-table-virtual-scroll": "1.5.1",
     "ng2-dragula": "^2.1.1",
     "rxjs": "6.6.2",
     "tslib": "^2.4.1",
@@ -126,8 +126,5 @@
   "engines": {
     "node": ">= 16.15.1",
     "npm": ">= 8.11.0"
-  },
-  "overrides": {
-    "stylus": "0.0.1-security"
   }
 }
