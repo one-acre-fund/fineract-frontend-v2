@@ -46,9 +46,9 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
-              <mat-label>{{ 'labels.commons.Organization Identification (BVN)' | translate }}</mat-label>
+              <mat-label>{{ 'labels.commons.Business Identification' | translate }}</mat-label>
               <input matInput required formControlName="business_id" />
-              <mat-error *ngIf="editPaymentProviderForm.controls.business_id.hasError('required')">{{ 'labels.commons.Organization Identification (BVN) is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+              <mat-error *ngIf="editPaymentProviderForm.controls.business_id.hasError('required')">{{ 'labels.commons.Business Identification is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
           </div>
