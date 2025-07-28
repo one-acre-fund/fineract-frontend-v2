@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
-import {APIKEY, GetExternalServiceModel} from '../../external-service.model';
+import {APIKEY, GetExternalServiceModel, hasRequiredValidator} from '../../external-service.model';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
 import { MatomoTracker } from '@ngx-matomo/tracker';
 
@@ -101,10 +101,7 @@ export class EditPaymentProviderComponent implements OnInit {
    * Helper to check if a control has the required validator
    */
   hasRequiredValidator(controlName: string): boolean {
-    const control = this.editPaymentProviderForm.get(controlName);
-    if (!control || !control.validator) return false;
-    const validator = control.validator({} as any);
-    return !!(validator && validator['required']);
+    return hasRequiredValidator(this.editPaymentProviderForm, controlName);
   }
 
   /**
