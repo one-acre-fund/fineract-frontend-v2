@@ -36,7 +36,7 @@ export class ClientsViewComponent implements OnInit {
   loanAccounts: any;
   isEditAllowedFlag: boolean = false;
   clientAccountsData: any;
-  private destroy$ = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
 
 
  /**
@@ -51,8 +51,8 @@ export class ClientsViewComponent implements OnInit {
     private clientsService: ClientsService,
     private _sanitizer: DomSanitizer,
     public dialog: MatDialog,
-    private matomoTracker: MatomoTracker,
-    private systemService: SystemService,
+    private readonly matomoTracker: MatomoTracker,
+    private readonly systemService: SystemService,
   ) {
     this.route.data.subscribe((data: {
       clientViewData: any,
@@ -379,12 +379,10 @@ export class ClientsViewComponent implements OnInit {
           else {
             // Loan qualification rules not enabled, allow edit
             this.isEditAllowedFlag = true;
-            return;
           }
         },
         error: (error) => {
           this.isEditAllowedFlag = false;
-          return;
         }
       });
   }
