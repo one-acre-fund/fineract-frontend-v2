@@ -56,7 +56,7 @@
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>{{ 'labels.commons.Sub entity code' | translate }}</mat-label>
-              <input matInput required formControlName="sub_entity_code" />
+              <input matInput [required]="hasRequiredValidator('sub_entity_code')" formControlName="sub_entity_code" />
               <mat-error *ngIf="editPaymentProviderForm.controls.sub_entity_code.hasError('required')">{{ 'labels.commons.Sub entity code is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
@@ -115,7 +115,7 @@
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>{{ 'labels.commons.Authentication endpoint' | translate }}</mat-label>
-              <input matInput required formControlName="authentication_endpoint" />
+              <input matInput [required]="hasRequiredValidator('authentication_endpoint')" formControlName="authentication_endpoint" />
               <mat-error *ngIf="editPaymentProviderForm.controls.authentication_endpoint.hasError('required')">{{ 'labels.commons.Authentication endpoint is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>
@@ -126,7 +126,7 @@
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
               <mat-label>{{ 'labels.inputs.Username' | translate }}</mat-label>
-              <input matInput required formControlName="username" />
+              <input matInput [required]="hasRequiredValidator('username')" formControlName="username" />
               <mat-error *ngIf="editPaymentProviderForm.controls.username.hasError('required')">{{ 'labels.commons.Username is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>

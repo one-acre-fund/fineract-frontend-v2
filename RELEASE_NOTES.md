@@ -2,8 +2,12 @@
 
 ## Version 1.3.9.1 - Community 1.0.0
 
-    * [CP-3734] - Show OU Path for client, groups and offices
-    * [CP-3663] - Restrict Client Info Edits when a client has active loans.
+    * Organization Units
+        * [CP-3734] - Show OU Path for client, groups and offices
+    * Clients
+        * [CP-3663] - Restrict Client Info Edits when a client has active loans.
+    * External Services
+            * [CP-3737] - Bug to fix payment provider form validation to cater for providers using API key as authentication method. Also make subEntityCode optional
 
 ## Version 1.3.9 - Community 1.0.0
 
