@@ -82,7 +82,7 @@ export class ClientsViewComponent implements OnInit {
     );
 
     if (generalRoute) {
-      generalRoute.data.subscribe((childData: any) => {
+      generalRoute.data.pipe(takeUntil(this.destroy$)).subscribe((childData: any) => {
         if (childData.clientAccountsData) {
           this.clientAccountsData = childData.clientAccountsData;
           this.loanAccounts = childData.clientAccountsData?.loanAccounts;
@@ -372,19 +372,21 @@ export class ClientsViewComponent implements OnInit {
       .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.LOAN_QUALIFICATION_RULES, { countryId })
       .subscribe({
         next: (config) => {
-          if (!config?.enabled) {
+          if (config?.enabled && (config?.country?.id === countryId)) {
+            // Loan qualification rules are enabled, check user permissions
+            this.checkUserPermissions(countryId);
+          }
+          else {
             // Loan qualification rules not enabled, allow edit
             this.isEditAllowedFlag = true;
             return;
           }
-          // Loan qualification rules are enabled, check user permissions
-          this.checkUserPermissions(countryId);
         },
         error: (error) => {
           this.isEditAllowedFlag = false;
+          return;
         }
       });
-    this.isEditAllowedFlag = true; // Default to allowing edit if there's an error fetching the configuration for other country
   }
   private checkUserPermissions(countryId: string): void {
     const credentials = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.MIFOS_CREDENTIALS);
