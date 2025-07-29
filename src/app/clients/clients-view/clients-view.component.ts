@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { filter } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 /** Custom Dialogs */
 import { UnassignStaffDialogComponent } from './custom-dialogs/unassign-staff-dialog/unassign-staff-dialog.component';
@@ -35,6 +36,8 @@ export class ClientsViewComponent implements OnInit {
   loanAccounts: any;
   isEditAllowedFlag: boolean = false;
   clientAccountsData: any;
+  private destroy$ = new Subject<void>();
+
 
  /**
    * @param {ActivatedRoute} route Activated Route
@@ -62,10 +65,15 @@ export class ClientsViewComponent implements OnInit {
     });
     // Listen for route changes to detect when general tab loads
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       this.checkForClientAccountsData();
     });
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
   private checkForClientAccountsData(): void {
     // Find the general tab child route
@@ -355,23 +363,28 @@ export class ClientsViewComponent implements OnInit {
     if (!this.loanAccounts || this.loanAccounts.length === 0) {
       return false;
     }
-    const activeLoans = this.loanAccounts.filter((loan: any) => loan.status?.id === 300);
+    const activeLoans = this.loanAccounts.filter((loan: any) => loan.status?.id === APP_CONSTANTS.LOAN_STATUSES.ACTIVE);
     return activeLoans.length > 0;
   }
 
   private checkLoanQualificationRules(countryId: string): void {
     this.systemService
       .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.LOAN_QUALIFICATION_RULES, { countryId })
-      .subscribe((config) => {
-
-        if (!config?.enabled) {
-          // Loan qualification rules not enabled, allow edit
-          this.isEditAllowedFlag = true;
-          return;
+      .subscribe({
+        next: (config) => {
+          if (!config?.enabled) {
+            // Loan qualification rules not enabled, allow edit
+            this.isEditAllowedFlag = true;
+            return;
+          }
+          // Loan qualification rules are enabled, check user permissions
+          this.checkUserPermissions(countryId);
+        },
+        error: (error) => {
+          this.isEditAllowedFlag = false;
         }
-        // Loan qualification rules are enabled, check user permissions
-        this.checkUserPermissions(countryId);
       });
+    this.isEditAllowedFlag = true; // Default to allowing edit if there's an error fetching the configuration for other country
   }
   private checkUserPermissions(countryId: string): void {
     const credentials = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.MIFOS_CREDENTIALS);
@@ -384,10 +397,15 @@ export class ClientsViewComponent implements OnInit {
 
     this.systemService
       .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.SKIP_COUNTRY_SPECIFIC_CHECKS, { countryId })
-      .subscribe((config) => {
-        if (config?.enabled && this.stringAppearsInCommaSeparatedString(config?.stringValue, userEmail)) {
-          this.isEditAllowedFlag = true;
-        } else {
+      .subscribe({
+        next: (config) => {
+          if (config?.enabled && this.stringAppearsInCommaSeparatedString(config?.stringValue, userEmail)) {
+            this.isEditAllowedFlag = true;
+          } else {
+            this.isEditAllowedFlag = false;
+          }
+        },
+        error: (error) => {
           this.isEditAllowedFlag = false;
         }
       });
@@ -407,8 +425,8 @@ export class ClientsViewComponent implements OnInit {
     if (countryId != null) {
       this.checkLoanQualificationRules(countryId);
     } else {
-      // No country ID, allow edit
-      this.isEditAllowedFlag = true;
+      // No country ID, do not allow edit
+      this.isEditAllowedFlag = false;
     }
   }
   isEditAllowed(): boolean {
