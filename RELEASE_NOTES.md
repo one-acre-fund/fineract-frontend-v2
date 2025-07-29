@@ -3,6 +3,9 @@
 ## Version 1.3.9.1 - Community 1.0.0
 
     * [CP-3734] - Show OU Path for client, groups and offices
+    
+    * External Services
+            * [CP-3737] - Bug to fix payment provider form validation to cater for providers using API key as authentication method. Also make subEntityCode optional
 
 ## Version 1.3.9 - Community 1.0.0
 

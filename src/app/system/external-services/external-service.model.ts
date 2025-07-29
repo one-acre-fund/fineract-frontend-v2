@@ -1,4 +1,5 @@
 import { CountryResponseModel, OfficeDataModel } from 'app/organization/offices/office.model';
+import {AbstractControl, FormGroup} from '@angular/forms';
 
 export class AddExternalServiceModel {
   serviceName: string;
@@ -38,3 +39,16 @@ export class GetExternalServicePropertyModel {
 }
 
 export const APIKEY = 'apikey';
+
+export function hasRequiredValidator(form: FormGroup, controlName: string): boolean {
+  const control = form.get(controlName);
+  if (!control || !control.validator) return false;
+
+  const validatorFn = control.validator;
+
+  // Call the validator with a dummy control
+  const result = validatorFn({} as AbstractControl);
+
+  return !!(result && result['required']);
+}
+

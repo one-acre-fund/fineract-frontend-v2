@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
-import {AddExternalServiceModel, AddPaymentProviderPropertyModel, APIKEY} from '../../external-service.model';
+import {
+  AddExternalServiceModel,
+  AddPaymentProviderPropertyModel,
+  APIKEY,
+  hasRequiredValidator
+} from '../../external-service.model';
 import { MatomoTracker } from '@ngx-matomo/tracker';
 
 @Component({
@@ -65,9 +70,9 @@ export class AddPaymentProviderComponent implements OnInit {
       authentication_endpoint: [''],
       authentication_type: ['', Validators.required],
       business_id: ['', Validators.required],
-      sub_entity_code: ['', Validators.required],
+      sub_entity_code: [''],
       username: [''],
-      password: [''],
+      password: ['', Validators.required]
     });
 
     this.handleAuthTypeChanges();
@@ -84,17 +89,25 @@ export class AddPaymentProviderComponent implements OnInit {
       if (authType?.toLowerCase() === APIKEY) {
         endpointControl?.clearValidators();
         usernameControl?.clearValidators();
-        passwordControl?.setValidators([Validators.required]);
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
       } else {
         endpointControl?.setValidators([Validators.required]);
         usernameControl?.setValidators([Validators.required]);
-        passwordControl?.setValidators([Validators.required]);
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
       }
-
-      endpointControl?.updateValueAndValidity();
-      usernameControl?.updateValueAndValidity();
+      // Password is always required
+      passwordControl?.setValidators([Validators.required]);
       passwordControl?.updateValueAndValidity();
     });
+  }
+
+  /**
+   * Helper to check if a control has the required validator
+   */
+  hasRequiredValidator(controlName: string): boolean {
+    return hasRequiredValidator(this.addPaymentProviderForm, controlName);
   }
 
   /**
