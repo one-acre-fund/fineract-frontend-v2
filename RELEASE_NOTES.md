@@ -3,6 +3,7 @@
 ## Version 1.3.9.1 - Community 1.0.0
 
     * [CP-3734] - Show OU Path for client, groups and offices
+    * [CP-3663] - Restrict Client Info Edits when a client has active loans.
 
 ## Version 1.3.9 - Community 1.0.0
 

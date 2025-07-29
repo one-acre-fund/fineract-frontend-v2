@@ -1,8 +1,9 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
+import { filter } from 'rxjs/operators';
 
 /** Custom Dialogs */
 import { UnassignStaffDialogComponent } from './custom-dialogs/unassign-staff-dialog/unassign-staff-dialog.component';
@@ -16,6 +17,9 @@ import { CaptureImageDialogComponent } from './custom-dialogs/capture-image-dial
 /** Custom Services */
 import { ClientsService } from '../clients.service';
 import { MatomoTracker } from "@ngx-matomo/tracker";
+import { SystemService } from 'app/system/system.service';
+
+import { APP_CONSTANTS } from 'app/shared/constants/app.constants';
 
 @Component({
   selector: 'mifosx-clients-view',
@@ -28,6 +32,9 @@ export class ClientsViewComponent implements OnInit {
   clientDatatables: any;
   clientImage: any;
   clientTemplateData: any;
+  loanAccounts: any;
+  isEditAllowedFlag: boolean = false;
+  clientAccountsData: any;
 
  /**
    * @param {ActivatedRoute} route Activated Route
@@ -41,7 +48,8 @@ export class ClientsViewComponent implements OnInit {
     private clientsService: ClientsService,
     private _sanitizer: DomSanitizer,
     public dialog: MatDialog,
-    private matomoTracker: MatomoTracker
+    private matomoTracker: MatomoTracker,
+    private systemService: SystemService,
   ) {
     this.route.data.subscribe((data: {
       clientViewData: any,
@@ -50,8 +58,30 @@ export class ClientsViewComponent implements OnInit {
     }) => {
       this.clientViewData = data.clientViewData;
       this.clientDatatables = data.clientDatatables;
-      // this.clientTemplateData = data.clientTemplateData;
+
     });
+    // Listen for route changes to detect when general tab loads
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkForClientAccountsData();
+    });
+  }
+  private checkForClientAccountsData(): void {
+    // Find the general tab child route
+    const generalRoute = this.route.children.find(child =>
+      child.snapshot.url.length > 0 && child.snapshot.url[0].path === 'general'
+    );
+
+    if (generalRoute) {
+      generalRoute.data.subscribe((childData: any) => {
+        if (childData.clientAccountsData) {
+          this.clientAccountsData = childData.clientAccountsData;
+          this.loanAccounts = childData.clientAccountsData?.loanAccounts;
+          this.checkEditPermission();
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -313,6 +343,76 @@ export class ClientsViewComponent implements OnInit {
         this.matomoTracker.trackEvent('clients', 'deleteProfileImageSuccess', this.clientViewData.id);
       }
     });
+  }
+  stringAppearsInCommaSeparatedString(value: string, searchString: string): boolean {
+    if (!value || !searchString) {
+      return false;
+    }
+    const valuesArray = value.split(',').map(item => item.trim());
+    return valuesArray.includes(searchString);
+  }
+  private hasActiveLoans(): boolean {
+    if (!this.loanAccounts || this.loanAccounts.length === 0) {
+      return false;
+    }
+    const activeLoans = this.loanAccounts.filter((loan: any) => loan.status?.id === 300);
+    return activeLoans.length > 0;
+  }
+
+  private checkLoanQualificationRules(countryId: string): void {
+    this.systemService
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.LOAN_QUALIFICATION_RULES, { countryId })
+      .subscribe((config) => {
+
+        if (!config?.enabled) {
+          // Loan qualification rules not enabled, allow edit
+          this.isEditAllowedFlag = true;
+          return;
+        }
+        // Loan qualification rules are enabled, check user permissions
+        this.checkUserPermissions(countryId);
+      });
+  }
+  private checkUserPermissions(countryId: string): void {
+    const credentials = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.MIFOS_CREDENTIALS);
+    const userEmail = credentials ? JSON.parse(credentials)?.username : null;
+
+    if (!userEmail) {
+      this.isEditAllowedFlag = false;
+      return;
+    }
+
+    this.systemService
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.SKIP_COUNTRY_SPECIFIC_CHECKS, { countryId })
+      .subscribe((config) => {
+        if (config?.enabled && this.stringAppearsInCommaSeparatedString(config?.stringValue, userEmail)) {
+          this.isEditAllowedFlag = true;
+        } else {
+          this.isEditAllowedFlag = false;
+        }
+      });
+  }
+
+  private checkEditPermission(): void {
+    const country = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.SELECTED_COUNTRY);
+    const countryId = country ? JSON.parse(country)?.id : null;
+
+    // Check if client has active loans first
+    if (!this.hasActiveLoans()) {
+      this.isEditAllowedFlag = true;
+      return;
+    }
+
+    // If client has active loans, check loan qualification rules
+    if (countryId != null) {
+      this.checkLoanQualificationRules(countryId);
+    } else {
+      // No country ID, allow edit
+      this.isEditAllowedFlag = true;
+    }
+  }
+  isEditAllowed(): boolean {
+    return this.isEditAllowedFlag;
   }
 
 }
