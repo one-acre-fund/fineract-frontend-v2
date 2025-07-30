@@ -1061,7 +1061,10 @@
       "app-user-photo": "app-user-photo",
       "Combine Office": "Bureau Combiné",
       "Split Office": "Bureau Divisé",
-      "Office Hierarchy": "Hiérarchie de Bureau"
+      "Office Hierarchy": "Hiérarchie de Bureau",
+      "Healthy Path": "Parcours sain",
+      "Account Transfer Transaction": "Transaction de transfert de compte",
+      "Repayments Download": "Téléchargement des remboursements"
     },
     "heading": {
       "Actions": "Actions",

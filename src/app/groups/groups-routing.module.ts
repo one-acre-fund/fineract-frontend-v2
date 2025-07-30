@@ -30,6 +30,7 @@ import { GroupDatatablesResolver } from './common-resolvers/group-datatables.res
 import { GroupDatatableResolver } from './common-resolvers/group-datatable.resolver';
 import { GroupDataAndTemplateResolver } from './common-resolvers/group-data-and-template.resolver';
 import { GroupActionsResolver } from './common-resolvers/group-actions.resolver';
+import { LowestOfficesResolver } from 'app/accounting/common-resolvers/lowest-offices.resolver';
 
 /** Groups Routes */
 const routes: Routes = [
@@ -47,7 +48,7 @@ const routes: Routes = [
           component: CreateGroupComponent,
           data: { title: extract('Create Group'), breadcrumb: 'Create', routeParamBreadcrumb: false },
           resolve: {
-            offices: OfficesResolver
+            offices: LowestOfficesResolver
           }
         },
         {
@@ -166,6 +167,8 @@ const routes: Routes = [
               GroupDatatablesResolver,
               GroupDatatableResolver,
               GroupDataAndTemplateResolver,
-              GroupActionsResolver]
+              GroupActionsResolver,
+              LowestOfficesResolver
+            ]
 })
 export class GroupsRoutingModule { }

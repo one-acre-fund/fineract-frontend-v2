@@ -1065,7 +1065,10 @@
       "app-user-photo": "app-user-photo",
       "Combine Office": "Combine Office",
       "Split Office": "Split office",
-      "Office Hierarchy": "Office Hierarchy"
+      "Office Hierarchy": "Office Hierarchy",
+      "Healthy Path": "Healthy Path",
+      "Account Transfer Transaction": "Account Transfer Transaction",
+      "Repayments Download": "Repayments Download"
     },
     "heading": {
       "Actions": "Actions",
