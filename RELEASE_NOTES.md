@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.4.0 - Community 1.0.0
+
+    * Loans & Payments
+        * [CP-3722] - Hide previously taken input from loan product client eligibility 
+
 ## Version 1.3.9.1 - Community 1.0.0
 
     * [CP-3734] - Show OU Path for client, groups and offices
