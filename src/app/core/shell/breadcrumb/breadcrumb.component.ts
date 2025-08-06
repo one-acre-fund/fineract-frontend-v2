@@ -149,7 +149,6 @@ export class BreadcrumbComponent implements OnInit {
               }
             } else if (route.snapshot.data.hasOwnProperty(routeDataBreadcrumb)) {
               breadcrumbLabel = route.snapshot.data['title'] || route.snapshot.data[routeDataBreadcrumb];
-             // breadcrumbLabel = this.translate.instant(breadcrumbLabel);
             }
 
             if (route.snapshot.data.hasOwnProperty(routeAddBreadcrumbLink)) {

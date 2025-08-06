@@ -1068,7 +1068,7 @@
       "Split Office": "Bureau Divisé",
       "Office Hierarchy": "Hiérarchie de Bureau",
       "Loan Account#": "Compte de Prêt#",
-      "Reschedule Request#": "Demande de Rééchelonnement#"
+      "Reschedule Request#": "Demande de Rééchelonnement#",
       "Healthy Path": "Parcours sain",
       "Account Transfer Transaction": "Transaction de transfert de compte",
       "Repayments Download": "Téléchargement des remboursements"
@@ -2769,7 +2769,7 @@
       "Role Name is": "Le nom du rôle est",
       "Amount Disbursed": "Montant décaissé",
       "Enter Level Name": "Entrez le nom du niveau",
-      "AccountNumber": "AccountNumber"
+      "AccountNumber": "Numéro de compte"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",
