@@ -24,7 +24,7 @@ export class ClientTemplateResolver implements Resolve<Object> {
      * @returns {Observable<any>}
      */
     resolve(route: ActivatedRouteSnapshot): Observable<any> {
-        return this.clientsService.getClientTemplate();
+        return this.clientsService.getClientTemplate(true);
     }
 
 }

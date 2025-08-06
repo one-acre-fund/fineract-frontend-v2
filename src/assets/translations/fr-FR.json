@@ -1004,8 +1004,8 @@
       "Authentication Endpoint": "Point de terminaison d'authentification",
       "Authentication Endpoint is": "Le point de terminaison d'authentification est",
       "Office is": "Le bureau est",
-      "Business Identification": "Identification d'entreprise",
-      "Business Identification is": "L'identification d'entreprise est",
+      "Business Identification": "Identification de l'organisation (BVN)",
+      "Business Identification is": "Identification de l'organisation (BVN) est",
       "Sub entity code": "Code de sous-entité",
       "Sub entity code is": "Le code de sous-entité est",
       "Account creation endpoint": "Point de terminaison de création de compte",
@@ -1067,8 +1067,11 @@
       "Combine Office": "Bureau Combiné",
       "Split Office": "Bureau Divisé",
       "Office Hierarchy": "Hiérarchie de Bureau",
-      "Loan Account#": "Loan Account#",
-      "Reschedule Request#": "Reschedule Request#"
+      "Loan Account#": "Compte de Prêt#",
+      "Reschedule Request#": "Demande de Rééchelonnement#"
+      "Healthy Path": "Parcours sain",
+      "Account Transfer Transaction": "Transaction de transfert de compte",
+      "Repayments Download": "Téléchargement des remboursements"
     },
     "heading": {
       "Actions": "Actions",

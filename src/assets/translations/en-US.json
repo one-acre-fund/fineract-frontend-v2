@@ -1007,8 +1007,8 @@
       "Authentication Endpoint": "Authentication Endpoint",
       "Authentication Endpoint is": "Authentication Endpoint is",
       "Office is": "Office is",
-      "Business Identification": "Business Identification",
-      "Business Identification is": "Business Identification is",
+      "Business Identification": "Organization Identification (BVN)",
+      "Business Identification is": "Organization Identification (BVN) is",
       "Sub entity code": "Sub entity code",
       "Sub entity code is": "Sub entity code is",
       "Account creation endpoint": "Account creation endpoint",
@@ -1073,6 +1073,9 @@
       "Office Hierarchy": "Office Hierarchy",
       "Loan Account#": "Loan Account#",
       "Reschedule Request#": "Reschedule Request#"
+      "Healthy Path": "Healthy Path",
+      "Account Transfer Transaction": "Account Transfer Transaction",
+      "Repayments Download": "Repayments Download"
     },
     "heading": {
       "Actions": "Actions",

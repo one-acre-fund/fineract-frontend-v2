@@ -1,12 +1,19 @@
 # Release Notes
 
-## Version 1.3.9.2 - Community 1.0.0
+## Version 1.4.0 - Community 1.0.0
 
-    * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
+    * Loans & Payments
+        * [CP-3722] - Hide previously taken input from loan product client eligibility
+        
+    * Tranlations
+        * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
 
 ## Version 1.3.9.1 - Community 1.0.0
 
     * [CP-3734] - Show OU Path for client, groups and offices
+    
+    * External Services
+            * [CP-3737] - Bug to fix payment provider form validation to cater for providers using API key as authentication method. Also make subEntityCode optional
 
 ## Version 1.3.9 - Community 1.0.0
 
