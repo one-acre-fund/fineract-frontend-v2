@@ -8,6 +8,8 @@ import { filter } from 'rxjs/operators';
 /** Custom Model */
 import { Breadcrumb } from './breadcrumb.model';
 
+import { TranslateService } from '@ngx-translate/core';
+
 /**
  * Route data property to generate breadcrumb using a static string.
  *
@@ -43,10 +45,9 @@ const routeAddBreadcrumbLink = 'addBreadcrumbLink';
 @Component({
   selector: 'mifosx-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss']
+  styleUrls: ['./breadcrumb.component.scss'],
 })
 export class BreadcrumbComponent implements OnInit {
-
   /** Array of breadcrumbs. */
   breadcrumbs: Breadcrumb[];
 
@@ -55,19 +56,17 @@ export class BreadcrumbComponent implements OnInit {
    * @param {ActivatedRoute} activatedRoute Activated Route.
    * @param {Router} router Router for navigation.
    */
-  constructor(private activatedRoute: ActivatedRoute,
-              private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private translate: TranslateService) {
     this.generateBreadcrumbs();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Generates the array of breadcrumbs for the visited route.
    */
   generateBreadcrumbs() {
-    const onNavigationEnd = this.router.events.pipe(filter(event => event instanceof NavigationEnd));
+    const onNavigationEnd = this.router.events.pipe(filter((event) => event instanceof NavigationEnd));
 
     onNavigationEnd.subscribe(() => {
       this.breadcrumbs = [];
@@ -79,7 +78,7 @@ export class BreadcrumbComponent implements OnInit {
         let breadcrumbLabel: any;
         let url: any;
 
-        childrenRoutes.forEach(route => {
+        childrenRoutes.forEach((route) => {
           currentRoute = route;
           breadcrumbLabel = false;
 
@@ -87,22 +86,28 @@ export class BreadcrumbComponent implements OnInit {
             return;
           }
 
-          const routeURL = route.snapshot.url.map(segment => segment.path).join('/');
+          const routeURL = route.snapshot.url.map((segment) => segment.path).join('/');
           currentUrl += `/${routeURL}`;
 
           if (currentUrl === '/') {
-            breadcrumbLabel = 'Home';
+            breadcrumbLabel = this.translate.instant('labels.text.Home');
           }
 
-          const hasData = (route.routeConfig && route.routeConfig.data);
+          const hasData = route.routeConfig && route.routeConfig.data;
 
           if (hasData) {
-            if (route.snapshot.data.hasOwnProperty(routeResolveBreadcrumb) && route.snapshot.data[routeResolveBreadcrumb]) {
+            if (
+              route.snapshot.data.hasOwnProperty(routeResolveBreadcrumb) &&
+              route.snapshot.data[routeResolveBreadcrumb]
+            ) {
               breadcrumbLabel = route.snapshot.data;
               route.snapshot.data[routeResolveBreadcrumb].forEach((property: any) => {
                 breadcrumbLabel = breadcrumbLabel[property];
               });
-            } else if (route.snapshot.data.hasOwnProperty(routeParamBreadcrumb) && route.snapshot.paramMap.get(route.snapshot.data[routeParamBreadcrumb])) {
+            } else if (
+              route.snapshot.data.hasOwnProperty(routeParamBreadcrumb) &&
+              route.snapshot.paramMap.get(route.snapshot.data[routeParamBreadcrumb])
+            ) {
               breadcrumbLabel = route.snapshot.paramMap.get(route.snapshot.data[routeParamBreadcrumb]);
               const routeData: Data = route.snapshot.data;
               if (routeData.breadcrumb === 'Clients') {
@@ -112,11 +117,17 @@ export class BreadcrumbComponent implements OnInit {
               } else if (routeData.breadcrumb === 'Centers') {
                 breadcrumbLabel = routeData.centerViewData.name;
               } else if (routeData.breadcrumb === 'Loans') {
-                breadcrumbLabel = routeData.loanDetailsData.loanProductName + '(' + routeData.loanDetailsData.accountNo + ')';
+                breadcrumbLabel =
+                  routeData.loanDetailsData.loanProductName + '(' + routeData.loanDetailsData.accountNo + ')';
               } else if (routeData.breadcrumb === 'Savings') {
-                breadcrumbLabel = routeData.savingsAccountData.savingsProductName + '(' + routeData.savingsAccountData.accountNo + ')';
+                breadcrumbLabel =
+                  routeData.savingsAccountData.savingsProductName + '(' + routeData.savingsAccountData.accountNo + ')';
               } else if (routeData.breadcrumb === 'Fixed Deposits') {
-                breadcrumbLabel = routeData.fixedDepositsAccountData.depositProductName + '(' + routeData.fixedDepositsAccountData.accountNo + ')';
+                breadcrumbLabel =
+                  routeData.fixedDepositsAccountData.depositProductName +
+                  '(' +
+                  routeData.fixedDepositsAccountData.accountNo +
+                  ')';
               } else if (routeData.breadcrumb === 'Loan Products') {
                 breadcrumbLabel = routeData.loanProduct.name;
               } else if (routeData.breadcrumb === 'Charges') {
@@ -137,7 +148,8 @@ export class BreadcrumbComponent implements OnInit {
                 breadcrumbLabel = routeData.taxGroup.name;
               }
             } else if (route.snapshot.data.hasOwnProperty(routeDataBreadcrumb)) {
-              breadcrumbLabel = route.snapshot.data[routeDataBreadcrumb];
+              breadcrumbLabel = route.snapshot.data['title'] || route.snapshot.data[routeDataBreadcrumb];
+             // breadcrumbLabel = this.translate.instant(breadcrumbLabel);
             }
 
             if (route.snapshot.data.hasOwnProperty(routeAddBreadcrumbLink)) {
@@ -149,7 +161,7 @@ export class BreadcrumbComponent implements OnInit {
 
           const breadcrumb: Breadcrumb = {
             label: breadcrumbLabel,
-            url: url
+            url: url,
           };
 
           if (breadcrumbLabel) {
@@ -159,5 +171,4 @@ export class BreadcrumbComponent implements OnInit {
       }
     });
   }
-
 }

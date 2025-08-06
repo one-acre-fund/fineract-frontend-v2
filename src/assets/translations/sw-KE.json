@@ -373,13 +373,13 @@
       "NextPage": "Ukurasa Unaofuata",
       "PreviousPage": "Ukurasa Uliotangulia",
       "FirstPage": "Ukurasa wa Kwanza",
-      "LastPage": "Ukurasa wa Mwisho"
+      "LastPage": "Ukurasa wa Mwisho",
+      "transferDescription": "Maelezo ya Uhamisho"
     },
     "boolean": {
       "Yes": "Ndiyo",
       "No": "Hapana"
     },
-    "transferDescription": "Maelezo ya Uhamisho",
     "accounting": {
       "Accrual (periodic)": "Ukusanyaji (wa kipindi)",
       "Accrual (upfront)": "Ukusanyaji (wa mbele)",
@@ -3223,6 +3223,7 @@
       "Edit Holidays": "Hariri Likizo",
       "Edit Hook": "Hariri Ndoano",
       "Edit Loan Product": "Hariri Bidhaa ya Mkopo",
+      "Edit Loan Account": "Hariri Akaunti ya Mkopo",
       "Edit Notification Configuration": "Hariri Usanidi wa Arifa",
       "Edit Office": "Hariri Ofisi",
       "Edit Payment Type": "Hariri Aina ya Malipo",

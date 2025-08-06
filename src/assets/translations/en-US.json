@@ -373,13 +373,13 @@
       "NextPage": "Next Page",
       "PreviousPage": "Previous Page",
       "FirstPage": "First Page",
-      "LastPage": "Last Page"
+      "LastPage": "Last Page",
+      "transferDescription": "Transfer Description"
     },
     "boolean": {
       "Yes": "Yes",
       "No": "No"
     },
-    "transferDescription": "Transfer Description",
     "accounting": {
       "Accrual (periodic)": "Accrual (periodic)",
       "Accrual (upfront)": "Accrual (upfront)",
@@ -1070,7 +1070,9 @@
       "app-user-photo": "app-user-photo",
       "Combine Office": "Combine Office",
       "Split Office": "Split office",
-      "Office Hierarchy": "Office Hierarchy"
+      "Office Hierarchy": "Office Hierarchy",
+      "Loan Account#": "Loan Account#",
+      "Reschedule Request#": "Reschedule Request#"
     },
     "heading": {
       "Actions": "Actions",
@@ -2785,7 +2787,8 @@
       "Country Code is": "Country Code is",
       "Role Name is": "Role Name is",
       "Amount Disbursed": "Amount Disbursed",
-      "Enter Level Name": "Enter Level Name"
+      "Enter Level Name": "Enter Level Name",
+      "AccountNumber": "AccountNumber"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Accounting",
@@ -3223,6 +3226,7 @@
       "Edit Holidays": "Edit Holidays",
       "Edit Hook": "Edit Hook",
       "Edit Loan Product": "Edit Loan Product",
+      "Edit Loan Account": "Edit Loan Product",
       "Edit Notification Configuration": "Edit Notification Configuration",
       "Edit Office": "Edit Office",
       "Edit Payment Type": "Edit Payment Type",

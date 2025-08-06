@@ -17,9 +17,9 @@ const routes: Routes = [
     {
       path: 'settings',
       component: SettingsComponent,
-      data: { title: extract('Settings'), breadcrumb: 'Settings' }
-    }
-  ])
+      data: { title: extract('labels.text.Settings'), breadcrumb: 'Settings' },
+    },
+  ]),
 ];
 
 /**
@@ -30,6 +30,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
-export class SettingsRoutingModule { }
+export class SettingsRoutingModule {}

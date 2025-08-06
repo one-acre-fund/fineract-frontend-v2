@@ -103,7 +103,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: 'products',
-      data: { title: extract('Products'), breadcrumb: 'Products' },
+      data: { title: extract('labels.text.Products'), breadcrumb: 'Products' },
       children: [
         {
           path: '',
@@ -111,7 +111,7 @@ const routes: Routes = [
         },
         {
           path: 'loan-products',
-          data: { title: extract('Loan Products'), breadcrumb: 'Loan Products' },
+          data: { title: extract('labels.text.Loan Products'), breadcrumb: 'Loan Products' },
           children: [
             {
               path: '',
@@ -123,14 +123,14 @@ const routes: Routes = [
             {
               path: 'create',
               component: CreateLoanProductComponent,
-              data: { title: extract('Create Loan Product'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Loan Product'), breadcrumb: 'Create' },
               resolve: {
                 loanProductsTemplate: LoanProductsTemplateResolver,
               },
             },
             {
               path: ':id',
-              data: { title: extract('View Loan Product'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Loan Product'), routeParamBreadcrumb: 'id' },
               resolve: {
                 loanProduct: LoanProductResolver,
               },
@@ -145,7 +145,11 @@ const routes: Routes = [
                 {
                   path: 'edit',
                   component: EditLoanProductComponent,
-                  data: { title: extract('Edit Loan Product'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Loan Product'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     loanProductAndTemplate: LoanProductAndTemplateResolver,
                   },
@@ -157,7 +161,7 @@ const routes: Routes = [
 
         {
           path: 'saving-products',
-          data: { title: extract('Saving Products'), breadcrumb: 'Saving Products' },
+          data: { title: extract('labels.text.Saving Products'), breadcrumb: 'Saving Products' },
           children: [
             {
               path: '',
@@ -169,14 +173,14 @@ const routes: Routes = [
             {
               path: 'create',
               component: CreateSavingProductComponent,
-              data: { title: extract('Create Saving Product'), breadcrumb: 'Create' },
+              data: { title: extract('labels.commons.Create Saving Product'), breadcrumb: 'Create' },
               resolve: {
                 savingProductsTemplate: SavingProductsTemplateResolver,
               },
             },
             {
               path: ':id',
-              data: { title: extract('View Saving Product'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Saving Product'), routeParamBreadcrumb: 'id' },
               resolve: {
                 savingProduct: SavingProductResolver,
               },
@@ -191,7 +195,11 @@ const routes: Routes = [
                 {
                   path: 'edit',
                   component: EditSavingProductComponent,
-                  data: { title: extract('Edit Saving Product'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Saving Product'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     savingProductAndTemplate: SavingProductAndTemplateResolver,
                   },
@@ -202,7 +210,7 @@ const routes: Routes = [
         },
         {
           path: 'share-products',
-          data: { title: extract('Share Products'), breadcrumb: 'Share Products' },
+          data: { title: extract('labels.text.Share Products'), breadcrumb: 'Share Products' },
           children: [
             {
               path: '',
@@ -214,14 +222,14 @@ const routes: Routes = [
             {
               path: 'create',
               component: CreateShareProductComponent,
-              data: { title: extract('Create Share Product'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Share Product'), breadcrumb: 'Create' },
               resolve: {
                 shareProductsTemplate: ShareProductsTemplateResolver,
               },
             },
             {
               path: ':id',
-              data: { title: extract('View Share Product'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Share Product'), routeParamBreadcrumb: 'id' },
               resolve: {
                 shareProduct: ShareProductResolver,
               },
@@ -236,7 +244,11 @@ const routes: Routes = [
                 {
                   path: 'edit',
                   component: EditShareProductComponent,
-                  data: { title: extract('Edit Share Product'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Share Product'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     shareProductAndTemplate: ShareProductAndTemplateResolver,
                   },
@@ -244,7 +256,7 @@ const routes: Routes = [
                 {
                   path: 'dividends',
                   data: {
-                    title: extract('Share Products Dividends'),
+                    title: extract('labels.text.Share Products Dividends'),
                     breadcrumb: 'Dividends',
                     routeParamBreadcrumb: false,
                   },
@@ -259,7 +271,7 @@ const routes: Routes = [
                     {
                       path: 'create',
                       component: CreateDividendComponent,
-                      data: { title: extract('Create Dividend'), breadcrumb: 'Create', routeParamBreadcrumb: false },
+                      data: { title: extract('labels.text.Create Dividend'), breadcrumb: 'Create', routeParamBreadcrumb: false },
                       resolve: {
                         shareProduct: ShareProductResolver,
                       },
@@ -267,7 +279,7 @@ const routes: Routes = [
                     {
                       path: ':dividendId',
                       component: ViewDividendComponent,
-                      data: { title: extract('View Dividend'), routeParamBreadcrumb: 'dividendId' },
+                      data: { title: extract('labels.text.View Dividend'), routeParamBreadcrumb: 'dividendId' },
                       resolve: {
                         dividendData: ViewDividendDataResolver,
                       },
@@ -280,7 +292,7 @@ const routes: Routes = [
         },
         {
           path: 'tax-configurations',
-          data: { title: extract('Manage Tax Configurations'), breadcrumb: 'Manage Tax Configurations' },
+          data: { title: extract('labels.text.Manage Tax Configurations'), breadcrumb: 'Manage Tax Configurations' },
           children: [
             {
               path: '',
@@ -288,7 +300,7 @@ const routes: Routes = [
             },
             {
               path: 'tax-components',
-              data: { title: extract('Manage Tax Components'), breadcrumb: 'Tax Components' },
+              data: { title: extract('labels.text.Manage Tax Components'), breadcrumb: 'Tax Components' },
               children: [
                 {
                   path: '',
@@ -300,14 +312,14 @@ const routes: Routes = [
                 {
                   path: 'create',
                   component: CreateTaxComponentComponent,
-                  data: { title: extract('Create Tax Component'), breadcrumb: 'Create' },
+                  data: { title: extract('labels.text.Create Tax Component'), breadcrumb: 'Create' },
                   resolve: {
                     taxComponentTemplate: TaxComponentTemplateResolver,
                   },
                 },
                 {
                   path: ':id',
-                  data: { title: extract('View Tax Component'), routeParamBreadcrumb: 'id' },
+                  data: { title: extract('labels.text.View Tax Component'), routeParamBreadcrumb: 'id' },
                   resolve: {
                     taxComponent: TaxComponentResolver,
                   },
@@ -321,7 +333,7 @@ const routes: Routes = [
                     },
                     {
                       path: 'edit',
-                      data: { title: extract('Edit Tax Component'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                      data: { title: extract('labels.text.Edit Tax Component'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                       component: EditTaxComponentComponent,
                       resolve: {
                         taxComponent: TaxComponentResolver,
@@ -333,7 +345,7 @@ const routes: Routes = [
             },
             {
               path: 'tax-groups',
-              data: { title: extract('Manage Tax Groups'), breadcrumb: 'Tax Groups' },
+              data: { title: extract('labels.text.Manage Tax Groups'), breadcrumb: 'Tax Groups' },
               children: [
                 {
                   path: '',
@@ -345,14 +357,14 @@ const routes: Routes = [
                 {
                   path: 'create',
                   component: CreateTaxGroupComponent,
-                  data: { title: extract('Create Tax Group'), breadcrumb: 'Create' },
+                  data: { title: extract('labels.text.Create Tax Group'), breadcrumb: 'Create' },
                   resolve: {
                     taxGroupTemplate: ManageTaxGroupTemplateResolver,
                   },
                 },
                 {
                   path: ':id',
-                  data: { title: extract('View Tax Group'), routeParamBreadcrumb: 'id' },
+                  data: { title: extract('labels.text.View Tax Group'), routeParamBreadcrumb: 'id' },
                   resolve: {
                     taxGroup: TaxGroupResolver,
                   },
@@ -626,12 +638,16 @@ const routes: Routes = [
         {
           path: 'create',
           component: LoanProductAllocationComponent,
-          data: { title: extract('Loan Product Allocation Setting'), breadcrumb: 'Create' }
+          data: { title: extract('Loan Product Allocation Setting'), breadcrumb: 'Create' },
         },
         {
-           path: 'edit/:id',
+          path: 'edit/:id',
           component: LoanProductAllocationComponent,
-          data: { title: extract('edit-loan-product-allocation-setting'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+          data: {
+            title: extract('edit-loan-product-allocation-setting'),
+            breadcrumb: 'Edit',
+            routeParamBreadcrumb: false,
+          },
           resolve: {
             loanProductAllocationData: LoanAllocationProductAndTemplateResolver,
           },

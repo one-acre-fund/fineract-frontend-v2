@@ -20,7 +20,7 @@ const routes: Routes = [
     {
       path: 'search',
       component: SearchPageComponent,
-      data: { title: extract('Search'), breadcrumb: 'Search' },
+      data: { title: extract('labels.text.Search'), breadcrumb: 'Search' },
       runGuardsAndResolvers: 'paramsOrQueryParamsChange',
       resolve: {
         searchResults: SearchResolver

@@ -371,13 +371,13 @@
       "NextPage": "Page suivante",
       "PreviousPage": "Page précédente",
       "FirstPage": "Première page",
-      "LastPage": "Dernière page"
+      "LastPage": "Dernière page",
+      "transferDescription": "Description du transfert"
     },
     "boolean": {
       "Yes": "Oui",
       "No": "Non"
     },
-    "transferDescription": "Description du transfert",
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",
       "Accrual (upfront)": "Accumulation (d'avance)",
@@ -1066,7 +1066,9 @@
       "app-user-photo": "app-user-photo",
       "Combine Office": "Bureau Combiné",
       "Split Office": "Bureau Divisé",
-      "Office Hierarchy": "Hiérarchie de Bureau"
+      "Office Hierarchy": "Hiérarchie de Bureau",
+      "Loan Account#": "Loan Account#",
+      "Reschedule Request#": "Reschedule Request#"
     },
     "heading": {
       "Actions": "Actions",
@@ -2763,7 +2765,8 @@
       "Country Code is": "Le code pays est",
       "Role Name is": "Le nom du rôle est",
       "Amount Disbursed": "Montant décaissé",
-      "Enter Level Name": "Entrez le nom du niveau"
+      "Enter Level Name": "Entrez le nom du niveau",
+      "AccountNumber": "AccountNumber"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",
@@ -3201,6 +3204,7 @@
       "Edit Holidays": "Modifier les jours fériés",
       "Edit Hook": "Modifier le crochet",
       "Edit Loan Product": "Modifier le produit de prêt",
+      "Edit Loan Account": "Modifier le compte de prêt",
       "Edit Notification Configuration": "Modifier la configuration des notifications",
       "Edit Office": "Modifier le bureau",
       "Edit Payment Type": "Modifier le type de paiement",

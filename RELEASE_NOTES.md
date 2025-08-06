@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.9.2 - Community 1.0.0
+
+    * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
+
 ## Version 1.3.9.1 - Community 1.0.0
 
     * [CP-3734] - Show OU Path for client, groups and offices
