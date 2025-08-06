@@ -368,7 +368,12 @@
       "DragReorder Liability Priorities": "Buruta na Upange Vipaumbele vya Madeni",
       "New Joiner windows after qualifications": "Madirisha ya wajiunga wapya baada ya kuhitimu",
       "Minimum qualified members": "Idadi ya chini ya wanachama waliohitimu",
-      "Order pickup window after qualifications": "Dirisha la kuchukua oda baada ya kuhitimu"
+      "Order pickup window after qualifications": "Dirisha la kuchukua oda baada ya kuhitimu",
+      "ItemsPerPage": "Vipengee kwa Ukurasa",
+      "NextPage": "Ukurasa Unaofuata",
+      "PreviousPage": "Ukurasa Uliotangulia",
+      "FirstPage": "Ukurasa wa Kwanza",
+      "LastPage": "Ukurasa wa Mwisho"
     },
     "boolean": {
       "Yes": "Ndiyo",

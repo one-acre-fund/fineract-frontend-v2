@@ -368,7 +368,12 @@
       "DragReorder Liability Priorities": "Drag & Reorder Liability Priorities",
       "New Joiner windows after qualifications": "New Joiner windows after qualifications",
       "Minimum qualified members": "Minimum qualified members",
-      "Order pickup window after qualifications": "Order pickup window after qualifications"
+      "Order pickup window after qualifications": "Order pickup window after qualifications",
+      "ItemsPerPage": "Items Per Page",
+      "NextPage": "Next Page",
+      "PreviousPage": "Previous Page",
+      "FirstPage": "First Page",
+      "LastPage": "Last Page"
     },
     "boolean": {
       "Yes": "Yes",

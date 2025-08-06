@@ -366,7 +366,12 @@
       "DragReorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité",
       "New Joiner windows after qualifications": "Fenêtres de nouveaux adhérents après qualifications",
       "Minimum qualified members": "Nombre minimum de membres qualifiés",
-      "Order pickup window after qualifications": "Fenêtre de collecte de commandes après qualifications"
+      "Order pickup window after qualifications": "Fenêtre de collecte de commandes après qualifications",
+      "ItemsPerPage": "Éléments par page",
+      "NextPage": "Page suivante",
+      "PreviousPage": "Page précédente",
+      "FirstPage": "Première page",
+      "LastPage": "Dernière page"
     },
     "boolean": {
       "Yes": "Oui",
