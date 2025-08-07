@@ -3,7 +3,10 @@
 ## Version 1.4.0 - Community 1.0.0
 
     * Loans & Payments
-        * [CP-3722] - Hide previously taken input from loan product client eligibility 
+        * [CP-3722] - Hide previously taken input from loan product client eligibility
+        
+    * Tranlations
+        * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
 
 ## Version 1.3.9.1 - Community 1.0.0
 

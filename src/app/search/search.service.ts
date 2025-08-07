@@ -9,14 +9,13 @@ import { Observable } from 'rxjs';
  * Search service.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SearchService {
-
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    * @param {string} query Query String
@@ -27,8 +26,8 @@ export class SearchService {
     const httpParams = new HttpParams()
       .set('exactMatch', 'false')
       .set('query', query)
-      .set('resource', resource);
+      .set('resource', resource)
+      .set('includeOfficeHierarchyPath', 'true');
     return this.http.get('/search', { params: httpParams });
   }
-
 }

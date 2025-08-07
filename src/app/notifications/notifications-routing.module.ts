@@ -20,7 +20,7 @@ const routes: Routes = [
     {
       path: 'notifications',
       component: NotificationsPageComponent,
-      data: { title: extract('Notifications'), breadcrumb: 'Notifications' },
+      data: { title: extract('labels.text.Notifications'), breadcrumb: 'Notifications' },
       resolve: {
         notifications: NotificationsResolver
       }

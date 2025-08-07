@@ -41,6 +41,7 @@ import { ContentComponent } from './shell/content/content.component';
 import { InjectionToken } from '@angular/core';
 import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
 import { ApmInitService } from './init/elastic-apm/apm.init.service';
+import { PipesModule } from 'app/pipes/pipes.module';
 
 /**
  * Core Module
@@ -48,7 +49,7 @@ import { ApmInitService } from './init/elastic-apm/apm.init.service';
  * Main app shell components and singleton services should be here.
  */
 @NgModule({
-  imports: [SharedModule, HttpClientModule, TranslateModule, RouterModule],
+  imports: [SharedModule, HttpClientModule, TranslateModule, RouterModule,PipesModule],
   declarations: [ShellComponent, SidenavComponent, ToolbarComponent, BreadcrumbComponent, ContentComponent],
   exports: [
     SharedModule, // TO BE REMOVED: Once all components have replaced the core module import by shared module.

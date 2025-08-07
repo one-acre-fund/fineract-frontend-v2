@@ -55,8 +55,8 @@ import * as Sentry from '@sentry/angular';
 import { Router } from '@angular/router';
 import { apmInitializer, ApmInitService } from './core/init/elastic-apm/apm.init.service';
 import { ApmModule } from '@elastic/apm-rum-angular';
-
-
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './shares/CustomMatPaginatorIntl';
 
 /**
  * App Module
@@ -151,6 +151,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       deps: [ApmInitService],
       multi: true,
     },
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
   ],
   bootstrap: [WebAppComponent],
 })

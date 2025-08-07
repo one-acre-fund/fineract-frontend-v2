@@ -37,7 +37,7 @@ const routes: Routes = [
   Route.withShell([
     {
       path: 'groups',
-      data: { title: extract('Groups'), breadcrumb: 'Groups', routeParamBreadcrumb: false },
+      data: { title: extract('labels.heading.Groups'), breadcrumb: 'Groups', routeParamBreadcrumb: false },
       children: [
         {
           path: '',
@@ -46,16 +46,16 @@ const routes: Routes = [
         {
           path: 'create',
           component: CreateGroupComponent,
-          data: { title: extract('Create Group'), breadcrumb: 'Create', routeParamBreadcrumb: false },
+          data: { title: extract('labels.text.Create Group'), breadcrumb: 'Create', routeParamBreadcrumb: false },
           resolve: {
             offices: LowestOfficesResolver
           }
         },
         {
           path: ':groupId',
-          data: { title: extract('View Group'), routeParamBreadcrumb: 'groupId' },
+          data: { title: extract('labels.text.View Group'), routeParamBreadcrumb: 'groupId' },
           resolve: {
-            groupViewData: GroupViewResolver
+            groupViewData: GroupViewResolver,
           },
           children: [
             {
@@ -69,24 +69,32 @@ const routes: Routes = [
                 {
                   path: 'general',
                   component: GeneralTabComponent,
-                  data: { title: extract('General'), breadcrumb: 'General', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.heading.General'),
+                    breadcrumb: 'General',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     groupAccountsData: GroupAccountsResolver,
-                    groupSummary: GroupSummaryResolver
-                  }
+                    groupSummary: GroupSummaryResolver,
+                  },
                 },
                 {
                   path: 'notes',
                   component: NotesTabComponent,
-                  data: { title: extract('Notes'), breadcrumb: 'Notes', routeParamBreadcrumb: false },
+                  data: { title: extract('labels.heading.Notes'), breadcrumb: 'Notes', routeParamBreadcrumb: false },
                   resolve: {
-                    groupNotes: GroupNotesResolver
-                  }
+                    groupNotes: GroupNotesResolver,
+                  },
                 },
                 {
                   path: 'committee',
                   component: CommitteeTabComponent,
-                  data: { title: extract('Committee'), breadcrumb: 'Committee', routeParamBreadcrumb: false }
+                  data: {
+                    title: extract('labels.text.Committee'),
+                    breadcrumb: 'Committee',
+                    routeParamBreadcrumb: false,
+                  },
                 },
                 {
                   path: 'datatables',
@@ -94,62 +102,63 @@ const routes: Routes = [
                     {
                       path: ':datatableName',
                       component: DatatableTabsComponent,
-                      data: { title: extract('View Data Table'), routeParamBreadcrumb: 'datatableName' },
+                      data: { title: extract('labels.text.View Data Table'), routeParamBreadcrumb: 'datatableName' },
                       resolve: {
-                        groupDatatable: GroupDatatableResolver
-                      }
-                    }
-                  ]
-                }
-              ]
+                        groupDatatable: GroupDatatableResolver,
+                      },
+                    },
+                  ],
+                },
+              ],
             },
             {
               path: 'edit',
               component: EditGroupComponent,
-              data: { title: extract('Edit Group'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+              data: { title: extract('labels.text.Edit Group'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
               resolve: {
                 groupAndTemplateData: GroupDataAndTemplateResolver,
-                groupViewData: GroupViewResolver
-              }
+                groupViewData: GroupViewResolver,
+              },
             },
             {
               path: 'committee',
               children: [
                 {
                   path: '',
-                  redirectTo: '../committee', pathMatch: 'prefix'
+                  redirectTo: '../committee',
+                  pathMatch: 'prefix',
                 },
                 {
                   path: 'add-role',
-                  data: { title: extract('Add Role'), breadcrumb: 'Add Role', routeParamBreadcrumb: false },
+                  data: { title: extract('labels.text.Add Role'), breadcrumb: 'Add Role', routeParamBreadcrumb: false },
                   component: AddRoleComponent,
                   resolve: {
-                    groupAndTemplateData: GroupDataAndTemplateResolver
-                  }
+                    groupAndTemplateData: GroupDataAndTemplateResolver,
+                  },
                 },
-              ]
+              ],
             },
             {
               path: 'actions/:name',
-              data: { title: extract('Group Actions'), routeParamBreadcrumb: 'name' },
+              data: { title: extract('labels.text.Group Actions'), routeParamBreadcrumb: 'name' },
               component: GroupActionsComponent,
               resolve: {
-                groupActionData: GroupActionsResolver
-              }
+                groupActionData: GroupActionsResolver,
+              },
             },
             {
               path: 'loans-accounts',
-              loadChildren: () => import('../loans/loans.module').then(m => m.LoansModule)
+              loadChildren: () => import('../loans/loans.module').then((m) => m.LoansModule),
             },
             {
               path: 'savings-accounts',
-              loadChildren: () => import('../savings/savings.module').then(m => m.SavingsModule)
-            }
-          ]
-        }
-      ]
-    }
-  ])
+              loadChildren: () => import('../savings/savings.module').then((m) => m.SavingsModule),
+            },
+          ],
+        },
+      ],
+    },
+  ]),
 ];
 
 /**
@@ -171,4 +180,4 @@ const routes: Routes = [
               LowestOfficesResolver
             ]
 })
-export class GroupsRoutingModule { }
+export class GroupsRoutingModule {}

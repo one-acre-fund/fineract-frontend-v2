@@ -366,13 +366,18 @@
       "DragReorder Liability Priorities": "Glisser et réorganiser les priorités de responsabilité",
       "New Joiner windows after qualifications": "Fenêtres de nouveaux adhérents après qualifications",
       "Minimum qualified members": "Nombre minimum de membres qualifiés",
-      "Order pickup window after qualifications": "Fenêtre de collecte de commandes après qualifications"
+      "Order pickup window after qualifications": "Fenêtre de collecte de commandes après qualifications",
+      "ItemsPerPage": "Éléments par page",
+      "NextPage": "Page suivante",
+      "PreviousPage": "Page précédente",
+      "FirstPage": "Première page",
+      "LastPage": "Dernière page",
+      "transferDescription": "Description du transfert"
     },
     "boolean": {
       "Yes": "Oui",
       "No": "Non"
     },
-    "transferDescription": "Description du transfert",
     "accounting": {
       "Accrual (periodic)": "Accumulation (périodique)",
       "Accrual (upfront)": "Accumulation (d'avance)",
@@ -1062,6 +1067,8 @@
       "Combine Office": "Bureau Combiné",
       "Split Office": "Bureau Divisé",
       "Office Hierarchy": "Hiérarchie de Bureau",
+      "Loan Account#": "Compte de Prêt#",
+      "Reschedule Request#": "Demande de Rééchelonnement#",
       "Healthy Path": "Parcours sain",
       "Account Transfer Transaction": "Transaction de transfert de compte",
       "Repayments Download": "Téléchargement des remboursements"
@@ -2761,7 +2768,8 @@
       "Country Code is": "Le code pays est",
       "Role Name is": "Le nom du rôle est",
       "Amount Disbursed": "Montant décaissé",
-      "Enter Level Name": "Entrez le nom du niveau"
+      "Enter Level Name": "Entrez le nom du niveau",
+      "AccountNumber": "Numéro de compte"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",
@@ -3199,6 +3207,7 @@
       "Edit Holidays": "Modifier les jours fériés",
       "Edit Hook": "Modifier le crochet",
       "Edit Loan Product": "Modifier le produit de prêt",
+      "Edit Loan Account": "Modifier le compte de prêt",
       "Edit Notification Configuration": "Modifier la configuration des notifications",
       "Edit Office": "Modifier le bureau",
       "Edit Payment Type": "Modifier le type de paiement",
