@@ -70,6 +70,9 @@ inputs:
     required: true
   APM_SERVER_URL:
     description: The URL of the APM server.
+  APM_ACTIVE:
+    description: Whether APM is active or not.
+    default: true
 
 runs:
   using: composite
@@ -92,6 +95,7 @@ runs:
           MATOMO_SITE_ID: "${{ inputs.MATOMO_SITE_ID }}"
           SENTRY_DSN: "${{ inputs.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ inputs.APM_SERVER_URL }}"
+          APM_ACTIVE: "${{ inputs.APM_ACTIVE }}"
 
         initContainers:
           - name: wait-for-fineract-backend

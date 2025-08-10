@@ -40,7 +40,8 @@ export const environment = {
   sentryDsn: window['env']['sentryDsn'] || '',
   apm: {
     ...commonEnvironments.apm,
-    serverUrl: window['env']['apmServerUrl'] || 'http://localhost:59183'
+    serverUrl: window['env']['apmServerUrl'] || 'http://localhost:59183',
+    active: false
   },
 
 };
