@@ -17,7 +17,7 @@ const routes: Routes = [
     {
       path: 'profile',
       component:  ProfileComponent,
-      data: { title: extract('Profile'), breadcrumb: 'Profile' },
+      data: { title: extract('labels.text.Profile'), breadcrumb: 'Profile' },
     }
   ])
 ];

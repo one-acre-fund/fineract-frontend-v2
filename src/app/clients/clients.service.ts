@@ -62,8 +62,14 @@ export class ClientsService {
     return this.http.get('/clients', { params: httpParams });
   }
 
-  getClientTemplate(): Observable<any> {
-    return this.http.get('/clients/template');
+  getClientTemplate(getOfficeHierarchyPath: boolean): Observable<any> {
+
+    let httpParams = new HttpParams();
+    if (getOfficeHierarchyPath) {
+      httpParams = httpParams.set('includeOfficeHierarchyPath', 'true');
+    }
+
+    return this.http.get('/clients/template', { params: httpParams });
   }
 
   getClientData(clientId: string) {

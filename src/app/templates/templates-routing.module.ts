@@ -26,48 +26,48 @@ const routes: Routes = [
   Route.withShell([
     {
       path: 'templates',
-      data: { title: extract('Templates'), breadcrumb: 'Templates' },
+      data: { title: extract('labels.text.Templates'), breadcrumb: 'Templates' },
       children: [
         {
           path: '',
           component: TemplatesComponent,
           resolve: {
-            templates: TemplatesResolver
-          }
+            templates: TemplatesResolver,
+          },
         },
         {
           path: 'create',
-          data: { title: extract('Create Template'), breadcrumb: 'Create Template' },
+          data: { title: extract('labels.text.Create Template'), breadcrumb: 'Create Template' },
           component: CreateTemplateComponent,
           resolve: {
             createTemplateData: CreateTemplateResolver,
-            countries: CountriesResolver
-          }
+            countries: CountriesResolver,
+          },
         },
         {
           path: ':id',
-          data: { title: extract('View Template'), routeParamBreadcrumb: 'id' },
+          data: { title: extract('labels.text.View Template'), routeParamBreadcrumb: 'id' },
           children: [
             {
               path: '',
               component: ViewTemplateComponent,
               resolve: {
-                template: TemplateResolver
-              }
+                template: TemplateResolver,
+              },
             },
             {
               path: 'edit',
               component: EditTemplateComponent,
-              data: { title: extract('Edit Template'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+              data: { title: extract('labels.text.Edit Template'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
               resolve: {
-                editTemplateData: EditTemplateResolver
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ])
+                editTemplateData: EditTemplateResolver,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ]),
 ];
 
 /**
@@ -78,12 +78,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    TemplatesResolver,
-    TemplateResolver,
-    EditTemplateResolver,
-    CreateTemplateResolver,
-    CountriesResolver
-  ]
+  providers: [TemplatesResolver, TemplateResolver, EditTemplateResolver, CreateTemplateResolver, CountriesResolver],
 })
-export class TemplatesRoutingModule { }
+export class TemplatesRoutingModule {}

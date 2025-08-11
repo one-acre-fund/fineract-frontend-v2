@@ -13,8 +13,8 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    data: { title: extract('Login') }
-  }
+    data: { title: extract('labels.text.Login') },
+  },
 ];
 
 /**
@@ -25,6 +25,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [],
 })
-export class LoginRoutingModule { }
+export class LoginRoutingModule {}

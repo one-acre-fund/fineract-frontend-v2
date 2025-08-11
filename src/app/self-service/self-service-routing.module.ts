@@ -27,7 +27,7 @@ const routes: Routes = [
     {
       path: 'self-service',
       component: SelfServiceComponent,
-      data: { title: extract('Self Service'), breadcrumb: 'Self Service', addBreadcrumbLink: false },
+      data: { title: extract('labels.text.Self Service'), breadcrumb: 'Self Service', addBreadcrumbLink: false },
       children: [
         {
           path: 'users',
@@ -37,47 +37,54 @@ const routes: Routes = [
               path: '',
               component: UsersComponent,
               resolve: {
-                users: UsersResolver
-              }
+                users: UsersResolver,
+              },
             },
             {
               path: 'create',
               component: CreateUserComponent,
-              data: { title: extract('Create Self Service User'), breadcrumb: 'Create' }
+              data: { title: extract('labels.text.Create Self Service User'), breadcrumb: 'Create' },
             },
             {
               path: 'view/:id',
-              data: { title: extract('View Self Service User'), routeResolveBreadcrumb: ['user', 'username'] },
+              data: {
+                title: extract('labels.text.View Self Service User'),
+                routeResolveBreadcrumb: ['user', 'username'],
+              },
               resolve: {
-                user: ViewUserResolver
+                user: ViewUserResolver,
               },
               children: [
                 {
                   path: '',
-                  component: ViewUserComponent
+                  component: ViewUserComponent,
                 },
                 {
                   path: 'edit',
                   component: EditUserComponent,
-                  data: { title: extract('Edit Self Service User'), breadcrumb: 'Edit', routeResolveBreadcrumb: false }
-                }
-              ]
-            }
-          ]
+                  data: {
+                    title: extract('labels.text.Edit Self Service User'),
+                    breadcrumb: 'Edit',
+                    routeResolveBreadcrumb: false,
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'app-configuration',
           component: AppConfigurationComponent,
-          data: { title: extract('Self Service App Configuration'), breadcrumb: 'App Configuration' }
+          data: { title: extract('labels.text.Self Service App Configuration'), breadcrumb: 'App Configuration' },
         },
         {
           path: 'task-management',
           component: TaskManagementComponent,
-          data: { title: extract('Self Service Task Management'), breadcrumb: 'Task Management' }
-        }
-      ]
-    }
-  ])
+          data: { title: extract('labels.text.Self Service Task Management'), breadcrumb: 'Task Management' },
+        },
+      ],
+    },
+  ]),
 ];
 
 /**
@@ -88,9 +95,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    UsersResolver,
-    ViewUserResolver
-  ]
+  providers: [UsersResolver, ViewUserResolver],
 })
-export class SelfServiceRoutingModule { }
+export class SelfServiceRoutingModule {}

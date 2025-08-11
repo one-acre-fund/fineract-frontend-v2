@@ -32,51 +32,51 @@ const routes: Routes = [
     {
       path: 'checker-inbox-and-tasks',
       component: CheckerInboxAndTasksComponent,
-      data: { title: extract('Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
+      data: { title: extract('labels.text.Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
       children: [
         {
           path: 'checker-inbox',
           component: CheckerInboxComponent,
-          data: { title: extract('Checker Inbox') },
+          data: { title: extract('labels.text.Checker Inbox') },
           resolve: {
             makerCheckerResource: GetMakerCheckers,
-            makerCheckerTemplate: MakerCheckerTemplate
-          }
+            makerCheckerTemplate: MakerCheckerTemplate,
+          },
         },
         {
           path: 'client-approval',
           component: ClientApprovalComponent,
-          data: { title: extract('Client Approval') },
+          data: { title: extract('labels.text.Client Approval') },
           resolve: {
-            groupedClientData: GetGroupedClientsData
+            groupedClientData: GetGroupedClientsData,
           },
         },
         {
           path: 'loan-approval',
           component: LoanApprovalComponent,
-          data: { title: extract('Laon Approval') },
+          data: { title: extract('labels.input.Loan Approval') },
           resolve: {
             officesData: GetOffices,
-            loansData: GetLoans
+            loansData: GetLoans,
           },
         },
         {
           path: 'loan-disbursal',
           component: LoanDisbursalComponent,
-          data: { title: extract('Loan Disbursal') },
+          data: { title: extract('labels.text.Loan Disbursal') },
           resolve: {
-            loansData: GetLoans
-          }
+            loansData: GetLoans,
+          },
         },
         {
           path: 'reschedule-loan',
           component: RescheduleLoanComponent,
-          data: { title: extract('Reschedule Loan') },
+          data: { title: extract('labels.text.Reschedule Loan') },
           resolve: {
-            recheduleLoansData: GetRescheduleLoans
-          }
-        }
-      ]
+            recheduleLoansData: GetRescheduleLoans,
+          },
+        },
+      ],
     },
     {
       path: 'checker-inbox-and-tasks/checker-inbox',
@@ -84,14 +84,14 @@ const routes: Routes = [
         {
           path: ':id/view',
           component: ViewCheckerInboxComponent,
-          data: { title: extract('View Checker Inbox Component'), routeParamBreadcrumb: 'clientId' },
+          data: { title: extract('labels.text.View Checker Inbox Component'), routeParamBreadcrumb: 'clientId' },
           resolve: {
-            checkerInboxDetail: GetCheckerInboxDetailResolver
-          }
-        }
-      ]
+            checkerInboxDetail: GetCheckerInboxDetailResolver,
+          },
+        },
+      ],
     },
-  ])
+  ]),
 ];
 
 @NgModule({
@@ -104,7 +104,7 @@ const routes: Routes = [
     GetLoans,
     GetRescheduleLoans,
     MakerCheckerTemplate,
-    GetCheckerInboxDetailResolver
-  ]
+    GetCheckerInboxDetailResolver,
+  ],
 })
-export class TasksRoutingModule { }
+export class TasksRoutingModule {}
