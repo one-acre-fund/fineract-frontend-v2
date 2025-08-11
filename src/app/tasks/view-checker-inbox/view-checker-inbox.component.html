@@ -73,20 +73,45 @@
           <span fxFlex="60%">{{ checkerInboxDetail.groupName }}</span>
         </div>
 
+        <div fxFlexFill *ngIf="checkerInboxDetail.clientName">
+          <span fxFlex="40%">{{"labels.inputs.Client Name" | translate}}:</span>
+          <span fxFlex="60%">{{ checkerInboxDetail.clientName }}</span>
+        </div>
+
         <ng-container *ngIf="displayJSONData">
 
           <h3 class="mat-h3" fxFlexFill>{{ 'labels.heading.Command' | translate }}</h3>
 
           <mat-divider [inset]="true"></mat-divider>
-
+        
           <ng-container *ngFor="let json of jsondata | keyvalue">
+        
+            <div fxFlexFill *ngIf="json.key == 'clientImage' && json.value">
+              <span fxFlex="40%">{{ json.key }}:</span>
+              <img mat-card-md-image class="profile-image" [src]="clientImage" />
+            </div>
+        
+            <div fxFlexFill *ngIf="json.key !== 'clientImage' && json.key !== 'identifiers'">
+              <span fxFlex="40%">{{ json.key }}:</span>
+              <span fxFlex="60%">{{ json.value }}</span>
+            </div>
 
-          <div fxFlexFill>
-            <span fxFlex="40%">{{ json.key }}:</span>
-            <span fxFlex="60%">{{ json.value }}</span>
-          </div>
+            <div fxFlexFill *ngIf="json.key == 'identifiers' && clientIdentities.length > 0">
+              <ng-container *ngFor="let identity of clientIdentities[0] | keyvalue">
+                <div *ngIf="identity.key != 'identifierDocumentImageString'">
+                  <span fxFlex="40%">{{ identity.key }}:</span>
+                  <span fxFlex="60%">{{ identity.value }}</span>
+                </div>
 
-        </ng-container>
+                <div fxFlexFill *ngIf="identity.key == 'identifierDocumentImageString' && identity.value">
+                  <span fxFlex="40%">{{ identity.key }}:</span>
+                  <img mat-card-md-image class="profile-image" [src]="identifierDocumentImageString" />
+                </div>
+
+              </ng-container>
+            </div>
+        
+          </ng-container>
 
         </ng-container>
 
