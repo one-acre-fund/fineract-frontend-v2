@@ -166,6 +166,7 @@ jobs:
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
+          APM_ACTIVE: "${{ vars.APM_ACTIVE }}"
 
   QA:
     runs-on: ubuntu-latest
@@ -213,6 +214,7 @@ jobs:
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
+          APM_ACTIVE: "${{ vars.APM_ACTIVE }}"
 
   UAT:
     runs-on: ubuntu-latest
@@ -260,6 +262,7 @@ jobs:
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
+          APM_ACTIVE: "${{ vars.APM_ACTIVE }}"
 
   Production:
     runs-on: ubuntu-latest
@@ -318,6 +321,7 @@ jobs:
           MATOMO_SITE_URL: "${{ vars.MATOMO_SITE_URL }}"
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
+          APM_ACTIVE: "${{ vars.APM_ACTIVE }}"
 
       - name: Delete Maintenance Window
         if: always()

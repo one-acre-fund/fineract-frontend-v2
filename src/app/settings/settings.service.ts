@@ -75,7 +75,13 @@ export class SettingsService {
     if (!localStorage.getItem('mifosXLanguage')) {
       this.setDefaultLanguage();
     }
-    return JSON.parse(localStorage.getItem('mifosXLanguage'));
+    let lang = JSON.parse(localStorage.getItem('mifosXLanguage'));
+
+    // Always return en as language code as it is used to send locale field to the server.
+    if(lang && lang.code !=='en') {
+       lang.code = 'en';
+    }
+    return lang;
   }
 
   /**
