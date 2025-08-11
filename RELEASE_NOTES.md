@@ -7,7 +7,8 @@
         
     * Tranlations
         * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
-
+    * Maker Checker
+        * [CP-3723] - Improve user experience for the maker 
 ## Version 1.3.9.1 - Community 1.0.0
 
     * Organization Units

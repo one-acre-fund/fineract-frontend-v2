@@ -10,6 +10,7 @@ export const commonEnvironments = {
     footerContent: 'Fineract UI by One Acre Fund',
     apm: {
       serviceName: appName,
-      serverUrl: window['env']['apmServerUrl'] || 'http://apm-server-apm-server.elk:8200'
+      serverUrl: window['env']['apmServerUrl'] || 'http://apm-server-apm-server.elk:8200',
+      active: window['env']['apmActive'] || true,
     }
   };

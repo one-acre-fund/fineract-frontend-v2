@@ -22,7 +22,7 @@ export class ApmInitService {
     return new Promise((resolve) => {
       
       try {
-        if (environment.apm?.serviceName) {
+        if (environment.apm?.serviceName &&  environment.apm?.active) {
           const apm = this.apmService.init({
             serviceName: environment.apm.serviceName,
             serverUrl: environment.apm.serverUrl
