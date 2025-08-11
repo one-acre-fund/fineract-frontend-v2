@@ -9,6 +9,7 @@ export const APP_CONSTANTS = {
     MIFOS_CREDENTIALS: 'mifosXCredentials'
   },
   LOAN_STATUSES: {
+    SUBMITTED_AND_PENDING_APPROVAL: 100,
     APPROVED:200,
     ACTIVE: 300,
 
