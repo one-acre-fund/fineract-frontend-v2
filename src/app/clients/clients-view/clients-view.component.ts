@@ -363,8 +363,9 @@ export class ClientsViewComponent implements OnInit {
     if (!this.loanAccounts || this.loanAccounts.length === 0) {
       return false;
     }
-    const activeLoans = this.loanAccounts.filter((loan: any) => loan.status?.id === APP_CONSTANTS.LOAN_STATUSES.ACTIVE);
-    return activeLoans.length > 0;
+    const activeLoans = this.loanAccounts.filter((loan: any) =>
+      [APP_CONSTANTS.LOAN_STATUSES.ACTIVE, APP_CONSTANTS.LOAN_STATUSES.APPROVED].includes(loan.status?.id)
+    ); return activeLoans.length > 0;
   }
 
   private checkLoanQualificationRules(countryId: string): void {
