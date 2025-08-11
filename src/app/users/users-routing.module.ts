@@ -24,48 +24,48 @@ const routes: Routes = [
   Route.withShell([
     {
       path: 'users',
-      data: { title: extract('Users'), breadcrumb: 'Users' },
+      data: { title: extract('labels.heading.Users'), breadcrumb: 'Users' },
       children: [
         {
           path: '',
           component: UsersComponent,
           resolve: {
-            users: UsersResolver
-          }
+            users: UsersResolver,
+          },
         },
         {
           path: 'create',
           component: CreateUserComponent,
-          data: { title: extract('Create User'), breadcrumb: 'Create User' },
+          data: { title: extract('labels.text.Create User'), breadcrumb: 'Create User' },
           resolve: {
-            usersTemplate: UsersTemplateResolver
-          }
+            usersTemplate: UsersTemplateResolver,
+          },
         },
         {
           path: ':id',
-          data: { title: extract('View User'), routeParamBreadcrumb: 'id' },
+          data: { title: extract('labels.text.View User'), routeParamBreadcrumb: 'id' },
           children: [
             {
               path: '',
               component: ViewUserComponent,
               resolve: {
-                user: UserResolver
-              }
+                user: UserResolver,
+              },
             },
             {
               path: 'edit',
               component: EditUserComponent,
-              data: { title: extract('Edit User'), breadcrumb: 'Edit', routeResolveBreadcrumb: false },
+              data: { title: extract('labels.text.Edit User'), breadcrumb: 'Edit', routeResolveBreadcrumb: false },
               resolve: {
                 user: UserResolver,
-                usersTemplate: UsersTemplateResolver
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ])
+                usersTemplate: UsersTemplateResolver,
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ]),
 ];
 
 /**
@@ -76,10 +76,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers: [
-    UsersResolver,
-    UsersTemplateResolver,
-    UserResolver
-  ]
+  providers: [UsersResolver, UsersTemplateResolver, UserResolver],
 })
-export class UsersRoutingModule { }
+export class UsersRoutingModule {}
