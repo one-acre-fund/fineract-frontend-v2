@@ -125,11 +125,13 @@
     </mat-card-title-group>
 
     <mat-card-actions class="client-actions">
-      <span *mifosxHasPermission="'UPDATE_CLIENT'">
-        <button mat-raised-button [routerLink]="['edit']">
-          <i class="fa fa-edit"></i>{{ 'labels.buttons.Edit' | translate }}
-        </button>
-      </span>
+      <button 
+        mat-raised-button 
+        [routerLink]="['edit']"
+        [disabled]="!isEditAllowed()"
+        *mifosxHasPermission="'UPDATE_CLIENT'">
+        <i class="fa fa-edit"></i>{{ 'labels.buttons.Edit' | translate }}
+      </button>
 
       <button mat-raised-button [matMenuTriggerFor]="Applications">
         <i class="fa fa-file"></i>{{ 'labels.buttons.Applications' | translate }}
