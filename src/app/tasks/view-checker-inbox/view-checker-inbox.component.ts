@@ -1,6 +1,7 @@
 /** Angular Imports */
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,6 +24,9 @@ export class ViewCheckerInboxComponent {
   jsondata: any;
   /** Checks if there is any object or not in jsondata */
   displayJSONData = false;
+  clientImage: any;
+  identifierDocumentImageString: any;
+  clientIdentities: any[] = [];
 
   /**
    * Retrieves the maker checker id data from `resolve`.
@@ -30,15 +34,20 @@ export class ViewCheckerInboxComponent {
    * @param {Dialog} dialog MatDialog.
    * @param {router} router Router.
    * @param {TasksService} tasksService Tasks Service.
+   * @param {DomSanitizer} _sanitizer Dom sanitizer service
    */
   constructor(private route: ActivatedRoute,
     private dialog: MatDialog,
     private router: Router,
-    private tasksService: TasksService) {
+    private tasksService: TasksService, 
+    private _sanitizer: DomSanitizer) {
     this.route.data.subscribe((data: { checkerInboxDetail: any }) => {
       this.checkerInboxDetail = data.checkerInboxDetail;
       this.jsondata = JSON.parse(this.checkerInboxDetail.commandAsJson);
       this.displayJSONData = !(_.isEmpty(this.jsondata));
+      this.clientImage = this.displayJSONData && this.jsondata?.clientImage ? this._sanitizer.bypassSecurityTrustResourceUrl(this.jsondata.clientImage) : null;
+      this.clientIdentities = this.displayJSONData && this.jsondata?.identifiers ? this.jsondata.identifiers : [];
+      this.identifierDocumentImageString = this.clientIdentities.length > 0 ? this._sanitizer.bypassSecurityTrustResourceUrl(this.clientIdentities[0].identifierDocumentImageString) : null;  
     });
    }
 
