@@ -1075,7 +1075,22 @@
       "Reschedule Request#": "Reschedule Request#",
       "Healthy Path": "Healthy Path",
       "Account Transfer Transaction": "Account Transfer Transaction",
-      "Repayments Download": "Repayments Download"
+      "Repayments Download": "Repayments Download",
+      "is Notification": "is Notification",
+      "Select Office To Split": "Select Office To Split",
+      "First Office Parent": "First Office Parent",
+      "Second Office Parent": "Second Office Parent",
+      "First External ID": "First External ID",
+      "First Office": "First Office",
+      "First Office Opened On": "First Office Opened On",
+      "First Office Child": "First Office Child",
+      "Second Office": "Second Office",
+      "Second Office Child": "Second Office Child",
+      "Second Office Opened On": "Second Office Opened On",
+      "Second External ID": "Second External ID",
+      "Source Office": "Source Office",
+      "Destination Office": "Destination Office",
+      "Is the OU a country": "Is OU a Country"
     },
     "heading": {
       "Actions": "Actions",

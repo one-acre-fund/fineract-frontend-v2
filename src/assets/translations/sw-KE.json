@@ -1073,7 +1073,22 @@
       "Office Hierarchy": "Utaratibu wa Ofisi",
       "Healthy Path": "Malipo bora",
       "Account Transfer Transaction": "Muamala wa uhamisho wa akaunti",
-      "Repayments Download": "Kupakua malipo ya marejesho"
+      "Repayments Download": "Kupakua malipo ya marejesho",
+      "is Notification": "ni Arifa",
+      "Select Office To Split": "Chagua Ofisi ya Kugawa",
+      "First Office Parent": "Ofisi ya Kwanza ya Mzazi",
+      "Second Office Parent": "Ofisi ya Pili ya Mzazi",
+      "First External ID": "Kitambulisho cha Kwanza cha Nje",
+      "First Office": "Ofisi ya Kwanza",
+      "First Office Opened On": "Ofisi ya Kwanza Ilifunguliwa Tarehe",
+      "First Office Child": "Ofisi ya Kwanza ya Mtoto",
+      "Second Office": "Ofisi ya Pili",
+      "Second Office Child": "Ofisi ya Pili ya Mtoto",
+      "Second Office Opened On": "Ofisi ya Pili Ilifunguliwa Tarehe",
+      "Second External ID": "Kitambulisho cha Pili cha Nje",
+      "Source Office": "Ofisi ya Chanzo",
+      "Destination Office": "Ofisi ya Marudio",
+      "Is the OU a country": "Je, OU ni Nchi"
     },
     "heading": {
       "Actions": "Vitendo",

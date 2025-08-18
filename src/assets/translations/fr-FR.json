@@ -1071,7 +1071,22 @@
       "Reschedule Request#": "Demande de Rééchelonnement#",
       "Healthy Path": "Parcours sain",
       "Account Transfer Transaction": "Transaction de transfert de compte",
-      "Repayments Download": "Téléchargement des remboursements"
+      "Repayments Download": "Téléchargement des remboursements",
+      "is Notification": "est une Notification",
+      "Select Office To Split": "Sélectionner le Bureau à Diviser",
+      "First Office Parent": "Premier Bureau Parent",
+      "Second Office Parent": "Deuxième Bureau Parent",
+      "First External ID": "Premier ID Externe",
+      "First Office": "Premier Bureau",
+      "First Office Opened On": "Premier Bureau Ouvert Le",
+      "First Office Child": "Premier Bureau Enfant",
+      "Second Office": "Deuxième Bureau",
+      "Second Office Child": "Deuxième Bureau Enfant",
+      "Second Office Opened On": "Deuxième Bureau Ouvert Le",
+      "Second External ID": "Deuxième ID Externe",
+      "Source Office": "Bureau Source",
+      "Destination Office": "Bureau de Destination",
+      "Is the OU a country": "L'UO est-elle un Pays"
     },
     "heading": {
       "Actions": "Actions",
