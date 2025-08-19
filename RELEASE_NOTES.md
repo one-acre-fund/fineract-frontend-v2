@@ -4,11 +4,14 @@
 
     * Loans & Payments
         * [CP-3722] - Hide previously taken input from loan product client eligibility
-        
+
     * Tranlations
         * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
+        * [CP-3788] - Fix other translation reported issues
+        
     * Maker Checker
-        * [CP-3723] - Improve user experience for the maker 
+        * [CP-3723] - Improve user experience for the maker
+
 ## Version 1.3.9.1 - Community 1.0.0
 
     * Organization Units
