@@ -8,6 +8,7 @@
     * Tranlations
         * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
         * [CP-3788] - Fix other translation reported issues
+        
     * Maker Checker
         * [CP-3723] - Improve user experience for the maker
 
