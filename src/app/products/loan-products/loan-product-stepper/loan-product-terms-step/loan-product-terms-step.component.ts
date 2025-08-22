@@ -9,6 +9,8 @@ import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-
 import { InputBase } from 'app/shared/form-dialog/formfield/model/input-base';
 import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { ProductsService } from 'app/products/products.service';
+import { SettingsService } from 'app/settings/settings.service';
+import { Dates } from 'app/core/utils/dates';
 
 @Component({
   selector: 'mifosx-loan-product-terms-step',
@@ -32,7 +34,8 @@ export class LoanProductTermsStepComponent implements OnInit {
   displayedColumns: string[] = ['valueConditionType', 'borrowerCycleNumber', 'minValue', 'defaultValue', 'maxValue', 'actions'];
 
   constructor(private formBuilder: UntypedFormBuilder,
-              public dialog: MatDialog, private productService: ProductsService) {
+              public dialog: MatDialog, private productService: ProductsService, 
+              private dateUtils: Dates, private settingsService: SettingsService) {
     this.createLoanProductTermsForm();
     this.setConditionalControls();
   }
@@ -44,6 +47,8 @@ export class LoanProductTermsStepComponent implements OnInit {
     this.repaymentFrequencyTypeData = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
     this.amountCalculationTypeOptions = this.loanProductsTemplate.amountCalculationTypeOptions;
     this.repaymentFrequencyTypeOptions = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
+
+    console.log(this.loanProductsTemplate);
 
     this.loanProductTermsForm.patchValue({
       'minPrincipal': this.loanProductsTemplate.minPrincipal,
@@ -67,6 +72,8 @@ export class LoanProductTermsStepComponent implements OnInit {
       'repaymentEvery': this.loanProductsTemplate.repaymentEvery,
       'repaymentFrequencyType': this.loanProductsTemplate.repaymentFrequencyType.id,
       'minimumDaysBetweenDisbursalAndFirstRepayment': this.loanProductsTemplate.minimumDaysBetweenDisbursalAndFirstRepayment,
+      'loanEndDateOverrideMode': this.loanProductsTemplate.loanEndDateOverrideMode,
+      'loanEndDateOverrideEndDate': this.loanProductsTemplate.loanEndDateOverrideEndDate  && new Date(this.loanProductsTemplate.loanEndDateOverrideEndDate),
       'prepaidAmount': this.loanProductsTemplate.terms?.prepaidAmount,
       'prepaidAmountCalculationType': this.loanProductsTemplate.terms?.prepaidAmountCalculationType?.id,
       'repaymentStartPeriod': this.loanProductsTemplate.terms?.repaymentStartPeriod,
@@ -98,6 +105,8 @@ export class LoanProductTermsStepComponent implements OnInit {
       'repaymentEvery': ['', Validators.required],
       'repaymentFrequencyType': ['', Validators.required],
       'minimumDaysBetweenDisbursalAndFirstRepayment': [''],
+      'loanEndDateOverrideMode': [''],
+      'loanEndDateOverrideEndDate': [''],
       'prepaidAmount': [''],
       'prepaidAmountCalculationType': [''],
       'repaymentStartPeriod': [''],
@@ -252,7 +261,13 @@ export class LoanProductTermsStepComponent implements OnInit {
   }
 
   get loanProductTerms() {
-    return this.loanProductTermsForm.value;
+    const loanProductTermsFormData = this.loanProductTermsForm.value;
+    const prevLoanEndDateOverrideEndDate: Date = loanProductTermsFormData.loanEndDateOverrideEndDate;
+    const dateFormat = this.settingsService.dateFormat;
+    if (loanProductTermsFormData.loanEndDateOverrideEndDate instanceof Date) {
+      loanProductTermsFormData.loanEndDateOverrideEndDate = this.dateUtils.formatDate(prevLoanEndDateOverrideEndDate, dateFormat) || '';
+    }
+    return loanProductTermsFormData;
   }
 
   prepaidAmountChange(){
