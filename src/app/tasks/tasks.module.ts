@@ -14,6 +14,9 @@ import { LoanApprovalComponent } from './checker-inbox-and-tasks-tabs/loan-appro
 import { LoanDisbursalComponent } from './checker-inbox-and-tasks-tabs/loan-disbursal/loan-disbursal.component';
 import { RescheduleLoanComponent } from './checker-inbox-and-tasks-tabs/reschedule-loan/reschedule-loan.component';
 import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inbox.component';
+import { LoanApprovalTabsComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/loan-approval-tabs.component';
+import { LoansPendingKycVerificationComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/loans-pending-kyc-verification/loans-pending-kyc-verification.component';
+import { RejectedKycVerificationComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/rejected-kyc-verification/rejected-kyc-verification.component';
 
 /**
  * Tasks Module
@@ -32,7 +35,10 @@ import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inb
     LoanApprovalComponent,
     LoanDisbursalComponent,
     RescheduleLoanComponent,
-    ViewCheckerInboxComponent
+    ViewCheckerInboxComponent,
+    LoanApprovalTabsComponent,
+    LoansPendingKycVerificationComponent,
+    RejectedKycVerificationComponent
   ],
   providers: [ ]
 })

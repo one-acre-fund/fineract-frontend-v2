@@ -69,6 +69,26 @@ export class TasksService {
   }
 
   /**
+   * Get all Loans For Clients Pending KYC Verification
+   */
+  getLoansForClientsPendingKYCVerification(): Observable<any> {
+    const httpParams = new HttpParams().set('limit', '1000')
+                                       .set('sqlSearch', 'l.loan_status_id in (100,200)')
+                                       .set('withClientsPendingKYCVerification', true.toString());
+    return this.http.get('/loans', { params: httpParams });
+  }
+
+  /**
+   * Get all Loans For Clients Who Failed KYC Verification
+   */
+  getLoansForRejectedKYCVerificationClients(): Observable<any> {
+    const httpParams = new HttpParams().set('limit', '1000')
+                                       .set('sqlSearch', 'l.loan_status_id in (100,200)')
+                                       .set('withClientsWhoseKYCVerificationRejected', true.toString());
+    return this.http.get('/loans', { params: httpParams });
+  }
+
+  /**
    * Get Pending Rescheduled Loans
    */
   getPendingRescheduleLoans(): Observable<any> {

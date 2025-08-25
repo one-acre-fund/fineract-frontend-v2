@@ -25,6 +25,11 @@ import { GetLoans } from './common-resolvers/getLoans.resolver';
 import { GetRescheduleLoans } from './common-resolvers/getRescheduleLoans.resolver';
 import { MakerCheckerTemplate } from './common-resolvers/makerCheckerTemplate.resolver';
 import { GetCheckerInboxDetailResolver } from './common-resolvers/getCheckerInboxDetail.resolver';
+import { LoansPendingKycVerificationComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/loans-pending-kyc-verification/loans-pending-kyc-verification.component';
+import { RejectedKycVerificationComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/rejected-kyc-verification/rejected-kyc-verification.component';
+import { GetLoansForClientsPendingKYCVerification } from './common-resolvers/getLoansForClientsPendingKYCVerification.resolver';
+import { GetLoansForRejectedKYCVerificationClients } from './common-resolvers/getLoansForRejectedKYCVerificationClients.resolver';
+import { LoanApprovalTabsComponent } from './checker-inbox-and-tasks-tabs/loan-approval-tabs/loan-approval-tabs.component';
 
 /** Tasks Routes */
 const routes: Routes = [
@@ -50,16 +55,43 @@ const routes: Routes = [
           resolve: {
             groupedClientData: GetGroupedClientsData,
           },
+          
         },
         {
           path: 'loan-approval',
-          component: LoanApprovalComponent,
+          component: LoanApprovalTabsComponent,
           data: { title: extract('labels.input.Loan Approval') },
-          resolve: {
-            officesData: GetOffices,
-            loansData: GetLoans,
-          },
+          children: [
+            { path: '', redirectTo: 'loan-pending-kyc-approval', pathMatch: 'full' },
+            {
+              path: 'loan-pending-kyc-approval',
+              component: LoansPendingKycVerificationComponent,
+              data: { title: extract('labels.input.Loan Pending KYC Approval') },
+              resolve: {
+                officesData: GetOffices,
+                loansData: GetLoans,
+              },
+            },
+            {
+              path: 'loan-rejected-kyc',
+              component: RejectedKycVerificationComponent,
+              data: { title: extract('labels.input.Loan Rejected KYC') },
+              resolve: {
+                officesData: GetOffices,
+                loansData: GetLoansForRejectedKYCVerificationClients,
+              },
+            }
+      ]
         },
+        {
+      path: 'loan-approval/loan-pending-kyc-approval',
+      component: LoansPendingKycVerificationComponent,
+      data: { title: extract('labels.input.Loan Pending KYC Approval') },
+      resolve: {
+        officesData: GetOffices,
+        loansData: GetLoansForClientsPendingKYCVerification,
+      }
+    },
         {
           path: 'loan-disbursal',
           component: LoanDisbursalComponent,
@@ -102,6 +134,8 @@ const routes: Routes = [
     GetGroupedClientsData,
     GetOffices,
     GetLoans,
+    GetLoansForClientsPendingKYCVerification,
+    GetLoansForRejectedKYCVerificationClients,
     GetRescheduleLoans,
     MakerCheckerTemplate,
     GetCheckerInboxDetailResolver,
