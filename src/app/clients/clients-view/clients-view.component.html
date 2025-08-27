@@ -13,7 +13,7 @@
           <button
             class="client-image-button"
             mat-raised-button
-            (click)="doAction('Upload Image')"
+            (click)="doAction('Upload Image', null)"
             matTooltip="{{ 'tooltips.Upload Image' | translate }}"
             *mifosxHasPermission="'CREATE_CLIENTIMAGE'"
           >
@@ -22,7 +22,7 @@
           <button
             class="client-image-button"
             mat-raised-button
-            (click)="doAction('Capture Image')"
+            (click)="doAction('Capture Image', null)"
             matTooltip="{{ 'tooltips.Capture Image' | translate }}"
             *mifosxHasPermission="'CREATE_CLIENTIMAGE'"
           >
@@ -31,7 +31,7 @@
           <button
             class="client-image-button"
             mat-raised-button
-            (click)="doAction('Delete Image')"
+            (click)="doAction('Delete Image', null)"
             matTooltip="{{ 'tooltips.Delete Image' | translate }}"
             *mifosxHasPermission="'DELETE_CLIENTIMAGE'"
           >
@@ -39,7 +39,7 @@
           </button>
           <br />
         </div>
-        <p (click)="doAction('View Signature')" class="signature">{{ 'labels.inputs.View Signature' | translate }}</p>
+        <p (click)="doAction('View Signature', null)" class="signature">{{ 'labels.inputs.View Signature' | translate }}</p>
       </div>
 
       <div class="mat-typography client-card-title">
@@ -170,91 +170,91 @@
         <i class="fa fa-tasks"></i>{{ 'labels.buttons.Actions' | translate }}
       </button>
       <mat-menu #Actions="matMenu">
-        <button mat-menu-item (click)="doAction('Close')" *mifosxHasPermission="'CLOSE_CLIENT'">
+        <button mat-menu-item (click)="doAction('Close', null)" *mifosxHasPermission="'CLOSE_CLIENT'">
           {{ 'labels.buttons.Close' | translate }}
         </button>
-        <button mat-menu-item (click)="doAction('Transfer Client')" *mifosxHasPermission="'PROPOSETRANSFER_CLIENT'">
+        <button mat-menu-item (click)="doAction('Transfer Client', clientViewData.countryId)" *mifosxHasPermission="'PROPOSETRANSFER_CLIENT'">
           {{ 'labels.buttons.Transfer Client' | translate }}
         </button>
         <span *ngIf="clientViewData.status.value === 'Pending'"
-          ><button mat-menu-item (click)="doAction('Activate')" *mifosxHasPermission="'ACTIVATE_CLIENT'">
+          ><button mat-menu-item (click)="doAction('Activate', null)" *mifosxHasPermission="'ACTIVATE_CLIENT'">
             {{ 'labels.buttons.Activate' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Pending'"
-          ><button mat-menu-item (click)="doAction('Withdraw')">
+          ><button mat-menu-item (click)="doAction('Withdraw', null)">
             {{ 'labels.buttons.Withdraw' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Pending'"
-          ><button mat-menu-item (click)="doAction('Reject')">{{ 'labels.buttons.Reject' | translate }}</button></span
+          ><button mat-menu-item (click)="doAction('Reject', null)">{{ 'labels.buttons.Reject' | translate }}</button></span
         >
         <span *ngIf="clientViewData.status.value === 'Pending'"
-          ><button mat-menu-item *mifosxHasPermission="'DELETE_CLIENT'" (click)="doAction('Delete')">
+          ><button mat-menu-item *mifosxHasPermission="'DELETE_CLIENT'" (click)="doAction('Delete', null)">
             {{ 'labels.buttons.Delete' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Closed'"
-          ><button mat-menu-item (click)="doAction('Reactivate')" *mifosxHasPermission="'REACTIVATE_CLIENT'">
+          ><button mat-menu-item (click)="doAction('Reactivate', null)" *mifosxHasPermission="'REACTIVATE_CLIENT'">
             {{ 'labels.buttons.Reactivate' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Rejected'"
-          ><button mat-menu-item (click)="doAction('Undo Rejection')">
+          ><button mat-menu-item (click)="doAction('Undo Rejection', null)">
             {{ 'labels.buttons.Undo Rejection' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Transfer in progress'"
-          ><button mat-menu-item (click)="doAction('Undo Transfer')">
+          ><button mat-menu-item (click)="doAction('Undo Transfer', null)">
             {{ 'labels.buttons.Undo Transfer' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Transfer in progress'"
-          ><button mat-menu-item (click)="doAction('Accept Transfer')">
+          ><button mat-menu-item (click)="doAction('Accept Transfer', null)">
             {{ 'labels.buttons.Accept Transfer' | translate }}
           </button></span
         >
         <span *ngIf="clientViewData.status.value === 'Transfer in progress'"
-          ><button mat-menu-item (click)="doAction('Reject Transfer')">
+          ><button mat-menu-item (click)="doAction('Reject Transfer', null)">
             {{ 'labels.buttons.Reject transfer' | translate }}
           </button></span
         >
       </mat-menu>
 
       <span *ngIf="!clientViewData.staffId">
-        <button mat-raised-button (click)="doAction('Assign Staff')">
+        <button mat-raised-button (click)="doAction('Assign Staff', null)">
           <i class="fa fa-user"></i>{{ 'labels.buttons.Assign Staff' | translate }}
         </button>
       </span>
       <span *ngIf="clientViewData.staffId">
-        <button mat-raised-button *mifosxHasPermission="'UNASSIGNSTAFF_CLIENT'" (click)="doAction('Unassign Staff')">
+        <button mat-raised-button *mifosxHasPermission="'UNASSIGNSTAFF_CLIENT'" (click)="doAction('Unassign Staff', null)">
           <i class="fa fa-user"></i>{{ 'labels.buttons.Unassign Staff' | translate }}
         </button>
       </span>
 
       <button mat-raised-button [matMenuTriggerFor]="More">More</button>
       <mat-menu #More="matMenu">
-        <button mat-menu-item (click)="doAction('Add Charge')" *mifosxHasPermission="'CREATE_CLIENTCHARGE'">
+        <button mat-menu-item (click)="doAction('Add Charge', null)" *mifosxHasPermission="'CREATE_CLIENTCHARGE'">
           {{ 'labels.buttons.Add Charge' | translate }}
         </button>
-        <button mat-menu-item (click)="doAction('Survey')">{{ 'labels.buttons.Survey' | translate }}</button>
+        <button mat-menu-item (click)="doAction('Survey', null)">{{ 'labels.buttons.Survey' | translate }}</button>
         <button
           mat-menu-item
-          (click)="doAction('Update Default Savings')"
+          (click)="doAction('Update Default Savings', null)"
           *mifosxHasPermission="'UPDATESAVINGSACCOUNT_CLIENT'"
         >
           {{ 'labels.buttons.Update Default Savings' | translate }}
         </button>
-        <button mat-menu-item (click)="doAction('Upload Signature')" *mifosxHasPermission="'CREATE_CLIENTIMAGE'">
+        <button mat-menu-item (click)="doAction('Upload Signature', null)" *mifosxHasPermission="'CREATE_CLIENTIMAGE'">
           {{ 'labels.buttons.Upload Signature' | translate }}
         </button>
-        <button mat-menu-item (click)="doAction('Delete Signature')" *mifosxHasPermission="'DELETE_CLIENTIMAGE'">
+        <button mat-menu-item (click)="doAction('Delete Signature', null)" *mifosxHasPermission="'DELETE_CLIENTIMAGE'">
           {{ 'labels.buttons.Delete Signature' | translate }}
         </button>
-        <button mat-menu-item (click)="doAction('Client Screen Reports')">Client Screen Reports</button>
+        <button mat-menu-item (click)="doAction('Client Screen Reports', null)">Client Screen Reports</button>
         <button
           mat-menu-item
-          (click)="doAction('Create Standing Instructions')"
+          (click)="doAction('Create Standing Instructions', null)"
           *mifosxHasPermission="'READ_STANDINGINSTRUCTION'"
         >
           {{ 'labels.buttons.Create Standing Instructions' | translate }}
@@ -262,13 +262,13 @@
         <span *ngIf="clientViewData.status.value != 'Transfer on hold'">
           <button
             mat-menu-item
-            (click)="doAction('View Standing Instructions')"
+            (click)="doAction('View Standing Instructions', null)"
             *mifosxHasPermission="'CREATE_STANDINGINSTRUCTION'"
           >
             {{ 'labels.buttons.View Standing Instructions' | translate }}
           </button>
         </span>
-        <button mat-menu-item (click)="doAction('Create Self Service User')">
+        <button mat-menu-item (click)="doAction('Create Self Service User', null)">
           {{ 'labels.buttons.Create Self Service User' | translate }}
         </button>
       </mat-menu>

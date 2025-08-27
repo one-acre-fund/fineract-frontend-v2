@@ -23,11 +23,23 @@ export class SearchService {
    * @returns {Observable<any>} Search Results.
    */
   getSearchResults(query: string, resource: string): Observable<any> {
-    const httpParams = new HttpParams()
+    let countryId = undefined;
+    const selectedCountry = sessionStorage.getItem("selectedCountry");
+    if (selectedCountry) {
+      countryId = JSON.parse(selectedCountry)?.id;
+    }
+
+    console.log('Country ID:', countryId);
+
+    let httpParams = new HttpParams()
       .set('exactMatch', 'false')
       .set('query', query)
       .set('resource', resource)
       .set('includeOfficeHierarchyPath', 'true');
+
+    if (countryId != undefined) {
+       httpParams = httpParams.set('countryId', countryId);
+    }
     return this.http.get('/search', { params: httpParams });
   }
 }

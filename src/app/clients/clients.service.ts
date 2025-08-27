@@ -390,8 +390,8 @@ export class ClientsService {
   /**
    * @returns {Observable<any>} Offices data
    */
-  getOffices(): Observable<any> {
-    return this.http.get('/offices');
+  getOffices(countryId: string): Observable<any> {
+    return this.http.get('/offices?includeOfficeHierarchyPath=false&countryId=' + countryId);
   }
 
   /**

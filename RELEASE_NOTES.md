@@ -12,6 +12,9 @@
     * Maker Checker
         * [CP-3723] - Improve user experience for the maker
 
+    * Clients
+        * [CP-3810] - Client transfer offices dorpdown fetch lowest OUs. Search clients also sends countryId query param to filter country clients
+
 ## Version 1.3.9.1 - Community 1.0.0
 
     * Organization Units

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ClientsService } from '../clients.service';
+import { LowestOfficesResolver } from 'app/accounting/common-resolvers/lowest-offices.resolver';
 
 /**
  * Client Actions data resolver.
@@ -16,7 +17,10 @@ export class ClientActionsResolver implements Resolve<Object> {
   /**
    * @param {ClientsService} clientsService Clients service.
    */
-  constructor(private clientsService: ClientsService) {}
+  constructor(
+    private clientsService: ClientsService,
+    private lowestOfficesResolver: LowestOfficesResolver
+  ) {}
 
   /**
    * Returns the clients actions data.
@@ -40,7 +44,7 @@ export class ClientActionsResolver implements Resolve<Object> {
       case 'Withdraw':
         return this.clientsService.getClientCommandTemplate('withdraw');
       case 'Transfer Client':
-        return this.clientsService.getOffices();
+        return this.lowestOfficesResolver.resolve(route);
       case 'Add Charge':
         return this.clientsService.getClientChargeTemplate(clientId);
       case 'Client Screen Reports':
