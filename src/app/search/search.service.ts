@@ -29,8 +29,6 @@ export class SearchService {
       countryId = JSON.parse(selectedCountry)?.id;
     }
 
-    console.log('Country ID:', countryId);
-
     let httpParams = new HttpParams()
       .set('exactMatch', 'false')
       .set('query', query)
