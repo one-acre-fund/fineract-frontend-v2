@@ -5,6 +5,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
+import { CountryContextService } from 'app/shared/services/country-context.service';
+
 /**
  * Search service.
  */
@@ -14,8 +16,12 @@ import { Observable } from 'rxjs';
 export class SearchService {
   /**
    * @param {HttpClient} http Http Client to send requests.
+   * @param {CountryContextService} countryContext Country context service.
    */
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private countryContext: CountryContextService
+  ) {}
 
   /**
    * @param {string} query Query String
@@ -23,11 +29,7 @@ export class SearchService {
    * @returns {Observable<any>} Search Results.
    */
   getSearchResults(query: string, resource: string): Observable<any> {
-    let countryId = undefined;
-    const selectedCountry = sessionStorage.getItem("selectedCountry");
-    if (selectedCountry) {
-      countryId = JSON.parse(selectedCountry)?.id;
-    }
+    const countryId = this.countryContext.getCountryId();
 
     let httpParams = new HttpParams()
       .set('exactMatch', 'false')
@@ -36,7 +38,7 @@ export class SearchService {
       .set('includeOfficeHierarchyPath', 'true');
 
     if (countryId != undefined) {
-       httpParams = httpParams.set('countryId', countryId);
+      httpParams = httpParams.set('countryId', countryId);
     }
     return this.http.get('/search', { params: httpParams });
   }

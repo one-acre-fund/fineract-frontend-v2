@@ -8,17 +8,19 @@ import { Observable } from 'rxjs';
 /** Custom Services */
 import { OrganizationService } from 'app/organization/organization.service';
 import { HttpParams } from '@angular/common/http';
+import { CountryContextService } from 'app/shared/services/country-context.service';
 
 /**
  * Lowest Offices data resolver.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LowestOfficesResolver implements Resolve<Object> {
-
-  /**
-   * @param {OrganizationService} organizationService Organization service.
-   */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(
+    private organizationService: OrganizationService,
+    private countryContext: CountryContextService
+  ) {}
 
   /**
    * Returns the offices data.
@@ -30,16 +32,7 @@ export class LowestOfficesResolver implements Resolve<Object> {
       .set('retrieveOnlyLowestLevelOUs', 'true')
       .set('includeOfficeHierarchyPath', 'true');
 
-    // Try to get countryId from route params or query params
-    let countryId = route.queryParamMap.get('countryId') || route.paramMap.get('countryId');
-
-    // If not present, default to sessionStorage value
-    if (!countryId) {
-      const selectedCountry = sessionStorage.getItem("selectedCountry");
-      if (selectedCountry) {
-        countryId = JSON.parse(selectedCountry)?.id;
-      }
-    }
+    const countryId = this.countryContext.getCountryId(route);
 
     if (countryId) {
       httpParams = httpParams.set('countryId', countryId);
@@ -47,5 +40,4 @@ export class LowestOfficesResolver implements Resolve<Object> {
 
     return this.organizationService.searchOffices(httpParams);
   }
-
 }
