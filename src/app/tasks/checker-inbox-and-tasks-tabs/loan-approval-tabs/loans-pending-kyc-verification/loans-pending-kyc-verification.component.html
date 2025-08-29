@@ -7,8 +7,10 @@
       </mat-form-field>
     </div>
     <div fxFlex="60%">
-      <button mat-raised-button color="success" *mifosxHasPermission="'APPROVE_LOAN'" (click)="approveLoan()">
+      <button mat-raised-button color="success" *mifosxHasPermission="'APPROVE_LOAN'" (click)="approveChecker()">
         <fa-icon icon="check"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Approve' | translate }}</button>
+        <button mat-raised-button color="warn" *mifosxHasPermission="'APPROVE_LOAN'" (click)="rejectLoanWithComment()">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;Reject With Comment</button>
     </div>
   </div>
 

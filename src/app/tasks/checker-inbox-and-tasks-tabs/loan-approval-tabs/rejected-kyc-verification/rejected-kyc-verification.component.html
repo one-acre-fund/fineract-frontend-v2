@@ -1,16 +1,6 @@
 <div class="tab-container mat-typography" *ngIf="showData">
 
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <div class="search-box" fxFlex="40%">
-      <mat-form-field fxFlex="90%">
-        <input matInput placeholder="{{ 'labels.text.Filter by name' | translate }}" (keyup)="applyFilter($event.target.value)">
-      </mat-form-field>
-    </div>
-    <div fxFlex="60%">
-      <button mat-raised-button color="success" *mifosxHasPermission="'APPROVE_LOAN'" (click)="approveLoan()">
-        <fa-icon icon="check"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Approve' | translate }}</button>
-    </div>
-  </div>
+  
 
   <ng-container *ngFor="let office of officesArray">
 
@@ -52,7 +42,7 @@
         </ng-container>
 
         <ng-container matColumnDef="loanPurpose">
-          <th mat-header-cell *matHeaderCellDef>{{ 'labels.heading.Loan Purpose' | translate }}</th>
+          <th mat-header-cell *matHeaderCellDef>KYC Rejection Reason</th>
           <td mat-cell *matCellDef="let loan"> {{ loan.loanPurposeName }} </td>
         </ng-container>
 

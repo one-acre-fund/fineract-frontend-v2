@@ -119,38 +119,37 @@ export class LoansPendingKycVerificationComponent {
       return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
     }
   
-    approveLoan() {
-      const approveLoanDialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        data: { heading: 'Approve Loan', dialogContext: 'Are you sure you want to Approve Loan' }
+    rejectLoanWithComment() {
+      const rejectLoanDialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: { heading: 'Reject Loan', dialogContext: 'Are you sure you want to Reject Loan' }
       });
-      approveLoanDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
+      rejectLoanDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
         if (response.confirm) {
-          this.bulkLoanApproval();
+          this.bulkLoanRejection();
         }
       });
     }
-  
-    bulkLoanApproval() {
+
+    bulkLoanRejection() {
       const dateFormat = this.settingsService.dateFormat;
-      const approvedOnDate = this.dateUtils.formatDate(new Date(), dateFormat);
+      const rejectedOnDate = this.dateUtils.formatDate(new Date(), dateFormat);
       const locale = this.settingsService.language.code;
+      const kycRejectionComment = 'KYC Verification Failed';
+      const markClientFailedKYCVerification: boolean = true;
       const formData = {
         dateFormat,
-        approvedOnDate,
-        locale
+        rejectedOnDate,
+        locale,
+        kycRejectionComment,
+        markClientFailedKYCVerification
       };
       const selectedAccounts = this.selection.selected.length;
       const listSelectedAccounts = this.selection.selected;
       let approvedAccounts = 0;
       this.batchRequests = [];
-      let reqId = 1;
       listSelectedAccounts.forEach((element: any) => {
-        const url = 'loans/' + element.id + '?command=approve';
-        const bodyData = JSON.stringify(formData);
-        const batchData = { requestId: reqId++, relativeUrl: url, method: 'POST', body: bodyData };
-        this.batchRequests.push(batchData);
-      });
-      this.tasksService.submitBatchData(this.batchRequests).subscribe((response: any) => {
+      const bodyData = JSON.stringify(formData);
+      this.tasksService.executeMakerCheckerRejectLoanAction(element.id, formData).subscribe((response: any) => {
         response.forEach((responseEle: any) => {
           if (responseEle.statusCode = '200') {
             approvedAccounts++;
@@ -160,9 +159,35 @@ export class LoansPendingKycVerificationComponent {
             }
           }
         });
-        this.reload();
+      });
+      this.reload();
       });
     }
+
+    approveChecker() {
+    const approveCheckerDialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: { heading: 'Approve Loan', dialogContext: 'Are you sure you want to approve Loan' }
+    });
+    approveCheckerDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
+      if (response.confirm) {
+        this.bulkCheckerApprove();
+      }
+    });
+  }
+
+  bulkCheckerApprove() {
+    const selectedAccounts = this.selection.selected.length;
+    const listSelectedAccounts = this.selection.selected;
+    let approvedAccounts = 0;
+    listSelectedAccounts.forEach((element: any) => {
+      this.tasksService.executeMakerCheckerAction(element.approvalCommandId, 'approve').subscribe((response: any) => {
+        approvedAccounts++;
+        if (selectedAccounts === approvedAccounts) {
+          this.reload();
+        }
+      });
+    });
+  }
   
     applyFilter(filterValue: string = '') {
       this.dataSource.filter = filterValue.trim().toLowerCase();

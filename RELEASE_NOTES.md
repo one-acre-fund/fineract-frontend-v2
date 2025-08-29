@@ -5,6 +5,7 @@
     * Loans & Payments
         * [CP-3722] - Hide previously taken input from loan product client eligibility
         * [CP-3771] - Enable loan end date to be overridden by the loan product configuration
+        * [CP-3518] - Enable Client KYC verification before loan approval
 
     * Tranlations
         * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs

@@ -69,7 +69,7 @@ const routes: Routes = [
               data: { title: extract('labels.input.Loan Pending KYC Approval') },
               resolve: {
                 officesData: GetOffices,
-                loansData: GetLoans,
+                loansData: GetLoansForClientsPendingKYCVerification,
               },
             },
             {

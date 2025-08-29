@@ -130,4 +130,14 @@ export class TasksService {
     return this.http.get(`/audits/${makerCheckerId}`);
   }
 
+  /**
+   * Execute Maker Checker Approve and Reject Action.
+   * @param {loanId} LoanId
+   * @param {command} Command
+   */
+  executeMakerCheckerRejectLoanAction(loanId: any, data: any): Observable<any> {
+    const httpParams = new HttpParams().set('command', 'reject');
+    return this.http.post(`/loans/${loanId}`, data, { params: httpParams });
+  }
+
 }
