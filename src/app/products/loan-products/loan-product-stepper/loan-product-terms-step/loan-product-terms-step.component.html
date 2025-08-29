@@ -440,11 +440,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxFlex="48%" *ngIf="loanProductTermsForm.value.loanEndDateOverrideMode === 'USE_PRODUCT_DEFINED_END_DATE'" (click)="closeDatePicker.open()">
+    <mat-form-field fxFlex="48%" *ngIf="loanProductTermsForm.value.loanEndDateOverrideMode === 'USE_PRODUCT_DEFINED_END_DATE'" (click)="overrideEndDatePicker.open()">
       <mat-label>{{ 'labels.oaf.Defined Override Loan End Date' | translate }}</mat-label>
-      <input matInput [matDatepicker]="closeDatePicker" formControlName="loanEndDateOverrideEndDate" />
-      <mat-datepicker-toggle matSuffix [for]="closeDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #closeDatePicker></mat-datepicker>
+      <input matInput [matDatepicker]="overrideEndDatePicker" formControlName="loanEndDateOverrideEndDate" />
+      <mat-datepicker-toggle matSuffix [for]="overrideEndDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #overrideEndDatePicker></mat-datepicker>
     </mat-form-field>
 
     <mat-divider fxFlex="98%"></mat-divider>
