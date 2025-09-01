@@ -84,15 +84,6 @@ const routes: Routes = [
       ]
         },
         {
-      path: 'loan-approval/loan-pending-kyc-approval',
-      component: LoansPendingKycVerificationComponent,
-      data: { title: extract('labels.input.Loan Pending KYC Approval') },
-      resolve: {
-        officesData: GetOffices,
-        loansData: GetLoansForClientsPendingKYCVerification,
-      }
-    },
-        {
           path: 'loan-disbursal',
           component: LoanDisbursalComponent,
           data: { title: extract('labels.text.Loan Disbursal') },

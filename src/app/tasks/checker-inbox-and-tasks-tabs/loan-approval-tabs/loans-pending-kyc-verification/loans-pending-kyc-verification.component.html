@@ -10,7 +10,7 @@
       <button mat-raised-button color="success" *mifosxHasPermission="'APPROVE_LOAN'" (click)="approveChecker()">
         <fa-icon icon="check"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Approve' | translate }}</button>
         <button mat-raised-button color="warn" *mifosxHasPermission="'APPROVE_LOAN'" (click)="rejectLoanWithComment()">
-        <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;Reject With Comment</button>
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Reject With Comment' | translate }}</button>
     </div>
   </div>
 
