@@ -213,7 +213,7 @@ const routes: Routes = [
               },
             },
             {
-              path: 'actions/:name',
+              path: 'actions/:name/:countryId',
               data: { title: extract('labels.text.Client Actions'), routeParamBreadcrumb: 'name' },
               component: ClientActionsComponent,
               resolve: {

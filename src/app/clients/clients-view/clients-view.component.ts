@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,7 +27,7 @@ import { APP_CONSTANTS } from 'app/shared/constants/app.constants';
   templateUrl: './clients-view.component.html',
   styleUrls: ['./clients-view.component.scss']
 })
-export class ClientsViewComponent implements OnInit {
+export class ClientsViewComponent implements OnInit, OnDestroy {
 
   clientViewData: any;
   clientDatatables: any;
@@ -108,7 +108,7 @@ export class ClientsViewComponent implements OnInit {
    * Performs action button/option action.
    * @param {string} name action name.
    */
-  doAction(name: string) {
+  doAction(name: string, countryId: string | null) {
     switch (name) {
       case 'Assign Staff':
       case 'Close':
@@ -126,7 +126,7 @@ export class ClientsViewComponent implements OnInit {
       case 'Add Charge':
       case 'Create Self Service User':
       case 'Client Screen Reports':
-        this.router.navigate([`actions/${name}`], { relativeTo: this.route });
+        this.router.navigate([`actions/${name}/${countryId}`], { relativeTo: this.route });
         break;
       case 'Unassign Staff':
         this.unassignStaff();
