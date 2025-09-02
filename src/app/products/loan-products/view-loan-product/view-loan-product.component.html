@@ -389,19 +389,19 @@
 
         <mat-divider fxFlex="98%"></mat-divider>
         <h4 fxFlex="98%" *ngIf="loanProduct.loanEndDateOverrideMode" class="mat-h4">
-          {{ 'labels.oaf.Loan Product Loan End Date Override' | translate }}
+          {{ 'labels.oaf.loan.product.loan.end.date.override' | translate }}
         </h4>
 
         <div fxFlexFill *ngIf="loanProduct.loanEndDateOverrideMode">
           <span fxFlex="40%">{{
-            'labels.oaf.Loan End Date Override Mode' | translate
+            'labels.oaf.loan.end.date.override.mode' | translate
           }}</span>
           <span fxFlex="60%">{{ loanProduct.loanEndDateOverrideModeDisplay }}</span>
         </div>
 
         <div fxFlexFill *ngIf="'Use Product Defined End Date' === loanProduct.loanEndDateOverrideModeDisplay">
           <span fxFlex="40%">{{
-            'labels.oaf.Defined Override Loan End Date' | translate
+            'labels.oaf.defined.override.loan.end.date' | translate
           }}</span>
           <span fxFlex="60%">{{ loanProduct.loanEndDateOverrideEndDate | dateFormat }}</span>
         </div>

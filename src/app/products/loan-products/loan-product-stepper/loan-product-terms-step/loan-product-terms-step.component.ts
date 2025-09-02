@@ -28,6 +28,7 @@ export class LoanProductTermsStepComponent implements OnInit {
   interestRateFrequencyTypeData: any;
   repaymentFrequencyTypeData: any;
   amountCalculationTypeOptions: any;
+  loanEndDateOverrideModeOptions: any;
   repaymentFrequencyTypeOptions: any;
 
 
@@ -47,8 +48,7 @@ export class LoanProductTermsStepComponent implements OnInit {
     this.repaymentFrequencyTypeData = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
     this.amountCalculationTypeOptions = this.loanProductsTemplate.amountCalculationTypeOptions;
     this.repaymentFrequencyTypeOptions = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
-
-    console.log(this.loanProductsTemplate);
+    this.loanEndDateOverrideModeOptions = this.loanProductsTemplate.loanEndDateOverrideModeOptions;
 
     this.loanProductTermsForm.patchValue({
       'minPrincipal': this.loanProductsTemplate.minPrincipal,
@@ -105,7 +105,7 @@ export class LoanProductTermsStepComponent implements OnInit {
       'repaymentEvery': ['', Validators.required],
       'repaymentFrequencyType': ['', Validators.required],
       'minimumDaysBetweenDisbursalAndFirstRepayment': [''],
-      'loanEndDateOverrideMode': [''],
+      'loanEndDateOverrideMode': ['', Validators.required],
       'loanEndDateOverrideEndDate': [''],
       'prepaidAmount': [''],
       'prepaidAmountCalculationType': [''],

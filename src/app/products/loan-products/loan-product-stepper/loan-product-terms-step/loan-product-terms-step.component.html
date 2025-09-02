@@ -426,26 +426,36 @@
 
     <mat-divider fxFlex="98%"></mat-divider>
 
-    <h4 fxFlex="98%" class="mat-h4">{{ 'labels.oaf.Loan Product Loan End Date Override' | translate }}</h4>
+    <h4 fxFlex="98%" class="mat-h4">{{ 'labels.oaf.loan.product.loan.end.date.override' | translate }}</h4>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>{{ 'labels.oaf.Loan End Date Override Mode' | translate }}</mat-label>
-      <mat-select formControlName="loanEndDateOverrideMode">
-        <mat-option value="NO_END_DATE_OVERRIDE">{{ 'labels.inputs.No End Date Override' | translate }}</mat-option>
-        <mat-option value="ADJUST_END_DATE_TO_FIRST_OR_FIFTEENTH_OF_THE_MONTH">{{ 'labels.inputs.Adjust End Date to First or Fifteenth of the Month' | translate }}</mat-option>
-        <mat-option value="USE_PRODUCT_DEFINED_END_DATE">{{ 'labels.inputs.Use Product Defined End Date' | translate }}</mat-option>
+      <mat-label>{{ 'labels.oaf.loan.end.date.override.mode' | translate }}</mat-label>
+      <mat-select formControlName="loanEndDateOverrideMode" required>
+        <mat-option
+          *ngFor="let loanEndDateOverrideMode of loanEndDateOverrideModeOptions"
+          [value]="loanEndDateOverrideMode.code"
+        >
+          {{ loanEndDateOverrideMode.value }}
+        </mat-option>
       </mat-select>
       <mat-error
-        >{{ 'labels.oaf.Loan End Date Override Mode' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+        >{{ 'labels.oaf.loan.end.date.override.mode' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field fxFlex="48%" *ngIf="loanProductTermsForm.value.loanEndDateOverrideMode === 'USE_PRODUCT_DEFINED_END_DATE'" (click)="overrideEndDatePicker.open()">
-      <mat-label>{{ 'labels.oaf.Defined Override Loan End Date' | translate }}</mat-label>
-      <input matInput [matDatepicker]="overrideEndDatePicker" formControlName="loanEndDateOverrideEndDate" />
+    <mat-form-field fxFlex="48%" *ngIf="'USE_PRODUCT_DEFINED_END_DATE' === loanProductTermsForm.value.loanEndDateOverrideMode">
+      <mat-label>{{ 'labels.oaf.defined.override.loan.end.date' | translate }}</mat-label>
+      <input matInput [matDatepicker]="overrideEndDatePicker" formControlName="loanEndDateOverrideEndDate" (click)="overrideEndDatePicker.open()"/>
       <mat-datepicker-toggle matSuffix [for]="overrideEndDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #overrideEndDatePicker></mat-datepicker>
     </mat-form-field>
+
+    <div *ngIf="'USE_PRODUCT_DEFINED_END_DATE' === loanProductTermsForm.value.loanEndDateOverrideMode" fxFlex="98%">
+      <mat-icon color="primary" style="vertical-align: middle;">info</mat-icon>
+      <span class="mat-body-2" style="color: #ffa000;">
+        {{ 'labels.oaf.defined.override.loan.end.date.no.of.repayments.Warning' | translate }} !!
+      </span>
+    </div>
 
     <mat-divider fxFlex="98%"></mat-divider>
 
