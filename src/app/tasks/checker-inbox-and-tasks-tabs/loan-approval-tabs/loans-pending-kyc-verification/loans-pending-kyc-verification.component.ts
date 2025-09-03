@@ -13,6 +13,7 @@ import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/conf
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
 import { TasksService } from 'app/tasks/tasks.service';
+import { EditNotesDialogComponent } from 'app/clients/clients-view/custom-dialogs/edit-notes-dialog/edit-notes-dialog.component';
 
 @Component({
   selector: 'mifosx-loans-pending-kyc-verification',
@@ -118,23 +119,33 @@ export class LoansPendingKycVerificationComponent {
       }
       return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
     }
-  
+
     rejectLoanWithComment() {
+      const editNoteDialogRef = this.dialog.open(EditNotesDialogComponent, {
+          data: { noteContent: '' }
+        });
+        editNoteDialogRef.afterClosed().subscribe((response: { editForm: any }) => {
+          if (response.editForm) {
+              this.rejectClientKYCDetails(response.editForm.value.note);
+          }
+        });
+      }
+
+      rejectClientKYCDetails(noteContent: string) {
       const rejectLoanDialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        data: { heading: 'Reject Loan', dialogContext: 'Are you sure you want to Reject Loan' }
+        data: { heading: 'Reject Loan', dialogContext: 'Are you sure you want to Reject Selected Loans?' }
       });
       rejectLoanDialogRef.afterClosed().subscribe((response: { confirm: any }) => {
         if (response.confirm) {
-          this.bulkLoanRejection();
+          this.bulkLoanRejection(noteContent);
         }
       });
     }
 
-    bulkLoanRejection() {
+    bulkLoanRejection(kycRejectionComment: string) {
       const dateFormat = this.settingsService.dateFormat;
       const rejectedOnDate = this.dateUtils.formatDate(new Date(), dateFormat);
       const locale = this.settingsService.language.code;
-      const kycRejectionComment = 'KYC Verification Failed';
       const markClientFailedKYCVerification: boolean = true;
       const formData = {
         dateFormat,
@@ -145,22 +156,14 @@ export class LoansPendingKycVerificationComponent {
       };
       const selectedAccounts = this.selection.selected.length;
       const listSelectedAccounts = this.selection.selected;
-      let approvedAccounts = 0;
-      this.batchRequests = [];
+      let rejectedAccounts = 0;
       listSelectedAccounts.forEach((element: any) => {
-      const bodyData = JSON.stringify(formData);
       this.tasksService.executeMakerCheckerRejectLoanAction(element.id, formData).subscribe((response: any) => {
-        response.forEach((responseEle: any) => {
-          if (responseEle.statusCode = '200') {
-            approvedAccounts++;
-            responseEle.body = JSON.parse(responseEle.body);
-            if (selectedAccounts === approvedAccounts) {
-              this.loanResource();
-            }
-          }
-        });
+        rejectedAccounts++;
+        if (selectedAccounts === rejectedAccounts) {
+          this.reload();
+        }
       });
-      this.reload();
       });
     }
 
