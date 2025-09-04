@@ -385,6 +385,25 @@
     <span fxFlex="60%">{{ loanProduct.minimumDaysBetweenDisbursalAndFirstRepayment }}</span>
   </div>
 
+  <mat-divider fxFlex="98%"></mat-divider>
+  <h4 fxFlex="98%" *ngIf="loanProduct.loanEndDateOverrideMode" class="mat-h4">
+    {{ 'labels.oaf.loan.product.loan.end.date.override' | translate }}
+  </h4>
+
+  <div fxFlexFill *ngIf="loanProduct.loanEndDateOverrideMode">
+    <span fxFlex="40%">{{
+      'labels.oaf.loan.end.date.override.mode' | translate
+    }}</span>
+    <span fxFlex="60%">{{ loanProduct.loanEndDateOverrideMode }}</span>
+  </div>
+
+  <div fxFlexFill *ngIf="'USE_PRODUCT_DEFINED_END_DATE' === loanProduct.loanEndDateOverrideMode">
+    <span fxFlex="40%">{{
+      'labels.oaf.defined.override.loan.end.date' | translate
+    }}</span>
+    <span fxFlex="60%">{{ loanProduct.loanEndDateOverrideEndDate | dateFormat }}</span>
+  </div>
+
   <mifosx-client-eligbility class="client" [loanProduct]="loanProduct"></mifosx-client-eligbility>
 
   <div fxFlexFill *ngIf="isQualificationRequired">
