@@ -66,7 +66,7 @@ const routes: Routes = [
             {
               path: 'loan-pending-kyc-approval',
               component: LoansPendingKycVerificationComponent,
-              data: { title: extract('labels.input.Loan Pending KYC Approval') },
+              data: { title: extract('labels.input.loan.pending.approval') },
               resolve: {
                 officesData: GetOffices,
                 loansData: GetLoansForClientsPendingKYCVerification,
@@ -75,7 +75,7 @@ const routes: Routes = [
             {
               path: 'loan-rejected-kyc',
               component: RejectedKycVerificationComponent,
-              data: { title: extract('labels.input.Loan Rejected KYC') },
+              data: { title: extract('labels.input.loan.for.rejected.kyc.clients') },
               resolve: {
                 officesData: GetOffices,
                 loansData: GetLoansForRejectedKYCVerificationClients,

@@ -6,9 +6,9 @@
 
       <nav mat-tab-nav-bar class="navigation-tabs">
         <a mat-tab-link [routerLink]="['./loan-pending-kyc-approval']" routerLinkActive #loanKYCApproval="routerLinkActive"
-          [active]="loanKYCApproval.isActive" *mifosxHasPermission="'READ_LOAN'">{{ 'labels.inputs.Loan Pending KYC Approval' | translate }}</a>
+          [active]="loanKYCApproval.isActive" *mifosxHasPermission="'READ_LOAN'">{{ 'labels.inputs.loan.pending.approval' | translate }}</a>
         <a mat-tab-link [routerLink]="['./loan-rejected-kyc']" routerLinkActive #loanRejectedKYC="routerLinkActive"
-          [active]="loanRejectedKYC.isActive" *mifosxHasPermission="'READ_LOAN'">{{ 'labels.inputs.Loan Rejected KYC' | translate }}</a>
+          [active]="loanRejectedKYC.isActive" *mifosxHasPermission="'READ_LOAN'">{{ 'labels.inputs.loan.for.rejected.kyc.clients' | translate }}</a>
       </nav>
 
       <router-outlet></router-outlet>
