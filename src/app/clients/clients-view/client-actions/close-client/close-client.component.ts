@@ -91,7 +91,7 @@ export class CloseClientComponent implements OnInit {
      this.matomoTracker.trackEvent('clients', 'close', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'close', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.clientsService.redirectToClient(this.clientId);
     });
   }
 
