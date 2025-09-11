@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.3.7.1 - Community 1.0.0
+
+    * [CP-3844] - Fix bug on client transfer throwing a 404
+
 ## Version 1.3.7 - Community 1.0.0
 
     * [CP-3502] - Send country when submitting the account transfer bulk upload
