@@ -97,7 +97,7 @@ export class ReactivateClientComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'reactivate', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'reactivate', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.router.navigate(['../../../'], { relativeTo: this.route });
     });
   }
 }

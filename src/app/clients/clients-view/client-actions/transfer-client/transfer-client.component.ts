@@ -98,7 +98,7 @@ export class TransferClientComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'proposeTransfer', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, "proposeTransfer", data).subscribe(() => {
-      this.router.navigate(["../../"], { relativeTo: this.route });
+      this.router.navigate(["../../../"], { relativeTo: this.route });
     });
   }
 }

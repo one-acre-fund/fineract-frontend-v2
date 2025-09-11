@@ -87,7 +87,7 @@ export class UndoClientRejectionComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'undoRejection', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'undoRejection', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.router.navigate(['../../../'], { relativeTo: this.route });
     });
   }
 

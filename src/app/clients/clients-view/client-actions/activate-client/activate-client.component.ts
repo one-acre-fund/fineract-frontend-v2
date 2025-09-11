@@ -90,7 +90,7 @@ export class ActivateClientComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'activate', this.clientId); // change to track right info
 
     this.clientsService.executeClientCommand(this.clientId, 'activate', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.router.navigate(['../../../'], { relativeTo: this.route });
     });
   }
 }

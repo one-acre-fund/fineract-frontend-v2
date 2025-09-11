@@ -91,7 +91,7 @@ export class RejectClientComponent implements OnInit {
      this.matomoTracker.trackEvent('clients', 'reject', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'reject', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.router.navigate(['../../../'], { relativeTo: this.route });
     });
   }
 
