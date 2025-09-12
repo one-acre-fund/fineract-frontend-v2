@@ -89,7 +89,7 @@ export class UndoClientTransferComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'undoClientTransfer', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, "withdrawTransfer", data).subscribe(() => {
-      this.router.navigate(["../../"], { relativeTo: this.route });
+      this.clientsService.redirectToClient(this.clientId);
     });
   }
 }

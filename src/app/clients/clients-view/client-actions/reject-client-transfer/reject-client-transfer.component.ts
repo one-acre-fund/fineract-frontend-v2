@@ -85,7 +85,7 @@ export class RejectClientTransferComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'rejectTransfer', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'rejectTransfer', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.clientsService.redirectToClient(this.clientId);
     });
   }
 
