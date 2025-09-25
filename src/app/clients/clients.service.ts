@@ -1,6 +1,7 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
@@ -14,7 +15,7 @@ export class ClientsService {
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getFilteredClients(
     orderBy: string,
@@ -443,5 +444,13 @@ export class ClientsService {
    */
   validateClientOTP(countryId: number, otpData: any) {
     return this.http.post(`/clients/validateMobileNumberOTP/${countryId}`, otpData);
+  }
+
+  /**
+    * Redirects to the client view page.
+    * @param clientId Client Id.
+   */
+  public redirectToClient(clientId: any) {
+    this.router.navigate(['clients', clientId, 'general'], { queryParamsHandling: 'preserve' });
   }
 }

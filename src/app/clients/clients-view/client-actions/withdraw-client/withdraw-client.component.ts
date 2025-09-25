@@ -91,7 +91,7 @@ export class WithdrawClientComponent implements OnInit {
     this.matomoTracker.trackEvent('clients', 'withdraw', this.clientId);
 
     this.clientsService.executeClientCommand(this.clientId, 'withdraw', data).subscribe(() => {
-      this.router.navigate(['../../'], { relativeTo: this.route });
+      this.clientsService.redirectToClient(this.clientId);
     });
   }
 

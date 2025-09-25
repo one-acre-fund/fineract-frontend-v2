@@ -15,6 +15,7 @@
 
     * Clients
         * [CP-3810] - Client transfer offices dorpdown fetch lowest OUs. Search clients also sends countryId query param to filter country clients
+        * [CP-3844] - Fix 404 after client transfer due to route hierarchy update
 
 ## Version 1.3.9.1 - Community 1.0.0
 

@@ -70,7 +70,7 @@ export class UpdateClientSavingsAccountComponent implements OnInit {
 
     this.clientsService.executeClientCommand(this.clientData.id, 'updateSavingsAccount', this.clientSavingsAccountForm.value)
       .subscribe(() => {
-        this.router.navigate(['../../'], { relativeTo: this.route });
+        this.clientsService.redirectToClient(this.clientData.id);
       });
   }
 
