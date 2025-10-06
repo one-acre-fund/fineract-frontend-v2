@@ -363,8 +363,8 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     if (!this.loanAccounts || this.loanAccounts.length === 0) {
       return false;
     }
-    const activeLoans = this.loanAccounts.filter((loan: any) =>
-      [APP_CONSTANTS.LOAN_STATUSES.ACTIVE].includes(loan.status?.id)
+    const activeLoans = this.loanAccounts.filter((loan: LoanAccount) =>
+      loan.status?.id === APP_CONSTANTS.LOAN_STATUSES.ACTIVE
     );
     return activeLoans.length > 0;
   }
