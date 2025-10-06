@@ -424,11 +424,11 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     }
 
     // If client has active loans, check loan qualification rules
-    if (countryId != null) {
-      this.checkLoanQualificationRules(countryId);
-    } else {
+    if (countryId === null) {
       // No country ID, do not allow edit
       this.isEditAllowedFlag = false;
+    } else {
+      this.checkLoanQualificationRules(countryId);
     }
   }
   isEditAllowed(): boolean {
