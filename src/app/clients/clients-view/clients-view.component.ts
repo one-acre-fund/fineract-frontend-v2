@@ -364,7 +364,7 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
       return false;
     }
     const activeLoans = this.loanAccounts.filter((loan: any) =>
-      [APP_CONSTANTS.LOAN_STATUSES.SUBMITTED_AND_PENDING_APPROVAL, APP_CONSTANTS.LOAN_STATUSES.ACTIVE, APP_CONSTANTS.LOAN_STATUSES.APPROVED].includes(loan.status?.id)
+      loan.status?.id === APP_CONSTANTS.LOAN_STATUSES.ACTIVE
     );
     return activeLoans.length > 0;
   }
@@ -424,11 +424,11 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     }
 
     // If client has active loans, check loan qualification rules
-    if (countryId != null) {
-      this.checkLoanQualificationRules(countryId);
-    } else {
+    if (countryId === null) {
       // No country ID, do not allow edit
       this.isEditAllowedFlag = false;
+    } else {
+      this.checkLoanQualificationRules(countryId);
     }
   }
   isEditAllowed(): boolean {
