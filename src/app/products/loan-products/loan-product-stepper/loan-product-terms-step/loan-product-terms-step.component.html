@@ -430,7 +430,7 @@
 
     <mat-form-field fxFlex="48%">
       <mat-label>{{ 'labels.oaf.loan.end.date.override.mode' | translate }}</mat-label>
-      <mat-select formControlName="loanEndDateOverrideMode" required>
+      <mat-select formControlName="loanEndDateOverrideMode">
         <mat-option
           *ngFor="let loanEndDateOverrideMode of loanEndDateOverrideModeOptions"
           [value]="loanEndDateOverrideMode.code"
