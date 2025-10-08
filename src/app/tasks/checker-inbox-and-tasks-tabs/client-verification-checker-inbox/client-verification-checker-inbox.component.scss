@@ -6,23 +6,44 @@
     color: #fff;
     background-color: #008000ab;
   }
+
   .mat-raised-button.mat-reject {
     color: #1B1C1D;
     background-color: #FFB300;
   }
+
   #search-button {
     height: 2.5rem;
     margin-top: 1rem;
   }
-  .view-details{
+
+  .view-details {
     cursor: pointer;
   }
+
   table {
     tr.select-row:hover {
       cursor: pointer;
     }
   }
 }
+
+table.mat-table th,
+table.mat-table td {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.includeOUPathChecker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  margin-top: 0.5rem;
+}
+
+
 
 .alert {
   background-color: #E8F4FD;
@@ -39,8 +60,9 @@
     padding: 8px 0;
     font-size: 18px;
   }
+
   .alert-check {
-    color:#359FF4;
+    color: #359FF4;
     margin-right: 2px;
     font-size: 1.4rem;
   }

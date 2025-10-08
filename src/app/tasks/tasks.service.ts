@@ -25,6 +25,7 @@ export class TasksService {
   getMakerCheckerData(searchData?: any): Observable<any> {
     let httpParams = new HttpParams();
     if (searchData) {
+      console.log("getMakerCheckerData func:", searchData)
       const propNames = Object.getOwnPropertyNames(searchData);
       for (let i = 0; i < propNames.length; i++) {
         const propName = propNames[i];
@@ -109,5 +110,24 @@ export class TasksService {
   getCheckerInboxDetail(makerCheckerId: any): Observable<any> {
     return this.http.get(`/audits/${makerCheckerId}`);
   }
+
+  /**
+  * Get Client Image
+  */
+  getClientImage(clientId: any, maxHeight: any): Observable<any> {
+    const httpParams = new HttpParams().set("maxHeight", maxHeight);
+    return this.http.get(`/clients/${clientId}/images`, { params: httpParams, responseType: 'text' });
+  }
+
+  /**
+   * Execute Maker Checker Reject Verification Action
+   * @param {clientId} clientId
+   * @param {data} data
+   */
+  rejectClientVerification(clientId: any, data: any) {
+    const httpParams = new HttpParams().set('command', "rejectVerification");
+    return this.http.post(`/clients/${clientId}`, data, { params: httpParams });
+  }
+
 
 }

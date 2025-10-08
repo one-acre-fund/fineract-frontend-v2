@@ -1092,7 +1092,20 @@
       "Second External ID": "Kitambulisho cha Pili cha Nje",
       "Source Office": "Ofisi ya Chanzo",
       "Destination Office": "Ofisi ya Marudio",
-      "Is the OU a country": "Je, OU ni Nchi"
+      "Is the OU a country": "Je, OU ni Nchi",
+      "Failed KYC Fields": "Sehemu za KYC Zilizoshindwa",
+      "KYC Fields": "Sehemu za KYC",
+      "kycRejectionNotes": "Maelezo ya kukataa KYC",
+      "Office Level Name": "Jina la Kiwango cha Ofisi",
+      "Client Image": "Picha ya Mteja",
+      "ID Image": "Picha ya Kitambulisho",
+      "Client NID": "NID ya Mteja",
+      "Request More Info": "Omba Taarifa Zaidi",
+      "Include OU Path": "Jumuisha Njia ya OU",
+      "Client Verification": "Ukaguzi wa Mteja",
+      "Client Failed KYC": "KYC Iliyoshindikana ya Mteja",
+      "Client Pending Reverification": "Mteja Anayesubiri Ukaguzi Upya"
+
     },
     "heading": {
       "Actions": "Vitendo",

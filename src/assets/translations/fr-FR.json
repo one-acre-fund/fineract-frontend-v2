@@ -1090,7 +1090,20 @@
       "Second External ID": "Deuxième ID Externe",
       "Source Office": "Bureau Source",
       "Destination Office": "Bureau de Destination",
-      "Is the OU a country": "L'UO est-elle un Pays"
+      "Is the OU a country": "L'UO est-elle un Pays",
+      "Failed KYC Fields": "Champs KYC échoués",
+      "KYC Fields": "Champs KYC",
+      "kycRejectionNotes": "Notes de rejet KYC",
+      "Office Level Name": "Nom du niveau du bureau",
+      "Client Image": "Image du client",
+      "ID Image": "Image d'identité",
+      "Client NID": "NID du client",
+      "Request More Info": "Demander plus d'informations",
+      "Include OU Path": "Inclure le chemin OU",
+      "Client Verification": "Vérification du client",
+      "Client Failed KYC": "KYC échoué du client",
+      "Client Pending Reverification": "Révérification en attente"
+
     },
     "heading": {
       "Actions": "Actions",
