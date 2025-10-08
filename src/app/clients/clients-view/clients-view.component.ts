@@ -369,9 +369,9 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     return activeLoans.length > 0;
   }
 
-  private checkLoanQualificationRules(countryId: string): void {
+  private checkEditRestrictions(countryId: string): void {
     this.systemService
-      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.LOAN_QUALIFICATION_RULES, { countryId })
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.RESTRICT_CLIENT_INFO_EDIT_WHEN_THEY_HAVE_ACTIVE_LOANS, { countryId })
       .subscribe({
         next: (config) => {
           if (config?.enabled && (config?.country?.id === countryId)) {
@@ -425,10 +425,10 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
 
     // If client has active loans, check loan qualification rules
     if (countryId === null) {
-      // No country ID, do not allow edit
-      this.isEditAllowedFlag = false;
+      // No country ID, allow edit
+      this.isEditAllowedFlag = true;
     } else {
-      this.checkLoanQualificationRules(countryId);
+      this.checkEditRestrictions(countryId);
     }
   }
   isEditAllowed(): boolean {
