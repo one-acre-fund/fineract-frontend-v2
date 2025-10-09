@@ -105,7 +105,7 @@ export class LoanProductTermsStepComponent implements OnInit {
       'repaymentEvery': ['', Validators.required],
       'repaymentFrequencyType': ['', Validators.required],
       'minimumDaysBetweenDisbursalAndFirstRepayment': [''],
-      'loanEndDateOverrideMode': ['', Validators.required],
+      'loanEndDateOverrideMode': [''],
       'loanEndDateOverrideEndDate': [''],
       'prepaidAmount': [''],
       'prepaidAmountCalculationType': [''],

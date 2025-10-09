@@ -1,5 +1,11 @@
 # Release Notes
 
+## Version 1.4.1 - Community 1.0.0
+
+    * Clients
+        * [CP-3663] - Fix: Only restrict cllient edits on clients with active loans
+        * [CP-3771] - Remove required on loan end date mode override field on loan product creation & Edit
+
 ## Version 1.4.0 - Community 1.0.0
 
     * Loans & Payments
