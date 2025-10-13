@@ -78,7 +78,7 @@
             >
 
             <span *ngIf="clientViewData.subStatus?.name"
-              >{{ 'labels.oaf.Sub Status' | translate }} : {{ clientViewData.subStatus?.name }} &nbsp;</span
+              >{{ 'labels.oaf.subStatus' | translate }} : {{ clientViewData.subStatus?.name }} &nbsp;</span
             >
             <br />
             <span *ngIf="clientViewData.timeline?.submittedOnDate"
@@ -125,8 +125,8 @@
     </mat-card-title-group>
 
     <mat-card-actions class="client-actions">
-      <button 
-        mat-raised-button 
+      <button
+        mat-raised-button
         [routerLink]="['edit']"
         [disabled]="!isEditAllowed()"
         *mifosxHasPermission="'UPDATE_CLIENT'">

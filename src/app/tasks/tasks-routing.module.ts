@@ -16,6 +16,9 @@ import { LoanApprovalComponent } from './checker-inbox-and-tasks-tabs/loan-appro
 import { LoanDisbursalComponent } from './checker-inbox-and-tasks-tabs/loan-disbursal/loan-disbursal.component';
 import { RescheduleLoanComponent } from './checker-inbox-and-tasks-tabs/reschedule-loan/reschedule-loan.component';
 import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inbox.component';
+import { ClientVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-verification-checker-inbox/client-verification-checker-inbox.component';
+import { ClientPendingReVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-pending-reverification-checker-inbox/client-pending-reverification-checker-inbox.component';
+import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-failed-kyc/client-failed-kyc.component';
 
 /** Custom Resolvers */
 import { GetMakerCheckers } from './common-resolvers/getmakercheckers.resolver';
@@ -25,6 +28,8 @@ import { GetLoans } from './common-resolvers/getLoans.resolver';
 import { GetRescheduleLoans } from './common-resolvers/getRescheduleLoans.resolver';
 import { MakerCheckerTemplate } from './common-resolvers/makerCheckerTemplate.resolver';
 import { GetCheckerInboxDetailResolver } from './common-resolvers/getCheckerInboxDetail.resolver';
+import { GetClientVerificationEntries } from './common-resolvers/getClientVerificationEntries.resolver';
+import { GetClientPendingReVerificationEntries } from './common-resolvers/getClientPendingReVerificationEntries.resolver';
 
 /** Tasks Routes */
 const routes: Routes = [
@@ -34,6 +39,27 @@ const routes: Routes = [
       component: CheckerInboxAndTasksComponent,
       data: { title: extract('labels.text.Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
       children: [
+        {
+          path: 'client-verification-checker-inbox',
+          component: ClientVerificationCheckerInboxComponent,
+          data: { title: extract('labels.commons.clientVerification') },
+          resolve: {
+            clientVerificationResource: GetClientVerificationEntries,
+          },
+        },
+        {
+          path: 'client-pending-reverification-checker-inbox',
+          component: ClientPendingReVerificationCheckerInboxComponent,
+          data: { title: extract('labels.commons.clientPendingReverification') },
+          resolve: {
+            clientPendingReVerificationResource: GetClientPendingReVerificationEntries,
+          },
+        },
+        {
+          path: 'client-failed-kyc',
+          component: ClientFailedKycComponent,
+          data: { title: extract('labels.commons.clientFailedKYC') },
+        },
         {
           path: 'checker-inbox',
           component: CheckerInboxComponent,
@@ -105,6 +131,8 @@ const routes: Routes = [
     GetRescheduleLoans,
     MakerCheckerTemplate,
     GetCheckerInboxDetailResolver,
+    GetClientVerificationEntries,
+    GetClientPendingReVerificationEntries,
   ],
 })
 export class TasksRoutingModule {}

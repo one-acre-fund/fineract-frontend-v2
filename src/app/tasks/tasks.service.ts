@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 /**
  * Tasks Service
@@ -109,5 +109,32 @@ export class TasksService {
   getCheckerInboxDetail(makerCheckerId: any): Observable<any> {
     return this.http.get(`/audits/${makerCheckerId}`);
   }
+
+  /**
+  * Get Client Image
+  */
+  getClientImage(clientId: any, maxHeight: any): Observable<any> {
+    if (!clientId) {
+      console.warn('getClientImage called with null or undefined clientId');
+      return of(null);
+    }
+    const httpParams = new HttpParams().set("maxHeight", maxHeight);
+    return this.http.get(`/clients/${clientId}/images`, { params: httpParams, responseType: 'text' });
+  }
+
+  /**
+   * Execute Maker Checker Reject Verification Action
+   * @param {clientId} clientId
+   * @param {data} data
+   */
+  rejectClientVerification(clientId: any, data: any) {
+    if (!clientId) {
+      console.warn('rejectClientVerification called with null or undefined clientId');
+      return of(null);
+    }
+    const httpParams = new HttpParams().set('command', "rejectVerification");
+    return this.http.post(`/clients/${clientId}`, data, { params: httpParams });
+  }
+
 
 }

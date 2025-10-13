@@ -21,7 +21,7 @@
     <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
 
       <mat-form-field fxFlex="31%" (click)="makerDateTimeFromPicker.open()">
-        <mat-label>{{ 'labels.inputs.From Date' | translate }}</mat-label>
+        <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
         <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="makerDateTimeFromPicker"
           formControlName="makerDateTimeFrom">
         <mat-datepicker-toggle matSuffix [for]="makerDateTimeFromPicker"></mat-datepicker-toggle>
@@ -118,7 +118,7 @@
   <div class="alert" *ngIf="noSearchedData">
 
     <div class="message">
-      <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No checker inbox data available for this search' | translate }}</div>
+      <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No_checker_inbox_data_available_for_this search' | translate }}</div>
 
   </div>
 
