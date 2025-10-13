@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ 'labels.commons.Request More Info' | translate }}</h2>
+<h2 mat-dialog-title>{{ 'labels.commons.requestMoreInfo' | translate }}</h2>
 <mat-dialog-content>
   <form [formGroup]="form">
 
@@ -8,7 +8,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ 'labels.commons.KYC Fields' | translate }}</mat-label>
+      <mat-label>{{ 'labels.commons.KYCFields' | translate }}</mat-label>
       <mat-select required formControlName="failedKycFields" multiple>
         <mat-option *ngFor="let field of kycFields" [value]="field.name">
           {{ field.name }}

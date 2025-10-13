@@ -38,7 +38,7 @@
         <mat-tab label="Campaign">
 
           <div class="tab-content mat-typography">
-          
+
             <mat-list>
 
               <mat-list-item>
@@ -55,7 +55,7 @@
 
               <mat-list-item>
                 Status : {{ smsCampaignData.campaignStatus.value }}
-              </mat-list-item>  
+              </mat-list-item>
 
               <mat-list-item>
                 Trigger Type : {{ smsCampaignData.triggerType.value }}
@@ -89,7 +89,7 @@
               <div fxLayout="row" fxLayoutGap="3%" fxLayoutAlign="center">
 
                 <mat-form-field (click)="fromDatePicker.open()">
-                  <mat-label>{{ 'labels.inputs.From Date' | translate }}</mat-label>
+                  <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
                   <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fromDatePicker" formControlName="fromDate">
                   <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
                   <mat-datepicker #fromDatePicker></mat-datepicker>
@@ -133,7 +133,7 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>    
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
             </table>
 

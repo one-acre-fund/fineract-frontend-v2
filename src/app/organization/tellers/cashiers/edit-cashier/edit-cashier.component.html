@@ -44,7 +44,7 @@
             <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="fromDatePicker" required formControlName="startDate">
             <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #fromDatePicker></mat-datepicker>
-            <mat-error *ngIf="editCashierForm.controls.startDate.hasError('required')">{{ 'labels.inputs.From Date' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong>
+            <mat-error *ngIf="editCashierForm.controls.startDate.hasError('required')">{{ 'labels.inputs.fromDate' | translate }}<strong>{{ 'labels.commons.is required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 

@@ -10,7 +10,7 @@
   <table fxFlex="98%" class="mat-elevation-z1" mat-table [dataSource]="marketPricePeriods.value" *ngIf="marketPricePeriods.value.length">
 
     <ng-container matColumnDef="fromDate">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.From Date' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.fromDate' | translate }}</th>
       <td mat-cell *matCellDef="let marketPricePeriod">
         {{ marketPricePeriod.fromDate  | dateFormat }}
       </td>

@@ -4,12 +4,12 @@
   <form [formGroup]="floatingRatePeriodForm">
     <div fxLayout="column">
       <mat-form-field (click)="fromDatePicker.open()">
-        <mat-label>{{ 'labels.inputs.From Date' | translate }}</mat-label>
+        <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
         <input required matInput formControlName="fromDate" [min]="minDate" [matDatepicker]="fromDatePicker" />
         <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #fromDatePicker></mat-datepicker>
         <mat-error *ngIf="floatingRatePeriodForm.controls.fromDate.hasError('required')">
-          {{ 'labels.inputs.From Date' | translate }} {{ 'labels.commons.is required' | translate }}
+          {{ 'labels.inputs.fromDate' | translate }} {{ 'labels.commons.is required' | translate }}
         </mat-error>
       </mat-form-field>
 

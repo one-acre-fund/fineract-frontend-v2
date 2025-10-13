@@ -34,12 +34,12 @@
       </mat-form-field>
 
       <mat-form-field fxFlex="calc(33% - 1rem)">
-        <mat-label>{{ 'labels.oaf.OU Path' | translate }}</mat-label>
+        <mat-label>{{ 'labels.oaf.OUPath' | translate }}</mat-label>
         <input matInput formControlName="clientOfficeHierarchyPath" (keyup)="applyFilter($event.target.value)">
       </mat-form-field>
 
       <mat-form-field fxFlex="calc(33% - 1rem)" (click)="makerDateTimeFromPicker.open()">
-        <mat-label>{{ 'labels.inputs.From Date' | translate }}</mat-label>
+        <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
         <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="makerDateTimeFromPicker"
           formControlName="makerDateTimeFrom">
         <mat-datepicker-toggle matSuffix [for]="makerDateTimeFromPicker"></mat-datepicker-toggle>
@@ -60,7 +60,7 @@
 
 
       <div class="includeOUPathChecker">
-        <mat-checkbox #includeOUPath labelPosition="after">{{ 'labels.commons.Include OU Path' | translate }}
+        <mat-checkbox #includeOUPath labelPosition="after">{{ 'labels.commons.includeOUPath' | translate }}
         </mat-checkbox>
       </div>
     </div>
@@ -95,7 +95,7 @@
 
 
     <ng-container matColumnDef="clientAccountNo">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Account Number' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.accountNumber' | translate }}</th>
       <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientAccountNo }} </td>
     </ng-container>
 
@@ -110,7 +110,7 @@
     </ng-container>
 
     <ng-container matColumnDef="clientOfficeHierarchyPath">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.oaf.OU Path' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.oaf.OUPath' | translate }}</th>
       <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientOfficeHierarchyPath }} </td>
     </ng-container>
 
@@ -135,8 +135,7 @@
   <div class="alert" *ngIf="noSearchedData">
 
     <div class="message">
-      <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No checker inbox data available for this
-      search' | translate }}
+      <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No_checker_inbox_data_available_for_this_search' | translate }}
     </div>
 
   </div>
@@ -146,8 +145,7 @@
 <div class="alert" *ngIf="!checkerData">
 
   <div class="message">
-    <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No checker inbox data available for this
-    account' | translate }}
+    <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No_checker_inbox_data_available_for_this_account' | translate }}
   </div>
 
 </div>

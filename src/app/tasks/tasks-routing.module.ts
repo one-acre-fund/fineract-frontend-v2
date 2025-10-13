@@ -42,7 +42,7 @@ const routes: Routes = [
         {
           path: 'client-verification-checker-inbox',
           component: ClientVerificationCheckerInboxComponent,
-          data: { title: extract('labels.commons.Client Verification') },
+          data: { title: extract('labels.commons.clientVerification') },
           resolve: {
             clientVerificationResource: GetClientVerificationEntries,
           },
@@ -50,7 +50,7 @@ const routes: Routes = [
         {
           path: 'client-pending-reverification-checker-inbox',
           component: ClientPendingReVerificationCheckerInboxComponent,
-          data: { title: extract('labels.commons.Client Pending Reverification') },
+          data: { title: extract('labels.commons.clientPendingReverification') },
           resolve: {
             clientPendingReVerificationResource: GetClientPendingReVerificationEntries,
           },
@@ -58,7 +58,7 @@ const routes: Routes = [
         {
           path: 'client-failed-kyc',
           component: ClientFailedKycComponent,
-          data: { title: extract('labels.commons.Client Failed KYC') },
+          data: { title: extract('labels.commons.clientFailedKYC') },
         },
         {
           path: 'checker-inbox',

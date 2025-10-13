@@ -171,13 +171,26 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
     return numSelected === this.dataSource.data.length;
   }
 
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
+  masterToggle(): void {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      for (const row of this.dataSource.data) {
+        this.selection.select(row);
+      }
+    }
   }
 
+
   checkboxLabel(row?: any): string {
-    return !row
-      ? `${this.isAllSelected() ? 'select' : 'deselect'} all`
-      : `${this.selection.isSelected(row) ? 'deselect' : 'select'} row`;
+    if (row) {
+      const action = this.selection.isSelected(row) ? 'deselect' : 'select';
+      return `${action} row`;
+    }
+
+    const action = this.isAllSelected() ? 'deselect' : 'select';
+    return `${action} all`;
   }
+
+
 }

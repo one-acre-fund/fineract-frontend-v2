@@ -85,7 +85,7 @@ export class ClientDetailsDialogComponent implements OnInit, OnDestroy {
         next: idImage => {
           let url: string | null = null;
           if (idImage instanceof Blob) {
-            url = window.URL.createObjectURL(idImage);
+            url = globalThis.URL.createObjectURL(idImage);
           }
           this.identifierImage = url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;
           this._idImageObjectUrl = url;

@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>{{ 'labels.inputs.Client Details' | translate}}</h2>
+<h2 mat-dialog-title>{{ 'labels.inputs.clientDetails' | translate}}</h2>
 
 <mat-dialog-content class="dialog-content">
 
@@ -9,12 +9,12 @@
   <div *ngIf="!loading && client" class="content-container">
     <div class="images-row">
       <div class="image-block">
-        <span>{{ 'labels.commons.Client Image' | translate }}</span>
-        <img class="profile-image" [src]="clientImage" alt="No Client image" />
+        <span>{{ 'labels.commons.clientImage' | translate }}</span>
+        <img class="profile-image" [src]="clientImage" alt="{{ 'labels.commons.clientImgMissing' | translate }}" />
       </div>
       <div class="image-block">
-        <span>{{ 'labels.commons.ID Image' | translate }}</span>
-        <img class="profile-image" [src]="identifierImage" alt="No ID image" />
+        <span>{{ 'labels.commons.nidImage' | translate }}</span>
+        <img class="profile-image" [src]="identifierImage" alt="{{ 'labels.commons.clientNIDMissing' | translate }}" />
       </div>
     </div>
 
@@ -31,29 +31,29 @@
           <td>{{ client.displayName }}</td>
         </tr>
         <tr>
-          <td><strong>{{ 'labels.inputs.Account Number' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.inputs.accountNumber' | translate }}:</strong></td>
           <td>{{ client.accountNo }}</td>
         </tr>
         <tr>
-          <td><strong>{{ 'labels.inputs.Date Of Birth' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.inputs.DOB' | translate }}:</strong></td>
           <td>{{ client?.dateOfBirth | date:'MMM d, yyyy'}}</td>
         </tr>
         <tr>
-          <td><strong>{{ 'labels.inputs.External Id' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.inputs.externalId' | translate }}:</strong></td>
           <td>{{ client.externalId }}</td>
         </tr>
         <tr>
-          <td><strong>{{ 'labels.inputs.Mobile No' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.inputs.mobileNo' | translate }}:</strong></td>
           <td>{{ client.mobileNo }}</td>
         </tr>
 
         <tr>
-          <td><strong>{{ 'labels.commons.Office Level Name' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.commons.officeLevelName' | translate }}:</strong></td>
           <td>{{ client.officeCountryHierarchyLevelName }}</td>
         </tr>
 
         <tr>
-          <td><strong>{{ 'labels.oaf.OU Path' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.oaf.OUPath' | translate }}:</strong></td>
           <td>{{ client.officeHierarchyPath }}</td>
         </tr>
         <tr>
@@ -62,23 +62,23 @@
         </tr>
 
         <tr>
-          <td><strong>{{ 'labels.oaf.Sub Status' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.oaf.subStatus' | translate }}:</strong></td>
           <td>{{ client.subStatus?.name }}</td>
         </tr>
 
         <tr>
-          <td><strong>{{ 'labels.commons.Client NID' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.commons.clientNID' | translate }}:</strong></td>
           <td>{{ client.identifiers.length > 0 ? client.identifiers[0]?.documentKey : 'No NID'}}</td>
         </tr>
 
 
         <tr>
-          <td><strong>{{ 'labels.inputs.Submitted On Date' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.inputs.submittedOnDate' | translate }}:</strong></td>
           <td>{{ client.timeline.submittedOnDate | date:'MMM d, yyyy' }}</td>
         </tr>
 
         <tr *ngIf="client.failedKycFields?.length">
-          <td><strong>{{ 'labels.commons.Failed KYC Fields' | translate }}:</strong></td>
+          <td><strong>{{ 'labels.commons.failedKYCFields' | translate }}:</strong></td>
           <td *ngIf="client.failedKycFields?.length > 0">
               {{ client.failedKycFields.join(', ') }}
           </td>
@@ -97,6 +97,6 @@
 
 <mat-dialog-actions *ngIf="!loading" class="dialog-actions">
   <button mat-button (click)="onCancel()">{{ 'labels.buttons.Cancel' | translate }}</button>
-  <button mat-button color="accent" (click)="openRequestInfo()" *ngIf="data.canRequestMoreInfo">{{ 'labels.commons.Request More Info' | translate }}</button>
+  <button mat-button color="accent" (click)="openRequestInfo()" *ngIf="data.canRequestMoreInfo">{{ 'labels.commons.requestMoreInfo' | translate }}</button>
   <button mat-raised-button color="primary" (click)="openConfirm()" *ngIf="data.canRequestMoreInfo">{{ 'labels.buttons.Approve' | translate }}</button>
 </mat-dialog-actions>
