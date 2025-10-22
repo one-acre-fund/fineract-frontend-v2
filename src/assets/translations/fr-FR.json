@@ -1689,7 +1689,7 @@
       "Closing Entries": "Clôture des inscriptions",
       "Closure Creation Date": "Date de création de la clôture",
       "Closure Date": "Date de clôture",
-      "Closure Reason": "Raison de la fermeture",
+      "closureReason": "Raison de la fermeture",
       "Code": "Code",
       "Code Name": "Nom de code",
       "Collateral": "Collatéral",
