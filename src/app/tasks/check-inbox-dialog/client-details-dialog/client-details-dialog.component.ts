@@ -136,9 +136,15 @@ export class ClientDetailsDialogComponent implements OnInit, OnDestroy {
       }).afterClosed().subscribe(result => {
         if (result) {
           this.dialogRef.close();
-          this.router.navigate(['/checker-inbox-and-tasks']);
+          this.reload();
         }
       });
     }
+  }
+
+  reload() {
+    const url = this.router.url;
+    this.router.navigateByUrl(`/checker-inbox-and-tasks`, { skipLocationChange: true })
+      .then(() => this.router.navigate([url]));
   }
 }

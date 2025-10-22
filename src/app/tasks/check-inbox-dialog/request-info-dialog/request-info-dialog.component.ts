@@ -11,7 +11,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class RequestInfoDialogComponent {
   form: FormGroup;
-  kycFields: any = [{ id: 1, name: "First Name" }, { id: 2, name: "Middle Name" }, { id: 3, name: "Last Name" }, { id: 4, name: "Date Of Birth" }, { id: 5, name: "Gender" }, { id: 6, name: "National ID Image" }, { id: 7, name: "Client Image" },]
+  kycFields: any = [{ id: 1, name: "First Name" }, { id: 2, name: "Middle Name" }, { id: 3, name: "Last Name" }, { id: 4, name: "Date Of Birth" }, { id: 5, name: "Gender" }, { id: 6, name: "National ID Image" }, { id: 7, name: "Client Image" }, { id: 8, name: "Mobile No" }]
 
   constructor(
     private readonly fb: FormBuilder,
