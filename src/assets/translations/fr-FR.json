@@ -1100,9 +1100,9 @@
       "clientNID": "NID du client",
       "requestMoreInfo": "Demander plus d'informations",
       "includeOUPath": "Inclure le chemin OU",
-      "clientVerification":  "Vérification du client",
+      "clientVerification": "Vérification du client",
       "clientFailedKYC": "KYC échoué du client",
-      "clientPendingReverification":"Révérification en attente",
+      "clientPendingReverification": "Révérification en attente",
       "clientImgMissing": "Pas d'image du client",
       "clientNIDMissing": "Pas d'image de NID"
     },

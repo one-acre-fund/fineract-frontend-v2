@@ -1102,9 +1102,9 @@
       "clientNID": "NID ya Mteja",
       "requestMoreInfo": "Omba Taarifa Zaidi",
       "includeOUPath": "Jumuisha Njia ya OU",
-      "clientVerification":  "Ukaguzi wa Mteja",
+      "clientVerification": "Ukaguzi wa Mteja",
       "clientFailedKYC": "KYC Iliyoshindikana ya Mteja",
-      "clientPendingReverification":"Mteja Anayesubiri Ukaguzi Upya",
+      "clientPendingReverification": "Mteja Anayesubiri Ukaguzi Upya",
       "clientImgMissing": "Hakuna picha ya mteja",
       "clientNIDMissing": "Hakuna picha ya NID"
     },
