@@ -11,7 +11,7 @@
       <mat-label>{{ 'labels.commons.KYCFields' | translate }}</mat-label>
       <mat-select required formControlName="failedKycFields" multiple>
         <mat-option *ngFor="let field of kycFields" [value]="field.name">
-          {{ field.name }}
+          {{ field.description }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="form.controls.failedKycFields.hasError('required')">

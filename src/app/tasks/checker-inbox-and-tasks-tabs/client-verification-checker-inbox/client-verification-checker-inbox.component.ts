@@ -10,6 +10,7 @@ import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { Dates } from 'app/core/utils/dates';
 @Component({
   selector: 'mifosx-client-verification-checker-inbox',
   templateUrl: './client-verification-checker-inbox.component.html',
@@ -28,14 +29,15 @@ export class ClientVerificationCheckerInboxComponent extends BaseCheckerInboxCom
     router: Router,
     fb: UntypedFormBuilder,
     tasks: TasksService,
-    settings: SettingsService
+    settings: SettingsService,
+    dateUtils: Dates
   ) {
-    super(dialog, router, fb, tasks, settings);
+    super(dialog, router, fb, tasks, settings, dateUtils);
 
     this.route.data
     .pipe(takeUntil(this.destroy$))
     .subscribe((data: { clientVerificationResource: any }) => {
-      this.searchData = data.clientVerificationResource || [];
+      this.searchData = data.clientVerificationResource?.pageItems || [];
       this.dataSource.data = this.searchData;
       this.checkerData = this.searchData.length > 0;
       this.totalElements = this.searchData.length;
@@ -47,6 +49,7 @@ export class ClientVerificationCheckerInboxComponent extends BaseCheckerInboxCom
   }
 
   ngAfterViewInit(): void {
+    if (!this.sort || !this.paginator) return;
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(
@@ -72,15 +75,14 @@ export class ClientVerificationCheckerInboxComponent extends BaseCheckerInboxCom
 
   createMakerCheckerSearchForm(): void {
     this.makerCheckerSearchForm = this.formBuilder.group({
-      makerDateTimeFrom: [''],
-      makerDateTimeto: [''],
-      entityName: ['CLIENT'],
-      resourceId: [''],
+      dateFrom: [''],
+      dateTo: [''],
       clientSubStatus: ['clientSubStatusType.auto_verified'],
       includeClientHierarchyPath: true,
       clientAccountNo: [''],
       officeName: [''],
-      clientOfficeHierarchyPath: ['']
+      clientOfficeHierarchyPath: [''],
+      displayName: ['']
     });
   }
 }

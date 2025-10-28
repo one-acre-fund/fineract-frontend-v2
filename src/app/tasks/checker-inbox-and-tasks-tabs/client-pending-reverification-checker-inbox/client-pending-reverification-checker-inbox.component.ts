@@ -11,6 +11,7 @@ import { TasksService } from '../../tasks.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { Dates } from 'app/core/utils/dates';
 
 @Component({
   selector: 'mifosx-client-pending-reverification-checker-inbox',
@@ -30,14 +31,15 @@ export class ClientPendingReVerificationCheckerInboxComponent extends BaseChecke
     router: Router,
     fb: UntypedFormBuilder,
     tasks: TasksService,
-    settings: SettingsService
+    settings: SettingsService,
+    dateUtils: Dates
   ) {
-    super(dialog, router, fb, tasks, settings);
+    super(dialog, router, fb, tasks, settings, dateUtils);
 
     this.route.data
     .pipe(takeUntil(this.destroy$))
     .subscribe((data: { clientPendingReVerificationResource: any }) => {
-      this.searchData = data.clientPendingReVerificationResource || [];
+      this.searchData = data.clientPendingReVerificationResource?.pageItems || [];
       this.dataSource.data = this.searchData;
       this.checkerData = this.searchData.length > 0;
       this.totalElements = this.searchData.length;
@@ -49,6 +51,7 @@ export class ClientPendingReVerificationCheckerInboxComponent extends BaseChecke
   }
 
   ngAfterViewInit(): void {
+    if (!this.sort || !this.paginator) return;
     this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
 
     merge(
@@ -74,15 +77,14 @@ export class ClientPendingReVerificationCheckerInboxComponent extends BaseChecke
 
   createMakerCheckerSearchForm(): void {
     this.makerCheckerSearchForm = this.formBuilder.group({
-      makerDateTimeFrom: [''],
-      makerDateTimeto: [''],
-      entityName: ['CLIENT'],
-      resourceId: [''],
+      dateFrom: [''],
+      dateTo: [''],
       clientSubStatus: ['clientSubStatusType.pending_re_verification'],
       includeClientHierarchyPath: true,
       clientAccountNo: [''],
       officeName: [''],
-      clientOfficeHierarchyPath: ['']
+      clientOfficeHierarchyPath: [''],
+      displayName: ['']
     });
   }
 }

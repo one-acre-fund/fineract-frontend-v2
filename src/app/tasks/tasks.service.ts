@@ -136,5 +136,38 @@ export class TasksService {
     return this.http.post(`/clients/${clientId}`, data, { params: httpParams });
   }
 
+  getClientKYCFieldsTemplate() {
+    const httpParams = new HttpParams().set('commandParam', 'clientKYCFields');
+    return this.http.get(`/clients/template`, { params: httpParams });
+  }
+
+  /**
+   * Approve and Reject Client KYC entry.
+   * @param {clientId} clientId
+   * @param {command} Command
+   */
+  executeClientKYCAction(clientId: any, command: any): Observable<any> {
+    const httpParams = new HttpParams().set('command', command);
+    console.log("executeClientKYCAction: client id" ,clientId);
+    return this.http.post(`/clients/${clientId}`, {}, { params: httpParams });
+  }
+
+      /**
+   * Get Maker Checker Data
+   * @param {searchData} SearchData search the maker checker data.
+   */
+  getClientKYCApprovals(searchData?: any): Observable<any> {
+    let httpParams = new HttpParams();
+    if (searchData) {
+      const propNames = Object.getOwnPropertyNames(searchData);
+      for (let i = 0; i < propNames.length; i++) {
+        const propName = propNames[i];
+        if (!(searchData[propName] === '' || searchData[propName] === undefined || searchData[propName] === null)) {
+          httpParams = httpParams.set(propName, searchData[propName]);
+        }
+      }
+    }
+    return this.http.get('/kycApprovals', { params: httpParams });
+  }
 
 }

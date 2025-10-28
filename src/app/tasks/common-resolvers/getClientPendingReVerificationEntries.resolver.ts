@@ -25,15 +25,13 @@ export class GetClientPendingReVerificationEntries implements Resolve<Object> {
    */
   resolve(): Observable<any> {
     const searchData = {
-      actionName: "VERIFY",
-      entityName: "CLIENT",
       clientSubStatus: "clientSubStatusType.pending_re_verification",
       includeClientHierarchyPath: true,
       paged: true,
       offset: 0,
       limit: 10
     };
-    return this.tasksService.getMakerCheckerData(searchData);
+    return this.tasksService.getClientKYCApprovals(searchData);
   }
 
 }

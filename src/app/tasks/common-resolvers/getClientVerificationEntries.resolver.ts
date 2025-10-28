@@ -25,14 +25,12 @@ export class GetClientVerificationEntries implements Resolve<Object> {
    */
   resolve(): Observable<any> {
     const searchData = {
-      actionName: 'VERIFY',
-      entityName: 'CLIENT',
       clientSubStatus: 'clientSubStatusType.auto_verified',
       includeClientHierarchyPath: true,
       paged: true,
       offset: 0,
       limit: 10
     };
-    return this.tasksService.getMakerCheckerData(searchData);
+    return this.tasksService.getClientKYCApprovals(searchData);
   }
 }
