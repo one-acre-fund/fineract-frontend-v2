@@ -3,6 +3,7 @@
 ## Version 1.4.2 - Community 1.0.0
     * Maker Checker 
         * [CP-3873] - KYC Maker Checker UI Improvements
+        * [CP-3911] - Apply KYC backend changes to align with the updated requirements.
 ## Version 1.4.1 - Community 1.0.0
 
     * Clients

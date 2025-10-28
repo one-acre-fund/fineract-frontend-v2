@@ -6,13 +6,14 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatSort } from '@angular/material/sort';
 import { forkJoin, merge, of, Subscription } from 'rxjs';
-import { startWith, tap } from 'rxjs/operators';
+import { finalize, startWith, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SettingsService } from 'app/settings/settings.service';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 import { TasksService } from '../tasks.service';
 import { ClientDetailsDialogComponent } from '../check-inbox-dialog/client-details-dialog/client-details-dialog.component';
+import { Dates } from 'app/core/utils/dates';
 
 @Directive()
 export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewInit {
@@ -27,11 +28,11 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
   totalElements = 0;
   displayedColumns: string[] = [
     'select',
-    'id',
+    'clientId',
     'clientName',
     'clientAccountNo',
     'clientExternalId',
-    'clientOfficeName',
+    'officeName',
     'clientOfficeHierarchyPath',
     'action'
   ];
@@ -47,7 +48,8 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
     protected router: Router,
     protected formBuilder: UntypedFormBuilder,
     protected tasksService: TasksService,
-    protected settingsService: SettingsService
+    protected settingsService: SettingsService,
+    protected dateUtils: Dates
   ) { }
 
   ngAfterViewInit() {
@@ -78,52 +80,62 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
 
     const pageIndex = this.paginator ? this.paginator.pageIndex : this.pageIndex;
     const pageSize = this.paginator ? this.paginator.pageSize : this.pageSize;
+    const dateFormat = "dd MMMM yyyy";
 
     const params = {
       ...cleanForm,
-      paged: true,
       offset: pageIndex * pageSize,
       limit: pageSize,
       sortBy: this.sort?.active || undefined,
       sortOrder: this.sort?.direction || undefined,
       includeClientHierarchyPath: this.includeOUPath ? this.includeOUPath.checked : true,
+      dateFrom: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.dateFrom, dateFormat),
+      dateTo: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.dateTo, dateFormat)
     };
 
-    this.tasksService.getMakerCheckerData(params).subscribe((response: any) => {
-      this.searchData = response?.pageItems || response || [];
-      this.totalElements = response?.totalFilteredRecords ?? this.searchData.length;
-      this.noSearchedData = this.searchData.length === 0;
-      this.dataSource.data = this.searchData;
-      this.selection.clear();
-    });
+    this.tasksService.getClientKYCApprovals(params)
+      .pipe(
+        finalize(() => {
+          this.selection.clear();
+        })
+      )
+      .subscribe({
+        next: (response: any) => {
+          this.searchData = response?.pageItems || response || [];
+          this.totalElements = response?.totalFilteredRecords ?? this.searchData.length;
+          this.noSearchedData = this.searchData.length === 0;
+          this.dataSource.data = this.searchData;
+        },
+        error: (err) => {
+          console.error('Error fetching client KYC approvals:', err);
+          this.noSearchedData = true;
+          this.dataSource.data = [];
+        }
+      });
+
   }
 
   search() {
     this.pageIndex = 0;
-    this.paginator.firstPage();
-    this.sort.active = '';
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+
+    if (this.sort) {
+      this.sort.active = '';
+    }
     this.loadCheckerData();
   }
 
-  viewClient(clientId: string, auditId: string) {
-    const dialogRef = this.dialog.open(ClientDetailsDialogComponent, { data: { clientId, auditId } });
+  viewClient(clientId: string) {
+    const dialogRef = this.dialog.open(ClientDetailsDialogComponent, { data: { clientId } });
     dialogRef.afterClosed().subscribe(result => result === 'confirmed' && this.reload());
   }
 
   approveChecker() {
-    this.confirmAndRun('Approve Checker', 'Are you sure you want to approve checker?', 'approve');
+    this.confirmAndRun('Approve entry', 'Are you sure you want to approve entry?', 'verify');
   }
 
-  rejectChecker() {
-    this.confirmAndRun('Reject Checker', 'Are you sure you want to reject checker?', 'reject');
-  }
-
-  deleteChecker() {
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { heading: 'Delete Checker', dialogContext: 'Are you sure you want to delete checker?' },
-    });
-    dialogRef.afterClosed().subscribe(res => res.confirm && this.bulkDeleteChecker());
-  }
 
   confirmAndRun(title: string, message: string, action: string) {
     const ref = this.dialog.open(ConfirmationDialogComponent, {
@@ -136,23 +148,11 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
     const selected = this.selection.selected;
     if (selected.length === 0) return;
     const requests = selected.map(el =>
-      this.tasksService.executeMakerCheckerAction(el.id, action)
+      this.tasksService.executeClientKYCAction(el.clientId, action)
     );
     forkJoin(requests).subscribe({
       next: () => this.reload(),
       error: (err) => console.error('Bulk Approve maker checker action failed:', err)
-    });
-  }
-
-  bulkDeleteChecker() {
-    const selected = this.selection.selected;
-    if (selected.length === 0) return;
-    const requests = selected.map(el =>
-      this.tasksService.deleteMakerChecker(el.id)
-    );
-    forkJoin(requests).subscribe({
-      next: () => this.reload(),
-      error: (err) => console.error('Bulk Delete maker checker action failed:', err)
     });
   }
 

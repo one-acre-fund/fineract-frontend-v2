@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AlertService } from 'app/core/alert/alert.service';
@@ -9,9 +9,9 @@ import { switchMap } from 'rxjs/operators';
   selector: 'app-request-info-dialog',
   templateUrl: './request-info-dialog.component.html',
 })
-export class RequestInfoDialogComponent {
+export class RequestInfoDialogComponent implements OnInit {
   form: FormGroup;
-  kycFields: any = [{ id: 1, name: "First Name" }, { id: 2, name: "Middle Name" }, { id: 3, name: "Last Name" }, { id: 4, name: "Date Of Birth" }, { id: 5, name: "Gender" }, { id: 6, name: "National ID Image" }, { id: 7, name: "Client Image" }, { id: 8, name: "Mobile No" }]
+  kycFields: any = [];
 
   constructor(
     private readonly fb: FormBuilder,
@@ -23,6 +23,32 @@ export class RequestInfoDialogComponent {
     this.form = this.fb.group({
       failedKycFields: ['', Validators.required],
       kycRejectionNotes: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadKycFields();
+  }
+
+  loadKycFields(): void {
+    this.taskService.getClientKYCFieldsTemplate().subscribe({
+      next: (response: any) => {
+        if (response?.narrations?.length) {
+          this.kycFields = response.narrations.map((item: any) => ({
+            id: item.id,
+            description: item?.description,
+            name: item.name,
+          }));
+        } else {
+          this.kycFields = [];
+        }
+      },
+      error: (err) => {
+        this.alertService.alert({
+          type: 'error',
+          message: 'Failed to load KYC fields: ' + (err?.message ?? err),
+        });
+      },
     });
   }
 
@@ -38,9 +64,7 @@ export class RequestInfoDialogComponent {
 
   submit() {
     const data = { ...this.form.value };
-    this.taskService.rejectClientVerification(this.data.client.id, data).pipe(
-      switchMap(() => this.taskService.executeMakerCheckerAction(this.data.auditId, "reject"))
-    ).subscribe({
+     this.taskService.rejectClientVerification(this.data?.client?.id, data).subscribe({
       next: () => {
         this.dialogRef.close(this.form.value);
       },

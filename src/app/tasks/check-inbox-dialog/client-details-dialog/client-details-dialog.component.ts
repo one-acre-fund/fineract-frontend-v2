@@ -28,7 +28,7 @@ export class ClientDetailsDialogComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly dialog: MatDialog,
     private readonly dialogRef: MatDialogRef<ClientDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { clientId: string; auditId: string, canRequestMoreInfo?: boolean },
+    @Inject(MAT_DIALOG_DATA) public data: { clientId: string, canRequestMoreInfo?: boolean },
     private readonly clientService: ClientsService,
     private readonly tasksService: TasksService,
     private readonly sanitizer: DomSanitizer
@@ -120,7 +120,7 @@ export class ClientDetailsDialogComponent implements OnInit, OnDestroy {
       }
     }).afterClosed().subscribe(result => {
       if (result?.confirm) {
-        this.tasksService.executeMakerCheckerAction(this.data.auditId, "approve")
+        this.tasksService.executeClientKYCAction(this.data.clientId, "verify")
           .subscribe(() => {
             this.dialogRef.close('confirmed');
           });
@@ -129,10 +129,10 @@ export class ClientDetailsDialogComponent implements OnInit, OnDestroy {
   }
 
   openRequestInfo() {
-    if(this.data.canRequestMoreInfo && this.data?.auditId) {
+    if(this.data.canRequestMoreInfo && this.data?.clientId) {
       this.dialog.open(RequestInfoDialogComponent, {
         width: '400px',
-        data: { client: this.client, auditId: this.data.auditId }
+        data: { client: this.client }
       }).afterClosed().subscribe(result => {
         if (result) {
           this.dialogRef.close();
