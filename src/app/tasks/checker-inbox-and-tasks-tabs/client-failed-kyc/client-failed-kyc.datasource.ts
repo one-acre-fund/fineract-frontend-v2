@@ -42,7 +42,7 @@ export class ClientFailedKYCDataSource implements DataSource<any> {
     pageIndex: number = 0,
     limit: number = 10,
   ) {
-    const ob = orderBy || 'id';
+    const ob = orderBy || 'last_kyc_approval_on_date';
     const so = (sortOrder || 'ASC').toUpperCase();
 
     this.clientsService.getClients(ob, so, pageIndex * limit, limit, this.subStatus).subscribe((clients: any) => {
@@ -83,16 +83,14 @@ export class ClientFailedKYCDataSource implements DataSource<any> {
   ) {
     this.clientsSubject.next([]);
 
-    const ob = orderBy || 'id';
+    const ob = orderBy || 'last_kyc_approval_on_date';
     const so = (sortOrder || 'ASC').toUpperCase();
     const offset = pageIndex * limit;
-    this.clientsService.getClients(ob, so, offset, limit, this.subStatus).subscribe((clients: any) => {
-      const items = (clients?.pageItems ?? []).filter((client: any) => {
-        const name = (client?.displayName ?? '').toLowerCase();
-        return client?.status?.value !== 'Closed' && name.includes(filter);
-      });
+    this.clientsService.getClients(ob, so, offset, limit, this.subStatus, filter).subscribe((clients: any) => {
 
-      this.recordsSubject.next(items.length);
+      const items = (clients?.pageItems ?? []).filter((c: any) => c?.status?.value !== 'Closed');
+      this.recordsSubject.next(clients?.totalFilteredRecords ?? items.length);
+
       this.clientsSubject.next(items);
     });
   }

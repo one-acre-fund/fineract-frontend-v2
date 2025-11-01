@@ -25,5 +25,5 @@
 
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">{{ 'labels.buttons.Cancel' | translate }}</button>
-  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">{{ 'labels.buttons.Submit' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid && isRequestSubmitButtonDisabled">{{ 'labels.buttons.Submit' | translate }}</button>
 </mat-dialog-actions>
