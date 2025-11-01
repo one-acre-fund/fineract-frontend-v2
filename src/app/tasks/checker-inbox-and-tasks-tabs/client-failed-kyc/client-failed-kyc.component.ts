@@ -120,6 +120,7 @@ export class ClientFailedKycComponent implements OnInit, OnDestroy, AfterViewIni
     } else {
       this.searchValue = normalized;
     }
+    if (this.searchValue.length > 3) {
     this.dataSource.filterClients(
       this.searchValue,
       this.sort.active,
@@ -127,6 +128,7 @@ export class ClientFailedKycComponent implements OnInit, OnDestroy, AfterViewIni
       this.paginator.pageIndex,
       this.paginator.pageSize
     );
+  }
   }
 
   viewClient(clientId: string) {

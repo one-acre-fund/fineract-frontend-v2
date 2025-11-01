@@ -36,7 +36,7 @@ export class ClientsService {
     return this.http.get('/clients', { params: httpParams });
   }
 
-  getClients(orderBy: string, sortOrder: string, offset: number, limit: number, subStatus?: string): Observable<any> {
+  getClients(orderBy: string, sortOrder: string, offset: number, limit: number, subStatus?: string, displayName: string = undefined): Observable<any> {
     let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
@@ -46,6 +46,9 @@ export class ClientsService {
 
       if(subStatus) {
         httpParams = httpParams.set('subStatus', subStatus);
+      }
+      if(displayName) {
+        httpParams = httpParams.set('displayName', displayName);
       }
 
     return this.http.get('/clients', { params: httpParams });

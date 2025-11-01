@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AlertService } from 'app/core/alert/alert.service';
 import { TasksService } from 'app/tasks/tasks.service';
-import { switchMap } from 'rxjs/operators';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-request-info-dialog',
@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs/operators';
 export class RequestInfoDialogComponent implements OnInit {
   form: FormGroup;
   kycFields: any = [];
+  isRequestSubmitButtonDisabled = false
 
   constructor(
     private readonly fb: FormBuilder,
@@ -57,6 +58,11 @@ export class RequestInfoDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isRequestSubmitButtonDisabled = true;
+        setTimeout(() => {
+          this.isRequestSubmitButtonDisabled = false;
+        }, environment.loanSubmitButtonDisabledTimeOut * 1000); // Multiply by 1000 to get milliseconds
+
     if (this.form.valid) {
       this.submit();
     }
