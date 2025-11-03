@@ -435,4 +435,37 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     return this.isEditAllowedFlag;
   }
 
+  /**
+   * Formats failed KYC fields to be human-readable and comma-separated
+   */
+  getFormattedFailedKycFields(): string {
+    if (!this.clientViewData.failedKycFields || this.clientViewData.failedKycFields.length === 0) {
+      return '';
+    }
+
+    const fieldNameMap: { [key: string]: string } = {
+      'nationalIdentityImage': 'National Identity Image',
+      'firstname': 'First Name',
+      'genderId': 'Gender',
+      'middlename': 'Middle Name',
+      'dateOfBirth': 'Date of Birth',
+      'clientImage': 'Client Image',
+      'lastname': 'Last Name',
+    };
+
+    return this.clientViewData.failedKycFields
+      .map((field: string) => fieldNameMap[field] || this.formatCamelCase(field))
+      .join(', ');
+  }
+
+  /**
+   * Converts camelCase to Title Case for field names not in the map
+   */
+  private formatCamelCase(str: string): string {
+    return str
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, (match) => match.toUpperCase())
+      .trim();
+  }
+
 }

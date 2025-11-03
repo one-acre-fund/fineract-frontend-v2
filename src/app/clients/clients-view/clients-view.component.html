@@ -71,14 +71,21 @@
             <span *ngIf="clientViewData.dateOfBirth">
               Birth Date: {{ clientViewData.dateOfBirth | dateFormat }} &nbsp;</span
             >
-
+            <br />
+             <span *ngIf="clientViewData.gender?.name">
+              {{ 'labels.inputs.Gender' | translate }}: {{ clientViewData.gender?.name }} &nbsp;</span
+            >
             <br />
             <span *ngIf="clientViewData.status?.value"
               >{{ 'labels.inputs.Status' | translate }} : {{ clientViewData.status?.value }} &nbsp;</span
             >
 
             <span *ngIf="clientViewData.subStatus?.name"
-              >{{ 'labels.oaf.Sub Status' | translate }} : {{ clientViewData.subStatus?.name }} &nbsp;</span
+              >{{ 'labels.oaf.Sub Status' | translate }} : {{ clientViewData.subStatus?.name }}
+              <span *ngIf="clientViewData.subStatus?.codeType === 'clientSubStatusType.kyc_failed' && clientViewData.failedKycFields?.length > 0">
+                ({{ getFormattedFailedKycFields() }})
+              </span>
+              &nbsp;</span
             >
             <br />
             <span *ngIf="clientViewData.timeline?.submittedOnDate"
