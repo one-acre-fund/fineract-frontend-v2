@@ -4,7 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, tap, shareReplay } from 'rxjs/operators';
+
 /**
  * Clients service.
  */
@@ -12,6 +14,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ClientsService {
+  /**
+   * Cache for KYC fields to avoid repeated API calls
+   */
+  private kycFieldsCache: any[] = null;
+
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
@@ -457,6 +464,42 @@ export class ClientsService {
    */
   validateClientOTP(countryId: number, otpData: any) {
     return this.http.post(`/clients/validateMobileNumberOTP/${countryId}`, otpData);
+  }
+
+  /**
+   * Get KYC fields with caching.
+   * Returns cached data if available, otherwise fetches from API.
+   * @returns {Observable<any[]>} KYC fields array
+   */
+  getKycFields(): Observable<any[]> {
+    if (this.kycFieldsCache) {
+      return of(this.kycFieldsCache);
+    }
+
+    const httpParams = new HttpParams().set('commandParam', 'clientKYCFields');
+    return this.http.get('/clients/template', { params: httpParams }).pipe(
+      map((response: any) => response.narrations || []),
+      tap((fields) => (this.kycFieldsCache = fields)),
+      shareReplay(1)
+    );
+  }
+
+  /**
+   * Refresh KYC fields cache.
+   * Use this method when KYC fields configuration has been updated.
+   * @returns {Observable<any[]>} Fresh KYC fields array
+   */
+  refreshKycFields(): Observable<any[]> {
+    this.kycFieldsCache = null;
+    return this.getKycFields();
+  }
+
+  /**
+   * Clear the KYC fields cache.
+   * Useful for testing or when you want to force a refresh on next call.
+   */
+  clearKycFieldsCache(): void {
+    this.kycFieldsCache = null;
   }
 
   /**

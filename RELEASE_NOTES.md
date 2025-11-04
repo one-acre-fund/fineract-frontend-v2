@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.4.3 - Community 1.0.0
+    * Clients
+        * [CP-3882] - Add display for gender and KYC Failed fields in client profile
+
 ## Version 1.4.2 - Community 1.0.0
     * Maker Checker 
         * [CP-3873] - KYC Maker Checker UI Improvements
