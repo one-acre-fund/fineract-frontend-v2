@@ -1,0 +1,140 @@
+<div class="tab-container mat-typography" *ngIf="checkerData && makerCheckerSearchForm">
+
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxFlex="60%" fxLayoutGap="0.5rem">
+      <button mat-raised-button color="success" (click)="approveChecker()">
+        <fa-icon icon="check"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Approve' | translate }}
+      </button>
+    </div>
+  </div>
+
+  <form *ngIf="makerCheckerSearchForm && checkerData" [formGroup]="makerCheckerSearchForm">
+
+    <div fxLayout="row wrap" fxLayoutGap="1rem" fxLayout.lt-md="column">
+      <mat-form-field fxFlex="calc(33% - 1rem)">
+        <mat-label>{{ 'labels.inputs.Client Name' | translate }}</mat-label>
+        <input matInput formControlName="displayName">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="calc(33% - 1rem)">
+        <mat-label>{{ 'labels.inputs.Account' | translate }}</mat-label>
+        <input matInput formControlName="clientAccountNo">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="calc(33% - 1rem)">
+        <mat-label>{{ 'labels.inputs.Office Name' | translate }}</mat-label>
+        <input matInput formControlName="officeName">
+      </mat-form-field>
+
+      <mat-form-field fxFlex="calc(33% - 1rem)" (click)="makerDateTimeFromPicker.open()">
+        <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="makerDateTimeFromPicker"
+          formControlName="dateFrom">
+        <mat-datepicker-toggle matSuffix [for]="makerDateTimeFromPicker"></mat-datepicker-toggle>
+        <mat-datepicker #makerDateTimeFromPicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="calc(33% - 1rem)" (click)="makerDateTimetoPicker.open()">
+        <mat-label>{{ 'labels.inputs.To Date' | translate }}</mat-label>
+        <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="makerDateTimetoPicker"
+          formControlName="dateTo">
+        <mat-datepicker-toggle matSuffix [for]="makerDateTimetoPicker"></mat-datepicker-toggle>
+        <mat-datepicker #makerDateTimetoPicker></mat-datepicker>
+      </mat-form-field>
+
+
+      <button type="button" mat-raised-button color="primary" id="search-button" (click)="search()">
+        {{ 'labels.buttons.Search' | translate }}
+      </button>
+
+      <div class="includeOUPathChecker">
+        <mat-checkbox #includeOUPath labelPosition="after">{{ 'labels.commons.includeOUPath' | translate }}
+        </mat-checkbox>
+      </div>
+
+    </div>
+
+  </form>
+
+  <table mat-table [dataSource]="dataSource" *ngIf="!(noSearchedData)" matSort>
+
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="makerChecker.clientId">{{ 'labels.inputs.ID' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker.clientId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="makerChecker.clientName">{{ 'labels.inputs.Name' |
+        translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker.clientName }} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="clientAccountNo">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.accountNumber' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientAccountNo }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientExternalId">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.externalId' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientExternalId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="officeName">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Office' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientOfficeName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientOfficeHierarchyPath">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.oaf.OUPath' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientOfficeHierarchyPath }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Action' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker">
+        <button mat-raised-button class="mat-success"  (click)="viewClient(makerChecker.clientId)">{{
+          'labels.buttons.View' | translate }}</button>
+      </td>
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row"></tr>
+  </table>
+
+  <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[10, 25, 50, 100]"
+    showFirstLastButtons>
+  </mat-paginator>
+
+  <div class="alert" *ngIf="noSearchedData">
+
+    <div class="message">
+      <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No_checker_inbox_data_available_for_this_search' | translate }}
+    </div>
+
+  </div>
+
+</div>
+
+<div class="alert" *ngIf="!checkerData">
+
+  <div class="message">
+    <i class="fa fa-exclamation-circle alert-check fa-2x"></i>{{ 'labels.text.No_checker_inbox_data_available_for_this_account' | translate }}
+  </div>
+
+</div>

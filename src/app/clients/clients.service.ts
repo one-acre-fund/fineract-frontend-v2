@@ -43,13 +43,21 @@ export class ClientsService {
     return this.http.get('/clients', { params: httpParams });
   }
 
-  getClients(orderBy: string, sortOrder: string, offset: number, limit: number): Observable<any> {
-    const httpParams = new HttpParams()
+  getClients(orderBy: string, sortOrder: string, offset: number, limit: number, subStatus?: string, displayName: string = undefined): Observable<any> {
+    let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
       .set('orderBy', orderBy)
       .set('includeOfficeHierarchyPath', true.toString());
+
+      if(subStatus) {
+        httpParams = httpParams.set('subStatus', subStatus);
+      }
+      if(displayName) {
+        httpParams = httpParams.set('displayName', displayName);
+      }
+
     return this.http.get('/clients', { params: httpParams });
   }
 
@@ -58,15 +66,20 @@ export class ClientsService {
     sortOrder: string,
     offset: number,
     limit: number,
-    countryId: string
+    countryId: string,
+    subStatus?: string,
   ): Observable<any> {
-    const httpParams = new HttpParams()
+    let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
       .set('orderBy', orderBy)
       .set('countryId', countryId)
-      .set('includeOfficeHierarchyPath', true.toString());
+      .set('includeOfficeHierarchyPath', true.toString())
+
+      if(subStatus) {
+        httpParams = httpParams.set('subStatus', subStatus);
+      }
     return this.http.get('/clients', { params: httpParams });
   }
 

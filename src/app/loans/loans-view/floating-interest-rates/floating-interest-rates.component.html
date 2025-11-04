@@ -1,7 +1,7 @@
 <div class="container">
   <table mat-table [dataSource]="interestRateData">
     <ng-container matColumnDef="fromDate">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.From Date' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.fromDate' | translate }}</th>
       <td mat-cell *matCellDef="let ele">{{ ele.fromDate | dateFormat }}</td>
     </ng-container>
 

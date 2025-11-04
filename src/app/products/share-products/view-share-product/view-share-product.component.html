@@ -107,7 +107,7 @@
           <table fxFlexFill class="mat-elevation-z1" mat-table [dataSource]="shareProduct.marketPrice">
 
             <ng-container matColumnDef="fromDate">
-              <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.From Date' | translate }}</th>
+              <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.fromDate' | translate }}</th>
               <td mat-cell *matCellDef="let marketPrice">
                 {{ marketPrice.fromDate  | dateFormat }}
               </td>
