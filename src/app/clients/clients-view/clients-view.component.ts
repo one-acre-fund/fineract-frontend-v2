@@ -5,6 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 /** Custom Dialogs */
 import { UnassignStaffDialogComponent } from './custom-dialogs/unassign-staff-dialog/unassign-staff-dialog.component';
@@ -36,6 +37,7 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
   loanAccounts: any;
   isEditAllowedFlag: boolean = false;
   clientAccountsData: any;
+  kycFields: any[] = [];
   private readonly destroy$ = new Subject<void>();
 
 
@@ -46,6 +48,7 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
    * @param {DomSanitizer} _sanitizer Dom sanitizer service
    * @param {MatDialog} dialog Mat Dialog
    * @param {MatomoTracker} matomoTracker Matomo tracker service
+   * @param {TranslateService} translateService Translation service
    */  constructor(private route: ActivatedRoute,
     private router: Router,
     private clientsService: ClientsService,
@@ -53,6 +56,7 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private readonly matomoTracker: MatomoTracker,
     private readonly systemService: SystemService,
+    private readonly translateService: TranslateService,
   ) {
     this.route.data.subscribe((data: {
       clientViewData: any,
@@ -101,6 +105,14 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
       (base64Image: any) => {
         this.clientImage = this._sanitizer.bypassSecurityTrustResourceUrl(base64Image);
       }, (error: any) => { }
+    );
+
+    // Fetch KYC fields using the cached service method
+    this.clientsService.getKycFields().pipe(takeUntil(this.destroy$)).subscribe(
+      (fields: any[]) => {
+        this.kycFields = fields;
+      },
+      (error: any) => {}
     );
   }
 
@@ -437,35 +449,36 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
 
   /**
    * Formats failed KYC fields to be human-readable and comma-separated
+   * Uses the description from API which corresponds to translation keys
    */
   getFormattedFailedKycFields(): string {
     if (!this.clientViewData.failedKycFields || this.clientViewData.failedKycFields.length === 0) {
       return '';
     }
 
-    const fieldNameMap: { [key: string]: string } = {
-      'nationalIdentityImage': 'National Identity Image',
-      'firstname': 'First Name',
-      'genderId': 'Gender',
-      'middlename': 'Middle Name',
-      'dateOfBirth': 'Date of Birth',
-      'clientImage': 'Client Image',
-      'lastname': 'Last Name',
-    };
+    // Create a map from KYC fields API data (using 'description' property from narrations array)
+    const kycFieldNameMap: { [key: string]: string } = {};
+    if (this.kycFields && this.kycFields.length > 0) {
+      this.kycFields.forEach((field: any) => {
+        if (field.name && field.description) {
+          kycFieldNameMap[field.name] = field.description;
+        }
+      });
+    }
 
     return this.clientViewData.failedKycFields
-      .map((field: string) => fieldNameMap[field] || this.formatCamelCase(field))
+      .map((field: string) => {
+        const description = kycFieldNameMap[field];
+        
+        if (description) {
+          // Translate the description (e.g., "Client Image" -> "Picha ya Mteja" in Swahili)
+          return this.translateService.instant(`labels.inputs.${description}`);
+        }
+        
+        // Fallback to field name if not found
+        return field;
+      })
       .join(', ');
-  }
-
-  /**
-   * Converts camelCase to Title Case for field names not in the map
-   */
-  private formatCamelCase(str: string): string {
-    return str
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, (match) => match.toUpperCase())
-      .trim();
   }
 
 }
