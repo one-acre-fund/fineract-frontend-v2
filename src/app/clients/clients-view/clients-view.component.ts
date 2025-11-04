@@ -456,6 +456,11 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
       return '';
     }
 
+    // Map of field names to their translation key paths (exceptions from default labels.inputs)
+    const specialTranslationPaths: { [key: string]: string } = {
+      'clientImage': 'labels.commons.clientImage',
+    };
+
     // Create a map from KYC fields API data (using 'description' property from narrations array)
     const kycFieldNameMap: { [key: string]: string } = {};
     if (this.kycFields && this.kycFields.length > 0) {
@@ -471,8 +476,11 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
         const description = kycFieldNameMap[field];
         
         if (description) {
+          // Check if this field has a special translation path
+          const translationKey = specialTranslationPaths[field] || `labels.inputs.${description}`;
+          
           // Translate the description (e.g., "Client Image" -> "Picha ya Mteja" in Swahili)
-          return this.translateService.instant(`labels.inputs.${description}`);
+          return this.translateService.instant(translationKey);
         }
         
         // Fallback to field name if not found
