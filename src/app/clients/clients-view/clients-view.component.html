@@ -76,6 +76,10 @@
               {{ 'labels.inputs.Gender' | translate }}: {{ clientViewData.gender?.name }} &nbsp;</span
             >
             <br />
+             <span *ngIf="clientViewData.gender?.name">
+              {{ 'labels.inputs.Gender' | translate }}: {{ clientViewData.gender?.name }} &nbsp;</span
+            >
+            <br />
             <span *ngIf="clientViewData.status?.value"
               >{{ 'labels.inputs.Status' | translate }} : {{ clientViewData.status?.value }} &nbsp;</span
             >
