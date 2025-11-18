@@ -81,7 +81,7 @@
             >
 
             <span *ngIf="clientViewData.subStatus?.name"
-              >{{ 'labels.oaf.Sub Status' | translate }} : {{ clientViewData.subStatus?.name }}
+              >{{ 'labels.oaf.subStatus' | translate }} : {{ clientViewData.subStatus?.name }}
               <span *ngIf="clientViewData.subStatus?.codeType === 'clientSubStatusType.kyc_failed' && clientViewData.failedKycFields?.length > 0">
                 ({{ getFormattedFailedKycFields() }})
               </span>
