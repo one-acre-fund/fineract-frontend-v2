@@ -68,6 +68,7 @@ import { AddPaymentProviderComponent } from './external-services/payment-provide
 import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
 import { OrderIntegrationComponent } from 'app/system/external-services/order-integration/order-integration.component';
 import { EditOrderIntegrationComponent } from './external-services/order-integration/edit-order-integration/edit-order-integration.component';
+import { AddNotificationComponent } from './external-services/notification/add-notification/add-notification.component';
 
 @NgModule({
   imports: [
@@ -136,6 +137,7 @@ import { EditOrderIntegrationComponent } from './external-services/order-integra
     EditPaymentProviderComponent,
     OrderIntegrationComponent,
     EditOrderIntegrationComponent,
+    AddNotificationComponent
   ],
 })
 export class SystemModule { }

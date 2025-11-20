@@ -20,6 +20,7 @@ export class EditNotificationComponent implements OnInit {
   notificationConfigurationData: any;
   /** Notification Configuration Form */
   notificationConfigurationForm: UntypedFormGroup;
+  countryExternalService: any;
 
   /**
    * Retrieves the Notification configuration data from `resolve`.
@@ -29,12 +30,13 @@ export class EditNotificationComponent implements OnInit {
    * @param {Router} router Router for navigation.
    */
   constructor(private formBuilder: UntypedFormBuilder,
-              private systemService: SystemService,
-              private route: ActivatedRoute,
-              private router: Router) {
-    this.route.data.subscribe((data: { notificationConfiguration: any }) => {
-      this.notificationConfigurationData = data.notificationConfiguration;
-    });
+    private systemService: SystemService,
+    private route: ActivatedRoute,
+    private router: Router) {
+    this.countryExternalService = this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
+    if (!this.countryExternalService) {
+      console.error("No config provided to edit page");
+    }
   }
 
   /**
@@ -44,14 +46,28 @@ export class EditNotificationComponent implements OnInit {
     this.setNotificationConfigurationForm();
   }
 
+  private findValue(name: string) {
+    const props = this.countryExternalService?.properties || this.countryExternalService?.propertiesData || [];
+    const p = props.find((x: any) => x.name === name);
+    return p ? p.value : null;
+  }
+
   /**
    * Creates Notification configuration form.
    */
   setNotificationConfigurationForm() {
     this.notificationConfigurationForm = this.formBuilder.group({
-      'server_key': [this.notificationConfigurationData[0].value, Validators.required],
-      'gcm_end_point': [this.notificationConfigurationData[1].value, Validators.required],
-      'fcm_end_point': [this.notificationConfigurationData[2].value, Validators.required]
+      baseUrl: [this.findValue('baseUrl') || '', Validators.required],
+      smsEndpoint: [this.findValue('smsEndpoint') || '', Validators.required],
+      generalApiKey: [this.findValue('generalApiKey') || '', Validators.required],
+      senderApiKey: [this.findValue('senderApiKey') || '', Validators.required],
+      smsSender: [this.findValue('smsSender') || '', Validators.required],
+      otpSmsTemplate: [this.findValue('otpSmsTemplate') || '', Validators.required],
+      locale: [this.findValue('locale') || 'en-US', Validators.required],
+      providerName: [this.findValue('providerName') || 'AwsSns', Validators.required],
+      priority: [this.findValue('priority') || '', Validators.required],
+      smsTemplate: [this.findValue('smsTemplate') || '', Validators.required],
+      countryExternalServiceId: [this.countryExternalService?.id || null, Validators.required],
     });
   }
 
@@ -60,9 +76,12 @@ export class EditNotificationComponent implements OnInit {
    * if successful redirects to view Notification configuration.
    */
   submit() {
+    const formValue = { ...this.notificationConfigurationForm.value };
+    formValue.countryExternalServiceId = this.countryExternalService.id;
+
     this.systemService
-      .updateExternalConfiguration('NOTIFICATION', this.notificationConfigurationForm.value)
-      .subscribe((response: any) => {
+      .updateExternalConfiguration('NOTIFICATION', formValue)
+      .subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
   }
