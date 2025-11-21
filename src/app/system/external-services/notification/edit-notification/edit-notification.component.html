@@ -6,27 +6,65 @@
 
       <mat-card-content>
 
-        <div fxLayout="column">
+        <div fxLayout="column" fxLayoutGap="12px">
 
           <mat-form-field>
-            <mat-label>{{ 'labels.inputs.Server Key' | translate }}</mat-label>
-            <input matInput required formControlName="server_key">
-            <mat-error *ngIf="notificationConfigurationForm.controls.server_key.hasError('required')">{{ 'labels.commons.Server Key is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-            </mat-error>
+            <mat-label>{{ 'labels.commons.Base URL' | translate }}</mat-label>
+            <input matInput formControlName="baseUrl" placeholder="http://secure-api.qa.dsd.org/functions">
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>{{ 'labels.inputs.GCM End Point' | translate }}</mat-label>
-            <input matInput required formControlName="gcm_end_point">
-            <mat-error *ngIf="notificationConfigurationForm.controls.gcm_end_point.hasError('required')">{{ 'labels.commons.GCM End Point is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-            </mat-error>
+            <mat-label>{{ 'labels.commons.smsEndpoint' | translate }}</mat-label>
+            <input matInput formControlName="smsEndpoint" placeholder="/function/fds-api/notifications/send">
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>{{ 'labels.inputs.FCM End Point' | translate }}</mat-label>
-            <input matInput required formControlName="fcm_end_point">
-            <mat-error *ngIf="notificationConfigurationForm.controls.fcm_end_point.hasError('required')">{{ 'labels.commons.FCM End Point is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-            </mat-error>
+            <mat-label>{{ 'labels.commons.generalApiKey' | translate }}</mat-label>
+            <input matInput formControlName="generalApiKey">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.senderApiKey' | translate }}</mat-label>
+            <input matInput formControlName="senderApiKey">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.smsSender' | translate }}</mat-label>
+            <input matInput formControlName="smsSender">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.otpSMSTemplate' | translate }}</mat-label>
+            <input matInput formControlName="otpSmsTemplate">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.locale' | translate }}</mat-label>
+            <input matInput formControlName="locale">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.providerName' | translate }}</mat-label>
+            <input matInput formControlName="providerName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.inputs.Priority' | translate }}</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="high">High</mat-option>
+              <mat-option value="medium">Medium</mat-option>
+              <mat-option value="low">Low</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.smsTemplate'| translate }}</mat-label>
+            <input matInput formControlName="smsTemplate">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.countryExternalServiceId' | translate }}</mat-label>
+            <input matInput formControlName="countryExternalServiceId" readonly>
           </mat-form-field>
 
         </div>
@@ -34,8 +72,11 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
-        <button mat-raised-button color="primary" [disabled]="!notificationConfigurationForm.valid || notificationConfigurationForm.pristine">{{ 'labels.buttons.Submit' | translate }}</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate
+          }}</button>
+        <button mat-raised-button color="primary"
+          [disabled]="!notificationConfigurationForm.valid || notificationConfigurationForm.pristine">{{
+          'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
 
     </form>

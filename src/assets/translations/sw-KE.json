@@ -1106,7 +1106,18 @@
       "clientFailedKYC": "KYC Iliyoshindikana ya Mteja",
       "clientPendingReverification": "Mteja Anayesubiri Ukaguzi Upya",
       "clientImgMissing": "Hakuna picha ya mteja",
-      "clientNIDMissing": "Hakuna picha ya NID"
+      "clientNIDMissing": "Hakuna picha ya NID",
+      "Provider": "Mtoa Huduma",
+      "notificationServices": "Huduma za Arifa",
+      "providerName": "Jina la Mtoa Huduma",
+      "locale": "Lugha",
+      "otpSMSTemplate": "Kigezo cha SMS cha OTP",
+      "smsSender": "Mtumaji wa SMS",
+      "senderApiKey": "Ufunguo wa API wa Mtumaji",
+      "generalApiKey": "Ufunguo wa API wa Kawaida",
+      "smsEndpoint": "Kiunganishi cha SMS",
+      "countryExternalServiceId": "Kitambulisho cha Huduma ya Nje ya Nchi",
+      "smsTemplate": "Kigezo cha SMS"
     },
     "heading": {
       "Actions": "Vitendo",
@@ -3267,6 +3278,7 @@
       "Edit Loan Product": "Hariri Bidhaa ya Mkopo",
       "Edit Loan Account": "Hariri Akaunti ya Mkopo",
       "Edit Notification Configuration": "Hariri Usanidi wa Arifa",
+      "Add Notification Configuration": "Ongeza Mipangilio ya Arifa",
       "Edit Office": "Hariri Ofisi",
       "Edit Payment Type": "Hariri Aina ya Malipo",
       "Edit Product Mix": "Hariri Mchanganyiko wa Bidhaa",

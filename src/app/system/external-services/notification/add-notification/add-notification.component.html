@@ -1,0 +1,131 @@
+<div class="container">
+
+  <mat-card>
+
+    <form [formGroup]="addNotificationForm" (ngSubmit)="submit()">
+
+      <mat-card-content>
+
+        <div fxLayout="column" fxLayoutGap="15px">
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.inputs.Country' | translate }}</mat-label>
+            <mat-select formControlName="country_id">
+              <mat-option *ngFor="let c of countryOptions" [value]="c.id">
+                {{ c.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addNotificationForm.get('country_id')?.hasError('required')">
+              Country is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.inputs.Office' | translate }}</mat-label>
+            <mat-select formControlName="office_id">
+              <mat-option *ngFor="let o of officeOptions" [value]="o.id">
+                {{ o.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addNotificationForm.get('office_id')?.hasError('required')">
+              Office is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.Base URL' | translate }}</mat-label>
+            <input matInput formControlName="baseUrl" placeholder="http://secure-api.qa.org/functions"/>
+            <mat-error *ngIf="addNotificationForm.get('baseUrl')?.hasError('required')">
+              Base URL is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.smsEndpoint' | translate }}</mat-label>
+            <input matInput formControlName="smsEndpoint" placeholder="/function/fds-api/notifications/send"/>
+            <mat-error *ngIf="addNotificationForm.get('smsEndpoint')?.hasError('required')">
+              SMS Endpoint is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.generalApiKey' | translate }}</mat-label>
+            <input matInput formControlName="generalApiKey"/>
+            <mat-error *ngIf="addNotificationForm.get('generalApiKey')?.hasError('required')">
+              General API Key is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.senderApiKey' | translate }}</mat-label>
+            <input matInput formControlName="senderApiKey"/>
+            <mat-error *ngIf="addNotificationForm.get('senderApiKey')?.hasError('required')">
+              Sender API Key is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.smsSender' | translate }}</mat-label>
+            <input matInput formControlName="smsSender"/>
+            <mat-error *ngIf="addNotificationForm.get('smsSender')?.hasError('required')">
+              SMS Sender is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.otpSMSTemplate' | translate }}</mat-label>
+            <input matInput formControlName="otpSmsTemplate" placeholder="SMS_OTP"/>
+            <mat-error *ngIf="addNotificationForm.get('otpSmsTemplate')?.hasError('required')">
+              OTP Template is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.smsTemplate' | translate }}</mat-label>
+            <input matInput formControlName="smsTemplate" placeholder="SMS_REPAYMENT_SUCCESS"/>
+            <mat-error *ngIf="addNotificationForm.get('smsTemplate')?.hasError('required')">
+              SMS Template is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.locale' | translate }}</mat-label>
+            <input matInput formControlName="locale"/>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.commons.providerName' | translate }}</mat-label>
+            <mat-select formControlName="providerName">
+              <mat-option value="AwsSns">AwsSns</mat-option>
+              <mat-option value="infobip">Infobip</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.inputs.Priority' | translate }}</mat-label>
+            <mat-select formControlName="priority">
+              <mat-option value="low">Low</mat-option>
+              <mat-option value="medium">Medium</mat-option>
+              <mat-option value="high">High</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+      </mat-card-content>
+
+      <mat-card-actions fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button mat-raised-button type="button" [routerLink]="['../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
+
+        <button mat-raised-button color="primary" [disabled]="addNotificationForm.invalid">
+          {{ 'labels.buttons.Submit' | translate }}
+        </button>
+      </mat-card-actions>
+
+    </form>
+
+  </mat-card>
+
+</div>

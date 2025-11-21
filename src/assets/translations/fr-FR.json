@@ -1104,7 +1104,18 @@
       "clientFailedKYC": "KYC échoué du client",
       "clientPendingReverification": "Révérification en attente",
       "clientImgMissing": "Pas d'image du client",
-      "clientNIDMissing": "Pas d'image de NID"
+      "clientNIDMissing": "Pas d'image de NID",
+      "Provider": "Fournisseur",
+      "notificationServices": "Services de notification",
+      "providerName": "Nom du fournisseur",
+      "locale": "Paramètre régional",
+      "otpSMSTemplate": "Modèle SMS OTP",
+      "smsSender": "Expéditeur SMS",
+      "senderApiKey": "Clé API de l’expéditeur",
+      "generalApiKey": "Clé API générale",
+      "smsEndpoint": "Point de terminaison SMS",
+      "countryExternalServiceId": "ID du service externe du pays",
+      "smsTemplate": "Modèle SMS"
     },
     "heading": {
       "Actions": "Actions",
@@ -3247,6 +3258,7 @@
       "Edit Loan Product": "Modifier le produit de prêt",
       "Edit Loan Account": "Modifier le compte de prêt",
       "Edit Notification Configuration": "Modifier la configuration des notifications",
+      "Add Notification Configuration": "Ajouter une configuration de notification",
       "Edit Office": "Modifier le bureau",
       "Edit Payment Type": "Modifier le type de paiement",
       "Edit Product Mix": "Modifier la gamme de produits",
