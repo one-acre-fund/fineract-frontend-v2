@@ -25,8 +25,7 @@ export class NotificationConfigurationResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    const countryId = this.settingsService.getSelectedCountry()?.id;
-    return this.systemService.searchExternalConfiguration('NOTIFICATION', countryId, null);
+    return this.systemService.searchExternalConfiguration('NOTIFICATION', null, null);
   }
 
 }

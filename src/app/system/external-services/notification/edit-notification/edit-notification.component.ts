@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormControl } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
@@ -16,68 +16,64 @@ import { SystemService } from 'app/system/system.service';
 })
 export class EditNotificationComponent implements OnInit {
 
-  /** Notification Configuration data */
-  notificationConfigurationData: any;
-  /** Notification Configuration Form */
   notificationConfigurationForm: UntypedFormGroup;
   countryExternalService: any;
 
-  /**
-   * Retrieves the Notification configuration data from `resolve`.
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {SystemService} systemService Accounting Service.
-   * @param {ActivatedRoute} route Activated Route.
-   * @param {Router} router Router for navigation.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
+  constructor(
+    private formBuilder: UntypedFormBuilder,
     private systemService: SystemService,
     private route: ActivatedRoute,
-    private router: Router) {
-    this.countryExternalService = this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
+    private router: Router
+  ) {
+    this.countryExternalService =
+      this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
+
     if (!this.countryExternalService) {
       console.error("No config provided to edit page");
     }
   }
 
-  /**
-   * Creates Notification configuration form.
-   */
   ngOnInit() {
-    this.setNotificationConfigurationForm();
+    this.setDynamicForm();
   }
 
-  private findValue(name: string) {
-    const props = this.countryExternalService?.properties || this.countryExternalService?.propertiesData || [];
-    const p = props.find((x: any) => x.name === name);
-    return p ? p.value : null;
-  }
+  /** Build form dynamically based on properties */
+  setDynamicForm() {
+    this.notificationConfigurationForm = this.formBuilder.group({});
 
-  /**
-   * Creates Notification configuration form.
-   */
-  setNotificationConfigurationForm() {
-    this.notificationConfigurationForm = this.formBuilder.group({
-      baseUrl: [this.findValue('baseUrl') || '', Validators.required],
-      smsEndpoint: [this.findValue('smsEndpoint') || '', Validators.required],
-      generalApiKey: [this.findValue('generalApiKey') || '', Validators.required],
-      senderApiKey: [this.findValue('senderApiKey') || '', Validators.required],
-      smsSender: [this.findValue('smsSender') || '', Validators.required],
-      otpSmsTemplate: [this.findValue('otpSmsTemplate') || '', Validators.required],
-      locale: [this.findValue('locale') || 'en-US', Validators.required],
-      providerName: [this.findValue('providerName') || 'AwsSns', Validators.required],
-      priority: [this.findValue('priority') || '', Validators.required],
-      smsTemplate: [this.findValue('smsTemplate') || '', Validators.required],
-      countryExternalServiceId: [this.countryExternalService?.id || null, Validators.required],
+    const props = this.countryExternalService?.properties || [];
+
+    props.forEach((prop: any) => {
+      const value = prop.value ?? '';
+      this.notificationConfigurationForm.addControl(
+        prop.name,
+        new FormControl(value)
+      );
     });
+
+    this.notificationConfigurationForm.addControl(
+      'countryExternalServiceId',
+      new FormControl(this.countryExternalService.id)
+    );
   }
 
-  /**
-   * Submits the Notification configuration and updates the Notification configuration,
-   * if successful redirects to view Notification configuration.
-   */
+  /** Submit updated properties */
   submit() {
     const formValue = { ...this.notificationConfigurationForm.value };
-    formValue.countryExternalServiceId = this.countryExternalService.id;
+      formValue.countryExternalServiceId = this.countryExternalService.id;
+
+    const isCountryConfig = !!this.countryExternalService.country;
+
+    if (isCountryConfig) {
+      const keysToRemove = [
+        'authentication_type',
+        'authentication_endpoint',
+        'username',
+        'password'
+      ];
+
+      keysToRemove.forEach(key => delete formValue[key]);
+    }
 
     this.systemService
       .updateExternalConfiguration('NOTIFICATION', formValue)

@@ -1,69 +1,24 @@
 <div class="container">
 
   <mat-card>
-
     <form [formGroup]="notificationConfigurationForm" (ngSubmit)="submit()">
-
       <mat-card-content>
 
         <div fxLayout="column" fxLayoutGap="12px">
 
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.Base URL' | translate }}</mat-label>
-            <input matInput formControlName="baseUrl" placeholder="http://secure-api.qa.dsd.org/functions">
-          </mat-form-field>
+          <ng-container *ngFor="let field of notificationConfigurationForm?.controls | keyvalue">
+
+            <ng-container *ngIf="field.key !== 'countryExternalServiceId'">
+              <mat-form-field>
+                <mat-label>{{ field.key }}</mat-label>
+                <input matInput [formControlName]="field.key">
+              </mat-form-field>
+            </ng-container>
+
+          </ng-container>
 
           <mat-form-field>
-            <mat-label>{{ 'labels.commons.smsEndpoint' | translate }}</mat-label>
-            <input matInput formControlName="smsEndpoint" placeholder="/function/fds-api/notifications/send">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.generalApiKey' | translate }}</mat-label>
-            <input matInput formControlName="generalApiKey">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.senderApiKey' | translate }}</mat-label>
-            <input matInput formControlName="senderApiKey">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.smsSender' | translate }}</mat-label>
-            <input matInput formControlName="smsSender">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.otpSMSTemplate' | translate }}</mat-label>
-            <input matInput formControlName="otpSmsTemplate">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.locale' | translate }}</mat-label>
-            <input matInput formControlName="locale">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.providerName' | translate }}</mat-label>
-            <input matInput formControlName="providerName">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.inputs.Priority' | translate }}</mat-label>
-            <mat-select formControlName="priority">
-              <mat-option value="high">High</mat-option>
-              <mat-option value="medium">Medium</mat-option>
-              <mat-option value="low">Low</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.smsTemplate'| translate }}</mat-label>
-            <input matInput formControlName="smsTemplate">
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>{{ 'labels.commons.countryExternalServiceId' | translate }}</mat-label>
+            <mat-label>{{ 'labels.inputs.ID' | translate }}</mat-label>
             <input matInput formControlName="countryExternalServiceId" readonly>
           </mat-form-field>
 
@@ -72,15 +27,19 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate
-          }}</button>
+
+        <button type="button" mat-raised-button [routerLink]="['../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
+
         <button mat-raised-button color="primary"
-          [disabled]="!notificationConfigurationForm.valid || notificationConfigurationForm.pristine">{{
-          'labels.buttons.Submit' | translate }}</button>
+          [disabled]="!notificationConfigurationForm.valid || notificationConfigurationForm.pristine">
+          {{ 'labels.buttons.Submit' | translate }}
+        </button>
+
       </mat-card-actions>
 
     </form>
-
   </mat-card>
 
 </div>
