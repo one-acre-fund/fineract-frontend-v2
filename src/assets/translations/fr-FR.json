@@ -1115,7 +1115,11 @@
       "generalApiKey": "Clé API générale",
       "smsEndpoint": "Point de terminaison SMS",
       "countryExternalServiceId": "ID du service externe du pays",
-      "smsTemplate": "Modèle SMS"
+      "smsTemplate": "Modèle SMS",
+      "serviceName": "Nom du Service",
+      "byCountry": "Par Pays",
+      "byGlobal": "Global"
+
     },
     "heading": {
       "Actions": "Actions",

@@ -1119,7 +1119,10 @@
       "generalApiKey": "General API Key",
       "smsEndpoint": "SMS Endpoint",
       "countryExternalServiceId": "Country External Service ID",
-      "smsTemplate": "SMS Template"
+      "smsTemplate": "SMS Template",
+      "serviceName": "Service Name",
+      "byCountry": "By Country",
+      "byGlobal": "By Global"
     },
     "heading": {
       "Actions": "Actions",

@@ -1117,7 +1117,10 @@
       "generalApiKey": "Ufunguo wa API wa Kawaida",
       "smsEndpoint": "Kiunganishi cha SMS",
       "countryExternalServiceId": "Kitambulisho cha Huduma ya Nje ya Nchi",
-      "smsTemplate": "Kigezo cha SMS"
+      "smsTemplate": "Kigezo cha SMS",
+      "serviceName": "Jina la Huduma",
+      "byCountry": "Kwa Nchi",
+      "byGlobal": "Kwa Ulimwengu"
     },
     "heading": {
       "Actions": "Vitendo",

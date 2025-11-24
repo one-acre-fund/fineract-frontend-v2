@@ -14,17 +14,21 @@ import { AlertService } from 'app/core/alert/alert.service';
 })
 export class NotificationComponent implements OnInit {
 
-  /** Notification configuration data. */
-  notificationConfigurationData: any[] = [];
-  /** Columns to be displayed in Notification configuration table. */
-  displayedColumns: string[] = ['id', 'providerName', 'priority', 'actions'];
-  /** Data source for Notification configuration table. */
-  dataSource: MatTableDataSource<any>;
+  // Country instances (one per service instance)
+  countryInstances: any[] = [];
+  dataSourceCountry = new MatTableDataSource<any>();
+  displayedColumnsCountry: string[] = ['id', 'serviceName', 'providerName', 'actions'];
+
+  // Global properties flattened to name/value rows
+  globalProperties: any[] = [];
+  dataSourceGlobal = new MatTableDataSource<any>();
+  displayedColumnsGlobalNameValue: string[] = ['name', 'value', 'actions'];
 
   countryOptions: any[] = [];
-  countryId: any;
+  countryId: number | null = null;
 
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('countrySort', { static: true }) countrySort: MatSort;
+  @ViewChild('globalSort', { static: true }) globalSort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,14 +36,14 @@ export class NotificationComponent implements OnInit {
     private systemService: SystemService,
     private externalServiceConfigurationService: ExternalServiceConfigurationService,
     private settingsService: SettingsService,
-    private alertService: AlertService,
-
+    private alertService: AlertService
   ) {
-    // If route resolver provided initial data, group it
     this.route.data.subscribe((data: { notificationConfiguration: any }) => {
       const raw = data.notificationConfiguration?.notificationConfiguration ?? data.notificationConfiguration;
       if (raw) {
-        this.notificationConfigurationData = this.groupByInstance(raw);
+        const grouped = this.groupByInstance(raw);
+        this.globalProperties = this.flattenGlobalFromInstances(grouped.filter(i => !i.country));
+        this.setGlobalTable();
       }
     });
   }
@@ -48,75 +52,111 @@ export class NotificationComponent implements OnInit {
     this.externalServiceConfigurationService.getExternalServiceTemplate(null).subscribe({
       next: (data) => {
         this.countryOptions = data.countryOptions || [];
-        this.countryId = this.settingsService.getSelectedCountry()?.id || null;
-        if (this.countryId) {
-          this.setCountryNotificationConfig(this.countryId);
-        } else {
-          this.setNotificationConfiguration();
-        }
-      }
+        this.countryId = this.settingsService.getSelectedCountry()?.id ?? null;
+
+        this.loadGlobalInstances();
+        if (this.countryId) this.loadCountryInstances(this.countryId);
+      },
+      error: err => console.error(err)
     });
   }
 
-  // Convert API response (list of instances with propertiesData) into grouped array of instances
   private groupByInstance(rawList: any[]): any[] {
+    if (!Array.isArray(rawList)) return [];
     return rawList.map(item => ({
       id: item.id,
       serviceName: item.serviceName,
-      country: item.country,
+      country: item.country ?? null,
       providerName: this.getPropValue(item.propertiesData, 'providerName'),
       priority: this.getPropValue(item.propertiesData, 'priority'),
-      properties: item.propertiesData || []
+      properties: item.propertiesData ?? []
     }));
   }
 
   private getPropValue(props: any[] = [], key: string) {
+    if (!Array.isArray(props)) return null;
     const p = props.find(x => x.name === key);
     return p ? p.value : null;
   }
 
-  setCountryNotificationConfig(countryId: number) {
-    this.dataSource = new MatTableDataSource(); // clear while loading
-    this.notificationConfigurationData = [];
+  loadCountryInstances(countryId: number) {
+    this.dataSourceCountry = new MatTableDataSource();
+    this.countryInstances = [];
+
     this.systemService
       .searchExternalConfiguration(ExternalServiceConfigurationService.NOTIFICATION_SERVICE_NAME, countryId, null)
       .subscribe({
         next: (data: any) => {
           const raw = data.notificationConfiguration ?? data;
-          this.notificationConfigurationData = this.groupByInstance(raw);
-          this.setNotificationConfiguration();
+          this.countryInstances = this.groupByInstance(raw);
+          this.setCountryTable();
         },
         error: err => {
-          console.error('Error fetching notification configs:', err);
-          this.setNotificationConfiguration();
+          console.error('Error loading country instances', err);
+          this.setCountryTable();
         }
       });
   }
 
-  onCountryChange(event: any) {
-    if (event && event.value != null) {
-      this.setCountryNotificationConfig(event.value);
-    }
+  loadGlobalInstances() {
+    this.dataSourceGlobal = new MatTableDataSource();
+    this.globalProperties = [];
+
+    this.systemService
+      .searchExternalConfiguration(ExternalServiceConfigurationService.NOTIFICATION_SERVICE_NAME, null, null)
+      .subscribe({
+        next: (data: any) => {
+          const raw = data.notificationConfiguration ?? data;
+          const instances = this.groupByInstance(raw).filter(i => !i.country);
+          this.globalProperties = this.flattenGlobalFromInstances(instances);
+          this.setGlobalTable();
+        },
+        error: err => {
+          console.error('Error loading global instances', err);
+          this.setGlobalTable();
+        }
+      });
   }
 
-  setNotificationConfiguration() {
-    this.dataSource = new MatTableDataSource(this.notificationConfigurationData || []);
-    if (this.sort) { this.dataSource.sort = this.sort; }
-  }
-
-  navigateToEditExternalService(serviceInstance: any) {
-    this.router.navigate(['edit'], {
-      relativeTo: this.route,
-      state: { countryExternalService: serviceInstance }
+  private flattenGlobalFromInstances(instances: any[]): any[] {
+    const props: any[] = [];
+    instances.forEach(inst => {
+      (inst.properties || []).forEach((p: any) => {
+        props.push({
+          name: p.name,
+          value: p.value,
+          serviceId: inst.id,
+          fullService: inst
+        });
+      });
     });
+    return props;
+  }
+
+  onCountryChange(event: any) {
+    const countryId = event?.value ?? event;
+    if (countryId == null) return;
+    this.countryId = countryId;
+    this.loadCountryInstances(countryId);
+  }
+
+  private setCountryTable() {
+    this.dataSourceCountry = new MatTableDataSource(this.countryInstances || []);
+    if (this.countrySort) this.dataSourceCountry.sort = this.countrySort;
+  }
+
+  private setGlobalTable() {
+    this.dataSourceGlobal = new MatTableDataSource(this.globalProperties || []);
+    if (this.globalSort) this.dataSourceGlobal.sort = this.globalSort;
+  }
+
+  navigateToEditService(serviceInstance: any) {
+    this.router.navigate(['edit'], { relativeTo: this.route, state: { countryExternalService: serviceInstance } });
   }
 
   navigateToAdd() {
     if (!this.countryId) {
-      this.alertService.alert({
-        type: 'error',
-        message: 'Failed to find a valid country: ',
-      });
+      this.alertService.alert({ type: 'error', message: 'Please select a country first.' });
       return;
     }
 
