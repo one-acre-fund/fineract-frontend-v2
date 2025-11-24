@@ -10,7 +10,7 @@
 
             <ng-container *ngIf="field.key !== 'countryExternalServiceId'">
               <mat-form-field>
-                <mat-label>{{ field.key }}</mat-label>
+                <mat-label>{{ getLabelKey(field.key) | translate }}</mat-label>
                 <input matInput [formControlName]="field.key">
               </mat-form-field>
             </ng-container>
