@@ -82,4 +82,27 @@ export class EditNotificationComponent implements OnInit {
       });
   }
 
+
+  private fieldTranslationMap: Record<string, string> = {
+    providerName: 'labels.commons.providerName',
+    locale: 'labels.commons.locale',
+    otpSmsTemplate: 'labels.commons.otpSMSTemplate',
+    smsSender: 'labels.commons.smsSender',
+    senderApiKey: 'labels.commons.senderApiKey',
+    generalApiKey: 'labels.commons.generalApiKey',
+    smsEndpoint: 'labels.commons.smsEndpoint',
+    countryExternalServiceId: 'labels.commons.countryExternalServiceId',
+    smsTemplate: 'labels.commons.smsTemplate',
+    serviceName: 'labels.commons.serviceName',
+    byCountry: 'labels.commons.byCountry',
+    byGlobal: 'labels.commons.byGlobal',
+    baseUrl: 'labels.commons.Base URL',
+    priority: 'labels.inputs.Priority'
+    // Add more as it comes up
+  };
+
+  getLabelKey(field: string): string {
+    return this.fieldTranslationMap[field] || field;
+  }
+
 }

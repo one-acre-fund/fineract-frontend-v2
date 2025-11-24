@@ -17,7 +17,7 @@ export class NotificationComponent implements OnInit {
   // Country instances (one per service instance)
   countryInstances: any[] = [];
   dataSourceCountry = new MatTableDataSource<any>();
-  displayedColumnsCountry: string[] = ['id', 'serviceName', 'providerName', 'actions'];
+  displayedColumnsCountry: string[] = ['id', 'smsSender', 'providerName', 'actions'];
 
   // Global properties flattened to name/value rows
   globalProperties: any[] = [];
@@ -69,6 +69,8 @@ export class NotificationComponent implements OnInit {
       country: item.country ?? null,
       providerName: this.getPropValue(item.propertiesData, 'providerName'),
       priority: this.getPropValue(item.propertiesData, 'priority'),
+      smsSender: this.getPropValue(item.propertiesData, "smsSender"),
+      otpSmsTemplate: this.getPropValue(item.propertiesData, "otpSmsTemplate"),
       properties: item.propertiesData ?? []
     }));
   }
