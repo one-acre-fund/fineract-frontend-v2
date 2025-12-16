@@ -11,7 +11,7 @@ export class DateArrayFormatPipe implements PipeTransform {
       }
 
   transform(value: number[] | null | undefined, format: string = 'd MMMM y \'at\' HH:mm:ss', locale: string = 'en-US'): string {
-    const defaultDateFormat = `${this.settingsService.dateFormat} 'at' HH:mm:ss`;
+    const defaultDateFormat = this.settingsService.dateFormat ? `${this.settingsService.dateFormat} 'at' HH:mm:ss` : null;
     if (!value || !Array.isArray(value) || value.length < 3) {
       return '';
     }
