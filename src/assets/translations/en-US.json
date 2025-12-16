@@ -378,7 +378,8 @@
       "PreviousPage": "Previous Page",
       "FirstPage": "First Page",
       "LastPage": "Last Page",
-      "transferDescription": "Transfer Description"
+      "transferDescription": "Transfer Description",
+      "kycVerificationRequestDate": "Request Date"
     },
     "boolean": {
       "Yes": "Yes",

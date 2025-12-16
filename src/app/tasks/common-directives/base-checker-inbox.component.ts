@@ -28,11 +28,9 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
   totalElements = 0;
   displayedColumns: string[] = [
     'select',
-    'clientId',
+    'updatedOnDate',
     'clientName',
     'clientAccountNo',
-    'clientExternalId',
-    'officeName',
     'clientOfficeHierarchyPath',
     'action'
   ];
@@ -105,6 +103,7 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
           this.totalElements = response?.totalFilteredRecords ?? this.searchData.length;
           this.noSearchedData = this.searchData.length === 0;
           this.dataSource.data = this.searchData;
+          console.log('Fetched client KYC approvals:', this.searchData);
         },
         error: (err) => {
           console.error('Error fetching client KYC approvals:', err);
