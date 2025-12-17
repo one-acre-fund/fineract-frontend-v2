@@ -71,9 +71,9 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="clientId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="makerChecker.clientId">{{ 'labels.inputs.ID' | translate }}</th>
-      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker.clientId }} </td>
+    <ng-container matColumnDef="updatedOnDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="makerChecker.updatedOnDate">{{ 'labels.oaf.kycVerificationRequestDate' | translate }}</th>
+      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker.updatedOnDate | dateArrayFormat}} </td>
     </ng-container>
 
     <ng-container matColumnDef="clientName">
@@ -86,16 +86,6 @@
     <ng-container matColumnDef="clientAccountNo">
       <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.accountNumber' | translate }}</th>
       <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientAccountNo }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="clientExternalId">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.externalId' | translate }}</th>
-      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientExternalId }} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="officeName">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Office' | translate }}</th>
-      <td mat-cell *matCellDef="let makerChecker"> {{ makerChecker?.clientOfficeName }} </td>
     </ng-container>
 
     <ng-container matColumnDef="clientOfficeHierarchyPath">

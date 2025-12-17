@@ -28,11 +28,9 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
   totalElements = 0;
   displayedColumns: string[] = [
     'select',
-    'clientId',
+    'updatedOnDate',
     'clientName',
     'clientAccountNo',
-    'clientExternalId',
-    'officeName',
     'clientOfficeHierarchyPath',
     'action'
   ];

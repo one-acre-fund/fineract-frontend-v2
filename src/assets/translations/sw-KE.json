@@ -378,7 +378,8 @@
       "PreviousPage": "Ukurasa Uliotangulia",
       "FirstPage": "Ukurasa wa Kwanza",
       "LastPage": "Ukurasa wa Mwisho",
-      "transferDescription": "Maelezo ya Uhamisho"
+      "transferDescription": "Maelezo ya Uhamisho",
+      "kycVerificationRequestDate": "Tarehe ya Ombi"
     },
     "boolean": {
       "Yes": "Ndiyo",
