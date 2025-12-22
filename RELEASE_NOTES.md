@@ -3,7 +3,7 @@
 ## Version 1.4.4 - Community 1.0.0
     * Clients
         * [CP-3935] - Add time a client landed in the checker inbox
-        * [CP-3971] - Rename phone number filed in UI to Paid By in transaction history
+        * [CP-3971] - Rename phone number field in UI to Paid By in transaction history
 
 ## Version 1.4.3 - Community 1.0.0
     * Clients
