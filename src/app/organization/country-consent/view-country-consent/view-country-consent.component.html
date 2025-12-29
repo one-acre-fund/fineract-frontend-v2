@@ -37,7 +37,7 @@
 
         <div fxFlexFill>
           <span fxFlex="40%">{{ 'labels.catalogs.Active' | translate }}</span>
-          <span fxFlex="60%">{{ consentMessage.isActive ? 'Yes' : 'No' }}</span>
+          <span fxFlex="60%">{{ (consentMessage.isActive ? 'labels.boolean.Yes' : 'labels.boolean.No') | translate }}</span>
         </div>
     
         <mat-divider [inset]="true"></mat-divider>

@@ -18,14 +18,14 @@
               bindValue="code"
               placeholder="{{ 'labels.commons.select.consent.message.category' | translate }}"
               formControlName="category"
-              aria-labelledby="country"
+              aria-labelledby="category"
               [virtualScroll]="true"
             >
             </ng-select>
           </div>
 
           <div class="m-b-20 m-t-20" fxLayoutAlign="center center">
-            <mat-button-toggle-group  aria-label="Select Chart Type">
+            <mat-button-toggle-group  aria-label="Toggle between preview and edit mode">
               <mat-button-toggle class="preview-btn" value="preview" (click) = "togglePreview('preview')"><fa-icon icon="eye"></fa-icon>{{ 'labels.text.preview' | translate }}</mat-button-toggle>
               <mat-button-toggle class="edit-btn" value="edit" (click) = "togglePreview('edit')"><fa-icon icon="edit"></fa-icon>{{ 'labels.buttons.Edit' | translate }}</mat-button-toggle>
             </mat-button-toggle-group>

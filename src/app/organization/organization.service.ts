@@ -345,6 +345,8 @@ export class OrganizationService {
 
   /**
    * @returns {Observable<any>} Update Consent Message data
+   * @param {string} consentMessageId ID of the consent message to update.
+   * @param {any} consentMessage Updated consent message payload.
    */
   updateCountryConsentMessage(consentMessageId: string, consentMessage: any): Observable<any> {
     return this.http.put(`/consent-messages/${consentMessageId}`, consentMessage);

@@ -178,7 +178,7 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit, OnDestroy 
           // Convert Quill classes to inline styles
           let htmlContent = consentFormData.consentMessage;
           htmlContent = this.convertQuillClassesToInlineStyles(htmlContent);
-          let bgColor = 'white';
+          const bgColor = 'var(--country-consent-bg-color, white)';
           const finalHtml = `<div style="background-color: ${bgColor}; padding: 20px;">${htmlContent}</div>`;
           let payload: any = {
             consentName: consentFormData.consentName,
