@@ -3413,6 +3413,7 @@
       "edit.country.consent.messages": "Edit Consent Message",
       "view.country.consent.messages": "View Consent Message",
       "preview": "Preview",
+      "consent.raw.html": "Raw HTML",
       "Manage Data Tables": "Manage Data Tables",
       "Manage Delinquency Bucket": "Manage Delinquency Bucket",
       "Manage Delinquency Bucket Configurations": "Manage Delinquency Bucket Configurations",

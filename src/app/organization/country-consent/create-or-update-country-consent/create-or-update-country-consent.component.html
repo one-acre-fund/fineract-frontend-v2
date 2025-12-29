@@ -10,22 +10,6 @@
           </mat-form-field>
 
           <div>
-            <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
-            <ng-select
-              #country
-              [items]="listCountries"
-              bindLabel="name"
-              bindValue="id"
-              placeholder="{{ 'labels.commons.Select Country' | translate }}"
-              formControlName="countryId"
-              aria-labelledby="country"
-              (change)="search($event)"
-              [virtualScroll]="true"
-            >
-            </ng-select>
-          </div>
-
-          <div>
             <label for="category">{{ 'labels.inputs.Category' | translate }}</label>
             <ng-select
               #category
@@ -35,7 +19,6 @@
               placeholder="{{ 'labels.commons.select.consent.message.category' | translate }}"
               formControlName="category"
               aria-labelledby="country"
-              (change)="search($event)"
               [virtualScroll]="true"
             >
             </ng-select>
@@ -60,12 +43,12 @@
       <div *ngIf="showPreview" class="preview-container">
         <mat-card>
           <mat-card-content>
-             <h3>Preview:</h3>
+             <h3>{{ 'labels.text.preview' | translate }}:</h3>
             <div class="preview-content" [innerHTML]="previewHtml"></div>
             
             <mat-divider style="margin: 20px 0;"></mat-divider>
             
-            <h3>Raw HTML:</h3>
+            <h3>{{ 'labels.text.consent.raw.html' | translate }}:</h3>
             <pre class="html-preview"><code>{{ formattedHtml }}</code></pre>
           </mat-card-content>
         </mat-card>

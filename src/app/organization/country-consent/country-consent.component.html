@@ -13,22 +13,8 @@
       <form class="search-form" *ngIf="consentMessageSearchForm" [formGroup]="consentMessageSearchForm">
 
       <div fxLayout="row wrap" fxLayoutGap="1rem" fxLayout.lt-md="column">
-        <div fxFlex="calc(33% - 1rem)">
-            <ng-select
-              #countryId
-              [items]="listCountries"
-              bindLabel="name"
-              bindValue="id"
-              placeholder="{{ 'labels.commons.Select Country' | translate }}"
-              formControlName="countryId"
-              aria-labelledby="country"
-              (change)="search($event)"
-              [virtualScroll]="true"
-            >
-            </ng-select>
-          </div>
-
-          <div fxFlex="calc(33% - 1rem)">
+    
+          <div fxFlex="calc(45% - 1rem)">
             <ng-select
               #consentCategory
               [items]="categories"
@@ -37,13 +23,12 @@
               placeholder="{{ 'labels.commons.select.consent.message.category' | translate }}"
               formControlName="consentCategory"
               aria-labelledby="category"
-              (change)="search($event)"
               [virtualScroll]="true"
             >
             </ng-select>
           </div>
 
-        <div fxFlex="calc(33% - 1rem)">
+        <div fxFlex="calc(45% - 1rem)">
           <mat-checkbox formControlName="activeConsentMessages" #activeConsentMessages labelPosition="after">{{ 'labels.commons.includeOnlyActiveRecords' | translate }}
           </mat-checkbox>
         </div>

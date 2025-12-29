@@ -7,6 +7,7 @@ import { OrganizationService } from '../organization.service';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { takeUntil, tap } from 'rxjs/operators';
 import { merge, Subject } from 'rxjs';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-country-consent',
@@ -20,7 +21,6 @@ export class CountryConsentComponent implements OnInit, AfterViewInit, OnDestroy
       dataSource: MatTableDataSource<any>;
       searchData: any[] = [];
       consentMessageSearchForm!: UntypedFormGroup;
-      listCountries: any = [];
 
           @ViewChild(MatPaginator) paginator: MatPaginator;
           @ViewChild(MatSort) sort: MatSort;
@@ -33,6 +33,7 @@ export class CountryConsentComponent implements OnInit, AfterViewInit, OnDestroy
         constructor(
           private route: ActivatedRoute, 
           private organizationService: OrganizationService,
+          private settingsService: SettingsService,
           protected formBuilder: UntypedFormBuilder) {
           this.route.data
               .pipe(takeUntil(this.destroy$))
@@ -43,34 +44,17 @@ export class CountryConsentComponent implements OnInit, AfterViewInit, OnDestroy
               });
         }
       
-        /**
-         * Filters data in offices table based on passed value.
-         * @param {string} filterValue Value to filter data.
-         */
-         applyFilter(filterValue: string) {
-          this.dataSource.filter = filterValue.trim().toLowerCase();
-        }
-      
         ngOnInit(): void {
-          this.getCountries();
           this.getConsentCategories();
           this.createConsentMessageSearchForm();
         }
 
-        getCountries() {
-          this.organizationService.getCountries()
+        getConsentCategories() {
+          this.organizationService.getCountryConsentMessageCategories()
           .pipe(takeUntil(this.destroy$))
           .subscribe((res) => {
-            this.listCountries = res;
+            this.categories = res;
           });
-        }
-
-        getConsentCategories() {
-        this.organizationService.getCountryConsentMessageCategories()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          this.categories = res;
-        });
         }
 
         ngAfterViewInit(): void {
@@ -137,8 +121,9 @@ export class CountryConsentComponent implements OnInit, AfterViewInit, OnDestroy
           if (formValues.activeConsentMessages) {
             params.activeConsentMessages = formValues.activeConsentMessages;
           }
-          if (formValues.countryId) {
-            params.countryId = formValues.countryId;
+          let countryId = this.settingsService.getSelectedCountry()?.id;
+          if (countryId) {
+            params.countryId = countryId;
           }
           if (formValues.consentCategory) {
             params.consentCategory = formValues.consentCategory;

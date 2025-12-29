@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './view-country-consent.component.html',
   styleUrls: ['./view-country-consent.component.scss']
 })
-export class ViewCountryConsentComponent implements OnInit {
+export class ViewCountryConsentComponent implements OnInit, OnDestroy {
 
   consentMessage: any;
   previewHtml: SafeHtml = '';
@@ -47,7 +47,6 @@ export class ViewCountryConsentComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: any) => {
         if (response.delete) {
-          console.log("Confirmed deletion:");
           this.organizationService.deleteConsentMessage(this.consentMessage.id)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {

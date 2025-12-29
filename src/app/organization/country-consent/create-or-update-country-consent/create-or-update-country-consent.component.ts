@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationService } from 'app/organization/organization.service';
+import { SettingsService } from 'app/settings/settings.service';
 import { CountryTreeViewComponent } from 'app/shared/country-tree-view/country-tree-view.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -12,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './create-or-update-country-consent.component.html',
   styleUrls: ['./create-or-update-country-consent.component.scss']
 })
-export class CreateOrUpdateCountryConsentComponent implements OnInit {
+export class CreateOrUpdateCountryConsentComponent implements OnInit, OnDestroy {
 
     consentMessageToEdit: any;
     consentMessageToEditId: any;
@@ -43,10 +44,10 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit {
       private formBuilder: UntypedFormBuilder,
       private organizationService: OrganizationService,
       private sanitizer: DomSanitizer,
+      private settingsService: SettingsService,
       private router: Router,
       private route: ActivatedRoute,
     ) { 
-      this.getCountries();
       this.getConsentCategories();
       this.route.data
       .pipe(takeUntil(this.destroy$))
@@ -55,14 +56,12 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit {
       });
     }
   
-    listCountries: any = [];
       consentForm: UntypedFormGroup;
       treeDataSource: any = [];
       @ViewChild(CountryTreeViewComponent) countryTreeComponent: CountryTreeViewComponent;
     
       ngOnInit(): void {
         this.consentForm = this.formBuilder.group({
-          countryId: [null, Validators.required],
           consentName: ['', Validators.required],
           category: [null, Validators.required],
           consentMessage: ['', Validators.required],
@@ -76,7 +75,6 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit {
   populateFormForEdit() {
     if (this.consentMessageToEdit) {
       this.consentForm.patchValue({
-        countryId: this.consentMessageToEdit.countryId,
         consentName: this.consentMessageToEdit.consentName,
         category: this.consentMessageToEdit.categoryValue,
         consentMessage: this.consentMessageToEdit.consentMessage,
@@ -126,14 +124,6 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit {
       
       return formatted;
     }
-    
-      getCountries() {
-        this.organizationService.getCountries()
-        .pipe(takeUntil(this.destroy$))
-        .subscribe((res) => {
-          this.listCountries = res;
-        });
-      }
 
       getConsentCategories() {
         this.organizationService.getCountryConsentMessageCategories()
@@ -190,12 +180,16 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit {
           htmlContent = this.convertQuillClassesToInlineStyles(htmlContent);
           let bgColor = 'white';
           const finalHtml = `<div style="background-color: ${bgColor}; padding: 20px;">${htmlContent}</div>`;
-          const payload = {
-            countryId: consentFormData.countryId,
+          let payload: any = {
             consentName: consentFormData.consentName,
             category: consentFormData.category,
             consentMessage: finalHtml
           };
+
+          let countryId = this.settingsService.getSelectedCountry()?.id;
+          if (countryId) {
+            payload.countryId = countryId;
+          }
   
           if (this.consentMessageToEditId) {
             this.organizationService.updateCountryConsentMessage(this.consentMessageToEditId, payload)

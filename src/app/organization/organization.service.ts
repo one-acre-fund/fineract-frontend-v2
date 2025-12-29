@@ -353,7 +353,6 @@ export class OrganizationService {
   /**
    * Call API to activate/deactivate a consent message by consent message id
    * @param consentMessageId
-   * @param isActivate
    * @returns
    */
   activateOrDeactivateConsentMessage(consentMessageId): Observable<any> {

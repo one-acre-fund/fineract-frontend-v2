@@ -3390,6 +3390,7 @@
       "edit.country.consent.messages": "Modifier le message de consentement",
       "view.country.consent.messages": "Voir le message de consentement",
       "preview": "Aperçu",
+      "consent.raw.html": "HTML brut",
       "Manage Data Tables": "Gérer les tableaux de données",
       "Manage Delinquency Bucket": "Gérer la tranche de délinquance",
       "Manage Delinquency Bucket Configurations": "Gérer les configurations des compartiments de délinquance",
