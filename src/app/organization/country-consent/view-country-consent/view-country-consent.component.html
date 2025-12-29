@@ -1,0 +1,57 @@
+<div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">
+  <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_COUNTRY_CONSENT_MESSAGE'">
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}
+  </button>
+  <button mat-raised-button color="primary" (click)="activateOrDeactivateConsentMessage(consentMessage.id, !consentMessage.isActive)" *mifosxHasPermission="'ACTIVATE_DEACTIVATE_COUNTRY_CONSENT_MESSAGE'">
+    <span *ngIf="consentMessage.isActive"><fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Deactivate' | translate }}</span>
+    <span *ngIf="!consentMessage.isActive"><em class="fa fa-unlock-alt"></em>&nbsp;&nbsp;{{ 'labels.buttons.Activate' | translate }}</span>
+  </button>
+  <button mat-raised-button color="warn" (click)="deleteConsentMessage()" *mifosxHasPermission="'DELETE_COUNTRY_CONSENT_MESSAGE'">
+    <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}
+  </button>
+</div>
+
+<div class="container">
+  <mat-card>
+    <mat-card-content>
+      <div fxLayout="row wrap" fxLayout.lt-md="column">
+        <h2 class="mat-h2" fxFlexFill>{{ consentMessage.consentName }}</h2>
+
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div fxFlexFill>
+          <span fxFlex="40%">{{ 'labels.inputs.consent.message.name' | translate }}</span>
+          <span fxFlex="60%">{{ consentMessage.consentName }}</span>
+        </div>
+
+        <div fxFlexFill>
+          <span fxFlex="40%">{{ 'labels.oaf.Country' | translate }}</span>
+          <span fxFlex="60%">{{ consentMessage.countryName }}</span>
+        </div>
+
+
+        <div fxFlexFill>
+          <span fxFlex="40%">{{ 'labels.inputs.Category' | translate }}</span>
+          <span fxFlex="60%">{{ consentMessage.category }}</span>
+        </div>
+
+        <div fxFlexFill>
+          <span fxFlex="40%">{{ 'labels.catalogs.Active' | translate }}</span>
+          <span fxFlex="60%">{{ consentMessage.isActive ? 'Yes' : 'No' }}</span>
+        </div>
+    
+        <mat-divider [inset]="true"></mat-divider>
+
+        <div fxFlexFill>
+          <mat-card>
+          <mat-card-content>
+             <h3>Preview:</h3>
+            <div class="preview-content" [innerHTML]="previewHtml"></div>
+          </mat-card-content>
+        </mat-card>
+        </div>
+       
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

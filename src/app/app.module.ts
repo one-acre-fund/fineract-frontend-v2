@@ -57,6 +57,7 @@ import { apmInitializer, ApmInitService } from './core/init/elastic-apm/apm.init
 import { ApmModule } from '@elastic/apm-rum-angular';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './shares/CustomMatPaginatorIntl';
+import { QuillModule } from 'ngx-quill';
 
 /**
  * App Module
@@ -112,6 +113,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TasksModule,
     AppRoutingModule,
     DragulaModule.forRoot(),
+    QuillModule.forRoot(),
 
     NgxMatomoTrackerModule.forRoot({
       siteId: environment.matomoSiteId, // your Matomo's site ID (find it in your Matomo's settings)

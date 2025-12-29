@@ -1,0 +1,97 @@
+
+
+  <div class="container">
+
+    <div fxLayoutAlign="flex-end" class="action-button m-b-20">
+      <span>
+        <button mat-raised-button color="primary" [routerLink]="['create']">
+          <fa-icon icon="plus"></fa-icon>{{ 'labels.buttons.create.country.consent.message' | translate }}</button>
+      </span>
+    </div>
+
+    <div>
+      <form class="search-form" *ngIf="consentMessageSearchForm" [formGroup]="consentMessageSearchForm">
+
+      <div fxLayout="row wrap" fxLayoutGap="1rem" fxLayout.lt-md="column">
+        <div fxFlex="calc(33% - 1rem)">
+            <ng-select
+              #countryId
+              [items]="listCountries"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
+              formControlName="countryId"
+              aria-labelledby="country"
+              (change)="search($event)"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div fxFlex="calc(33% - 1rem)">
+            <ng-select
+              #consentCategory
+              [items]="categories"
+              bindLabel="value"
+              bindValue="code"
+              placeholder="{{ 'labels.commons.select.consent.message.category' | translate }}"
+              formControlName="consentCategory"
+              aria-labelledby="category"
+              (change)="search($event)"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+        <div fxFlex="calc(33% - 1rem)">
+          <mat-checkbox formControlName="activeConsentMessages" #activeConsentMessages labelPosition="after">{{ 'labels.commons.includeOnlyActiveRecords' | translate }}
+          </mat-checkbox>
+        </div>
+      </div>
+
+      </form>
+    </div>
+
+    <div class="mat-elevation-z8">
+
+      <table mat-table [dataSource]="dataSource" matSort>
+        <caption class="display-none">{{ 'labels.text.country.consent.messages' | translate }}</caption>
+
+        <ng-container matColumnDef="consentName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.consent.message.name' | translate }}</th>
+          <td mat-cell *matCellDef="let consent"> {{ consent.consentName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="countryName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.oaf.Country' | translate }}</th>
+          <td mat-cell *matCellDef="let consent"> {{ consent.countryName }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Category' | translate }}</th>
+          <td mat-cell *matCellDef="let consent"> {{ consent.category }} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="isActive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Status' | translate }}</th>
+        <td mat-cell *matCellDef="let consent">
+          <div [className]="consent.isActive | statusLookup">
+            <fa-icon
+              matTooltip="{{ consent.isActive ? 'Active' : 'Inactive' }}"
+              matTooltipPosition="right"
+              icon="circle"
+              size="lg"
+            ></fa-icon>
+          </div>
+        </td>
+      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="select-row" [routerLink]="[row.id]"></tr>
+
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+
+    </div>
+
+  </div>

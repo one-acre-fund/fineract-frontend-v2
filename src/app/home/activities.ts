@@ -26,6 +26,7 @@ const activities: any[] = [
     { activity: 'offices', path: '/organization/offices'},
     { activity: 'create office', path: '/organization/offices/create'},
     { activity: 'currency configurations', path: '/organization/currencies'},
+    { activity: 'consent messages', path: '/organization/consent-messages'},
     { activity: 'user settings', path: ''},
     { activity: 'employees', path: '/organization/employees'},
     { activity: 'create employee', path: '/organization/employees/create'},

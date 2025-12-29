@@ -79,6 +79,10 @@ import { CreateCurrenciesComponent } from './currencies/create-currencies/create
 import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-download/bulk-repayment-download.component';
 import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
+import { CountryConsentComponent } from './country-consent/country-consent.component';
+import { QuillModule } from 'ngx-quill';
+import { ViewCountryConsentComponent } from './country-consent/view-country-consent/view-country-consent.component';
+import { CreateOrUpdateCountryConsentComponent } from './country-consent/create-or-update-country-consent/create-or-update-country-consent.component';
 
 /**
  * Organization Module
@@ -90,7 +94,8 @@ import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.compone
     SharedModule,
     PipesModule,
     DirectivesModule,
-    OrganizationRoutingModule
+    OrganizationRoutingModule,
+    QuillModule
   ],
   declarations: [
     OrganizationComponent,
@@ -163,7 +168,10 @@ import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.compone
     CreateCurrenciesComponent,
     BulkRepaymentDownloadComponent,
     AuditTrailsComponent,
-    ViewAuditComponent
+    ViewAuditComponent,
+    CountryConsentComponent,
+    ViewCountryConsentComponent,
+    CreateOrUpdateCountryConsentComponent
   ]
 })
 export class OrganizationModule { }

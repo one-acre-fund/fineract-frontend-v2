@@ -1,0 +1,81 @@
+<div class="container">
+  <mat-card>
+    <form [formGroup]="consentForm" (ngSubmit)="submit()">
+      <mat-card-content>
+        <div fxLayout="column">
+
+          <mat-form-field>
+            <mat-label>{{ 'labels.inputs.consent.message.name' | translate }}</mat-label>
+            <input matInput required formControlName="consentName" />
+          </mat-form-field>
+
+          <div>
+            <label for="country">{{ 'labels.oaf.Country' | translate }}</label>
+            <ng-select
+              #country
+              [items]="listCountries"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
+              formControlName="countryId"
+              aria-labelledby="country"
+              (change)="search($event)"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div>
+            <label for="category">{{ 'labels.inputs.Category' | translate }}</label>
+            <ng-select
+              #category
+              [items]="categories"
+              bindLabel="value"
+              bindValue="code"
+              placeholder="{{ 'labels.commons.select.consent.message.category' | translate }}"
+              formControlName="category"
+              aria-labelledby="country"
+              (change)="search($event)"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div class="m-b-20 m-t-20" fxLayoutAlign="center center">
+            <mat-button-toggle-group  aria-label="Select Chart Type">
+              <mat-button-toggle class="preview-btn" value="preview" (click) = "togglePreview('preview')"><fa-icon icon="eye"></fa-icon>{{ 'labels.text.preview' | translate }}</mat-button-toggle>
+              <mat-button-toggle class="edit-btn" value="edit" (click) = "togglePreview('edit')"><fa-icon icon="edit"></fa-icon>{{ 'labels.buttons.Edit' | translate }}</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+
+        <div *ngIf="!showPreview && consentForm" class="editor-container">
+        <quill-editor 
+          formControlName="consentMessage"
+          [modules]="editorModules"
+          placeholder="Enter consent message..."
+          [styles]="{height: '300px'}">
+        </quill-editor>
+      </div>
+
+      <div *ngIf="showPreview" class="preview-container">
+        <mat-card>
+          <mat-card-content>
+             <h3>Preview:</h3>
+            <div class="preview-content" [innerHTML]="previewHtml"></div>
+            
+            <mat-divider style="margin: 20px 0;"></mat-divider>
+            
+            <h3>Raw HTML:</h3>
+            <pre class="html-preview"><code>{{ formattedHtml }}</code></pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary">{{ 'labels.buttons.Submit' | translate }}</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

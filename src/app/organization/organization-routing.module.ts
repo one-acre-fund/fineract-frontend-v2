@@ -117,6 +117,11 @@ import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-dow
 import { CountriesResolver } from './bulk-import/view-bulk-import/country.resolver';
 import { AuditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
 import { AuditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
+import { CountryConsentComponent } from './country-consent/country-consent.component';
+import { ConsentMessagesResolver } from './country-consent/consent-messages.resolver';
+import { ViewCountryConsentComponent } from './country-consent/view-country-consent/view-country-consent.component';
+import { ConsentMessageResolver } from './country-consent/consent-message.resolver';
+import { CreateOrUpdateCountryConsentComponent } from './country-consent/create-or-update-country-consent/create-or-update-country-consent.component';
 
 /** Organization Routes */
 const routes: Routes = [
@@ -380,6 +385,40 @@ const routes: Routes = [
               data: { title: extract('labels.heading.Currency'), breadcrumb: 'Create Currency' },
               resolve: {
                 currencies: CurrenciesResolver,
+              },
+            },
+          ],
+        },
+        {
+          path: 'consent-messages',
+          data: { title: extract('labels.text.country.consent.messages'), breadcrumb: 'Country Consent Messages' },
+          children: [
+            {
+              path: '',
+              component: CountryConsentComponent,
+              resolve: {
+                consentMessages: ConsentMessagesResolver,
+              },
+            },
+            {
+              path: 'create',
+              data: { title: extract('labels.text.create.country.consent.messages'), breadcrumb: 'Create Country Consent Message' },
+              component: CreateOrUpdateCountryConsentComponent,
+            },
+            {
+              path: ':id/edit',
+              component: CreateOrUpdateCountryConsentComponent,
+              data: { title: extract('labels.text.edit.country.consent.messages'), breadcrumb: 'Edit Country Consent Message' },
+              resolve: {
+                consentMessage: ConsentMessageResolver,
+              },
+            },
+            {
+              path: ':id',
+              component: ViewCountryConsentComponent,
+              data: { title: extract('labels.text.view.country.consent.messages'), breadcrumb: 'View Consent Message' },
+              resolve: {
+                consentMessage: ConsentMessageResolver,
               },
             },
           ],
@@ -844,6 +883,8 @@ const routes: Routes = [
     EmployeeResolver,
     EditEmployeeResolver,
     CurrenciesResolver,
+    ConsentMessageResolver,
+    ConsentMessagesResolver,
     SmsCampaignsResolver,
     SmsCampaignResolver,
     SmsCampaignTemplateResolver,

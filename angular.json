@@ -30,6 +30,8 @@
             "styles": [
               "node_modules/font-awesome/css/font-awesome.css",
               "src/main.scss",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css",
               {
                 "inject": false,
                 "input": "src/theme/deeppurple-amber.scss",
@@ -61,7 +63,9 @@
                 "bundleName": "pictonblue-yellowgreen"
               }
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/quill/dist/quill.min.js"
+            ],
             "allowedCommonJsDependencies": ["lodash", "@ckeditor/ckeditor5-build-classic"],
             "sourceMap": false
           },

@@ -315,6 +315,60 @@ export class OrganizationService {
     return this.http.get('/currencies');
   }
 
+  /**
+   * @returns {Observable<any>} Consent data
+   */
+  getCountryConsentMessageCategories(): Observable<any> {
+    return this.http.get('/consent-messages/categories');
+  }
+
+  /**
+   * @returns {Observable<any>} Consent data
+   */
+  getCountryConsentMessages(params: any): Observable<any> {
+    return this.http.get('/consent-messages', { params });
+  }
+
+  /**
+   * @returns {Observable<any>} Consent data
+   */
+  getCountryConsentMessageById(id: string): Observable<any> {
+    return this.http.get(`/consent-messages/${id}`);
+  }
+
+  /**
+   * @returns {Observable<any>} Create Consent Message data
+   */
+  createCountryConsentMessage(consentMessage: any): Observable<any> {
+    return this.http.post('/consent-messages', consentMessage);
+  }
+
+  /**
+   * @returns {Observable<any>} Update Consent Message data
+   */
+  updateCountryConsentMessage(consentMessageId: string, consentMessage: any): Observable<any> {
+    return this.http.put(`/consent-messages/${consentMessageId}`, consentMessage);
+  }
+
+  /**
+   * Call API to activate/deactivate a consent message by consent message id
+   * @param consentMessageId
+   * @param isActivate
+   * @returns
+   */
+  activateOrDeactivateConsentMessage(consentMessageId): Observable<any> {
+    return this.http.post(`/consent-messages/${consentMessageId}/toggleActiveFlag`, {});
+  }
+
+  /**
+   * Call API to delete a consent message by consent message id
+   * @param consentMessageId
+   * @returns
+   */
+  deleteConsentMessage(consentMessageId: string): Observable<any> {
+    return this.http.delete(`/consent-messages/${consentMessageId}`);
+  }
+
   createCurrencies(currencies: any[]): Observable<any> {
     return this.http.post('/currencies', currencies);
   }

@@ -91,6 +91,14 @@
             <h4 matLine>{{ 'labels.menus.Templates' | translate }}</h4>
             <p matLine>{{ 'labels.commons.Create terms and conditions, etc.' | translate }}</p>
           </mat-list-item>
+
+           <mat-list-item [routerLink]="['consent-messages']" *mifosxHasPermission="'READ_COUNTRY_CONSENT_MESSAGE'">
+            <mat-icon matListIcon>
+              <fa-icon icon="file-alt" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.heading.country.consent.messages' | translate }}</h4>
+            <p matLine>{{ 'labels.text.country.consent.messages.for.country' | translate }}</p>
+          </mat-list-item>
         </mat-nav-list>
       </div>
 

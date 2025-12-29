@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.4.5 - Community 1.0.0
+    * Configurations
+        * [CP-3666] - Added Dynamic Consent Message Configuration with HTML Support Per Country
+
 ## Version 1.4.4 - Community 1.0.0
     * Clients
         * [CP-3935] - Add time a client landed in the checker inbox
