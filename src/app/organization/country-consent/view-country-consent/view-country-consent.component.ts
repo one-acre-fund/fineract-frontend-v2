@@ -14,7 +14,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './view-country-consent.component.html',
   styleUrls: ['./view-country-consent.component.scss']
 })
-export class ViewCountryConsentComponent implements OnInit, OnDestroy {
+export class ViewCountryConsentComponent implements OnDestroy {
 
   consentMessage: any;
   previewHtml: SafeHtml = '';
@@ -33,10 +33,6 @@ export class ViewCountryConsentComponent implements OnInit, OnDestroy {
         this.consentMessage = data.consentMessage;
         this.previewHtml = this.sanitizer.bypassSecurityTrustHtml(this.consentMessage.consentMessage) || '';
       });
-    }
-  
-    ngOnInit() {
-  
     }
   
     deleteConsentMessage = () => {
