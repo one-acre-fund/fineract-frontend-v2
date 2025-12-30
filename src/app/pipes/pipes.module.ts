@@ -9,6 +9,7 @@ import { UrlToStringPipe } from './url-to-string.pipe';
 import { DateFormatPipe } from './date-format.pipe';
 import { TranslatePipe } from './translate.pipe';
 import { DateArrayFormatPipe } from './date-array-format.pipe';
+import { SafeHtmlPipe } from './safe-html.pipe';
 
 @NgModule({
   imports: [CommonModule],
@@ -21,6 +22,7 @@ import { DateArrayFormatPipe } from './date-array-format.pipe';
     UrlToStringPipe,
     DateFormatPipe,
     DateArrayFormatPipe,
+    SafeHtmlPipe,
     TranslatePipe,
   ],
   providers: [
@@ -32,6 +34,7 @@ import { DateArrayFormatPipe } from './date-array-format.pipe';
     UrlToStringPipe,
     DateFormatPipe,
     DateArrayFormatPipe,
+    SafeHtmlPipe,
     TranslatePipe,
   ],
   exports: [
@@ -43,6 +46,7 @@ import { DateArrayFormatPipe } from './date-array-format.pipe';
     UrlToStringPipe,
     DateFormatPipe,
     DateArrayFormatPipe,
+    SafeHtmlPipe,
     TranslatePipe,
   ],
 })

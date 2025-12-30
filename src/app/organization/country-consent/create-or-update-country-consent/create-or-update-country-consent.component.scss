@@ -33,3 +33,47 @@
   justify-content: center;
   background-color: rgb(126, 129, 132);
 }
+
+
+.mobile-frame {
+  width: 375px; /* Standard mobile width (e.g., iPhone SE/X) */
+  height: 667px;
+  margin: 0 auto;
+  border: 12px solid #333;
+  border-radius: 30px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.status-bar {
+  background: #f1f1f1;
+  padding: 5px 15px;
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+}
+
+.webview-container {
+  flex: 1;
+  overflow-y: auto; /* Allow scrolling like a real phone */
+  padding: 0; 
+  /* Important: Mobile webviews often have a default font size. Mimic it here. */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Force images to fit the mobile screen. 
+   Quill images can be huge; mobile apps usually constrain them with CSS.
+*/
+.ql-editor img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ql-editor iframe {
+  max-width: 100%;
+}

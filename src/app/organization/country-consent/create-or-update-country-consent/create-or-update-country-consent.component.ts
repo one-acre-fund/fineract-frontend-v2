@@ -21,6 +21,8 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit, OnDestroy 
     previewHtml: SafeHtml = '';
     formattedHtml: string = '';
     showPreview = false;
+    showPreviewMobile = false;
+    showPreviewDesktop = false;
     categories: any[] = [];
 
     editorModules = {
@@ -83,11 +85,18 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit, OnDestroy 
   }
 
       togglePreview(action: string): void {
-      this.showPreview = 'preview' === action;
+      this.showPreview = action.includes('preview');
+      this.showPreviewMobile = 'preview-mobile' === action;
+      this.showPreviewDesktop = 'preview-desktop' === action;
       if (this.showPreview) {
-        const html = this.consentForm.get('consentMessage')?.value;
-        this.previewHtml = this.sanitizer.bypassSecurityTrustHtml(html) || '';
-        this.formattedHtml = this.formatHtml(html);
+        let htmlContent = this.consentForm.get('consentMessage')?.value;
+        htmlContent = this.convertQuillClassesToInlineStyles(htmlContent);
+        const bgColor = 'var(--country-consent-bg-color, white)';
+        this.previewHtml = htmlContent;
+        if (!htmlContent.startsWith('<div')) {
+          this.previewHtml = `<div style="background-color: ${bgColor}; padding: 20px;">${htmlContent}</div>`;
+        }
+        this.formattedHtml = this.formatHtml(this.previewHtml as string);
       }
     }
   
@@ -179,7 +188,10 @@ export class CreateOrUpdateCountryConsentComponent implements OnInit, OnDestroy 
           let htmlContent = consentFormData.consentMessage;
           htmlContent = this.convertQuillClassesToInlineStyles(htmlContent);
           const bgColor = 'var(--country-consent-bg-color, white)';
-          const finalHtml = `<div style="background-color: ${bgColor}; padding: 20px;">${htmlContent}</div>`;
+          let finalHtml = htmlContent;
+          if (!finalHtml.startsWith('<div')) {
+            finalHtml = `<div style="background-color: ${bgColor}; padding: 20px;">${htmlContent}</div>`;
+          }
           let payload: any = {
             consentName: consentFormData.consentName,
             category: consentFormData.category,

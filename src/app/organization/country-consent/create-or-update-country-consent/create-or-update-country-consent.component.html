@@ -26,7 +26,8 @@
 
           <div class="m-b-20 m-t-20" fxLayoutAlign="center center">
             <mat-button-toggle-group  aria-label="Toggle between preview and edit mode">
-              <mat-button-toggle class="preview-btn" value="preview" (click) = "togglePreview('preview')"><fa-icon icon="eye"></fa-icon>{{ 'labels.text.preview' | translate }}</mat-button-toggle>
+              <mat-button-toggle class="preview-btn" value="preview-mobile" (click) = "togglePreview('preview-mobile')"><fa-icon icon="eye"></fa-icon>{{ 'labels.text.preview.mobile' | translate }}</mat-button-toggle>
+              <mat-button-toggle class="preview-btn" value="preview-desktop" (click) = "togglePreview('preview-desktop')"><fa-icon icon="eye"></fa-icon>{{ 'labels.text.preview.desktop' | translate }}</mat-button-toggle>
               <mat-button-toggle class="edit-btn" value="edit" (click) = "togglePreview('edit')"><fa-icon icon="edit"></fa-icon>{{ 'labels.buttons.Edit' | translate }}</mat-button-toggle>
             </mat-button-toggle-group>
           </div>
@@ -40,11 +41,11 @@
         </quill-editor>
       </div>
 
-      <div *ngIf="showPreview" class="preview-container">
+      <div *ngIf="showPreviewDesktop" class="preview-container">
         <mat-card>
           <mat-card-content>
-             <h3>{{ 'labels.text.preview' | translate }}:</h3>
-            <div class="preview-content" [innerHTML]="previewHtml"></div>
+             <h3>{{ 'labels.text.preview.desktop' | translate }}:</h3>
+            <div class="preview-content" [innerHTML]="previewHtml | safeHtml"></div>
             
             <mat-divider style="margin: 20px 0;"></mat-divider>
             
@@ -53,6 +54,25 @@
           </mat-card-content>
         </mat-card>
       </div>
+
+      <div *ngIf="showPreviewMobile" class="mobile-frame">
+         <mat-card>
+          <mat-card-content>
+             <h3>{{ 'labels.text.preview.mobile' | translate }}:</h3>
+            <div class="status-bar">
+              <span>9:41</span>
+              <span class="icons">📶 🔋</span>
+            </div>
+            
+            <div class="webview-container">
+              <div class="ql-container ql-snow" style="border: none;">
+                <div class="ql-editor" [innerHTML]="previewHtml | safeHtml"></div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      
         </div>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
