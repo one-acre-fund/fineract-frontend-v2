@@ -358,7 +358,7 @@ export class OrganizationService {
    * @returns
    */
   activateOrDeactivateConsentMessage(consentMessageId): Observable<any> {
-    return this.http.post(`/consent-messages/${consentMessageId}/toggleActiveFlag`, {});
+    return this.http.post(`/consent-messages/${consentMessageId}/status`, {});
   }
 
   /**
