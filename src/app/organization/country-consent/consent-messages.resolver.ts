@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { OrganizationService } from '../organization.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Consent messages data resolver.
@@ -17,14 +18,23 @@ export class ConsentMessagesResolver implements Resolve<Object> {
   /**
    * @param {OrganizationService} organizationService Organization service.
    */
-  constructor(private organizationService: OrganizationService) {}
+  constructor(private settingsService: SettingsService,
+    private organizationService: OrganizationService) {}
 
   /**
    * Returns the consent messages data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.organizationService.getCountryConsentMessages({});
+    const params: any = {
+            pageNumber: 0,
+            pageSize: 10
+          };
+    let countryId = this.settingsService.getSelectedCountry()?.id;
+    if (countryId) {
+      params.countryId = countryId;
+    }
+    return this.organizationService.getCountryConsentMessages(params);
   }
 
 }
