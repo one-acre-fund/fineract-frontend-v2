@@ -9,6 +9,7 @@ import { SettingsService } from 'app/settings/settings.service';
 import { merge, Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { TemplatesService } from './templates.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Templates component.
@@ -50,6 +51,7 @@ export class TemplatesComponent implements OnInit, AfterViewInit, OnDestroy {
     private route: ActivatedRoute, 
     protected formBuilder: UntypedFormBuilder,
     private settingsService: SettingsService,
+    private translateService: TranslateService,
     private templateService: TemplatesService) {
     this.route.data.subscribe((data: { templates: any, entityAndTypesTemplateData: any }) => {
       this.templatesData = data.templates?.content || [];
@@ -177,6 +179,11 @@ loadConsentData() {
       }
     });
 
+ }
+
+  getIsActiveLabel(isActive: boolean): string {
+    const activeLabelKey = isActive ? 'labels.inputs.Active' : 'labels.catalogs.Inactive';
+   return this.translateService.instant(activeLabelKey);
  }
 
   ngOnDestroy(): void {

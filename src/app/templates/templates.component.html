@@ -68,7 +68,7 @@
         <td mat-cell *matCellDef="let template">
           <div [className]="template.active | statusLookup">
             <fa-icon
-              matTooltip="{{ template.active ? 'Active' : 'Inactive' }}"
+              matTooltip="{{ getIsActiveLabel(template.active)}}"
               matTooltipPosition="right"
               icon="circle"
               size="lg"
