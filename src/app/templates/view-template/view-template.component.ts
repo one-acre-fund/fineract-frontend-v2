@@ -53,7 +53,7 @@ export class ViewTemplateComponent implements OnDestroy {
       data: { deleteContext: `template ${this.templateData.id}` }
     });
     deleteTemplateDialogRef.afterClosed().subscribe((response: any) => {
-      if (response.delete) {
+      if (response?.delete) {
         this.templatesService.deleteTemplate(this.templateData.id)
           .pipe(takeUntil(this.destroy$))
           .subscribe(() => {
@@ -81,7 +81,7 @@ export class ViewTemplateComponent implements OnDestroy {
     disableOutletDialogRef.afterClosed()
         .pipe(takeUntil(this.destroy$))
         .subscribe((response: any) => {
-          if (response.confirm) {
+          if (response?.confirm) {
             this.templatesService.activateOrDeactivateTemplate(templateId, isActivate)
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {

@@ -134,7 +134,7 @@ export class TemplatesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Subscribe to value changes of entity to set template types.
    */
 buildTemplateTypeDependencies() {
-  this.templateSearchForm.get('templateEntity').valueChanges.subscribe((value: any) => {
+  this.templateSearchForm.get('templateEntity').valueChanges.pipe(takeUntil(this.destroy$)).subscribe((value: any) => {
     this.templateSearchForm.get('templateType').patchValue(null);
     this.templateTypes = this.entityAndTypesTemplateData.entities.filter((entity: any) => entity.code === value)[0]?.templateTypes;
   });
