@@ -90,6 +90,7 @@ export class CreateTemplateComponent implements OnInit {
   buildDependencies() {
     const tenantIdentifier = 'default'; // update once global settings are setup.
     this.templateForm.get('entity').valueChanges.subscribe((value: any) => {
+      this.templateForm.get('type').patchValue(null);
       this.templateTypes = this.createTemplateData.entities.filter((entity: any) => entity.code === value)[0]?.templateTypes;
       if (value === 'CLIENT') { // client
         this.mappers.splice(0, 1, {

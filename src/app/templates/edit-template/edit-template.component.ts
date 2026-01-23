@@ -11,7 +11,6 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
-import { locale } from 'moment';
 
 /**
  * Edit Template Component.
@@ -80,13 +79,11 @@ export class EditTemplateComponent implements OnInit {
    * Creates the template form.
    */
   createTemplateForm() {
-    console.log(this.editTemplateData);
-    console.log(this.allTemplateTypes.find((type: any) => type.name === this.editTemplateData.template.type)?.code);
     const entity = this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity);
     this.templateTypes = entity?.templateTypes;
     this.templateForm = this.formBuilder.group({
-      'entity': [this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity).code],
-      'type': [this.templateTypes.find((type: any) => type.name === this.editTemplateData.template.type).code],
+      'entity': [this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity)?.code],
+      'type': [this.templateTypes.find((type: any) => type.name === this.editTemplateData.template.type)?.code],
       'name': [this.editTemplateData.template.name]
     });
   }

@@ -168,7 +168,7 @@ loadConsentData() {
     .subscribe({
       next: (response: any) => {
         this.templatesData = response?.content || [];
-        this.dataSource = new MatTableDataSource(this.templatesData);
+        this.dataSource.data = this.templatesData;
         this.totalElements = response?.total || 0;
       },
       error: (err) => {
