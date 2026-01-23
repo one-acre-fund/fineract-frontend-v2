@@ -1452,7 +1452,11 @@
       "Delete Interest Rate Chart": "Futa Chati ya Kiwango cha Riba",
       "Floating Rate Period": "Kipindi cha Kiwango cha Kuelea",
       "Status": "Hali",
-      "Sub Status": "Hali Ndogo"
+      "Sub Status": "Hali Ndogo",
+      "activateTemplateHeading": "Washa Kiolezo",
+      "deactivateTemplateHeading": "Zima Kiolezo",
+      "confirmTemplateActivation": "Hii itazima kiolezo cha hali halisi cha sasa na kuwezesha kilichochaguliwa. Je, ungependa kuendelea?",
+      "confirmTemplateDeactivation": "Hii itaacha aina hii ya kiolezo bila kiolezo cha hali halisi. Je, ungependa kuendelea?"
     },
     "inputs": {
       "accounting": {

@@ -12,6 +12,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ConfirmationDialogComponent } from 'app/shared/confirmation-dialog/confirmation-dialog.component';
 import { extract } from 'app/core/i18n/i18n.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * View Template Component.
@@ -37,6 +38,7 @@ export class ViewTemplateComponent implements OnDestroy {
   constructor(private route: ActivatedRoute,
               private templatesService: TemplatesService,
               private router: Router,
+              private translateService: TranslateService,
               private dialog: MatDialog) {
     this.route.data.subscribe((data: { template: any }) => {
       this.templateData = data.template;
@@ -62,8 +64,17 @@ export class ViewTemplateComponent implements OnDestroy {
   }
 
   activateOrDeactivateTemplate(templateId: any, isActivate: boolean) {
-    const templateActionHeading = isActivate ? 'Activate Template' : 'Deactivate Template';
-    const dialogContext = isActivate ? 'This will deactivate current active template and activate the selected one. Do you want to proceed?' : 'This will leave this template type without active template. Do you want to proceed?';
+    const headingKey = isActivate
+    ? 'labels.heading.activateTemplateHeading'
+    : 'labels.heading.deactivateTemplateHeading';
+
+    const contextKey = isActivate
+      ? 'labels.heading.confirmTemplateActivation'
+      : 'labels.heading.confirmTemplateDeactivation';
+
+    const templateActionHeading = this.translateService.instant(headingKey);
+    const dialogContext = this.translateService.instant(contextKey);
+
     const disableOutletDialogRef = this.dialog.open(ConfirmationDialogComponent, {
       data: { heading: templateActionHeading, dialogContext: dialogContext }
     });
