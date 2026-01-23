@@ -1092,7 +1092,8 @@
       "Second External ID": "Kitambulisho cha Pili cha Nje",
       "Source Office": "Ofisi ya Chanzo",
       "Destination Office": "Ofisi ya Marudio",
-      "Is the OU a country": "Je, OU ni Nchi"
+      "Is the OU a country": "Je, OU ni Nchi",
+      "includeOnlyActiveRecords": "Inaotumika tu"
     },
     "heading": {
       "Actions": "Vitendo",

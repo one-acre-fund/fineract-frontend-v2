@@ -11,6 +11,7 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { locale } from 'moment';
 
 /**
  * Edit Template Component.
@@ -43,6 +44,10 @@ export class EditTemplateComponent implements OnInit {
   /** Repayment Parameter Labels */
   repaymentParameterLabels: string[] = repaymentParameterLabels;
 
+  /** Template entity types */
+  templateTypes: any[] = [];
+  allTemplateTypes: any[] = [];
+
   /**
    * Retrieves the template data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -56,6 +61,7 @@ export class EditTemplateComponent implements OnInit {
               private templateService: TemplatesService) {
     this.route.data.subscribe((data: { editTemplateData: any }) => {
       this.editTemplateData = data.editTemplateData;
+      this.allTemplateTypes = this.editTemplateData.types;
       this.mappers = this.editTemplateData.template.mappers
         .map((mapper: any) => ({
           mappersorder: mapper.mapperorder,
@@ -74,9 +80,13 @@ export class EditTemplateComponent implements OnInit {
    * Creates the template form.
    */
   createTemplateForm() {
+    console.log(this.editTemplateData);
+    console.log(this.allTemplateTypes.find((type: any) => type.name === this.editTemplateData.template.type)?.code);
+    const entity = this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity);
+    this.templateTypes = entity?.templateTypes;
     this.templateForm = this.formBuilder.group({
-      'entity': [this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity).id],
-      'type': [this.editTemplateData.types.find((type: any) => type.name === this.editTemplateData.template.type).id],
+      'entity': [this.editTemplateData.entities.find((entity: any) => entity.name === this.editTemplateData.template.entity).code],
+      'type': [this.templateTypes.find((type: any) => type.name === this.editTemplateData.template.type).code],
       'name': [this.editTemplateData.template.name]
     });
   }
@@ -87,19 +97,20 @@ export class EditTemplateComponent implements OnInit {
   buildDependencies() {
     const tenantIdentifier = 'default'; // update once global settings are setup.
     this.templateForm.get('entity').valueChanges.subscribe((value: any) => {
-      if (value === 0) { // client
+      this.templateTypes = this.editTemplateData.entities.filter((entity: any) => entity.code === value)[0]?.templateTypes;
+      if (value === 'CLIENT') { // client
         this.mappers.splice(0, 1, {
           mappersorder: 0,
           mapperskey: new UntypedFormControl('client'),
           mappersvalue: new UntypedFormControl('clients/{{clientId}}?tenantIdentifier=' + tenantIdentifier)
         });
-      } else { // loan
+      } /* else { // loan product
         this.mappers.splice(0, 1, {
           mappersorder: 0,
           mapperskey: new UntypedFormControl('loan'),
           mappersvalue: new UntypedFormControl('loans/{{loanId}}?associations=all&tenantIdentifier=' + tenantIdentifier )
         });
-      }
+      } */
       this.setEditorContent('');
     });
   }
@@ -168,7 +179,8 @@ export class EditTemplateComponent implements OnInit {
         mapperskey: mapper.mapperskey.value,
         mappersvalue: mapper.mappersvalue.value
       })),
-      text: this.getEditorContent()
+      text: this.getEditorContent(),
+      locale: 'en',
     };
     this.templateService.updateTemplate(template, this.editTemplateData.template.id).subscribe(() => {
       this.router.navigate(['../'], { relativeTo: this.route });

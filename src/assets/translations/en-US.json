@@ -1094,7 +1094,8 @@
       "Second External ID": "Second External ID",
       "Source Office": "Source Office",
       "Destination Office": "Destination Office",
-      "Is the OU a country": "Is OU a Country"
+      "Is the OU a country": "Is OU a Country",
+      "includeOnlyActiveRecords": "Active Only"
     },
     "heading": {
       "Actions": "Actions",

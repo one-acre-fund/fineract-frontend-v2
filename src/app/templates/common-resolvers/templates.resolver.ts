@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Templates data resolver.
@@ -17,14 +18,14 @@ export class TemplatesResolver implements Resolve<Object> {
   /**
    * @param {TemplatesService} templatesService Templates service.
    */
-  constructor(private templatesService: TemplatesService) {}
+  constructor(private templatesService: TemplatesService, private settingService: SettingsService) {}
 
   /**
    * Returns the templates data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    return this.templatesService.getTemplates();
+    return this.templatesService.getTemplates({ countryId: this.settingService.getSelectedCountry()?.id || undefined });
   }
 
 }
