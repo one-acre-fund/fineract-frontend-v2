@@ -33,6 +33,7 @@ const routes: Routes = [
           component: TemplatesComponent,
           resolve: {
             templates: TemplatesResolver,
+            entityAndTypesTemplateData: CreateTemplateResolver
           },
         },
         {

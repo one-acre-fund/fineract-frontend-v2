@@ -12,6 +12,7 @@ import { TemplatesComponent } from './templates.component';
 import { ViewTemplateComponent } from './view-template/view-template.component';
 import { EditTemplateComponent } from './edit-template/edit-template.component';
 import { CreateTemplateComponent } from './create-template/create-template.component';
+import { PipesModule } from 'app/pipes/pipes.module';
 
 /**
  * Templates Module
@@ -23,6 +24,7 @@ import { CreateTemplateComponent } from './create-template/create-template.compo
     CKEditorModule,
     SharedModule,
     DirectivesModule,
+    PipesModule,
     TemplatesRoutingModule
   ],
   declarations: [

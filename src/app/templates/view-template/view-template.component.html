@@ -3,6 +3,11 @@
   <button mat-raised-button color="primary" [routerLink]="['edit']" *mifosxHasPermission="'UPDATE_TEMPLATE'">
     <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
 
+  <button mat-raised-button color="primary" (click)="activateOrDeactivateTemplate(templateData.id, !templateData.active)" *mifosxHasPermission="'ACTIVATE_DEACTIVATE_TEMPLATE'">
+    <span *ngIf="templateData.active"><fa-icon icon="ban"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Deactivate' | translate }}</span>
+    <span *ngIf="!templateData.active"><em class="fa fa-unlock-alt"></em>&nbsp;&nbsp;{{ 'labels.buttons.Activate' | translate }}</span>
+  </button>
+
   <button mat-raised-button color="warn" (click)="delete()" *mifosxHasPermission="'DELETE_TEMPLATE'">
     <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}</button>
 

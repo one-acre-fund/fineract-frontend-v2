@@ -11,7 +11,7 @@
           <mat-form-field fxFlex="48%">
             <mat-label>{{ 'labels.inputs.Entity' | translate }}</mat-label>
             <mat-select formControlName="entity">
-              <mat-option *ngFor="let entity of editTemplateData.entities" [value]="entity.id">
+              <mat-option *ngFor="let entity of editTemplateData.entities" [value]="entity.code">
                 {{ entity.name }}
               </mat-option>
             </mat-select>
@@ -20,13 +20,13 @@
           <mat-form-field fxFlex="48%">
             <mat-label>{{ 'labels.inputs.Type' | translate }}</mat-label>
             <mat-select formControlName="type">
-              <mat-option *ngFor="let type of editTemplateData.types" [value]="type.id">
+              <mat-option *ngFor="let type of templateTypes" [value]="type.code">
                 {{ type.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
   
-          <mat-form-field fxFlex="48%">
+          <mat-form-field fxFlex="98%">
             <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
             <input matInput formControlName="name">
           </mat-form-field>
@@ -76,7 +76,7 @@
 
       <mat-accordion>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 0">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'CLIENT'">
   
           <mat-expansion-panel-header>
             <mat-panel-title>{{ 'labels.inputs.Client Parameters' | translate }}</mat-panel-title>
@@ -91,7 +91,7 @@
   
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 1">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'LOAN'">
   
           <mat-expansion-panel-header>
             <mat-panel-title>{{ 'labels.inputs.Loan Parameters' | translate }}</mat-panel-title>
@@ -106,7 +106,7 @@
   
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 1">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'LOAN'">
   
           <mat-expansion-panel-header>
             <mat-panel-title>{{ 'labels.inputs.Repayment Schedule Parameters' | translate }}</mat-panel-title>
