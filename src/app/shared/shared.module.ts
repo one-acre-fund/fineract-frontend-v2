@@ -17,7 +17,6 @@ import { EnableDialogComponent } from './enable-dialog/enable-dialog.component';
 import { DisableDialogComponent } from './disable-dialog/disable-dialog.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
-import { NotificationsTrayComponent } from './notifications-tray/notifications-tray.component';
 import { SearchToolComponent } from './search-tool/search-tool.component';
 import { KeyboardShortcutsDialogComponent } from './keyboard-shortcuts-dialog/keyboard-shortcuts-dialog.component';
 import { ServerSelectorComponent } from './server-selector/server-selector.component';
@@ -62,7 +61,6 @@ import { NgOtpInputModule } from 'ng-otp-input';
     ConfirmationDialogComponent,
     KeyboardShortcutsDialogComponent,
     ErrorDialogComponent,
-    NotificationsTrayComponent,
     SearchToolComponent,
     ServerSelectorComponent,
     OfficeTreeViewComponent,
@@ -75,7 +73,6 @@ import { NgOtpInputModule } from 'ng-otp-input';
     LanguageSelectorComponent,
     ServerSelectorComponent,
     ThemePickerComponent,
-    NotificationsTrayComponent,
     SearchToolComponent,
     ErrorDialogComponent,
     CommonModule,
