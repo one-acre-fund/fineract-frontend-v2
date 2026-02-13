@@ -3,6 +3,8 @@
 ## Version 1.4.6 - Community 1.0.0
     * Configurations
         * [CP-3666] - Refactor Template Configuration with HTML Support Per Country
+    * Navigation Bar
+        * [CP-4004] - Disabling the notification tray for now since it's not being consumed   
 
 ## Version 1.4.1 - Community 1.0.0
 
