@@ -1,5 +1,5 @@
 <nav class="breadcrumb-wrapper">
-  <ul class="breadcrumb">
+  <ul class="breadcrumb" *ngIf="breadcrumbs && breadcrumbs.length">
     <span class="breadcrumb-title">{{ breadcrumbs[breadcrumbs.length - 1].label | translate }}</span>
     <span *ngIf="breadcrumbs.length - 1 !== 0" class="separator">
       <li *ngFor="let breadcrumb of breadcrumbs; let last = last" class="breadcrumb-label">

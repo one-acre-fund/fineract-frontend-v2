@@ -39,7 +39,7 @@ export class GeneralTabComponent {
       data: { deleteContext: this.officeData.name },
     });
     deleteOutletDialogRef.afterClosed().subscribe((response: any) => {
-      if (response.delete) {
+      if (response && response.delete) {
         this.organizationService.deleteOffice(this.officeData.id).subscribe(
           () => {
             this.officeData.status = false;
@@ -60,7 +60,7 @@ export class GeneralTabComponent {
       data: { dialogContext: 'Are you sure to Activate ' + this.officeData.name, heading: 'Activate Office' },
     });
     activateOfficeDialogRef.afterClosed().subscribe((response: any) => {
-      if (response.confirm) {
+      if (response && response.confirm) {
         this.organizationService.activateOffice(this.officeData.id).subscribe(
           () => {
             this.officeData.status = true;
@@ -81,7 +81,7 @@ export class GeneralTabComponent {
       data: { dialogContext: 'Are you sure to DeActivate ' + this.officeData.name, heading: 'DeActivate Office' },
     });
     deActivateOfficeDialogRef.afterClosed().subscribe((response: any) => {
-      if (response.confirm) {
+      if (response && response.confirm) {
         this.organizationService.deactivateOffice(this.officeData.id).subscribe(
           () => {
             this.officeData.status = false;

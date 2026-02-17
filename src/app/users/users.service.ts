@@ -81,7 +81,7 @@ export class UsersService {
    */
   getStaff(officeId: any): Observable<any> {
     const httpParams = new HttpParams()
-      .set('officeId', officeId.toString())
+      .set('officeId', officeId?.toString())
       .set('status', 'all');
     return this.http.get('/staff', { params: httpParams });
   }
