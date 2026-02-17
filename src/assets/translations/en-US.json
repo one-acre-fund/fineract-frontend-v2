@@ -1124,6 +1124,7 @@
       "serviceName": "Service Name",
       "byCountry": "By Country",
       "byGlobal": "By Global"
+      "includeOnlyActiveRecords": "Active Only"
     },
     "heading": {
       "Actions": "Actions",
@@ -1482,7 +1483,11 @@
       "Delete Interest Rate Chart": "Delete Interest Rate Chart",
       "Floating Rate Period": "Floating Rate Period",
       "Status": "Status",
-      "Sub Status": "Sub Status"
+      "Sub Status": "Sub Status",
+      "activateTemplateHeading": "Activate Template",
+      "deactivateTemplateHeading": "Deactivate Template",
+      "confirmTemplateActivation": "This will deactivate current active template and activate the selected one. Do you want to proceed?",
+      "confirmTemplateDeactivation": "This will leave this template type without active template. Do you want to proceed?"
     },
     "inputs": {
       "accounting": {

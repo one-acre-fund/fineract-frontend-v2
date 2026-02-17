@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.4.6 - Community 1.0.0
+    * Configurations
+        * [CP-3666] - Refactor Template Configuration with HTML Support Per Country
+    * Navigation Bar
+        * [CP-4004] - Disabling the notification tray for now since it's not being consumed   
 ## Version 1.4.4 - Community 1.0.0
     * Clients
         * [CP-3935] - Add time a client landed in the checker inbox
@@ -16,6 +21,7 @@
         * [CP-3873] - KYC Maker Checker UI Improvements
         * [CP-3911] - Apply KYC backend changes to align with the updated requirements.
         * [CP-3927] - Enable search by client name and order by date on Failed KYC tab.
+
 ## Version 1.4.1 - Community 1.0.0
 
     * Clients

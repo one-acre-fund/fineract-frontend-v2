@@ -11,6 +11,7 @@ import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } 
 
 /** Custom Services */
 import { TemplatesService } from '../templates.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Create Template Component.
@@ -47,6 +48,9 @@ export class CreateTemplateComponent implements OnInit {
   /** Repayment Parameter Labels */
   repaymentParameterLabels: string[] = repaymentParameterLabels;
 
+  /** Template entity types */
+  templateTypes: any[] = [];
+
   /**
    * Retrieves the template data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -57,10 +61,10 @@ export class CreateTemplateComponent implements OnInit {
   constructor(private formBuilder: UntypedFormBuilder,
               private route: ActivatedRoute,
               private router: Router,
+              private settingsService: SettingsService,
               private templateService: TemplatesService) {
     this.route.data.subscribe((data: { createTemplateData: any, countries: any }) => {
       this.createTemplateData = data.createTemplateData;
-      this.countries = data.countries;
     });
   }
 
@@ -76,8 +80,7 @@ export class CreateTemplateComponent implements OnInit {
     this.templateForm = this.formBuilder.group({
       'entity': ['', Validators.required],
       'type': ['', Validators.required],
-      'name': ['', Validators.required],
-      'countryId': ['', Validators.required]
+      'name': ['', Validators.required]
     });
   }
 
@@ -87,22 +90,25 @@ export class CreateTemplateComponent implements OnInit {
   buildDependencies() {
     const tenantIdentifier = 'default'; // update once global settings are setup.
     this.templateForm.get('entity').valueChanges.subscribe((value: any) => {
-      if (value === 0) { // client
+      this.templateForm.get('type').patchValue(null);
+      this.templateTypes = this.createTemplateData.entities.filter((entity: any) => entity.code === value)[0]?.templateTypes;
+      if (value === 'CLIENT') { // client
         this.mappers.splice(0, 1, {
           mappersorder: 0,
           mapperskey: new UntypedFormControl('client'),
           mappersvalue: new UntypedFormControl('clients/{{clientId}}?tenantIdentifier=' + tenantIdentifier)
         });
-      } else { // loan
+        
+      } /*else { // loan product
         this.mappers.splice(0, 1, {
           mappersorder: 0,
           mapperskey: new UntypedFormControl('loan'),
           mappersvalue: new UntypedFormControl('loans/{{loanId}}?associations=all&tenantIdentifier=' + tenantIdentifier )
         });
-      }
+      }*/
       this.setEditorContent('');
     });
-    this.templateForm.get('entity').patchValue(0);
+    this.templateForm.get('entity').patchValue('CLIENT');
   }
 
   /**
@@ -169,6 +175,7 @@ export class CreateTemplateComponent implements OnInit {
         mapperskey: mapper.mapperskey.value,
         mappersvalue: mapper.mappersvalue.value
       })),
+      countryId: this.settingsService.getSelectedCountry()?.id,
       text: this.getEditorContent()
     };
     this.templateService.createTemplate(template).subscribe((response: any) => {
