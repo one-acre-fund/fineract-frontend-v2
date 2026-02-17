@@ -42,12 +42,15 @@ export class EditUserComponent implements OnInit {
       this.userData = data.user;
       this.officesData = data.usersTemplate.allowedOffices;
       this.rolesData = data.usersTemplate.availableRoles;
+      this.createEditUserForm();
+      this.officeChanged(this.userData.officeId);
     });
   }
 
   ngOnInit() {
-    this.createEditUserForm();
-    this.officeChanged(this.userData.officeId);
+    /**
+     * Removed calls to createEditUserForm and officeChanged from here
+     */
   }
 
   /**

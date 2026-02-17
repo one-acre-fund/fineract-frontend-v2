@@ -16,6 +16,7 @@ import { AddExternalServiceModel, GetExternalServiceModel } from './external-ser
 export class ExternalServiceConfigurationService {
   public static readonly PAYMENT_PROVIDER_SERVICE_NAME: string = 'PAYMENT_PROVIDER';
   public static readonly ORDER_INTEGRATION_SERVICE: string = 'ORDER_SERVICE';
+  public static readonly NOTIFICATION_SERVICE_NAME: string = 'NOTIFICATION';
   public static readonly AUTHENTICATION_TYPE = [
     { id: 'Basic', name: 'Basic Authentication' },
     { id: 'Bearer', name: 'Bearer Authentication' },

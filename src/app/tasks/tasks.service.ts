@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 /**
  * Tasks Service
@@ -108,6 +108,66 @@ export class TasksService {
    */
   getCheckerInboxDetail(makerCheckerId: any): Observable<any> {
     return this.http.get(`/audits/${makerCheckerId}`);
+  }
+
+  /**
+  * Get Client Image
+  */
+  getClientImage(clientId: any, maxHeight: any): Observable<any> {
+    if (!clientId) {
+      console.warn('getClientImage called with null or undefined clientId');
+      return of(null);
+    }
+    const httpParams = new HttpParams().set("maxHeight", maxHeight);
+    return this.http.get(`/clients/${clientId}/images`, { params: httpParams, responseType: 'text' });
+  }
+
+  /**
+   * Execute Maker Checker Reject Verification Action
+   * @param {clientId} clientId
+   * @param {data} data
+   */
+  rejectClientVerification(clientId: any, data: any) {
+    if (!clientId) {
+      console.warn('rejectClientVerification called with null or undefined clientId');
+      return of(null);
+    }
+    const httpParams = new HttpParams().set('command', "rejectVerification");
+    return this.http.post(`/clients/${clientId}`, data, { params: httpParams });
+  }
+
+  getClientKYCFieldsTemplate() {
+    const httpParams = new HttpParams().set('commandParam', 'clientKYCFields');
+    return this.http.get(`/clients/template`, { params: httpParams });
+  }
+
+  /**
+   * Approve and Reject Client KYC entry.
+   * @param {clientId} clientId
+   * @param {command} Command
+   */
+  executeClientKYCAction(clientId: any, command: any): Observable<any> {
+    const httpParams = new HttpParams().set('command', command);
+    console.log("executeClientKYCAction: client id" ,clientId);
+    return this.http.post(`/clients/${clientId}`, {}, { params: httpParams });
+  }
+
+      /**
+   * Get Maker Checker Data
+   * @param {searchData} SearchData search the maker checker data.
+   */
+  getClientKYCApprovals(searchData?: any): Observable<any> {
+    let httpParams = new HttpParams();
+    if (searchData) {
+      const propNames = Object.getOwnPropertyNames(searchData);
+      for (let i = 0; i < propNames.length; i++) {
+        const propName = propNames[i];
+        if (!(searchData[propName] === '' || searchData[propName] === undefined || searchData[propName] === null)) {
+          httpParams = httpParams.set(propName, searchData[propName]);
+        }
+      }
+    }
+    return this.http.get('/kycApprovals', { params: httpParams });
   }
 
 }

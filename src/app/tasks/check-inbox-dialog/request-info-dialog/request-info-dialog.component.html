@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ 'labels.commons.requestMoreInfo' | translate }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form">
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>{{ 'labels.inputs.Reason' | translate }}</mat-label>
+      <textarea matInput rows="4" formControlName="kycRejectionNotes"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'labels.commons.KYCFields' | translate }}</mat-label>
+      <mat-select required formControlName="failedKycFields" multiple>
+        <mat-option *ngFor="let field of kycFields" [value]="field.name">
+          {{ field.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.failedKycFields.hasError('required')">
+        {{ 'labels.inputs.Reason' | translate }}
+        <strong>{{ 'labels.commons.required' | translate }}</strong>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">{{ 'labels.buttons.Cancel' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid && isRequestSubmitButtonDisabled">{{ 'labels.buttons.Submit' | translate }}</button>
+</mat-dialog-actions>

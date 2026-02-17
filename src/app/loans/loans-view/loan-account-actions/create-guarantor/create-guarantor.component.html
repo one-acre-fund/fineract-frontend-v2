@@ -83,7 +83,7 @@
             </mat-form-field>
 
             <mat-form-field (click)="dobDatePicker.open()">
-              <mat-label>{{ 'labels.inputs.Date Of Birth' | translate }}</mat-label>
+              <mat-label>{{ 'labels.inputs.DOB' | translate }}</mat-label>
               <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dobDatePicker" formControlName="dob" />
               <mat-datepicker-toggle matSuffix [for]="dobDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #dobDatePicker></mat-datepicker>
@@ -140,7 +140,7 @@
     <ng-container *ngIf="!(newGuarantorForm.controls.name === undefined)">
       <div class="mat-table">
         <div class="mat-header-row">
-          <div class="mat-header-cell">{{ 'labels.inputs.Client Details' | translate }}</div>
+          <div class="mat-header-cell">{{ 'labels.inputs.clientDetails' | translate }}</div>
         </div>
         <div class="mat-row">
           <div class="mat-cell">{{ 'labels.inputs.name' | translate }}</div>

@@ -14,7 +14,11 @@ import { LoanApprovalComponent } from './checker-inbox-and-tasks-tabs/loan-appro
 import { LoanDisbursalComponent } from './checker-inbox-and-tasks-tabs/loan-disbursal/loan-disbursal.component';
 import { RescheduleLoanComponent } from './checker-inbox-and-tasks-tabs/reschedule-loan/reschedule-loan.component';
 import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inbox.component';
-
+import { ClientVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-verification-checker-inbox/client-verification-checker-inbox.component';
+import { ClientDetailsDialogComponent } from './check-inbox-dialog/client-details-dialog/client-details-dialog.component';
+import { RequestInfoDialogComponent } from './check-inbox-dialog/request-info-dialog/request-info-dialog.component';
+import { ClientPendingReVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-pending-reverification-checker-inbox/client-pending-reverification-checker-inbox.component';
+import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-failed-kyc/client-failed-kyc.component';
 /**
  * Tasks Module
  */
@@ -32,7 +36,12 @@ import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inb
     LoanApprovalComponent,
     LoanDisbursalComponent,
     RescheduleLoanComponent,
-    ViewCheckerInboxComponent
+    ViewCheckerInboxComponent,
+    ClientVerificationCheckerInboxComponent,
+    ClientDetailsDialogComponent,
+    RequestInfoDialogComponent,
+    ClientPendingReVerificationCheckerInboxComponent,
+    ClientFailedKycComponent
   ],
   providers: [ ]
 })
