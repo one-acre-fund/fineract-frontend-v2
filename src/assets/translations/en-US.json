@@ -1123,7 +1123,7 @@
       "smsTemplate": "SMS Template",
       "serviceName": "Service Name",
       "byCountry": "By Country",
-      "byGlobal": "By Global"
+      "byGlobal": "By Global",
       "includeOnlyActiveRecords": "Active Only"
     },
     "heading": {

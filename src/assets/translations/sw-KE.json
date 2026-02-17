@@ -1121,7 +1121,7 @@
       "smsTemplate": "Kigezo cha SMS",
       "serviceName": "Jina la Huduma",
       "byCountry": "Kwa Nchi",
-      "byGlobal": "Kwa Ulimwengu"
+      "byGlobal": "Kwa Ulimwengu",
       "includeOnlyActiveRecords": "Inaotumika tu"
     },
     "heading": {
@@ -1923,7 +1923,7 @@
       "External ID": "Kitambulisho cha Nje",
       "External Id": "Kitambulisho cha Nje",
       "External id": "Kitambulisho cha nje",
-      "externalId": "External ID",
+      "externalId": "Kitambulisho cha nje",
       "extensible": "Inayoweza kupanuliwa",
       "event with entity name of": "tukio lenye jina la huluki la",
       "FAMILY MEMBERS": "WANAFAMILIA",

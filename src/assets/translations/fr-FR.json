@@ -1119,9 +1119,7 @@
       "smsTemplate": "Modèle SMS",
       "serviceName": "Nom du Service",
       "byCountry": "Par Pays",
-      "byGlobal": "Global"
-
-      "Is the OU a country": "L'UO est-elle un Pays",
+      "byGlobal": "Global",
       "includeOnlyActiveRecords": "Actifs uniquement"
     },
     "heading": {
@@ -1923,7 +1921,7 @@
       "External ID": "ID externe",
       "External Id": "Identifiant externe",
       "External id": "Identifiant externe",
-      "externalId": "External ID",
+      "externalId": "Identifiant externe",
       "extensible": "Extensible",
       "event with entity name of": "événement avec le nom de l'entité de",
       "FAMILY MEMBERS": "MEMBRES DE LA FAMILLE",
