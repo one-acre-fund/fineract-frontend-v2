@@ -34,8 +34,10 @@ export class ProductAddQualificationPeriodComponent implements OnInit {
     this.addQualificationPeriodForm = this.formBuilder.group({
       'fromDate': ['', Validators.required],
       'toDate': ['', Validators.required],
-      'prePaymentAmount': ['', Validators.required]
+      'prePaymentAmount': ['', [Validators.required, Validators.min(0.01)]]
     });
   }
+
+
 
 }

@@ -2,7 +2,7 @@
 
 ## Version 1.4.7 - Community 1.0.0
     * * Loans & Payments
-        * [CP-4013] - Implement dynamic downpayment for kenya
+        * [CP-4013] - Implement dynamic downpayment for Kenya
 
 ## Version 1.4.6 - Community 1.0.0
     * Configurations

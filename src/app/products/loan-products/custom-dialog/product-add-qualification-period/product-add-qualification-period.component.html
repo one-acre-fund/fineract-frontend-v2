@@ -4,14 +4,14 @@
 
   <mat-form-field (click)="startDatePicker.open()">
       <mat-label>{{ 'labels.inputs.Start Date' | translate }}</mat-label>
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="startDatePicker" formControlName="fromDate" />
+      <input matInput [min]="minDate" [max]="addQualificationPeriodForm.get('toDate')?.value || maxDate" [matDatepicker]="startDatePicker" formControlName="fromDate" />
       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #startDatePicker></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field (click)="closeDatePicker.open()">
       <mat-label>{{ 'labels.inputs.Close Date' | translate }}</mat-label>
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="closeDatePicker" formControlName="toDate" />
+      <input matInput [min]="addQualificationPeriodForm.get('fromDate')?.value || minDate" [max]="maxDate" [matDatepicker]="closeDatePicker" formControlName="toDate" />
       <mat-datepicker-toggle matSuffix [for]="closeDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #closeDatePicker></mat-datepicker>
     </mat-form-field>
@@ -19,7 +19,7 @@
   <mat-form-field>
     <mat-label>{{ 'labels.inputs.prePaymentAmount' | translate }}</mat-label>
     <input type="number" matInput formControlName="prePaymentAmount" required>
-    <mat-error>{{ 'labels.commons.prePaymentAmount is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+    <mat-error>{{ 'labels.inputs.prePaymentAmount' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
     </mat-error>
   </mat-form-field>
 
