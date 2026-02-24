@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.4.7 - Community 1.0.0
+    * * Loans & Payments
+        * [CP-4013] - Implement dynamic downpayment for kenya
+
 ## Version 1.4.6 - Community 1.0.0
     * Configurations
         * [CP-3666] - Refactor Template Configuration with HTML Support Per Country

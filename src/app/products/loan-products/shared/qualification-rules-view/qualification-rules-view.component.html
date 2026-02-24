@@ -3,12 +3,18 @@
 
 <div fxFlexFill>
   <span fxFlex="40%">{{ 'labels.text.DownPayment' | translate }}</span>
-  <span fxFlex="60%">{{
+  <span fxFlex="60%" *ngIf="'STATIC' === loanProduct.terms?.downPaymentQualificationStrategy?.code">{{
     loanProduct.prepaidAmount +
-      ' ' +
-      (loanProduct.prepaidAmountCalculationType
-        | find : loanProductsTemplate.amountCalculationTypeOptions : 'id' : 'value')
+      ('PERCENTAGE' === loanProduct.terms?.prepaidAmountCalculationType?.code ? '%' : '')
   }}</span>
+  <span fxFlex="60%" *ngIf="'DYNAMIC' === loanProduct.terms?.downPaymentQualificationStrategy?.code">
+    <ul>
+      <li *ngFor="let period of loanProduct.qualificationPeriods">
+        {{ period.fromDate }} - {{ period.toDate }} > {{ period.prePaymentAmount }}
+         {{ ('PERCENTAGE' === loanProduct.terms?.prepaidAmountCalculationType?.code ? '%' : '') }}
+      </li>
+    </ul>
+  </span>
 </div>
 
 <div *ngIf="loanTypeId == 2">

@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>{{ 'labels.heading.Add Loan Qualification Period' | translate }}</h1>
+
+<div mat-dialog-content [formGroup]="addQualificationPeriodForm" fxLayout="column">
+
+  <mat-form-field (click)="startDatePicker.open()">
+      <mat-label>{{ 'labels.inputs.Start Date' | translate }}</mat-label>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="startDatePicker" formControlName="fromDate" />
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field (click)="closeDatePicker.open()">
+      <mat-label>{{ 'labels.inputs.Close Date' | translate }}</mat-label>
+      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="closeDatePicker" formControlName="toDate" />
+      <mat-datepicker-toggle matSuffix [for]="closeDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #closeDatePicker></mat-datepicker>
+    </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>{{ 'labels.inputs.Pre-Payment Amount' | translate }}</mat-label>
+    <input type="number" matInput formControlName="prePaymentAmount" required>
+    <mat-error>{{ 'labels.commons.Pre-Payment Amount is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+    </mat-error>
+  </mat-form-field>
+
+</div>
+
+<mat-dialog-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+  <button mat-raised-button mat-dialog-close>{{ 'labels.buttons.Cancel' | translate }}</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="{ data: addQualificationPeriodForm }"
+    [disabled]="!addQualificationPeriodForm.valid || addQualificationPeriodForm.pristine">{{ layout.addButtonText }}</button>
+</mat-dialog-actions>
