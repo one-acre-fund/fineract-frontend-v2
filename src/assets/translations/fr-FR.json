@@ -324,6 +324,7 @@
       "Client Eligibility": "Éligibilité du client",
       "Repayment Start Period": "Période de début de remboursement",
       "Prepaid Amount": "Montant prépayé",
+      "downPaymentStrategy": "Stratégie de paiement initial",
       "loan.product.loan.end.date.override": "Remplacement de la date de fin/échéance du produit de prêt",
       "loan.end.date.override.mode": "Mode de remplacement de la date de fin de prêt",
       "defined.override.loan.end.date": "Remplacer la date de fin du prêt",
@@ -1183,6 +1184,7 @@
       "Collateral Data": "Données de garantie",
       "Collateral Management": "Gestion des garanties",
       "Collaterals Data": "Données sur les garanties",
+      "loanProductQualificationPeriods": "Périodes de qualification du produit de prêt",
       "Command": "Commande",
       "Configuration Wizard": "Assistant de configuration",
       "Configuration Wizard Setup": "Vous avez terminé avec succès la configuration de l'assistant de configuration.",
@@ -1484,7 +1486,8 @@
       "activateTemplateHeading": "Activer le modèle",
       "deactivateTemplateHeading": "Désactiver le modèle",
       "confirmTemplateActivation": "Cela désactivera le modèle actif actuel et activera celui sélectionné. Voulez-vous continuer ?",
-      "confirmTemplateDeactivation": "Cela laissera ce type de modèle sans modèle actif. Voulez-vous continuer ?"
+      "confirmTemplateDeactivation": "Cela laissera ce type de modèle sans modèle actif. Voulez-vous continuer ?",
+      "addLoanQualificationPeriodHeading": "Ajouter une période de qualification de prêt"
     },
     "inputs": {
       "accounting": {
@@ -2727,6 +2730,8 @@
       "Validity To": "Validité jusqu'à",
       "Validity from": "Validité à partir de",
       "Value": "Valeur",
+      "toDate": "Jusqu'à la date",
+      "prePaymentAmount": "Montant du paiement anticipé",
       "Variable Installments": "Versements variables",
       "Variable Installments Allowed": "Versements variables autorisés",
       "Variable Installments allowed": "Versements variables autorisés",

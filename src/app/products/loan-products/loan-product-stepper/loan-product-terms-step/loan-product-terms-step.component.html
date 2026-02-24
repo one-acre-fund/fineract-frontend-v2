@@ -478,10 +478,10 @@
 
     <mat-divider fxFlex="98%"></mat-divider>
 
-    <h4 fxFlex="98%" class="mat-h4">{{ 'labels.oaf.loan.product.loan.end.date.override' | translate }}</h4>
+    <h4 fxFlex="98%" class="mat-h4">{{ 'labels.oaf.downPaymentStrategy' | translate }}</h4>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>{{ 'labels.oaf.Rounding mode' | translate }}</mat-label>
+      <mat-label>{{ 'labels.oaf.downPaymentStrategy' | translate }}</mat-label>
       <mat-select formControlName="downPaymentStrategy">
         <mat-option
           *ngFor="let strategy of downPaymentQualificationStrategies"
@@ -491,7 +491,7 @@
         </mat-option>
       </mat-select>
       <mat-error
-        >{{ 'labels.oaf.Rounding mode' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+        >{{ 'labels.oaf.downPaymentStrategy' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
@@ -516,7 +516,7 @@
     <div fxLayout="column" fxFlex="98%" *ngIf="'DYNAMIC' === loanProductTermsForm.value.downPaymentStrategy">
       <div fxFlex="98%">
     <div fxLayout="column" fxFlex="48%" class="tableName">
-      <h4 fxFlex="98%" class="mat-h4">{{ 'labels.heading.Collaterals Data' | translate }}</h4>
+      <h4 fxFlex="98%" class="mat-h4">{{ 'labels.heading.loanProductQualificationPeriods' | translate }}</h4>
     </div>
 
     <div fxLayout="column" fxFlex="48%">
@@ -529,17 +529,17 @@
 
   <table fxFlex="98%" mat-table class="mat-elevation-z1" [dataSource]="qualificationPeriodsForDisplay">
     <ng-container matColumnDef="fromDate">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Type' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.fromDate' | translate }}</th>
       <td mat-cell *matCellDef="let ele">{{ ele.fromDate }}</td>
     </ng-container>
 
     <ng-container matColumnDef="toDate">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Value' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.toDate' | translate }}</th>
       <td mat-cell *matCellDef="let ele">{{ ele.toDate }}</td>
     </ng-container>
 
     <ng-container matColumnDef="prePaymentAmount">
-      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Description' | translate }}</th>
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.prePaymentAmount' | translate }}</th>
       <td mat-cell *matCellDef="let ele">{{ ele.prePaymentAmount }}</td>
     </ng-container>
 

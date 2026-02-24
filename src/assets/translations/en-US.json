@@ -326,6 +326,7 @@
       "Client Eligibility": "Client Eligibility",
       "Repayment Start Period": "Repayment Start Period",
       "Prepaid Amount": "Prepaid Amount",
+      "downPaymentStrategy": "Down Payment Strategy",
       "loan.product.loan.end.date.override": "Loan Product Loan End/Maturity Date Override",
       "loan.end.date.override.mode": "Loan End Date Override Mode",
       "defined.override.loan.end.date": "Defined Override Loan End Date",
@@ -1187,6 +1188,7 @@
       "Collateral Data": "Collateral Data",
       "Collateral Management": "Collateral Management",
       "Collaterals Data": "Collaterals Data",
+      "loanProductQualificationPeriods": "Loan Product Qualification Periods",
       "Command": "Command",
       "Configuration Wizard": "Configuration Wizard",
       "Configuration Wizard Setup": "You have successfully completed the setup of Configuration Wizard.",
@@ -1489,7 +1491,8 @@
       "activateTemplateHeading": "Activate Template",
       "deactivateTemplateHeading": "Deactivate Template",
       "confirmTemplateActivation": "This will deactivate current active template and activate the selected one. Do you want to proceed?",
-      "confirmTemplateDeactivation": "This will leave this template type without active template. Do you want to proceed?"
+      "confirmTemplateDeactivation": "This will leave this template type without active template. Do you want to proceed?",
+      "addLoanQualificationPeriodHeading": "Add Loan Qualification Period"
     },
     "inputs": {
       "accounting": {
@@ -2731,6 +2734,8 @@
       "Validity To": "Validity To",
       "Validity from": "Validity from",
       "Value": "Value",
+      "toDate": "To Date",
+      "prePaymentAmount": "Pre Payment Amount",
       "Variable Installments": "Variable Installments",
       "Variable Installments Allowed": "Variable Installments Allowed",
       "Variable Installments allowed": "Variable Installments allowed",
