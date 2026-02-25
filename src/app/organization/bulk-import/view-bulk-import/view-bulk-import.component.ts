@@ -170,6 +170,7 @@ export class ViewBulkImportComponent implements OnInit {
 
     switch (this.bulkImport.name) {
       case 'Clients':
+      case 'Client Group Transfer':
       case 'Groups':
       case 'Offices':
       case 'Loan Accounts':
@@ -217,7 +218,7 @@ export class ViewBulkImportComponent implements OnInit {
       }
     }
     let countryId = null;
-    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction') {
+    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction' || this.bulkImport.name == 'Client Group Transfer') {
       countryId = this.bulkImportForm.get('countryId').value;
       if (!countryId) {
         return this.alertService.alert({

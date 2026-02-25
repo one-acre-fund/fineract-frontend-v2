@@ -4,7 +4,10 @@
     * Configurations
         * [CP-3666] - Refactor Template Configuration with HTML Support Per Country
     * Navigation Bar
-        * [CP-4004] - Disabling the notification tray for now since it's not being consumed   
+        * [CP-4004] - Disabling the notification tray for now since it's not being consumed
+    * Clients
+        * [CP-3711] - Enable bulk upload of existing farmers to existing groups
+           
 ## Version 1.4.4 - Community 1.0.0
     * Clients
         * [CP-3935] - Add time a client landed in the checker inbox

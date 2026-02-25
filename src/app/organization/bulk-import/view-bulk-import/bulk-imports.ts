@@ -36,6 +36,13 @@ export const BulkImports = [
       formFields: 3
     },
     {
+      name: 'Client Group Transfer',
+      entityType: 'clientgrouptransfer',
+      urlSuffix: '/clients/transfer',
+      permission: 'READ_CLIENT',
+      formFields: 2
+    },
+    {
       name: 'Employees',
       entityType: 'staff',
       urlSuffix: '/staff',
