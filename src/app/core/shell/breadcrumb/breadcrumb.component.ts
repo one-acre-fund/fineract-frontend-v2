@@ -147,7 +147,7 @@ export class BreadcrumbComponent implements OnInit {
               } else if (routeData.breadcrumb === 'Tax Groups') {
                 breadcrumbLabel = routeData.taxGroup.name;
               } else if (route.snapshot.data[routeParamBreadcrumb] === 'import-name') {
-                breadcrumbLabel = this.translate.instant('labels.heading.' + breadcrumbLabel);
+                breadcrumbLabel = 'labels.heading.' + breadcrumbLabel;
               }
             } else if (route.snapshot.data.hasOwnProperty(routeDataBreadcrumb)) {
               breadcrumbLabel = route.snapshot.data['title'] || route.snapshot.data[routeDataBreadcrumb];

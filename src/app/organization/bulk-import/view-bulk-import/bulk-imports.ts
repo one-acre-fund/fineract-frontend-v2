@@ -85,7 +85,7 @@ export const BulkImports = [
       formFields: 2
     },
     {
-      name: 'Reccuring Deposit Accounts',
+      name: 'Recurring Deposit Accounts',
       entityType: 'recurringdeposits',
       urlSuffix: '/recurringdepositaccounts',
       permission: 'READ_CLIENT',

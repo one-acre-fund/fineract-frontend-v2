@@ -11,6 +11,7 @@ import { OrganizationService } from '../../organization.service';
 import { BulkImports } from './bulk-imports';
 import { ClientsService } from 'app/clients/clients.service';
 import { AlertService } from 'app/core/alert/alert.service';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * View Bulk Imports Component
@@ -72,7 +73,8 @@ export class ViewBulkImportComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private organizationService: OrganizationService,
     private clientsService: ClientsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private translate: TranslateService
   ) {
     this.bulkImport.name = this.route.snapshot.params['import-name'];
 
@@ -92,6 +94,32 @@ export class ViewBulkImportComponent implements OnInit {
     this.bulkImport = this.bulkImportsArray.find((entry) => entry.name === this.bulkImport.name);
     this.createBulkImportForm();
     this.setImports();
+  }
+
+  /**
+   * Safely translates bulk import name with fallback to original name.
+   * Checks labels.heading first, then labels.commons (for menu consistency), then uses original name.
+   * @param {string} name Bulk import name
+   * @returns Translated name or original name if translation not found
+   */
+  getTranslatedName(name: string): string {
+    const headingKey = 'labels.heading.' + name;
+    const commonsKey = 'labels.commons.' + name;
+    
+    // Try heading translation first
+    let translated = this.translate.instant(headingKey);
+    if (translated !== headingKey) {
+      return translated;
+    }
+    
+    // Fall back to commons translation (for menu consistency)
+    translated = this.translate.instant(commonsKey);
+    if (translated !== commonsKey) {
+      return translated;
+    }
+    
+    // Fall back to original name
+    return name;
   }
 
   /**
