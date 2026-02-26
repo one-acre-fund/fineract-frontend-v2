@@ -1446,6 +1446,7 @@
       "Tax Group": "Tax Group",
       "Teller / Cashier Management": "Teller / Cashier Management",
       "Template": "Template",
+      "Bulk Import Template": "{{name}} Template",
       "Template Message": "Template Message",
       "Template Parameters": "Template Parameters",
       "Term Options": "Term Options",

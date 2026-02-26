@@ -1445,6 +1445,7 @@
       "Template": "Modèle",
       "Template Message": "Modèle de message",
       "Template Parameters": "Paramètres du modèle",
+      "Bulk Import Template": "Modèle de {{name}}",
       "Term Options": "Options de durée",
       "Terms": "Termes",
       "Term Variations": "Variations de durée",

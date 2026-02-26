@@ -2,7 +2,7 @@
   <div fxLayoutGap="2%" class="m-b-20">
     <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="50%">
       <h3>
-        <strong>{{ getTranslatedName(bulkImport.name) }} {{ 'labels.heading.Template' | translate }}</strong>
+        <strong>{{ 'labels.heading.Bulk Import Template' | translate: { name: getTranslatedName(bulkImport.name) } }}</strong>
       </h3>
 
       <form [formGroup]="bulkImportForm">
