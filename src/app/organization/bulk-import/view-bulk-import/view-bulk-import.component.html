@@ -2,7 +2,7 @@
   <div fxLayoutGap="2%" class="m-b-20">
     <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="50%">
       <h3>
-        <strong>{{ bulkImport.name }} Template</strong>
+        <strong>{{ 'labels.heading.Bulk Import Template' | translate: { name: getTranslatedName(bulkImport.name) } }}</strong>
       </h3>
 
       <form [formGroup]="bulkImportForm">
@@ -113,7 +113,7 @@
 
     <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="50%">
       <h3>
-        <strong>{{ bulkImport.name }}</strong>
+        <strong>{{ getTranslatedName(bulkImport.name) }}</strong>
       </h3>
 
       <h4>{{ 'labels.heading.Select Excel File' | translate }}</h4>
