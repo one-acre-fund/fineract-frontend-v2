@@ -11,6 +11,7 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
+import { ProductAddQualificationPeriodComponent } from '../../custom-dialog/product-add-qualification-period/product-add-qualification-period.component';
 
 @Component({
   selector: 'mifosx-loan-product-terms-step',
@@ -30,6 +31,12 @@ export class LoanProductTermsStepComponent implements OnInit {
   amountCalculationTypeOptions: any;
   loanEndDateOverrideModeOptions: any;
   repaymentFrequencyTypeOptions: any;
+  pristine = true;
+
+  downPaymentQualificationStrategies: any[] = [];
+  productQualificationPeriodsDisplayedColumns: string[] = ['fromDate', 'toDate', 'prepaidAmount', 'prepaidAmountCalculationType', 'action'];
+  qualificationPeriods: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
+  qualificationPeriodsForDisplay: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
 
 
   displayedColumns: string[] = ['valueConditionType', 'borrowerCycleNumber', 'minValue', 'defaultValue', 'maxValue', 'actions'];
@@ -42,6 +49,14 @@ export class LoanProductTermsStepComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.downPaymentQualificationStrategies = this.loanProductsTemplate.downPaymentQualificationStrategyOptions;
+    this.qualificationPeriods = this.loanProductsTemplate.qualificationPeriods || [];
+    this.qualificationPeriods = this.qualificationPeriods.map(period => ({ 
+      ...period, markedForDeletion: false,
+      fromDate: this.dateUtils.formatDate(period.fromDate, this.settingsService.dateFormat),
+      toDate: this.dateUtils.formatDate(period.toDate, this.settingsService.dateFormat),
+    }));
+    this.qualificationPeriodsForDisplay = this.qualificationPeriods;
     this.valueConditionTypeData = this.loanProductsTemplate.valueConditionTypeOptions;
     this.floatingRateData = this.loanProductsTemplate.floatingRateOptions;
     this.interestRateFrequencyTypeData = this.loanProductsTemplate.interestRateFrequencyTypeOptions;
@@ -78,6 +93,7 @@ export class LoanProductTermsStepComponent implements OnInit {
       'prepaidAmountCalculationType': this.loanProductsTemplate.terms?.prepaidAmountCalculationType?.id,
       'repaymentStartPeriod': this.loanProductsTemplate.terms?.repaymentStartPeriod,
       'repaymentStartPeriodFrequencyType': this.loanProductsTemplate.terms?.repaymentStartPeriodFrequencyType?.id,
+      'downPaymentStrategy': this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code,
     });
 
     this.loanProductTermsForm.setControl('principalVariationsForBorrowerCycle',
@@ -111,6 +127,7 @@ export class LoanProductTermsStepComponent implements OnInit {
       'prepaidAmountCalculationType': [''],
       'repaymentStartPeriod': [''],
       'repaymentStartPeriodFrequencyType': [''],
+      'downPaymentStrategy': ['', Validators.required],
     });
   }
 
@@ -267,6 +284,15 @@ export class LoanProductTermsStepComponent implements OnInit {
     if (loanProductTermsFormData.loanEndDateOverrideEndDate instanceof Date) {
       loanProductTermsFormData.loanEndDateOverrideEndDate = this.dateUtils.formatDate(prevLoanEndDateOverrideEndDate, dateFormat) || '';
     }
+    if (this.qualificationPeriods.length > 0) {
+      loanProductTermsFormData.qualificationPeriods = this.qualificationPeriods.map(period => ({
+        ...period,
+        dateFormat: dateFormat,
+        locale: this.settingsService.language.code,
+        fromDate: this.dateUtils.formatDate(period.fromDate, dateFormat),
+        toDate: this.dateUtils.formatDate(period.toDate, dateFormat)
+      }));
+    }
     return loanProductTermsFormData;
   }
 
@@ -279,5 +305,51 @@ export class LoanProductTermsStepComponent implements OnInit {
     this.productService.prepaidAmountCalculationType = amountCalculationType.value;
     
   }
+
+  downPaymentQualificationStrategyChange(downPaymentQualificationStrategy){
+    this.productService.downPaymentQualificationStrategy = downPaymentQualificationStrategy.code;
+  }
+
+  addQualificationPeriod() {
+    const addQualificationPeriodDialogRef = this.dialog.open(ProductAddQualificationPeriodComponent, {
+      data: { amountCalculationTypeOptions: this.amountCalculationTypeOptions }
+    });
+    addQualificationPeriodDialogRef.afterClosed().subscribe((response: any) => {
+      let dataForm = response.data;
+        if (dataForm) {
+          const qualificationPeriodData = {
+            periodId: null,
+            fromDate: this.dateUtils.formatDate(dataForm.value.fromDate, this.settingsService.dateFormat),
+            toDate: this.dateUtils.formatDate(dataForm.value.toDate, this.settingsService.dateFormat),
+            prepaidAmountCalculationType: dataForm.value.prepaidAmountCalculationType,
+            prepaidAmount: dataForm.value.prepaidAmount,
+            markedForDeletion: false
+          };
+          this.qualificationPeriods = this.qualificationPeriods.concat(qualificationPeriodData);
+          this.qualificationPeriodsForDisplay = this.qualificationPeriodsForDisplay.concat(qualificationPeriodData);
+          this.pristine = false;
+        }
+        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
+      });
+    }
+
+    deleteQualificationPeriod(period: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }) {
+      const deleteQualificationPeriodDialogRef = this.dialog.open(DeleteDialogComponent, {
+        data: { deleteContext: `qualification period` }
+      });
+      deleteQualificationPeriodDialogRef.afterClosed().subscribe((response: any) => {
+        if (response.delete) {
+          if (period) {
+            period.markedForDeletion = true;
+            this.qualificationPeriodsForDisplay = this.qualificationPeriodsForDisplay.filter(qp => !qp.markedForDeletion);
+            if (!period.periodId) {
+                this.qualificationPeriods = this.qualificationPeriods.filter(qp => qp !== period);
+            }
+          } 
+          this.pristine = false;
+        }
+        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
+      });
+    }
 
 }

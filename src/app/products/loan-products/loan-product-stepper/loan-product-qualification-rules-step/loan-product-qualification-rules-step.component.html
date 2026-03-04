@@ -1,12 +1,22 @@
 <form [formGroup]="loanProductQualificationRuleForm">
   <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column">
     {{ 'labels.text.DownPayment' | translate }}
+    <div fxFlex="60%" *ngIf="'STATIC' === downPaymentQualificationStrategy">
     <mat-form-field fxFlex="32%">
       <input matInput [value]="prepaidAmount" disabled="true" />
     </mat-form-field>
     <mat-form-field fxFlex="32%">
       <input matInput [value]="prepaidAmountCalculationType" disabled="true" />
     </mat-form-field>
+  </div>
+    <div fxFlex="60%" *ngIf="'DYNAMIC' === downPaymentQualificationStrategy">
+    <ul>
+      <li *ngFor="let period of qualificationPeriods">
+        {{ period.fromDate }} - {{ period.toDate }} > {{ period.prepaidAmount }}
+         {{ ('PERCENTAGE' === period.prepaidAmountCalculationType ? '%' : '') }}
+      </li>
+    </ul>
+  </div>
   </div>
   <div *ngIf="loanProductsTemplate?.loanType?.id == 2 || loanTypeId == 2">
     {{ 'labels.oaf.Applicable to Group loans only' | translate }}

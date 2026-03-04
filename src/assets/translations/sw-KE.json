@@ -326,6 +326,7 @@
       "Client Eligibility": "Ustahiki wa Mteja",
       "Repayment Start Period": "Kipindi cha Kuanza Kulipa",
       "Prepaid Amount": "Kiasi Kilicholipwa Mapema",
+      "downPaymentStrategy": "Mkakati wa Malipo ya Awali",
       "loan.product.loan.end.date.override": "Bidhaa ya mkopo Tarehe ya kumalizika/kufikia ukomo wa mkopo",
       "loan.end.date.override.mode": "Hali ya Kubadili Tarehe ya Mwisho wa Mkopo",
       "defined.override.loan.end.date": "Kuweka Tarehe ya Mwisho wa Mkopo",
@@ -1185,6 +1186,7 @@
       "Collateral Data": "Data ya Dhamana",
       "Collateral Management": "Usimamizi wa Dhamana",
       "Collaterals Data": "Data za Dhamana",
+      "loanProductQualificationPeriods": "Muda wa Kustahiki wa Bidhaa ya Mkopo",
       "Command": "Amri",
       "Configuration Wizard": "Kiunga cha Usanidi",
       "Configuration Wizard Setup": "Umekamilisha kwa ufanisi usanidi wa Kiunga cha Usanidi.",
@@ -1487,7 +1489,8 @@
       "activateTemplateHeading": "Washa Kiolezo",
       "deactivateTemplateHeading": "Zima Kiolezo",
       "confirmTemplateActivation": "Hii itazima kiolezo cha hali halisi cha sasa na kuwezesha kilichochaguliwa. Je, ungependa kuendelea?",
-      "confirmTemplateDeactivation": "Hii itaacha aina hii ya kiolezo bila kiolezo cha hali halisi. Je, ungependa kuendelea?"
+      "confirmTemplateDeactivation": "Hii itaacha aina hii ya kiolezo bila kiolezo cha hali halisi. Je, ungependa kuendelea?",
+      "addLoanQualificationPeriodHeading": "Ongeza Kipindi cha Uthibitisho wa Mkopo"
     },
     "inputs": {
       "accounting": {
@@ -2729,6 +2732,9 @@
       "Validity To": "Utumikaji Hadi",
       "Validity from": "Utumikaji kutoka",
       "Value": "Thamani",
+      "toDate": "Tarehe Hadi",
+      "prePaymentAmount": "Kiasi cha Malipo ya Awali",
+      "prepaidAmountCalculationType": "Aina ya Hesabu ya Kiasi cha Malipo ya Awali",
       "Variable Installments": "Awamu Zinazobadilika",
       "Variable Installments Allowed": "Awamu Zinazobadilika Zinaruhusiwa",
       "Variable Installments allowed": "Awamu zinazobadilika zinaruhusiwa",

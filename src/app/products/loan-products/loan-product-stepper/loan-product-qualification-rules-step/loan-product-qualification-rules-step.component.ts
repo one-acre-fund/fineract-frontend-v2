@@ -16,6 +16,8 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
   prepaidAmountCalculationType: any;
   amountCalculationTypeOptions: any;
   repaymentFrequencyTypeOptions: any;
+  downPaymentQualificationStrategy: any;
+  qualificationPeriods: any[];
 
   loanProductQualificationRuleForm: UntypedFormGroup;
 
@@ -30,6 +32,14 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
     this.productService.prepaidAmountCalculationType.subscribe(val => {
       this.prepaidAmountCalculationType = val;
     } );
+
+     this.productService.downPaymentQualificationStrategy.subscribe(val => {
+      this.downPaymentQualificationStrategy = val;
+    } );
+
+     this.productService.getQualificationPeriods().subscribe(val => {
+      this.qualificationPeriods = val;
+    } );
    }
 
   ngOnInit(): void {
@@ -41,6 +51,8 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
       // Iniitializing prepaid amount and prepaid amount calculation type for Edit page
       this.prepaidAmount = this.loanProductsTemplate.terms?.prepaidAmount;
       this.prepaidAmountCalculationType = this.loanProductsTemplate.terms?.prepaidAmountCalculationType?.value;
+      this.downPaymentQualificationStrategy = this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code;
+      this.qualificationPeriods = this.loanProductsTemplate.qualificationPeriods || [];
     }
   }
   
