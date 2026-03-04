@@ -2736,6 +2736,7 @@
       "Value": "Value",
       "toDate": "To Date",
       "prePaymentAmount": "Pre Payment Amount",
+      "prepaidAmountCalculationType": "Prepaid Amount Calculation Type",
       "Variable Installments": "Variable Installments",
       "Variable Installments Allowed": "Variable Installments Allowed",
       "Variable Installments allowed": "Variable Installments allowed",

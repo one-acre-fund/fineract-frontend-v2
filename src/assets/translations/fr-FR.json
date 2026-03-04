@@ -2732,6 +2732,7 @@
       "Value": "Valeur",
       "toDate": "Jusqu'à la date",
       "prePaymentAmount": "Montant du paiement anticipé",
+      "prepaidAmountCalculationType": "Type de calcul du montant prépayé",
       "Variable Installments": "Versements variables",
       "Variable Installments Allowed": "Versements variables autorisés",
       "Variable Installments allowed": "Versements variables autorisés",

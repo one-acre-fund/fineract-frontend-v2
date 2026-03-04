@@ -10,8 +10,8 @@
   <div fxFlex="60%" *ngIf="'DYNAMIC' === loanProduct.terms?.downPaymentQualificationStrategy?.code">
     <ul>
       <li *ngFor="let period of loanProduct.qualificationPeriods">
-        {{ period.fromDate }} - {{ period.toDate }} > {{ period.prePaymentAmount }}
-         {{ ('PERCENTAGE' === loanProduct.terms?.prepaidAmountCalculationType?.code ? '%' : '') }}
+        {{ period.fromDate }} - {{ period.toDate }} > {{ period.prepaidAmount }}
+         {{ ('PERCENTAGE' === period.prepaidAmountCalculationType ? '%' : '') }}
       </li>
     </ul>
   </div>

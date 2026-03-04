@@ -1,7 +1,9 @@
 # Release Notes
 
 ## Version 1.4.7 - Community 1.0.0
-    * * Loans & Payments
+    * Clients
+        * [CP-3711] - Enable bulk upload of existing farmers to existing groups
+    * Loans & Payments
         * [CP-4013] - Implement dynamic downpayment for Kenya
 
 ## Version 1.4.6 - Community 1.0.0

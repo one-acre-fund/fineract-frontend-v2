@@ -34,9 +34,9 @@ export class LoanProductTermsStepComponent implements OnInit {
   pristine = true;
 
   downPaymentQualificationStrategies: any[] = [];
-  productQualificationPeriodsDisplayedColumns: string[] = ['fromDate', 'toDate', 'prePaymentAmount', 'action'];
-  qualificationPeriods: { periodId: number | null, fromDate: string | null, toDate: string | null, prePaymentAmount: number | null, markedForDeletion: boolean }[] = [];
-  qualificationPeriodsForDisplay: { periodId: number | null, fromDate: string | null, toDate: string | null, prePaymentAmount: number | null, markedForDeletion: boolean }[] = [];
+  productQualificationPeriodsDisplayedColumns: string[] = ['fromDate', 'toDate', 'prepaidAmount', 'prepaidAmountCalculationType', 'action'];
+  qualificationPeriods: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
+  qualificationPeriodsForDisplay: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
 
 
   displayedColumns: string[] = ['valueConditionType', 'borrowerCycleNumber', 'minValue', 'defaultValue', 'maxValue', 'actions'];
@@ -306,8 +306,13 @@ export class LoanProductTermsStepComponent implements OnInit {
     
   }
 
+  downPaymentQualificationStrategyChange(downPaymentQualificationStrategy){
+    this.productService.downPaymentQualificationStrategy = downPaymentQualificationStrategy.code;
+  }
+
   addQualificationPeriod() {
     const addQualificationPeriodDialogRef = this.dialog.open(ProductAddQualificationPeriodComponent, {
+      data: { amountCalculationTypeOptions: this.amountCalculationTypeOptions }
     });
     addQualificationPeriodDialogRef.afterClosed().subscribe((response: any) => {
       let dataForm = response.data;
@@ -316,17 +321,19 @@ export class LoanProductTermsStepComponent implements OnInit {
             periodId: null,
             fromDate: this.dateUtils.formatDate(dataForm.value.fromDate, this.settingsService.dateFormat),
             toDate: this.dateUtils.formatDate(dataForm.value.toDate, this.settingsService.dateFormat),
-            prePaymentAmount: dataForm.value.prePaymentAmount,
+            prepaidAmountCalculationType: dataForm.value.prepaidAmountCalculationType,
+            prepaidAmount: dataForm.value.prepaidAmount,
             markedForDeletion: false
           };
           this.qualificationPeriods = this.qualificationPeriods.concat(qualificationPeriodData);
           this.qualificationPeriodsForDisplay = this.qualificationPeriodsForDisplay.concat(qualificationPeriodData);
           this.pristine = false;
         }
+        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
       });
     }
 
-    deleteQualificationPeriod(period: { periodId: number | null, fromDate: string | null, toDate: string | null, prePaymentAmount: number | null, markedForDeletion: boolean }) {
+    deleteQualificationPeriod(period: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }) {
       const deleteQualificationPeriodDialogRef = this.dialog.open(DeleteDialogComponent, {
         data: { deleteContext: `qualification period` }
       });
@@ -341,6 +348,7 @@ export class LoanProductTermsStepComponent implements OnInit {
           } 
           this.pristine = false;
         }
+        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
       });
     }
 

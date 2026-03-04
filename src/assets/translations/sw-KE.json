@@ -2734,6 +2734,7 @@
       "Value": "Thamani",
       "toDate": "Tarehe Hadi",
       "prePaymentAmount": "Kiasi cha Malipo ya Awali",
+      "prepaidAmountCalculationType": "Aina ya Hesabu ya Kiasi cha Malipo ya Awali",
       "Variable Installments": "Awamu Zinazobadilika",
       "Variable Installments Allowed": "Awamu Zinazobadilika Zinaruhusiwa",
       "Variable Installments allowed": "Awamu zinazobadilika zinaruhusiwa",
