@@ -62,7 +62,7 @@
               </mat-select>
             </mat-form-field> -->
 
-            <label for="officeId">{{ 'labels.inputs.Office' | translate }}</label>
+            <label for="officeId">{{ 'labels.inputs.Office' | translate }}<span *ngIf="bulkImport.name === 'Savings Transactions'"> *</span></label>
             <ng-select
               #office
               [items]="officeData"
@@ -71,10 +71,33 @@
               placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="officeId"
               aria-labelledby="officeId"
-              (change)="retrieveStaffData($event.id)"
+              (change)="onOfficeChange($event)"
               [virtualScroll]="true"
             >
             </ng-select>
+            <small class="mat-error" *ngIf="bulkImport.name === 'Savings Transactions' && bulkImportForm.get('officeId').invalid && bulkImportForm.get('officeId').touched">
+              {{ 'labels.inputs.Office' | translate }} {{ 'labels.commons.required' | translate }}
+            </small>
+
+            <div *ngIf="bulkImport.name === 'Savings Transactions' && officeChainLevels?.length" formArrayName="childOfficeLevels">
+              <div *ngFor="let level of officeChainLevels; let i = index" class="m-t-10">
+                <label [attr.for]="'childOffice_' + i">{{ 'labels.inputs.Office' | translate }} (under {{ level.parentName }}) <span>*</span></label>
+                <ng-select
+                  [items]="level.options"
+                  bindLabel="name"
+                  bindValue="id"
+                  placeholder="{{ 'labels.inputs.Select Office' | translate }}"
+                  [formControl]="childOfficeLevelsFormArray.at(i)"
+                  [attr.aria-labelledby]="'childOffice_' + i"
+                  (change)="onChildOfficeChange(i, $event)"
+                  [virtualScroll]="true"
+                >
+                </ng-select>
+                <small class="mat-error" *ngIf="childOfficeLevelsFormArray.at(i).invalid && childOfficeLevelsFormArray.at(i).touched">
+                  {{ 'labels.inputs.Office' | translate }} {{ 'labels.commons.required' | translate }}
+                </small>
+              </div>
+            </div>
           </div>
 
           <div *ngIf="bulkImport.formFields >= 2 || bulkImport.name == 'Healthy Path'">
@@ -105,6 +128,7 @@
           mat-raised-button
           color="primary"
           (click)="downloadTemplate()"
+          [disabled]="bulkImport.name === 'Savings Transactions' && !getEffectiveOfficeId()"
           *mifosxHasPermission="bulkImport.permission"
         >
           <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
