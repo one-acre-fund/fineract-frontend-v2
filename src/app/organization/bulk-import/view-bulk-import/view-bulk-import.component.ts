@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray } from '@angular/forms';
 
 /** Custom Imports */
 import { OrganizationService } from '../../organization.service';
@@ -25,6 +25,10 @@ export class ViewBulkImportComponent implements OnInit {
   /** offices Data */
   officeData: any;
   officeDataSliced: any;
+  /** Selected office object (officeData items already have isLowestOU, parentId). */
+  selectedOffice: any = null;
+  /** Chain of office levels: each has parent label and options from fetchByHierarchyLevel(., 'LOWER'). */
+  officeChainLevels: { parentName: string; options: any[] }[] = [];
   /** Countries data */
   countriesData: any;
   countriesDataSliced: any;
@@ -140,12 +144,85 @@ export class ViewBulkImportComponent implements OnInit {
    * Creates the bulk import form.
    */
   createBulkImportForm() {
+    const isOfficeRequired = this.bulkImport.name === 'Savings Transactions';
     this.bulkImportForm = this.formBuilder.group({
       countryId: [''],
-      officeId: [''],
+      officeId: ['', isOfficeRequired ? Validators.required : []],
+      childOfficeLevels: this.formBuilder.array([]),
       staffId: [''],
       legalForm: [''],
     });
+  }
+
+  get childOfficeLevelsFormArray(): FormArray {
+    return this.bulkImportForm.get('childOfficeLevels') as FormArray;
+  }
+
+  /**
+   * Truncates child levels to the given count and optionally adds one more level with options.
+   */
+  private setChildLevelsCount(count: number, appendOptions?: { parentName: string; options: any[] }) {
+    while (this.childOfficeLevelsFormArray.length > count) {
+      this.childOfficeLevelsFormArray.removeAt(this.childOfficeLevelsFormArray.length - 1);
+    }
+    this.officeChainLevels = this.officeChainLevels.slice(0, count);
+    if (appendOptions) {
+      this.officeChainLevels.push(appendOptions);
+      this.childOfficeLevelsFormArray.push(this.formBuilder.control('', Validators.required));
+    }
+  }
+
+  /**
+   * Handles first office selection. When not lowest OU, fetches offices under it and shows first child dropdown.
+   */
+  onOfficeChange(office: any) {
+    this.officeChainLevels = [];
+    while (this.childOfficeLevelsFormArray.length) {
+      this.childOfficeLevelsFormArray.removeAt(0);
+    }
+    this.selectedOffice = null;
+    if (!office || !office.id) {
+      return;
+    }
+    const fullOffice = this.officeData?.find((o: any) => o.id === office.id);
+    this.selectedOffice = fullOffice || office;
+    if (this.bulkImport.name === 'Savings Transactions' && this.selectedOffice && !this.selectedOffice.isLowestOU) {
+      this.organizationService.fetchByHierarchyLevel(this.selectedOffice.id, 'LOWER').subscribe((response: any) => {
+        const options = (response || []).filter((x: any) => x.status === true);
+        this.setChildLevelsCount(0, { parentName: this.selectedOffice.name, options });
+      });
+    }
+    this.retrieveStaffData(office.id);
+  }
+
+  /**
+   * Handles selection at a child level. If selected office is not lowest OU, fetches offices under it and adds next dropdown.
+   */
+  onChildOfficeChange(levelIndex: number, selectedOffice: any) {
+    if (!selectedOffice || !selectedOffice.id) return;
+    this.setChildLevelsCount(levelIndex + 1);
+    const isLowest = selectedOffice.isLowestOU === true;
+    if (isLowest) return;
+    this.organizationService.fetchByHierarchyLevel(selectedOffice.id, 'LOWER').subscribe((response: any) => {
+      const options = (response || []).filter((x: any) => x.status === true);
+      this.officeChainLevels.push({ parentName: selectedOffice.name, options });
+      this.childOfficeLevelsFormArray.push(this.formBuilder.control('', Validators.required));
+    });
+  }
+
+  getEffectiveOfficeId(): number | null {
+    const officeId = this.bulkImportForm.get('officeId').value;
+    if (this.bulkImport.name !== 'Savings Transactions') {
+      return officeId || null;
+    }
+    if (!officeId) return null;
+    if (this.selectedOffice?.isLowestOU) {
+      return officeId;
+    }
+    const arr = this.childOfficeLevelsFormArray;
+    if (arr.length === 0) return null;
+    const lastId = arr.at(arr.length - 1).value;
+    return lastId || null;
   }
 
   /**
@@ -173,7 +250,7 @@ export class ViewBulkImportComponent implements OnInit {
    */
   downloadTemplate() {
     const countryId = this.bulkImportForm.get('countryId').value;
-    const officeId = this.bulkImportForm.get('officeId').value;
+    const officeId = this.bulkImport.name === 'Savings Transactions' ? this.getEffectiveOfficeId() : this.bulkImportForm.get('officeId').value;
     const staffId = this.bulkImportForm.get('staffId').value;
     let legalFormType = '';
     /** Only for Client Bulk Imports */
@@ -201,6 +278,7 @@ export class ViewBulkImportComponent implements OnInit {
       case 'Client Group Transfer':
       case 'Groups':
       case 'Offices':
+      case 'Savings Transactions':
       case 'Loan Accounts':
         commandParam = 'clientBulkImportTemplate';
         break;

@@ -1,6 +1,9 @@
 # Release Notes
 
 ## Version 1.4.7 - Community 1.0.0
+
+    * Bulk Uploads
+        *[CP-4014] - Update bulk savings account transactions to fetch by last ou
     * Clients
         *[CP-3711] - Enable bulk upload of existing farmers to existing groups
     * Loans & Payments
