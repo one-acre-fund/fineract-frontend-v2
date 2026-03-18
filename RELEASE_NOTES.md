@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.4.8 - Community 1.0.0
+
+    * Loans & Payments
+        * [CP-4058] - Hide dynamic downpayment
+
 ## Version 1.4.7 - Community 1.0.0
 
     * Bulk Uploads
