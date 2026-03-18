@@ -13,6 +13,9 @@
         for (i = 0; i < list.length; i += 1) {
           node = list[i];
           if (node.parentId !== 1) {
+            if(map[node.parentId] === undefined) {
+              console.log(`Dangling branch found: ${node.id} -> ${node.parentId}`);
+            }
             // if you have dangling branches check that map[node.parentId] exists
             list[map[node.parentId]].children.push(node);
           } else {
