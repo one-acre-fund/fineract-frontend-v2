@@ -7,7 +7,7 @@
     * Clients
         *[CP-3711] - Enable bulk upload of existing farmers to existing groups
         *[CP-4053] - Squad Payment Provider setting: Remove validation on bank code field
-    * Loans & Payments
+    *Loans & Payments
         * [CP-4013] - Implement dynamic downpayment for Kenya
         * [CP-4058] - Hide dynamic downpayment
 
