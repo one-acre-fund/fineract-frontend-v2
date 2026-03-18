@@ -1125,7 +1125,9 @@
       "serviceName": "Service Name",
       "byCountry": "By Country",
       "byGlobal": "By Global",
-      "includeOnlyActiveRecords": "Active Only"
+      "includeOnlyActiveRecords": "Active Only",
+      "Edit.Payment.providers.Configuration": "Edit payment providers configuration",
+      "Add.Payment.providers.Configuration": "Add payment providers configuration"
     },
     "heading": {
       "Actions": "Actions",

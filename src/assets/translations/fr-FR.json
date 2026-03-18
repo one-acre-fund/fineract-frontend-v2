@@ -1121,7 +1121,9 @@
       "serviceName": "Nom du Service",
       "byCountry": "Par Pays",
       "byGlobal": "Global",
-      "includeOnlyActiveRecords": "Actifs uniquement"
+      "includeOnlyActiveRecords": "Actifs uniquement",
+      "Edit.Payment.providers.Configuration": "Modifier la configuration des fournisseurs de paiement",
+      "Add.Payment.providers.Configuration": "Ajouter une configuration de fournisseur de paiement"
     },
     "heading": {
       "Actions": "Actions",

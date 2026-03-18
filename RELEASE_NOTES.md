@@ -1,18 +1,15 @@
 # Release Notes
 
-## Version 1.4.8 - Community 1.0.0
-
-    * Loans & Payments
-        * [CP-4058] - Hide dynamic downpayment
-
 ## Version 1.4.7 - Community 1.0.0
 
     * Bulk Uploads
-        *[CP-4014] - Update bulk savings account transactions to fetch by last ou
+        * [CP-4014] - Update bulk savings account transactions to fetch by last ou
     * Clients
-        *[CP-3711] - Enable bulk upload of existing farmers to existing groups
+       * [CP-3711] - Enable bulk upload of existing farmers to existing groups
+       * [CP-4053] - Squad Payment Provider setting: Remove validation on bank code field
     * Loans & Payments
-        * [CP-4013] - Implement dynamic downpayment for Kenya
+       * [CP-4013] - Implement dynamic downpayment for Kenya
+       * [CP-4058] - Hide dynamic downpayment
 
 ## Version 1.4.6 - Community 1.0.0
     * Configurations

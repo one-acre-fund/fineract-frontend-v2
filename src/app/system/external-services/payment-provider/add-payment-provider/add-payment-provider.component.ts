@@ -64,7 +64,7 @@ export class AddPaymentProviderComponent implements OnInit {
       provider_name: ['', Validators.required],
       country_id: [this.countryId, Validators.required],
       office_id: [null],
-      bank_code: ['', Validators.required],
+      bank_code: [''],
       base_url: ['', Validators.required],
       account_creation_endpoint: ['', Validators.required],
       authentication_endpoint: [''],
