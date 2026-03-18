@@ -260,12 +260,12 @@ const routes: Routes = [
                 },
                 {
                   path: 'add',
-                  data: { title: extract('labels.commons.Add Payment providers Configuration'), breadcrumb: 'Add' },
+                  data: { title: extract('labels.commons.Add.Payment.providers.Configuration'), breadcrumb: 'Add' },
                   component: AddPaymentProviderComponent,
                 },
                 {
                   path: 'edit',
-                  data: { title: extract('labels.commons.Edit Payment providers Configuration'), breadcrumb: 'Edit' },
+                  data: { title: extract('labels.commons.Edit.Payment.providers.Configuration'), breadcrumb: 'Edit' },
                   component: EditPaymentProviderComponent,
                 },
               ],

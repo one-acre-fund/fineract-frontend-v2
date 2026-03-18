@@ -57,7 +57,7 @@ export class EditPaymentProviderComponent implements OnInit {
       office_id: [{ value: office?.id, disabled: true }],
       base_url: [getProp('base_url'), Validators.required],
       account_creation_endpoint: [getProp('account_creation_endpoint'), Validators.required],
-      bank_code: [getProp('bank_code'), Validators.required],
+      bank_code: [getProp('bank_code')],
       authentication_endpoint: [getProp('authentication_endpoint')],
       authentication_type: [getProp('authentication_type'), Validators.required],
       business_id: [getProp('business_id'), Validators.required],

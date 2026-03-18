@@ -1123,7 +1123,9 @@
       "serviceName": "Jina la Huduma",
       "byCountry": "Kwa Nchi",
       "byGlobal": "Kwa Ulimwengu",
-      "includeOnlyActiveRecords": "Inaotumika tu"
+      "includeOnlyActiveRecords": "Inaotumika tu",
+      "Edit.Payment.providers.Configuration": "Hariri Mipangilio ya Watoa Huduma za Malipo",
+      "Add.Payment.providers.Configuration": "Ongeza Mipangilio ya Watoa Huduma za Malipo"
     },
     "heading": {
       "Actions": "Vitendo",
