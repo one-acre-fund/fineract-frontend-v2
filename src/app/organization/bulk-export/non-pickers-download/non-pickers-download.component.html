@@ -1,0 +1,62 @@
+<div class="container">
+  <div fxLayoutGap="2%" class="m-b-20">
+    <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="100%">
+      <h3>
+        <strong>{{ 'labels.commons.Non Pickers Download' | translate }}</strong>
+      </h3>
+
+      <form [formGroup]="downloadForm">
+        <mat-card-content fxLayout="row wrap" fxLayoutGap="2%">
+          <div fxFlex="31%">
+            <label for="countryId">{{ 'labels.oaf.Country' | translate }}</label>
+            <ng-select
+              [items]="countriesData"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
+              formControlName="countryId"
+              [virtualScroll]="true"
+              (change)="onCountryChange($event)"
+            >
+            </ng-select>
+          </div>
+
+          <div fxFlex="31%">
+            <label for="regionId">{{ 'labels.commons.Region' | translate }}</label>
+            <ng-select
+              [items]="regionsData"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Region' | translate }}"
+              formControlName="regionId"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div fxFlex="31%">
+            <label for="loanProductIds">{{ 'labels.heading.Loan Products' | translate }}</label>
+            <ng-select
+              [items]="loanProductsData"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Loan Products' | translate }}"
+              formControlName="loanProductIds"
+              [multiple]="true"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+        </mat-card-content>
+      </form>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="download()"
+        *mifosxHasPermission="'READ_CLIENT'"
+      >
+        <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
+    </mat-card>
+  </div>
+</div>

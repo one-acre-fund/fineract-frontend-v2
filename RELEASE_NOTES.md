@@ -10,6 +10,8 @@
     * Loans & Payments
        * [CP-4013] - Implement dynamic downpayment for Kenya
        * [CP-4058] - Hide dynamic downpayment
+    * Bulk Downloads
+        * [CP-4041] - Enable bulk download for unqualified and non picker clients for a loan product
 
 ## Version 1.4.6 - Community 1.0.0
     * Configurations

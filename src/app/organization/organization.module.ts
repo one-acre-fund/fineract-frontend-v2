@@ -79,6 +79,9 @@ import { CreateCurrenciesComponent } from './currencies/create-currencies/create
 import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-download/bulk-repayment-download.component';
 import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.component';
+import { BulkExportComponent } from './bulk-export/bulk-export.component';
+import { NonPickersDownloadComponent } from './bulk-export/non-pickers-download/non-pickers-download.component';
+import { UnqualifiedFarmersDownloadComponent } from './bulk-export/unqualified-farmers-download/unqualified-farmers-download.component';
 
 /**
  * Organization Module
@@ -163,7 +166,10 @@ import { ViewAuditComponent } from './audit-trails/view-audit/view-audit.compone
     CreateCurrenciesComponent,
     BulkRepaymentDownloadComponent,
     AuditTrailsComponent,
-    ViewAuditComponent
+    ViewAuditComponent,
+    BulkExportComponent,
+    NonPickersDownloadComponent,
+    UnqualifiedFarmersDownloadComponent
   ]
 })
 export class OrganizationModule { }
