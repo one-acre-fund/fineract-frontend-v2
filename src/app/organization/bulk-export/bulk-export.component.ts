@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 /**
  * Bulk Export component.
@@ -9,10 +9,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './bulk-export.component.html',
   styleUrls: ['./bulk-export.component.scss']
 })
-export class BulkExportComponent implements OnInit {
-
-  constructor() {}
-
-  ngOnInit() {}
-
-}
+export class BulkExportComponent {}
