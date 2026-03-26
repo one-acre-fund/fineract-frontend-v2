@@ -15,6 +15,7 @@
               bindValue="id"
               placeholder="{{ 'labels.commons.Select Country' | translate }}"
               formControlName="countryId"
+              [labelForId]="'countryId'"
               [virtualScroll]="true"
               (change)="onCountryChange($event)"
             >
@@ -29,6 +30,7 @@
               bindValue="id"
               placeholder="{{ 'labels.commons.Select Region' | translate }}"
               formControlName="regionId"
+              [labelForId]="'regionId'"
               [virtualScroll]="true"
             >
             </ng-select>
@@ -42,6 +44,7 @@
               bindValue="id"
               placeholder="{{ 'labels.commons.Select Loan Products' | translate }}"
               formControlName="loanProductIds"
+              [labelForId]="'loanProductIds'"
               [multiple]="true"
               [virtualScroll]="true"
             >
@@ -54,6 +57,7 @@
         mat-raised-button
         color="primary"
         (click)="download()"
+        [disabled]="!downloadForm.value.countryId || !downloadForm.value.regionId"
         *mifosxHasPermission="'READ_CLIENT'"
       >
         <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
