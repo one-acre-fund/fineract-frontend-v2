@@ -35,7 +35,7 @@ export abstract class BaseExportDownloadComponent implements OnInit {
   ngOnInit(): void {
     this.downloadForm = this.formBuilder.group({
       countryId: [''],
-      regionId: [''],
+      officeId: [''],
       loanProductIds: [[]],
     });
   }

@@ -23,12 +23,12 @@
           </div>
 
           <div fxFlex="31%">
-            <label for="officeId">{{ 'labels.commons.Office' | translate }}</label>
+            <label for="officeId">{{ 'labels.oaf.Office' | translate }}</label>
             <ng-select
               [items]="officesData"
               bindLabel="name"
               bindValue="id"
-              placeholder="{{ 'labels.commons.Select Office' | translate }}"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="officeId"
               [labelForId]="'officeId'"
               [virtualScroll]="true"
