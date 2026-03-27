@@ -23,14 +23,14 @@
           </div>
 
           <div fxFlex="31%">
-            <label for="regionId">{{ 'labels.commons.Region' | translate }}</label>
+            <label for="officeId">{{ 'labels.commons.Office' | translate }}</label>
             <ng-select
-              [items]="regionsData"
+              [items]="officesData"
               bindLabel="name"
               bindValue="id"
-              placeholder="{{ 'labels.commons.Select Region' | translate }}"
-              formControlName="regionId"
-              [labelForId]="'regionId'"
+              placeholder="{{ 'labels.commons.Select Office' | translate }}"
+              formControlName="officeId"
+              [labelForId]="'officeId'"
               [virtualScroll]="true"
             >
             </ng-select>
@@ -57,7 +57,7 @@
         mat-raised-button
         color="primary"
         (click)="download()"
-        [disabled]="!downloadForm.value.countryId || !downloadForm.value.regionId"
+        [disabled]="!downloadForm.value.countryId || !downloadForm.value.officeId"
         *mifosxHasPermission="'READ_CLIENT'"
       >
         <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
