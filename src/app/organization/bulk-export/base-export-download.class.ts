@@ -16,7 +16,7 @@ export abstract class BaseExportDownloadComponent implements OnInit {
 
   countriesData: any[] = [];
   countriesDataSliced: any[] = [];
-  regionsData: any[] = [];
+  officesData: any[] = [];
   loanProductsData: any[] = [];
   downloadForm: UntypedFormGroup;
 
@@ -45,13 +45,13 @@ export abstract class BaseExportDownloadComponent implements OnInit {
   }
 
   onCountryChange(country: any) {
-    this.regionsData = [];
+    this.officesData = [];
     this.loanProductsData = [];
-    this.downloadForm.patchValue({ regionId: '', loanProductIds: [] });
+    this.downloadForm.patchValue({ officeId: '', loanProductIds: [] });
     const countryId = country?.id;
     if (!countryId) { return; }
     this.organizationService.searchCountryById(countryId, false, 1).subscribe((res: any[]) => {
-      this.regionsData = (res || []).filter((x: any) => x.status === true);
+      this.officesData = (res || []).filter((x: any) => x.status === true);
     });
 
      this.productsService.getLoanProductWithCountryId(countryId).subscribe((res: any[]) => {
@@ -60,9 +60,9 @@ export abstract class BaseExportDownloadComponent implements OnInit {
   }
 
   download() {
-    const { countryId, regionId, loanProductIds } = this.downloadForm.value;
-    if (countryId && regionId) {
-      let urlSuffix = `/loanproducts/export?exportType=${this.exportType}&countryId=${countryId}&officeId=${regionId}`;
+    const { countryId, officeId, loanProductIds } = this.downloadForm.value;
+    if (countryId && officeId) {
+      let urlSuffix = `/loanproducts/export?exportType=${this.exportType}&countryId=${countryId}&officeId=${officeId}`;
       if (loanProductIds && loanProductIds.length > 0) {
         urlSuffix += `&loanProductIds=${loanProductIds.join(',')}`;
       }
