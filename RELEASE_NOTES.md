@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.4.7.1 - Community 1.0.0
+    * Clients
+        * [CP-4059] -  Client activation: allow activation of clients with inactive substatuses
+
 ## Version 1.4.7 - Community 1.0.0
 
     * Bulk Uploads
