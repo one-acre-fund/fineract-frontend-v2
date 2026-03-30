@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { OrganizationService } from '../organization.service';
 import { ProductsService } from 'app/products/products.service';
+import { APP_CONSTANTS } from 'app/shared/constants/app.constants';
 
 /**
  * Abstract base class for bulk export download components.
@@ -19,6 +20,7 @@ export abstract class BaseExportDownloadComponent implements OnInit {
   officesData: any[] = [];
   loanProductsData: any[] = [];
   downloadForm: UntypedFormGroup;
+  selectedCountryName = '';
 
   constructor(
     protected route: ActivatedRoute,
@@ -38,23 +40,29 @@ export abstract class BaseExportDownloadComponent implements OnInit {
       officeId: [''],
       loanProductIds: [[]],
     });
+
+    const stored = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.SELECTED_COUNTRY);
+    if (stored) {
+      const country = JSON.parse(stored);
+      const match = this.countriesData.find((c: any) => c.id === country.id) || country;
+      this.downloadForm.patchValue({ countryId: match.id });
+      this.selectedCountryName = match.name;
+      this._loadCountryData(match.id);
+    }
   }
 
   isFiltered(country: any) {
     return this.countriesDataSliced.find((item: any) => item.id === country.id);
   }
 
-  onCountryChange(country: any) {
+  private _loadCountryData(countryId: number): void {
     this.officesData = [];
     this.loanProductsData = [];
     this.downloadForm.patchValue({ officeId: '', loanProductIds: [] });
-    const countryId = country?.id;
-    if (!countryId) { return; }
-    this.organizationService.searchCountryById(countryId, false, 1).subscribe((res: any[]) => {
+    this.organizationService.searchCountryById(countryId, false, 'bulk-import-template-office-hierarchy-level').subscribe((res: any[]) => {
       this.officesData = (res || []).filter((x: any) => x.status === true);
     });
-
-     this.productsService.getLoanProductWithCountryId(countryId).subscribe((res: any[]) => {
+    this.productsService.getLoanProductWithCountryId(countryId).subscribe((res: any[]) => {
       this.loanProductsData = res || [];
     });
   }

@@ -7,22 +7,12 @@
 
       <form [formGroup]="downloadForm">
         <mat-card-content fxLayout="row wrap" fxLayoutGap="2%">
-          <div fxFlex="31%">
-            <label for="countryId">{{ 'labels.oaf.Country' | translate }}</label>
-            <ng-select
-              [items]="countriesData"
-              bindLabel="name"
-              bindValue="id"
-              placeholder="{{ 'labels.commons.Select Country' | translate }}"
-              formControlName="countryId"
-              [labelForId]="'countryId'"
-              [virtualScroll]="true"
-              (change)="onCountryChange($event)"
-            >
-            </ng-select>
+          <div fxFlex="15%">
+            <label>{{ 'labels.oaf.Country' | translate }}</label>
+            <p class="readonly-value">{{ selectedCountryName }}</p>
           </div>
 
-          <div fxFlex="31%">
+          <div fxFlex="40%">
             <label for="officeId">{{ 'labels.oaf.Office' | translate }}</label>
             <ng-select
               [items]="officesData"
@@ -35,7 +25,7 @@
             </ng-select>
           </div>
 
-          <div fxFlex="31%">
+          <div fxFlex="40%">
             <label for="loanProductIds">{{ 'labels.heading.Loan Products' | translate }}</label>
             <ng-select
               [items]="loanProductsData"
