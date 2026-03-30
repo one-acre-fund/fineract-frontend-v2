@@ -183,7 +183,7 @@
         <button mat-menu-item (click)="doAction('Transfer Client', clientViewData.countryId)" *mifosxHasPermission="'PROPOSETRANSFER_CLIENT'">
           {{ 'labels.buttons.Transfer Client' | translate }}
         </button>
-        <span *ngIf="clientViewData.status.value === 'Pending'"
+        <span *ngIf="clientViewData.eligibleForActivationFlag === true"
           ><button mat-menu-item (click)="doAction('Activate', clientViewData.countryId)" *mifosxHasPermission="'ACTIVATE_CLIENT'">
             {{ 'labels.buttons.Activate' | translate }}
           </button></span

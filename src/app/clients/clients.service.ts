@@ -98,8 +98,10 @@ export class ClientsService {
     return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
-  getClientDatawithCreditScore(clientId: string) {
-    const httpParams = new HttpParams().set('includeCreditScores', 'true').set('includeOfficeHierarchyPath', 'true');
+  getClientDataWithRequiredDetails(clientId: string) {
+    const httpParams = new HttpParams().set('includeCreditScores', 'true')
+    .set('includeOfficeHierarchyPath', 'true')
+    .set('includeEligibleForActivationFlag', 'true');
     return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
