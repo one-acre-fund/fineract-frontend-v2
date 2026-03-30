@@ -92,6 +92,14 @@
             <h4 matLine>{{ 'labels.menus.Client Group Transfer' | translate }}</h4>
           </mat-list-item>
 
+
+          <mat-list-item [routerLink]="['Group Office Transfer']" *mifosxHasPermission="'READ_OFFICE'">
+            <mat-icon matListIcon>
+              <fa-icon icon="users" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.menus.Group Office Transfer' | translate }}</h4>
+          </mat-list-item>
+
           <!-- <mat-list-item [routerLink]="['Centers']" *mifosxHasPermission="'READ_OFFICE'">
             <mat-icon matListIcon>
               <fa-icon icon="users" size="sm"></fa-icon>
