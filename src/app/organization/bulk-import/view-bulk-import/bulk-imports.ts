@@ -147,4 +147,11 @@ export const BulkImports = [
       permission: 'READ_CLIENT',
       formFields: 1
     },
+    {
+      name: 'Group Office Transfer',
+      entityType: 'groupofficetransfer',
+      urlSuffix: '/groups/transferoffice',
+      permission: 'READ_CLIENT',
+      formFields: 1
+    },
   ];
