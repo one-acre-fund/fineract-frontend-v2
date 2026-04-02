@@ -111,8 +111,9 @@ export class ProductsService {
     return this.http.post("/loanproducts", loanProduct);
   }
 
-  getLoanProductsTemplate(): Observable<any> {
-    return this.http.get("/loanproducts/template");
+  getLoanProductsTemplate(countryId?: any): Observable<any> {
+    const httpParams = countryId ? new HttpParams().set('countryId', countryId) : undefined;
+    return this.http.get("/loanproducts/template", httpParams ? { params: httpParams } : {});
   }
 
   getLoanProduct(loanProductId: string, template: boolean = false): Observable<any> {
