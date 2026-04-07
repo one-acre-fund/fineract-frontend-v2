@@ -1,0 +1,56 @@
+<div class="container">
+  <div fxLayoutGap="2%" class="m-b-20">
+    <mat-card fxLayout="column" fxLayoutGap="2%" fxFlex="100%">
+      <h3>
+        <strong>{{ 'labels.commons.Non Pickers Download' | translate }}</strong>
+      </h3>
+
+      <form [formGroup]="downloadForm">
+        <mat-card-content fxLayout="row wrap" fxLayoutGap="2%">
+          <div fxFlex="15%">
+            <label>{{ 'labels.oaf.Country' | translate }}</label>
+            <p class="readonly-value">{{ selectedCountryName }}</p>
+          </div>
+
+          <div fxFlex="40%">
+            <label for="officeId">{{ 'labels.oaf.Office' | translate }}</label>
+            <ng-select
+              [items]="officesData"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
+              formControlName="officeId"
+              [labelForId]="'officeId'"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div fxFlex="40%">
+            <label for="loanProductIds">{{ 'labels.heading.Loan Products' | translate }}</label>
+            <ng-select
+              [items]="loanProductsData"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.commons.Select Loan Products' | translate }}"
+              formControlName="loanProductIds"
+              [labelForId]="'loanProductIds'"
+              [multiple]="true"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+        </mat-card-content>
+      </form>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="download()"
+        [disabled]="!downloadForm.value.countryId || !downloadForm.value.officeId"
+        *mifosxHasPermission="'READ_CLIENT'"
+      >
+        <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
+    </mat-card>
+  </div>
+</div>
