@@ -262,10 +262,14 @@ export class OrganizationService {
   getCountry(countryId: number): Observable<any> {
     return this.http.get(`/countries/${countryId}`);
   }
-  searchCountryById(countryId: number, retrieveOnlyUpToConfiguredOULevel: boolean = false) {
-    const httpParams = new HttpParams()
+  searchCountryById(countryId: number, retrieveOnlyUpToConfiguredOULevel: boolean = false, levelConfig: string = ''): Observable<any> {
+    let httpParams = new HttpParams()
       .set('activeFlag', 'true')
       .set('retrieveOnlyUpToConfiguredOULevel', JSON.stringify(retrieveOnlyUpToConfiguredOULevel));
+    if (levelConfig) {
+      httpParams = httpParams.set('levelConfig', levelConfig);
+
+    }
     return this.http.get(`/offices/search?countryId=${countryId}`, { params: httpParams });
   }
 

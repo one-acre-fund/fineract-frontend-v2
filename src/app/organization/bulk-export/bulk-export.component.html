@@ -1,0 +1,27 @@
+<div class="container">
+  <mat-card>
+    <div fxLayout="row" fxLayout.lt-md="column">
+      <div fxFlex="50%">
+        <mat-nav-list>
+          <mat-list-item [routerLink]="['non-pickers-download']" *mifosxHasPermission="'READ_CLIENT'">
+            <mat-icon matListIcon>
+              <fa-icon icon="download" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.commons.Non Pickers Download' | translate }}</h4>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+
+      <div fxFlex="50%">
+        <mat-nav-list>
+          <mat-list-item [routerLink]="['unqualified-farmers-download']" *mifosxHasPermission="'READ_CLIENT'">
+            <mat-icon matListIcon>
+              <fa-icon icon="download" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.commons.Unqualified Farmers Download' | translate }}</h4>
+          </mat-list-item>
+        </mat-nav-list>
+      </div>
+    </div>
+  </mat-card>
+</div>

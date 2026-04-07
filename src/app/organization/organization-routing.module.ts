@@ -115,6 +115,9 @@ import { EditRetailOutletResolver } from './rural-outlet/edit-retail-outlet.reso
 import { CreateCurrenciesComponent } from './currencies/create-currencies/create-currencies.component';
 import { BulkRepaymentDownloadComponent } from './bulk-import/bulk-repayment-download/bulk-repayment-download.component';
 import { CountriesResolver } from './bulk-import/view-bulk-import/country.resolver';
+import { BulkExportComponent } from './bulk-export/bulk-export.component';
+import { NonPickersDownloadComponent } from './bulk-export/non-pickers-download/non-pickers-download.component';
+import { UnqualifiedFarmersDownloadComponent } from './bulk-export/unqualified-farmers-download/unqualified-farmers-download.component';
 import { AuditTrailSearchTemplateResolver } from './audit-trails/audit-trail-search-template.resolver';
 import { AuditTrailResolver } from './audit-trails/view-audit/audit-trail.resolver';
 
@@ -752,6 +755,42 @@ const routes: Routes = [
                 countries: CountriesResolver,
                 imports: BulkImportResolver,
               },
+            },
+          ],
+        },
+        {
+          path: 'bulk-export',
+          data: { title: extract('labels.text.Bulk Export'), breadcrumb: 'Bulk Export' },
+          children: [
+            {
+              path: '',
+              component: BulkExportComponent,
+            },
+            {
+              path: 'non-pickers-download',
+              data: { title: extract('labels.commons.Non Pickers Download'), breadcrumb: 'Non Pickers Download' },
+              children: [
+                {
+                  path: '',
+                  component: NonPickersDownloadComponent,
+                  resolve: {
+                    countries: CountriesResolver,
+                  },
+                },
+              ],
+            },
+            {
+              path: 'unqualified-farmers-download',
+              data: { title: extract('labels.commons.Unqualified Farmers Download'), breadcrumb: 'Unqualified Farmers Download' },
+              children: [
+                {
+                  path: '',
+                  component: UnqualifiedFarmersDownloadComponent,
+                  resolve: {
+                    countries: CountriesResolver,
+                  },
+                },
+              ],
             },
           ],
         },

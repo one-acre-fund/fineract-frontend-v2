@@ -168,6 +168,14 @@
             <p matLine>{{ 'labels.text.Bulk data import using excel spreadsheet templates' | translate }}</p>
           </mat-list-item>
 
+          <mat-list-item [routerLink]="['bulk-export']" *mifosxHasPermission="'READ_CLIENT'">
+            <mat-icon matListIcon>
+              <fa-icon icon="download" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.heading.Bulk Export' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Bulk data export downloads' | translate }}</p>
+          </mat-list-item>
+
           <mat-list-item [routerLink]="['audit-trails']">
             <mat-icon matListIcon>
               <fa-icon icon="money-check" size="sm"></fa-icon>
