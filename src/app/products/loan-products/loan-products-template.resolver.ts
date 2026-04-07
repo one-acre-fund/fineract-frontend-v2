@@ -7,20 +7,18 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ProductsService } from '../products.service';
-import { SettingsService } from 'app/settings/settings.service';
 
 @Injectable()
 export class LoanProductsTemplateResolver implements Resolve<Object> {
 
-  constructor(private productsService: ProductsService, private settingsService: SettingsService) {}
+  constructor(private productsService: ProductsService) {}
 
   /**
    * Returns the loan products template data.
    * @returns {Observable<any>}
    */
   resolve(): Observable<any> {
-    const countryId = this.settingsService.getSelectedCountry()?.id;
-    return this.productsService.getLoanProductsTemplate(countryId);
+    return this.productsService.getLoanProductsTemplate();
   }
 
 }

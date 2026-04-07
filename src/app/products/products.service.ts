@@ -22,6 +22,7 @@ export class ProductsService {
   private isQualificationRequired$ = new BehaviorSubject<boolean>(false);
   private enableTermsAndConditions$ = new BehaviorSubject<boolean>(false);
   private downPaymentQualificationStrategy$ = new BehaviorSubject<any>('STATIC');
+  private allowDynamicDownpayment$ = new BehaviorSubject<boolean>(false);
   private qualificationPeriods$ = new BehaviorSubject<any[]>([]);
 
   /**
@@ -86,6 +87,14 @@ export class ProductsService {
     this.downPaymentQualificationStrategy$.next(val);
   }
 
+  get allowDynamicDownpayment(): any {
+    return this.allowDynamicDownpayment$.asObservable();
+  }
+
+  set allowDynamicDownpayment(val: any) {
+    this.allowDynamicDownpayment$.next(val);
+  }
+
   getQualificationPeriods(): Observable<any[]> {
     return this.qualificationPeriods$.asObservable();
   }
@@ -111,9 +120,8 @@ export class ProductsService {
     return this.http.post("/loanproducts", loanProduct);
   }
 
-  getLoanProductsTemplate(countryId?: any): Observable<any> {
-    const httpParams = countryId ? new HttpParams().set('countryId', countryId) : undefined;
-    return this.http.get("/loanproducts/template", httpParams ? { params: httpParams } : {});
+  getLoanProductsTemplate(): Observable<any> {
+    return this.http.get("/loanproducts/template");
   }
 
   getLoanProduct(loanProductId: string, template: boolean = false): Observable<any> {

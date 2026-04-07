@@ -34,6 +34,7 @@ export class LoanProductTermsStepComponent implements OnInit {
   pristine = true;
 
   downPaymentQualificationStrategies: any[] = [];
+  allDownPaymentQualificationStrategies: any[] = [];
   productQualificationPeriodsDisplayedColumns: string[] = ['fromDate', 'toDate', 'prepaidAmount', 'prepaidAmountCalculationType', 'action'];
   qualificationPeriods: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
   qualificationPeriodsForDisplay: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
@@ -49,7 +50,8 @@ export class LoanProductTermsStepComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.downPaymentQualificationStrategies = this.loanProductsTemplate.downPaymentQualificationStrategyOptions;
+    this.allDownPaymentQualificationStrategies = this.loanProductsTemplate.downPaymentQualificationStrategyOptions;
+    this.downPaymentQualificationStrategies = this.allDownPaymentQualificationStrategies;
     this.qualificationPeriods = this.loanProductsTemplate.qualificationPeriods || [];
     this.qualificationPeriods = this.qualificationPeriods.map(period => ({ 
       ...period, markedForDeletion: false,
@@ -102,6 +104,18 @@ export class LoanProductTermsStepComponent implements OnInit {
       this.formBuilder.array(this.loanProductsTemplate.numberOfRepaymentVariationsForBorrowerCycle.map((variation: any) => ({ ...variation, valueConditionType: variation.valueConditionType.id }))));
     this.loanProductTermsForm.setControl('interestRateVariationsForBorrowerCycle',
       this.formBuilder.array(this.loanProductsTemplate.interestRateVariationsForBorrowerCycle.map((variation: any) => ({ ...variation, valueConditionType: variation.valueConditionType.id }))));
+
+    this.productService.allowDynamicDownpayment.subscribe((allowDynamic: boolean) => {
+      const currentStrategy = this.loanProductTermsForm.get('downPaymentStrategy')?.value;
+      if (allowDynamic) {
+        this.downPaymentQualificationStrategies = this.allDownPaymentQualificationStrategies;
+      } else {
+        const isDynamicAlreadySelected = currentStrategy === 'DYNAMIC';
+        this.downPaymentQualificationStrategies = isDynamicAlreadySelected
+          ? this.allDownPaymentQualificationStrategies
+          : this.allDownPaymentQualificationStrategies.filter((s: any) => s.code !== 'DYNAMIC');
+      }
+    });
   }
 
   createLoanProductTermsForm() {
