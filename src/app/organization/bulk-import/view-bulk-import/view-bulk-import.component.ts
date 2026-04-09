@@ -109,19 +109,19 @@ export class ViewBulkImportComponent implements OnInit {
   getTranslatedName(name: string): string {
     const headingKey = 'labels.heading.' + name;
     const commonsKey = 'labels.commons.' + name;
-    
+
     // Try heading translation first
     let translated = this.translate.instant(headingKey);
     if (translated !== headingKey) {
       return translated;
     }
-    
+
     // Fall back to commons translation (for menu consistency)
     translated = this.translate.instant(commonsKey);
     if (translated !== commonsKey) {
       return translated;
     }
-    
+
     // Fall back to original name
     return name;
   }
@@ -324,7 +324,7 @@ export class ViewBulkImportComponent implements OnInit {
       }
     }
     let countryId = null;
-    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction' || this.bulkImport.name == 'Client Group Transfer' || this.bulkImport.name == 'Group Office Transfer') {
+    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction' || this.bulkImport.name == 'Client Group Transfer' || this.bulkImport.name == 'Group Office Transfer' || this.bulkImport.name == 'Client Group Removal') {
       countryId = this.bulkImportForm.get('countryId').value;
       if (!countryId) {
         return this.alertService.alert({
