@@ -3,6 +3,8 @@
 ## Version 1.4.9 - Community 1.0.0
     * Bulk Uploads
         * [CP-4042] - Add bulk upload to remove clients from groups
+    * Loans & Payments
+        * [CP-4067] - Apply country config to allow dynamic downpayment on loan products
 
 ## Version 1.4.8 - Community 1.0.0
     * Bulk Downloads

@@ -134,6 +134,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       this.isQualificationRequired = res.configurations?.isQualificationRequired;
       this.loanProductTemplates = res.loanProductTemplates;
       this.productsService.isQualificationRequired = this.isQualificationRequired;
+      this.productsService.allowDynamicDownpayment = res.configurations?.allowDynamicDownpayment ?? false;
       this.loanProductTemplateForm.patchValue({
         loanProductTemplates: this.loanProductTemplates,
         enableTermsAndConditions: this.enableTermsAndConditions,

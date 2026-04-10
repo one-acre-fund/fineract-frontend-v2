@@ -276,6 +276,7 @@ export class ViewBulkImportComponent implements OnInit {
     switch (this.bulkImport.name) {
       case 'Clients':
       case 'Client Group Transfer':
+      case 'Client Group Removal':
       case 'Groups':
       case 'Offices':
       case 'Savings Transactions':

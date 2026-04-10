@@ -22,6 +22,7 @@ export class ProductsService {
   private isQualificationRequired$ = new BehaviorSubject<boolean>(false);
   private enableTermsAndConditions$ = new BehaviorSubject<boolean>(false);
   private downPaymentQualificationStrategy$ = new BehaviorSubject<any>('STATIC');
+  private allowDynamicDownpayment$ = new BehaviorSubject<boolean>(false);
   private qualificationPeriods$ = new BehaviorSubject<any[]>([]);
 
   /**
@@ -84,6 +85,14 @@ export class ProductsService {
 
   set downPaymentQualificationStrategy(val: any) {
     this.downPaymentQualificationStrategy$.next(val);
+  }
+
+  get allowDynamicDownpayment(): any {
+    return this.allowDynamicDownpayment$.asObservable();
+  }
+
+  set allowDynamicDownpayment(val: any) {
+    this.allowDynamicDownpayment$.next(val);
   }
 
   getQualificationPeriods(): Observable<any[]> {
