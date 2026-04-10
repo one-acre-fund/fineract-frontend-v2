@@ -480,27 +480,11 @@
 
     <h4 fxFlex="98%" class="mat-h4">{{ 'labels.oaf.downPaymentStrategy' | translate }}</h4>
 
-    <!-- <mat-form-field fxFlex="48%">
-      <mat-label>{{ 'labels.oaf.downPaymentStrategy' | translate }}</mat-label>
-      <mat-select formControlName="downPaymentStrategy">
-        <mat-option
-          *ngFor="let strategy of downPaymentQualificationStrategies"
-          [value]="strategy.code"
-          (click)="downPaymentQualificationStrategyChange(strategy)"
-        >
-          {{ strategy.value }}
-        </mat-option>
-      </mat-select>
-      <mat-error
-        >{{ 'labels.oaf.downPaymentStrategy' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-      </mat-error>
-    </mat-form-field> -->
-
     <mat-form-field fxFlex="48%">
       <mat-label>{{ 'labels.oaf.downPaymentStrategy' | translate }}</mat-label>
       <mat-select formControlName="downPaymentStrategy">
         <mat-option
-          *ngFor="let strategy of [{code: 'STATIC', value: 'Static'}]"
+          *ngFor="let strategy of downPaymentQualificationStrategies"
           [value]="strategy.code"
           (click)="downPaymentQualificationStrategyChange(strategy)"
         >
