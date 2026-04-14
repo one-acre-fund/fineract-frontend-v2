@@ -12,6 +12,7 @@ import { BulkImports } from './bulk-imports';
 import { ClientsService } from 'app/clients/clients.service';
 import { AlertService } from 'app/core/alert/alert.service';
 import { TranslateService } from '@ngx-translate/core';
+import { BulkImportsConstants } from './bulk-imports-constant';
 
 /**
  * View Bulk Imports Component
@@ -109,19 +110,19 @@ export class ViewBulkImportComponent implements OnInit {
   getTranslatedName(name: string): string {
     const headingKey = 'labels.heading.' + name;
     const commonsKey = 'labels.commons.' + name;
-    
+
     // Try heading translation first
     let translated = this.translate.instant(headingKey);
     if (translated !== headingKey) {
       return translated;
     }
-    
+
     // Fall back to commons translation (for menu consistency)
     translated = this.translate.instant(commonsKey);
     if (translated !== commonsKey) {
       return translated;
     }
-    
+
     // Fall back to original name
     return name;
   }
@@ -210,9 +211,13 @@ export class ViewBulkImportComponent implements OnInit {
     });
   }
 
+  getSelectedOfficeId(): number | null {
+    return this.bulkImportForm.get('officeId')?.value;
+  }
+
   getEffectiveOfficeId(): number | null {
-    const officeId = this.bulkImportForm.get('officeId').value;
-    if (this.bulkImport.name !== 'Savings Transactions') {
+    const officeId = this.getSelectedOfficeId();
+    if (this.bulkImport.name !== BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT) {
       return officeId || null;
     }
     if (!officeId) return null;
@@ -245,16 +250,28 @@ export class ViewBulkImportComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  isDownloadTemplateDisabled(): boolean {
+    switch (this.bulkImport.name) {
+      case BulkImportsConstants.CLIENT_TRANSFER_IMPORT:
+        return !this.getSelectedOfficeId();
+      case BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT:
+        return !this.getEffectiveOfficeId();
+
+      default:
+        return false;
+    }
+  }
+
   /**
    * Gets bulk import's downloadable template from API.
    */
   downloadTemplate() {
-    const countryId = this.bulkImportForm.get('countryId').value;
-    const officeId = this.bulkImport.name === 'Savings Transactions' ? this.getEffectiveOfficeId() : this.bulkImportForm.get('officeId').value;
-    const staffId = this.bulkImportForm.get('staffId').value;
+    const countryId = this.bulkImportForm.get('countryId')?.value;
+    const officeId = this.bulkImport.name === BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT ? this.getEffectiveOfficeId() : this.bulkImportForm.get('officeId')?.value;
+    const staffId = this.bulkImportForm.get('staffId')?.value;
     let legalFormType = '';
     /** Only for Client Bulk Imports */
-    switch (this.bulkImportForm.get('legalForm').value) {
+    switch (this.bulkImportForm.get('legalForm')?.value) {
       case 'Person':
         legalFormType = 'CLIENTS_PERSON';
         break;
@@ -274,12 +291,13 @@ export class ViewBulkImportComponent implements OnInit {
       staffInSelectedOfficeOnly = true;
 
     switch (this.bulkImport.name) {
-      case 'Clients':
-      case 'Client Group Transfer':
-      case 'Groups':
-      case 'Offices':
-      case 'Savings Transactions':
-      case 'Loan Accounts':
+      case BulkImportsConstants.CLIENTS_IMPORT:
+      case BulkImportsConstants.CLIENT_TRANSFER_IMPORT:
+      case BulkImportsConstants.CLIENT_GROUP_REMOVAL_IMPORT:
+      case BulkImportsConstants.GROUPS_IMPORT:
+      case BulkImportsConstants.OFFICES_IMPORT:
+      case BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT:
+      case BulkImportsConstants.LOAN_ACCOUNTS_IMPORT:
         commandParam = 'clientBulkImportTemplate';
         break;
       default:
@@ -316,7 +334,7 @@ export class ViewBulkImportComponent implements OnInit {
   uploadTemplate() {
     let legalFormType = '';
     /** Only for Client Bulk Imports */
-    if (this.bulkImport.name === 'Clients') {
+    if (this.bulkImport.name === BulkImportsConstants.CLIENTS_IMPORT) {
       if (this.template.name.toLowerCase().includes('entity')) {
         legalFormType = 'CLIENTS_ENTTTY';
       } else if (this.template.name.toLowerCase().includes('person')) {
@@ -324,14 +342,20 @@ export class ViewBulkImportComponent implements OnInit {
       }
     }
     let countryId = null;
-    if (this.bulkImport.name == 'Loan Repayments' || this.bulkImport.name == 'Account Transfer Transaction' || this.bulkImport.name == 'Client Group Transfer' || this.bulkImport.name == 'Group Office Transfer') {
-      countryId = this.bulkImportForm.get('countryId').value;
-      if (!countryId) {
-        return this.alertService.alert({
-          type: 'Error while uploading a file',
-          message: 'Please select a country',
-        });
-      }
+    switch (this.bulkImport.name) {
+      case BulkImportsConstants.LOAN_REPAYMENTS_IMPORT:
+      case BulkImportsConstants.ACCOUNT_TRANSFER_TRANSACTION_IMPORT:
+      case BulkImportsConstants.CLIENT_TRANSFER_IMPORT:
+      case BulkImportsConstants.GROUP_OFFICE_TRANSFER_IMPORT:
+      case BulkImportsConstants.CLIENT_GROUP_REMOVAL_IMPORT:
+        countryId = this.bulkImportForm.get('countryId')?.value;
+        if (!countryId) {
+          return this.alertService.alert({
+            type: 'Error while uploading a file',
+            message: 'Please select a country',
+          });
+        }
+        break;
     }
 
     this.organizationService
