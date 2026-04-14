@@ -66,6 +66,14 @@
             </mat-icon>
             <h4 matLine>{{ 'labels.commons.Repayments Download' | translate }}</h4>
           </mat-list-item>
+
+
+          <mat-list-item [routerLink]="['Client Group Removal']" *mifosxHasPermission="'READ_CLIENT'">
+            <mat-icon matListIcon>
+              <fa-icon icon="users" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.menus.Client Group Removal' | translate }}</h4>
+          </mat-list-item>
         </mat-nav-list>
       </div>
 
@@ -120,7 +128,7 @@
             </mat-icon>
             <h4 matLine>Savings Transactions</h4>
           </mat-list-item>
-<!-- 
+<!--
           <mat-list-item [routerLink]="['Fixed Deposit Transactions']" *mifosxHasPermission="'READ_OFFICE'">
             <mat-icon matListIcon>
               <fa-icon icon="chevron-right" size="sm"></fa-icon>

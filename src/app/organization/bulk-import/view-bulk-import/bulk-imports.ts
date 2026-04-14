@@ -154,4 +154,11 @@ export const BulkImports = [
       permission: 'READ_CLIENT',
       formFields: 1
     },
+    {
+      name: 'Client Group Removal',
+      entityType: 'clientgroupremoval',
+      urlSuffix: '/clients/clientgroupremoval',
+      permission: 'READ_CLIENT',
+      formFields: 1
+    },
   ];
