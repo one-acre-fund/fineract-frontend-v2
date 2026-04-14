@@ -1,6 +1,10 @@
 # Release Notes
 
 ## Version 1.4.8 - Community 1.0.0
+    * Bulk Uploads
+        * [CP-4085] - Client Transfer: Rename client group transfer to client transfer and enable download template button only if the office is selected
+
+## Version 1.4.8 - Community 1.0.0
     * Bulk Downloads
         * [CP-4041] - Enable bulk download for unqualified and non picker clients for a loan product
     * Bulk Uploads
