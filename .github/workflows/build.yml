@@ -284,17 +284,6 @@ jobs:
           K8S_URL: "${{ secrets.K8S_PROD_URL }}"
           K8S_SECRET: "${{ secrets.K8S_PROD_DEFAULT }}"
 
-      - name: Start Maintenance Window
-        id: start_maintenance
-        uses: one-acre-fund/uptime-kuma-create-maintenance@1.0.0
-        with:
-          UPTIME_USERNAME: ${{ secrets.UPTIME_USERNAME }}
-          UPTIME_PASSWORD: ${{ secrets.UPTIME_PASSWORD }}
-          UPTIME_API_URL: ${{ vars.UPTIME_API_URL }}
-          MAINTENANCE_TITLE: "Service Deployment"
-          MONITOR_ID: ${{ vars.MONITOR_ID }}
-          MONITOR_NAME: ${{ vars.MONITOR_NAME }}
-
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
@@ -322,12 +311,3 @@ jobs:
           SENTRY_DSN: "${{ secrets.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ vars.APM_SERVER_URL }}"
           APM_ACTIVE: "${{ vars.APM_ACTIVE }}"
-
-      - name: Delete Maintenance Window
-        if: always()
-        uses: one-acre-fund/uptime-kuma-delete-maintenance@1.0.0
-        with:
-          UPTIME_USERNAME: ${{ secrets.UPTIME_USERNAME }}
-          UPTIME_PASSWORD: ${{ secrets.UPTIME_PASSWORD }}
-          UPTIME_API_URL: ${{ vars.UPTIME_API_URL }}
-          MAINTENANCE_ID: ${{ steps.start_maintenance.outputs.maintenance_id }}

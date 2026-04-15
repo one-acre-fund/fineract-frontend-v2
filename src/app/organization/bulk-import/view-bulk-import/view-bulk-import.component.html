@@ -128,7 +128,7 @@
           mat-raised-button
           color="primary"
           (click)="downloadTemplate()"
-          [disabled]="bulkImport.name === 'Savings Transactions' && !getEffectiveOfficeId()"
+          [disabled]="isDownloadTemplateDisabled()"
           *mifosxHasPermission="bulkImport.permission"
         >
           <i class="fa fa-download"></i>&nbsp;&nbsp;{{ 'labels.buttons.Download' | translate }}</button>
