@@ -1,43 +1,45 @@
+import { BulkImportsConstants } from "./bulk-imports-constant";
+
 /** TODO: Refactor Permissions */
 export const BulkImports = [
     {
-      name: 'Offices',
+      name: BulkImportsConstants.OFFICES_IMPORT,
       entityType: 'offices',
       urlSuffix: '/offices',
       permission: 'READ_OFFICE',
       formFields: 0
     },
     {
-      name: 'Users',
+      name: BulkImportsConstants.USERS_IMPORT,
       entityType: 'users',
       urlSuffix: '/users',
       permission: 'READ_CLIENT',
       formFields: 2
     },
     {
-      name: 'Groups',
+      name: BulkImportsConstants.GROUPS_IMPORT,
       entityType: 'groups',
       urlSuffix: '/groups',
       permission: 'READ_CLIENT',
       formFields: 2
     },
     {
-      name: 'Centers',
+      name: BulkImportsConstants.CENTERS_IMPORT,
       entityType: 'centers',
       urlSuffix: '/centers',
       permission: 'READ_CENTERS',
       formFields: 2
     },
     {
-      name: 'Clients',
+      name: BulkImportsConstants.CLIENTS_IMPORT,
       entityType: 'client',
       urlSuffix: '/clients',
       permission: 'READ_CLIENT',
       formFields: 3
     },
     {
-      name: 'Client Group Transfer',
-      entityType: 'clientgrouptransfer',
+      name: BulkImportsConstants.CLIENT_TRANSFER_IMPORT,
+      entityType: 'clienttransfer',
       urlSuffix: '/clients/transfer',
       permission: 'READ_CLIENT',
       formFields: 2
@@ -64,7 +66,7 @@ export const BulkImports = [
       formFields: 1
     },
     {
-      name: 'Loan Accounts',
+      name: BulkImportsConstants.LOAN_ACCOUNTS_IMPORT,
       entityType: 'loans',
       urlSuffix: '/loans',
       permission: 'READ_CLIENT',
@@ -106,14 +108,14 @@ export const BulkImports = [
       formFields: 1
     },
     {
-      name: 'Loan Repayments',
+      name: BulkImportsConstants.LOAN_REPAYMENTS_IMPORT,
       entityType: 'loantransactions',
       urlSuffix: '/loans/repayments',
       permission: 'READ_CLIENT',
       formFields: 1
     },
     {
-      name: 'Savings Transactions',
+      name: BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT,
       entityType: 'savingstransactions',
       urlSuffix: '/savingsaccounts/transactions',
       permission: 'READ_CLIENT',
@@ -141,14 +143,14 @@ export const BulkImports = [
       formFields: 1
     },
     {
-      name: 'Account Transfer Transaction',
+      name: BulkImportsConstants.ACCOUNT_TRANSFER_TRANSACTION_IMPORT,
       entityType: 'accounttransferstransaction',
       urlSuffix: '/accounttransfers',
       permission: 'READ_CLIENT',
       formFields: 1
     },
     {
-      name: 'Group Office Transfer',
+      name: BulkImportsConstants.GROUP_OFFICE_TRANSFER_IMPORT,
       entityType: 'groupofficetransfer',
       urlSuffix: '/groups/transferoffice',
       permission: 'READ_CLIENT',
