@@ -66,7 +66,6 @@ export class LoanDeliveryTabComponent implements OnInit {
   }
 
   retryLoanDelivery() {
-  console.log('Retrying loan delivery for loan ID:', this.loanDetails);
   const retryPayload = {
     loanId: this.loanDetails.id,
   };
@@ -75,16 +74,19 @@ export class LoanDeliveryTabComponent implements OnInit {
       timeout(30000), // 30 seconds
       catchError(error => {
         console.error('Loan delivery retry failed or timed out:', error);
-        return throwError(() => error);
+        return throwError(error);
       })
     )
-    .subscribe(() => {
-      const clientId = this.loanDetails.clientId;
-      const url: string = this.router.url;
-      this.router
-        .navigateByUrl(`/clients/${clientId}/loans-accounts`, { skipLocationChange: true })
-        .then(() => this.router.navigate([url]));
+    .subscribe({
+      next: () => {
+        const clientId = this.loanDetails.clientId;
+        const url: string = this.router.url;
+        this.router
+          .navigateByUrl(`/clients/${clientId}/loans-accounts`, { skipLocationChange: true })
+          .then(() => this.router.navigate([url]));
+      }
     });
 }
 
 }
+
