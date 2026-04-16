@@ -43,6 +43,7 @@ import { LoansAccountChargeResolver } from './common-resolvers/loans-account-cha
 import { LoansAccountTransactionResolver } from './common-resolvers/loans-account-transaction.resolver';
 import { LoansTransactionRecieptResolver } from './common-resolvers/loans-transaction-reciept.resolver';
 import { LoansAccountTransactionTemplateResolver } from './common-resolvers/loans-account-transaction-template.resolver';
+import { LoanDeliveryTabComponent } from './loans-view/loan-delivery-tab/loan-delivery-tab.component';
 
 /** Loans Route. */
 const routes: Routes = [
@@ -138,6 +139,15 @@ const routes: Routes = [
                 data: {
                   title: extract('labels.text.Loan Tranche Details'),
                   breadcrumb: 'Loan Tranche Details',
+                  routeParamBreadcrumb: false,
+                },
+              },
+              {
+                path: 'loanDeliveryDetails',
+                component: LoanDeliveryTabComponent,
+                data: {
+                  title: extract('labels.text.loan.delivery.details'),
+                  breadcrumb: extract('labels.text.loan.delivery.details'),
                   routeParamBreadcrumb: false,
                 },
               },

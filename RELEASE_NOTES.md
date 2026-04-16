@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.5.0 - Community 1.0.0
+    * Loans & Payments
+        * [CP-4065] - Add Delivery Details Tab and Fetch Button in Loan Management
+
 ## Version 1.4.9 - Community 1.0.0
     * Bulk Uploads
         * [CP-4042] - Add bulk upload to remove clients from groups

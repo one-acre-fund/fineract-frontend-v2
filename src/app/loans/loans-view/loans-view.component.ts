@@ -181,4 +181,8 @@ export class LoansViewComponent implements OnInit {
       .navigateByUrl(`/clients/${clientId}/loans-accounts`, { skipLocationChange: true })
       .then(() => this.router.navigate([url]));
   }
+
+  showLoanDeliveryTabComponent() {
+    return this.status !== 'Submitted and pending approval';
+  }
 }

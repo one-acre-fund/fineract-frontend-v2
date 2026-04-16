@@ -1,0 +1,28 @@
+<div class="tab-container mat-typography">
+
+  <div *ngIf="!loanDetails.loanProductsDeliveryData">
+    <h3>{{ 'labels.text.loan.delivery.details.not.found' | translate }}</h3>
+    <button mat-raised-button color="primary" class="refresh-button" (click)="retryLoanDelivery()">
+      <mat-icon>refresh</mat-icon>
+      {{ 'labels.text.check.loan.delivery.details.availability' | translate }}
+    </button>
+  </div>
+
+  <div *ngIf="loanDetails.loanProductsDeliveryData">
+    <h3>{{ 'labels.text.loan.delivery.details' | translate }}</h3>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Key">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Key' | translate }}</th>
+        <td mat-cell *matCellDef="let ele">{{ 'labels.inputs.' + ele.key | translate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="Value">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Value' | translate }}</th>
+        <td mat-cell *matCellDef="let ele">{{ ele.value  }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="loanDeliveryDetailsColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: loanDeliveryDetailsColumns"></tr>
+    </table>
+  </div>
+</div>
