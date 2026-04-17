@@ -183,6 +183,6 @@ export class LoansViewComponent implements OnInit {
   }
 
   showLoanDeliveryTabComponent() {
-    return this.status !== 'Submitted and pending approval';
+    return this.loanDetailsData.loanDeliveryDetails?.isGroupQualified;
   }
 }

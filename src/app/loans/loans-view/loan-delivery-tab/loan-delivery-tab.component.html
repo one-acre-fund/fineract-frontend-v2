@@ -1,6 +1,6 @@
 <div class="tab-container mat-typography">
 
-  <div *ngIf="!loanDetails?.loanProductsDeliveryData">
+  <div *ngIf="!loanDetails?.loanDeliveryDetails?.delivery">
     <h3>{{ 'labels.text.loan.delivery.details.not.found' | translate }}</h3>
     <button mat-raised-button color="primary" class="refresh-button" (click)="retryLoanDelivery()">
       <mat-icon>refresh</mat-icon>
@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <div *ngIf="loanDetails?.loanProductsDeliveryData">
+  <div *ngIf="loanDetails?.loanDeliveryDetails?.delivery">
     <h3>{{ 'labels.text.loan.delivery.details' | translate }}</h3>
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="Key">

@@ -29,7 +29,7 @@ export class LoanDeliveryTabComponent implements OnInit {
   ) {
     this.route.parent.data.subscribe((data: { loanDetailsData: any }) => {
       this.loanDetails = data.loanDetailsData;
-      this.loanDeliveryDetails = this.loanDetails.loanProductsDeliveryData;
+      this.loanDeliveryDetails = this.loanDetails.loanDeliveryDetails?.delivery;
     });
   }
 
