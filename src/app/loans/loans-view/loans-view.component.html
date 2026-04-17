@@ -159,6 +159,17 @@
           {{ 'labels.inputs.Loan Tranche Details' | translate }}
         </a>
       </ng-container>
+      <ng-container *ngIf="showLoanDeliveryTabComponent()">
+        <a
+          mat-tab-link
+          [routerLink]="['./loanDeliveryDetails']"
+          routerLinkActive
+          #loanDeliveryDetails="routerLinkActive"
+          [active]="loanDeliveryDetails.isActive"
+        >
+          {{ 'labels.text.loan.delivery.details' | translate }}
+        </a>
+      </ng-container>
       <ng-container *ngIf="loanDetailsData.overdueCharges.length > 0">
         <a
           mat-tab-link
