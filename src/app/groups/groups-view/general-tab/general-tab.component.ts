@@ -1,6 +1,9 @@
 /** Angular Imports */
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+
+/** Custom Services */
+import { GroupsService } from "../../groups.service";
 
 /**
  * Groups View General Tab Component.
@@ -10,7 +13,7 @@ import { ActivatedRoute } from "@angular/router";
   templateUrl: "./general-tab.component.html",
   styleUrls: ["./general-tab.component.scss"],
 })
-export class GeneralTabComponent {
+export class GeneralTabComponent implements OnInit {
   /** Group's all accounts data */
   groupAccountData: any;
   /** Group's loan accounts data */
@@ -21,6 +24,12 @@ export class GeneralTabComponent {
   groupSummary: any;
   /** Group's Client Members */
   groupClientMembers: any;
+  /** Group View Data */
+  groupViewData: any;
+  /** Qualification data for each loan product */
+  qualificationDataMap: { [loanProductId: number]: any } = {};
+  /** Total qualified members across all loan products */
+  totalQualifiedMembers = 0;
   /** Columns to be Displayed for client members table */
   clientMemberColumns: string[] = ["Name", "Account No", "Office", "JLG Loan Application"];
   /** Columns to be displayed for open loan accounts table */
@@ -56,16 +65,57 @@ export class GeneralTabComponent {
    * Fetches group's related data from `resolve`
    * @param {ActivatedRoute} route Activated Route.
    */
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private groupsService: GroupsService) {
     this.route.data.subscribe((data: { groupAccountsData: any; groupClientMembers: any; groupSummary: any }) => {
       this.groupAccountData = data.groupAccountsData;
       this.savingAccounts = data.groupAccountsData.savingsAccounts;
-      this.loanAccounts = data.groupAccountsData.loanAccounts;
+      this.loanAccounts = data.groupAccountsData?.memberLoanAccounts;
       this.groupSummary = data.groupSummary ? data.groupSummary[0] : null;
     });
     this.route.parent.data.subscribe((data: { groupViewData: any }) => {
+      this.groupViewData = data.groupViewData;
       this.groupClientMembers = data.groupViewData.clientMembers;
     });
+  }
+
+  ngOnInit() {
+    this.fetchQualificationData();
+  }
+
+  /**
+   * Fetches qualification data for the group
+   * Uses /loanproducts/qualifiedclients?groupId=X to get all qualified clients in this group.
+   */
+  fetchQualificationData() {
+    const groupId = this.groupViewData?.id;
+    if (!groupId) {
+      return;
+    }
+
+    this.groupsService.getGroupQualificationData(groupId).subscribe(
+      (data: any[]) => {
+        if (!data || data.length === 0) {
+          return;
+        }
+
+        this.totalQualifiedMembers = data.length;
+
+        // Group by loan product ID
+        data.forEach((entry: any) => {
+          const productId = entry.loanProductId;
+          if (!productId) { return; }
+          if (!this.qualificationDataMap[productId]) {
+            this.qualificationDataMap[productId] = {
+              loanProductId: productId,
+              loanProductName: entry.loanProductName,
+              qualifiedMembers: 0
+            };
+          }
+          this.qualificationDataMap[productId].qualifiedMembers++;
+        });
+      },
+      () => { }
+    );
   }
 
   /**

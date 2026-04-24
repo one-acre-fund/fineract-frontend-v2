@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+/** Custom Services */
+import { LoansService } from '../../loans.service';
 
 @Component({
   selector: 'mifosx-general-tab',
   templateUrl: './general-tab.component.html',
   styleUrls: ['./general-tab.component.scss']
 })
-export class GeneralTabComponent implements OnInit {
+export class GeneralTabComponent implements OnInit, OnDestroy {
 
   loanDetails: any;
   status: any;
@@ -31,7 +36,13 @@ export class GeneralTabComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   detailsDataSource: MatTableDataSource<any>;
 
-  constructor(private route: ActivatedRoute) {
+  // Downpayment qualification data fetched from backend (Rahisi model)
+  downPaymentQualification: any;
+
+
+  private readonly destroy$ = new Subject<void>();
+
+  constructor(private route: ActivatedRoute, private loansService: LoansService) {
     this.route.parent.data.subscribe((data: { loanDetailsData: any, }) => {
       this.loanDetails = data.loanDetailsData;
     });
@@ -40,14 +51,14 @@ export class GeneralTabComponent implements OnInit {
   getLatestDueDate(): string {
     const periods = this.loanDetails?.repaymentSchedule?.periods;
     if (!Array.isArray(periods) || periods.length === 0) {
-      return "";
+      return '';
     }
     const validDueDates = this.loanDetails.repaymentSchedule.periods
       .filter(period => period.dueDate && Array.isArray(period.dueDate))
       .map(period => new Date(period.dueDate[0], period.dueDate[1] - 1, period.dueDate[2]));
 
     if (validDueDates.length === 0) {
-      return "";
+      return '';
     }
     const latestDate = new Date(Math.max(...validDueDates.map(date => date.getTime())));
     return latestDate.toISOString();
@@ -61,7 +72,35 @@ export class GeneralTabComponent implements OnInit {
     } else {
       this.setloanNonDetailsTableData();
     }
+    this.fetchDownPaymentQualificationData();
   }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  /**
+   * Fetches the downpayment qualification data from the backend.
+   */
+  fetchDownPaymentQualificationData() {
+    const loanId = this.loanDetails?.id;
+    if (!loanId) {
+      return;
+    }
+
+    this.loansService.getLoanQualificationData(loanId.toString())
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(
+        (data: any[]) => {
+          if (data && data.length > 0) {
+            this.downPaymentQualification = data[0];
+          }
+        },
+        () => {}
+      );
+  }
+
 
   setloanSummaryTableData() {
     this.loanSummaryTableData = [

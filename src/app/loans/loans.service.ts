@@ -13,6 +13,18 @@ import { Observable } from 'rxjs';
 })
 export class LoansService {
   constructor(private http: HttpClient) { }
+
+  /**
+   * Get qualification/downpayment data for a specific loan.
+   * Returns data from LoanDownPaymentQualification via the qualifiedclients endpoint.
+   * @param {string} loanId Loan Id
+   * @returns {Observable<any>} Qualification data including amountPaid, expectedAmount, percentagePaid, dateQualified
+   */
+  getLoanQualificationData(loanId: string): Observable<any> {
+    const httpParams = new HttpParams().set('loanId', loanId);
+    return this.http.get('/loanproducts/qualifiedclients', { params: httpParams });
+  }
+
   /**
    * @param {string} loanId loanId of the loan.
    * @returns {Observable<any>}

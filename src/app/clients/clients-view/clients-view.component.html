@@ -124,6 +124,25 @@
             {{ 'labels.oaf.Credit Score Limits' | translate }} : <br />
             <span *ngFor="let score of clientViewData.creditScoreData">
               {{ score.loanProductType }} {{ 'labels.oaf.Limit' | translate }} : {{ score.score }}&nbsp;
+              <span *ngIf="score.lastRefreshedDate">
+                ({{ 'labels.oaf.Refreshed' | translate }}: {{ score.lastRefreshedDate | dateFormat }})
+              </span>
+              <br />
+            </span>
+          </p>
+        </mat-card-subtitle>
+
+        <mat-card-subtitle *ngIf="clientQualificationData?.length > 0">
+          <p>
+            {{ 'labels.oaf.Qualification_Info' | translate }} : <br />
+            <span *ngFor="let qual of clientQualificationData">
+              {{ qual.loanProductName }}:
+              <span *ngIf="qual.dateQualified">
+                {{ 'labels.oaf.Qualified_On' | translate }}: {{ qual.dateQualified | dateFormat }}
+              </span>
+              <span *ngIf="qual.percentagePaid != null">
+                | {{ 'labels.oaf.Qualification_Percentage' | translate }}: {{ qual.percentagePaid }}%
+              </span>
               <br />
             </span>
           </p>
