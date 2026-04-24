@@ -23,17 +23,7 @@ export class SettingsComponent implements OnInit {
     }
   ];
   /** Date formats. */
-  dateFormats: string[] = [
-    'dd MMMM yyyy',
-    'dd/MMMM/yyyy',
-    'dd-MMMM-yyyy',
-    'dd-MM-yy',
-    'MMMM-dd-yyyy',
-    'MMMM dd yyyy',
-    'MMMM/dd/yyyy',
-    'MM-dd-yy',
-    'yyyy-MM-dd'
-  ];
+  dateFormats: string[] =  SettingsService.dateFormats;
   /** Placeholder for fonts. */
   fonts: any;
 

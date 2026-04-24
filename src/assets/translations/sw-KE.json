@@ -2869,7 +2869,8 @@
       "Country Code is": "Nambari ya Nchi ni",
       "Role Name is": "Jina la Jukumu ni",
       "Amount Disbursed": "Kiasi Kilichogawiwa",
-      "Enter Level Name": "Weka Jina la Kiwango"
+      "Enter Level Name": "Weka Jina la Kiwango",
+      "paymentProviderDateFormat": "Umbizo la Tarehe la Mtoa Huduma ya Malipo ni"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Uhasibu",

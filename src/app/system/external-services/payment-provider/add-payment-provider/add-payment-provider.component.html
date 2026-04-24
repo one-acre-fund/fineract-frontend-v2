@@ -100,6 +100,32 @@
         <div fxLayout="row">
           <div fxFlex="40%" fxLayout="column">
             <mat-form-field>
+              <mat-label>{{ 'labels.commons.Bank code' | translate }}</mat-label>
+              <input matInput [required]="hasRequiredValidator('bank_code')" formControlName="bank_code" />
+              <mat-error *ngIf="addPaymentProviderForm.controls.bank_code.hasError('required')"
+                >{{ 'labels.commons.Bank code is' | translate
+                }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>{{ 'labels.inputs.paymentProviderDateFormat' | translate }}</mat-label>
+              <mat-select formControlName="paymentProviderDateFormat">
+                <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat">
+                  {{ dateFormat }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addPaymentProviderForm.controls.paymentProviderDateFormat?.hasError('required')">{{ 'labels.inputs.paymentProviderDateFormat' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div fxLayout="row">
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
               <mat-label>{{ 'labels.commons.Authentication type' | translate }}</mat-label>
               <mat-select required formControlName="authentication_type">
                 <mat-option
@@ -111,19 +137,6 @@
               </mat-select>
               <mat-error *ngIf="addPaymentProviderForm.controls.authentication_type.hasError('required')"
                 >{{ 'labels.commons.Authentication type is' | translate
-                }}<strong>{{ 'labels.commons.required' | translate }}</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div fxLayout="row">
-          <div fxFlex="40%" fxLayout="column">
-            <mat-form-field>
-              <mat-label>{{ 'labels.commons.Bank code' | translate }}</mat-label>
-              <input matInput [required]="hasRequiredValidator('bank_code')" formControlName="bank_code" />
-              <mat-error *ngIf="addPaymentProviderForm.controls.bank_code.hasError('required')"
-                >{{ 'labels.commons.Bank code is' | translate
                 }}<strong>{{ 'labels.commons.required' | translate }}</strong>
               </mat-error>
             </mat-form-field>

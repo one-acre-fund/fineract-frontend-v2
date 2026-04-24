@@ -2872,7 +2872,8 @@
       "Role Name is": "Role Name is",
       "Amount Disbursed": "Amount Disbursed",
       "Enter Level Name": "Enter Level Name",
-      "AccountNumber": "AccountNumber"
+      "AccountNumber": "AccountNumber",
+      "paymentProviderDateFormat": "Payment Provider Date Format"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Accounting",

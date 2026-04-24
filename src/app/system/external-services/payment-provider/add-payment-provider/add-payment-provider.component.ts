@@ -9,6 +9,7 @@ import {
   hasRequiredValidator
 } from '../../external-service.model';
 import { MatomoTracker } from '@ngx-matomo/tracker';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-add-payment-provider',
@@ -23,6 +24,8 @@ export class AddPaymentProviderComponent implements OnInit {
   officeOptions: any = [];
   countryOptions: any = [];
   authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
+  /** Date formats. */
+  dateFormats: string[] =  SettingsService.dateFormats;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -71,6 +74,7 @@ export class AddPaymentProviderComponent implements OnInit {
       authentication_type: ['', Validators.required],
       business_id: ['', Validators.required],
       sub_entity_code: [''],
+      paymentProviderDateFormat: ['', Validators.required],
       username: [''],
       password: ['', Validators.required]
     });

@@ -92,6 +92,19 @@
               </mat-error>
             </mat-form-field>
           </div>
+          <div fxFlex="10%" fxLayout="column"></div>
+          <div fxFlex="40%" fxLayout="column">
+            <mat-form-field>
+              <mat-label>{{ 'labels.inputs.paymentProviderDateFormat' | translate }}</mat-label>
+              <mat-select formControlName="paymentProviderDateFormat">
+                <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat">
+                  {{ dateFormat }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="editPaymentProviderForm.controls.paymentProviderDateFormat?.hasError('required')">{{ 'labels.inputs.paymentProviderDateFormat' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
 
         <div fxLayout="row">

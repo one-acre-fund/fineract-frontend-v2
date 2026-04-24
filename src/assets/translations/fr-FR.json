@@ -2849,7 +2849,8 @@
       "Role Name is": "Le nom du rôle est",
       "Amount Disbursed": "Montant décaissé",
       "Enter Level Name": "Entrez le nom du niveau",
-      "AccountNumber": "Numéro de compte"
+      "AccountNumber": "Numéro de compte",
+      "paymentProviderDateFormat": "Format de date du fournisseur de paiement"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",

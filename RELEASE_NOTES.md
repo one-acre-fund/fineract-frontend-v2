@@ -1,5 +1,9 @@
 # Release Notes
 
+## Version 1.4.9.1 - Community 1.0.0
+    * Clients
+        * * [CP-4095] - Payment Provider External service: Introduce support of date format for a payment provider
+
 ## Version 1.4.9 - Community 1.0.0
     * Bulk Uploads
         * [CP-4042] - Add bulk upload to remove clients from groups
