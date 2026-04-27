@@ -33,7 +33,7 @@ export class EditPaymentProviderComponent implements OnInit {
   ) {
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    this.countryExternalService = this.router.getCurrentNavigation().extras.state.countryExternalService;
+    this.countryExternalService = this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
   }
 
   ngOnInit() {
