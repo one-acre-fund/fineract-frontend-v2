@@ -2784,6 +2784,11 @@
       "Write off on": "Ondoa mnamo",
       "Write-off": "Ondoa",
       "Written Off": "Imeondolewa",
+      "loan.delivery.status": "Hali ya Uwasilishaji wa Mkopo",
+      "loan.date.delivered": "Tarehe ya Uwasilishaji",
+      "loan.delivery.group.name": "Jina la Kundi la Mkopo",
+      "loan.delivery.product.name": "Jina la Bidhaa",
+      "loan.delivery.application.cycle.id": "ID ya Mzunguko wa Maombi ya Mkopo",
       "Yes": "Ndiyo",
       "No": "Hapana",
       "Yearly": "Kila Mwaka",
@@ -2874,7 +2879,8 @@
       "Country Code is": "Nambari ya Nchi ni",
       "Role Name is": "Jina la Jukumu ni",
       "Amount Disbursed": "Kiasi Kilichogawiwa",
-      "Enter Level Name": "Weka Jina la Kiwango"
+      "Enter Level Name": "Weka Jina la Kiwango",
+      "paymentProviderDateFormat": "Umbizo la Tarehe la Mtoa Huduma ya Malipo ni"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Uhasibu",
@@ -3421,6 +3427,9 @@
       "LoanAccountSnapshotBusinessEvent": "Tukio la Picha ya Akaunti ya Mkopo la Biashara",
       "Loan Account Actions": "Vitendo vya Akaunti ya Mkopo",
       "Loan Collateral Details": "Maelezo ya Dhamana ya Mkopo",
+      "loan.delivery.details": "Maelezo ya Uwasilishaji wa Mkopo",
+      "loan.delivery.details.not.found": "Maelezo ya Uwasilishaji wa Mkopo Hayakuweza Kupatikana",
+      "check.loan.delivery.details.availability": "Angalia Upatikanaji wa Maelezo ya Uwasilishaji wa Mkopo",
       "Loan Disbursal": "Ugawaji wa Mkopo",
       "Loan Documents": "Nyaraka za Mkopo",
       "Loan Products": "Bidhaa za Mikopo",

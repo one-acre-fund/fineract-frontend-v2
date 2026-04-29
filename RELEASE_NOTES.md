@@ -4,11 +4,16 @@
     * Loans & Payments
         * [CP-4057] - Improve Rahisi Model UI to show more details and make it more user friendly
 
+## Version 1.4.9.1 - Community 1.0.0
+    * Clients
+        * * [CP-4095] - Payment Provider External service: Introduce support of date format for a payment provider
+
 ## Version 1.4.9 - Community 1.0.0
     * Bulk Uploads
         * [CP-4042] - Add bulk upload to remove clients from groups
     * Loans & Payments
         * [CP-4067] - Apply country config to allow dynamic downpayment on loan products
+        * [CP-4065] - Add Delivery Details Tab and Fetch Button in Loan Management
 
 ## Version 1.4.8.1 - Community 1.0.0
     * Bulk Uploads

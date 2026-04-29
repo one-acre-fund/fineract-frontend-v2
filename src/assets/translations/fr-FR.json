@@ -2782,6 +2782,11 @@
       "Write off on": "Radier sur",
       "Write-off": "Radier",
       "Written Off": "Radié",
+      "loan.delivery.status": "Statut de livraison du prêt",
+      "loan.date.delivered": "Date de livraison",
+      "loan.delivery.group.name": "Nom du groupe de prêt",
+      "loan.delivery.product.name": "Nom du produit",
+      "loan.delivery.application.cycle.id": "ID du cycle de demande de prêt",
       "Yes": "Oui",
       "No": "Non",
       "Yearly": "Annuel",
@@ -2854,7 +2859,8 @@
       "Role Name is": "Le nom du rôle est",
       "Amount Disbursed": "Montant décaissé",
       "Enter Level Name": "Entrez le nom du niveau",
-      "AccountNumber": "Numéro de compte"
+      "AccountNumber": "Numéro de compte",
+      "paymentProviderDateFormat": "Format de date du fournisseur de paiement"
     },
     "loanProductSteps": {
       "ACCOUNTING": "Comptabilité",
@@ -3399,6 +3405,9 @@
       "LoanAccountSnapshotBusinessEvent": "LoanAccountSnapshotBusinessEvent",
       "Loan Account Actions": "Actions sur le compte de prêt",
       "Loan Collateral Details": "Détails de la garantie de prêt",
+      "loan.delivery.details": "Détails de la livraison du prêt",
+      "loan.delivery.details.not.found": "Détails de la livraison du prêt non trouvés",
+      "check.loan.delivery.details.availability": "Vérifier la disponibilité des détails de livraison du prêt",
       "Loan Disbursal": "Décaissement du prêt",
       "Loan Documents": "Documents de prêt",
       "Loan Products": "Produits de prêt",

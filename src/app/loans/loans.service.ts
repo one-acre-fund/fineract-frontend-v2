@@ -474,4 +474,13 @@ export class LoansService {
     return this.http.post(`/loans/${loanId}`, data, {params: httpParams});
   }
 
+  /**
+   * Retry Loan Delivery.
+    * @param {any} retryPayload Retry Payload.
+   * @returns {Observable<any>}
+   */
+  retryLoanDelivery(retryPayload: any): Observable<any> {
+    return this.http.post(`/loans/retryDeliveries`, retryPayload);
+  }
+
 }

@@ -5,6 +5,7 @@ import { SystemService } from 'app/system/system.service';
 import {APIKEY, GetExternalServiceModel, hasRequiredValidator} from '../../external-service.model';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
 import { MatomoTracker } from '@ngx-matomo/tracker';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-edit-payment-provider',
@@ -19,6 +20,8 @@ export class EditPaymentProviderComponent implements OnInit {
   officeOptions: any = [];
   countryOptions: any = [];
   authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
+  /** Date formats. */
+  dateFormats: string[] =  SettingsService.dateFormats;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -30,7 +33,7 @@ export class EditPaymentProviderComponent implements OnInit {
   ) {
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    this.countryExternalService = this.router.getCurrentNavigation().extras.state.countryExternalService;
+    this.countryExternalService = this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
   }
 
   ngOnInit() {
@@ -64,6 +67,7 @@ export class EditPaymentProviderComponent implements OnInit {
       sub_entity_code: [getProp('sub_entity_code')],
       username: [getProp('username')],
       password: [getProp('password')],
+      paymentProviderDateFormat: [getProp('paymentProviderDateFormat'), Validators.required]
     });
     this.applyAuthTypeConditionalValidators();
   }

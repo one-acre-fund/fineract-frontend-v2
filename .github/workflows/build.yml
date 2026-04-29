@@ -75,7 +75,9 @@ jobs:
         uses: docker/Build-push-action@v6.13.0
         with:
           push: ${{ env.SHOULD_PUBLISH == 'true'}}
-          tags: ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
+          tags: |
+            ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
+            ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:latest
           context: ${{ github.workspace }}
 
       - name: Use latest image tag

@@ -9,6 +9,7 @@ import {
   hasRequiredValidator
 } from '../../external-service.model';
 import { MatomoTracker } from '@ngx-matomo/tracker';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-add-payment-provider',
@@ -23,6 +24,8 @@ export class AddPaymentProviderComponent implements OnInit {
   officeOptions: any = [];
   countryOptions: any = [];
   authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
+  /** Date formats. */
+  dateFormats: string[] =  SettingsService.dateFormats;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -34,7 +37,7 @@ export class AddPaymentProviderComponent implements OnInit {
     //set Matomo page info
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    this.countryId = this.router.getCurrentNavigation().extras.state.countryId || null;
+    this.countryId = this.router.getCurrentNavigation()?.extras?.state?.countryId || null;
     this.externalServiceConfigurationService.getExternalServiceTemplate(this.countryId).subscribe({
       next: (data) => {
         this.countryOptions = data.countryOptions;
@@ -61,18 +64,19 @@ export class AddPaymentProviderComponent implements OnInit {
    */
   setPaymentProviderForm() {
     this.addPaymentProviderForm = this.formBuilder.group({
-      provider_name: ['', Validators.required],
+      provider_name: [null, Validators.required],
       country_id: [this.countryId, Validators.required],
       office_id: [null],
-      bank_code: [''],
-      base_url: ['', Validators.required],
-      account_creation_endpoint: ['', Validators.required],
-      authentication_endpoint: [''],
-      authentication_type: ['', Validators.required],
-      business_id: ['', Validators.required],
-      sub_entity_code: [''],
-      username: [''],
-      password: ['', Validators.required]
+      bank_code: [null],
+      base_url: [null, Validators.required],
+      account_creation_endpoint: [null, Validators.required],
+      authentication_endpoint: [null],
+      authentication_type: [null, Validators.required],
+      business_id: [null, Validators.required],
+      sub_entity_code: [null],
+      paymentProviderDateFormat: [null, Validators.required],
+      username: [null],
+      password: [null, Validators.required]
     });
 
     this.handleAuthTypeChanges();
@@ -118,7 +122,13 @@ export class AddPaymentProviderComponent implements OnInit {
     const paymentProviderData: AddExternalServiceModel = new AddExternalServiceModel();
     paymentProviderData.serviceName = ExternalServiceConfigurationService.PAYMENT_PROVIDER_SERVICE_NAME;
     paymentProviderData.countryId = this.addPaymentProviderForm.value.country_id;
-    const properties: AddPaymentProviderPropertyModel = this.addPaymentProviderForm.value;
+    const formValue = this.addPaymentProviderForm.value;
+    const properties: AddPaymentProviderPropertyModel = {} as AddPaymentProviderPropertyModel;
+    Object.keys(formValue).forEach(key => {
+      if (formValue[key] != null) {
+        properties[key] = formValue[key];
+      }
+    });
     paymentProviderData.values = [
       {
         officeId: this.addPaymentProviderForm.value.office_id,
