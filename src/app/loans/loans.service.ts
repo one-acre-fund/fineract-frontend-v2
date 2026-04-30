@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 /**
  * Loans service.
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LoansService {
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   /**
    * Get qualification/downpayment data for a specific loan.
@@ -21,6 +21,9 @@ export class LoansService {
    * @returns {Observable<any>} Qualification data including amountPaid, expectedAmount, percentagePaid, dateQualified
    */
   getLoanQualificationData(loanId: string): Observable<any> {
+    if (!loanId || !String(loanId).trim()) {
+      return throwError(() => new Error('getLoanQualificationData: loanId is required'));
+    }
     const httpParams = new HttpParams().set('loanId', loanId);
     return this.http.get('/loanproducts/qualifiedclients', { params: httpParams });
   }
