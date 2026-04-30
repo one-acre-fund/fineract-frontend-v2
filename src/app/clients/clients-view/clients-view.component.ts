@@ -38,6 +38,8 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
   isEditAllowedFlag: boolean = false;
   clientAccountsData: any;
   kycFields: any[] = [];
+  /** Client qualification data */
+  clientQualificationData: any[] = [];
   private readonly destroy$ = new Subject<void>();
 
 
@@ -111,6 +113,14 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     this.clientsService.getKycFields().pipe(takeUntil(this.destroy$)).subscribe(
       (fields: any[]) => {
         this.kycFields = fields;
+      },
+      (error: any) => {}
+    );
+
+    // Fetch client qualification data
+    this.clientsService.getClientQualificationData(this.clientViewData.id).pipe(takeUntil(this.destroy$)).subscribe(
+      (data: any[]) => {
+        this.clientQualificationData = data || [];
       },
       (error: any) => {}
     );
@@ -474,15 +484,15 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     return this.clientViewData.failedKycFields
       .map((field: string) => {
         const description = kycFieldNameMap[field];
-        
+
         if (description) {
           // Check if this field has a special translation path
           const translationKey = specialTranslationPaths[field] || `labels.inputs.${description}`;
-          
+
           // Translate the description (e.g., "Client Image" -> "Picha ya Mteja" in Swahili)
           return this.translateService.instant(translationKey);
         }
-        
+
         // Fallback to field name if not found
         return field;
       })

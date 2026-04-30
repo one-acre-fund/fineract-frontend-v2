@@ -13,6 +13,14 @@
       {{ 'labels.inputs.Active Overdue Group Loans' | translate }}: {{ groupSummary?.overduegrouploans }}<br />
     </p>
     <p>{{ 'labels.inputs.Active Clients' | translate }}: {{ groupSummary?.activeclients }}<br /></p>
+    <div *ngIf="totalQualifiedMembers > 0">
+      <p>
+        <strong>{{ 'labels.inputs.Qualified_Members' | translate }}: {{ totalQualifiedMembers }}</strong><br />
+        <ng-container *ngFor="let entry of qualificationDataMap | keyvalue">
+          <span class="m-l-10">• {{ entry.value.loanProductName }}: {{ entry.value.qualifiedMembers }}</span><br />
+        </ng-container>
+      </p>
+    </div>
   </div>
 
   <!-- Client Members Table -->
