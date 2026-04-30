@@ -136,13 +136,13 @@ export class GroupsService {
   }
 
   /**
-   * Get group qualification data for a specific loan product.
+   * Get qualification data for all qualified clients in a group.
    * @param {number} groupId Group Id
-   * @returns {Observable<any>} Qualified clients data for the group.
+   * @returns {Observable<any[]>} Qualified clients data for the group.
    */
-  getGroupQualificationData(groupId: number): Observable<any> {
+  getGroupQualificationData(groupId: number): Observable<any[]> {
     const httpParams = new HttpParams().set('groupId', groupId.toString());
-    return this.http.get('/loanproducts/qualifiedclients', { params: httpParams });
+    return this.http.get<any[]>('/loanproducts/qualifiedclients', { params: httpParams });
   }
 
   /**
