@@ -3,6 +3,8 @@
 ## Version 1.4.10 - Community 1.0.0
     * Loans & Payments
         * [CP-4057] - Improve Rahisi Model UI to show more details and make it more user friendly
+    * System
+        * [FOX-202] - Resolve errors during create/modify custom fields of dropdown type
 
 ## Version 1.4.9.1 - Community 1.0.0
     * Clients
