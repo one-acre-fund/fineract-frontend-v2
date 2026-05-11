@@ -256,20 +256,20 @@ export class ViewBulkImportComponent implements OnInit {
         return !this.getSelectedOfficeId();
       case BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT:
         const countryId = this.bulkImportForm.get('countryId')?.value;
-      const officeId = this.getSelectedOfficeId();
-      
-      // Enable if country selected but no office selected
-      if (countryId && !officeId) {
-        return false;
-      }
-      
-      // If office is selected, require lowest OU to be selected
-      if (officeId) {
-        return !this.getEffectiveOfficeId();
-      }
-      
-      // Disable if no country selected
-      return true;
+        const officeId = this.getSelectedOfficeId();
+        
+        // Enable if country selected but no office selected
+        if (countryId && !officeId) {
+          return false;
+        }
+        
+        // If office is selected, require lowest OU to be selected
+        if (officeId) {
+          return !this.getEffectiveOfficeId();
+        }
+        
+        // Disable if no country selected
+        return true;
 
       default:
         return false;
