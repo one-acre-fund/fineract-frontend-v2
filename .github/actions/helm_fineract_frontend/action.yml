@@ -5,12 +5,6 @@ inputs:
   ECR_REGISTRY:
     description: The Amazon Elastic Container Registry.
     required: true
-  ECR_PULL_PASSWORD:
-    description: The password for the Amazon Elastic Container Registry.
-    required: true
-  ECR_PULL_USERNAME:
-    description: The username for the Amazon Elastic Container Registry.
-    required: true
   ARTIFACT_NAME:
     description: The name of the artifact.
     required: true
@@ -72,6 +66,7 @@ inputs:
     description: The URL of the APM server.
   APM_ACTIVE:
     description: Whether APM is active or not.
+    type: boolean
     default: true
 
 runs:
@@ -108,9 +103,6 @@ runs:
 
     - name: Helm Install Fineract Frontend
       run: |
-        export HELM_EXPERIMENTAL_OCI=1
-        echo "${{ inputs.ECR_PULL_PASSWORD }}" | helm registry login ${{ inputs.ECR_REGISTRY }} --username "${{ inputs.ECR_PULL_USERNAME }}" --password-stdin
-
         helm upgrade --install \
           "${{ inputs.RELEASE_NAME }}" \
           --values "${{ github.workspace }}/fineract-values.yaml" \

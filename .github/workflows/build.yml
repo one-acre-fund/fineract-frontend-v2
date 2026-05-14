@@ -29,14 +29,14 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
           fetch-tags: true
           show-progress: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v6.4.0
         with:
           node-version: 18
 
@@ -102,14 +102,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
           fetch-tags: true
           show-progress: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.2.0
+        uses: actions/setup-node@v6.4.0
         with:
           node-version: 18
 
@@ -140,7 +140,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup Helm
         uses: one-acre-fund/oaf-actions/helm_setup@1.0.0
@@ -158,20 +158,11 @@ jobs:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Generate ECR pull token
-        id: ecr-token
-        run: |
-          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
-          echo "::add-mask::$ECR_PASSWORD"
-          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
-
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
           ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
-          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
-          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -204,7 +195,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup Helm
         uses: one-acre-fund/oaf-actions/helm_setup@1.0.0
@@ -222,20 +213,11 @@ jobs:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Generate ECR pull token
-        id: ecr-token
-        run: |
-          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
-          echo "::add-mask::$ECR_PASSWORD"
-          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
-
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
           ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
-          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
-          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -268,7 +250,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup Helm
         uses: one-acre-fund/oaf-actions/helm_setup@1.0.0
@@ -286,20 +268,11 @@ jobs:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Generate ECR pull token
-        id: ecr-token
-        run: |
-          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
-          echo "::add-mask::$ECR_PASSWORD"
-          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
-
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
           ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
-          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
-          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -332,7 +305,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v6.0.2
 
       - name: Setup Helm
         uses: one-acre-fund/oaf-actions/helm_setup@1.0.0
@@ -350,20 +323,11 @@ jobs:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Generate ECR pull token
-        id: ecr-token
-        run: |
-          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
-          echo "::add-mask::$ECR_PASSWORD"
-          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
-
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
           ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
-          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
-          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
