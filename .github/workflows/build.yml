@@ -19,6 +19,7 @@ env:
   SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
   IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
   ARTIFACT_NAME: fineract-frontend-v2
+  AWS_REGION: eu-west-1
 
 jobs:
   Build:
@@ -67,16 +68,14 @@ jobs:
         run: npm install
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
-      - name: Login to Amazon ECR
+      - name: Login to AWS ECR
         id: login-ecr
-        if: ${{ env.SHOULD_PUBLISH == 'true'}}
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v2.1.5
 
       - name: Docker Build & Push
         uses: docker/Build-push-action@v6.13.0
@@ -153,16 +152,20 @@ jobs:
           K8S_SECRET: "${{ secrets.K8S_TEST_DEFAULT }}"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.1.5
 
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_REGISTRY: "${{ steps.login-ecr.outputs.registry }}"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -208,16 +211,20 @@ jobs:
           K8S_SECRET: "${{ secrets.K8S_QA_DEFAULT }}"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.1.5
 
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_REGISTRY: "${{ steps.login-ecr.outputs.registry }}"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -263,16 +270,20 @@ jobs:
           K8S_SECRET: "${{ secrets.K8S_UAT_DEFAULT }}"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.1.5
 
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_REGISTRY: "${{ steps.login-ecr.outputs.registry }}"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -318,16 +329,20 @@ jobs:
           K8S_SECRET: "${{ secrets.K8S_PROD_DEFAULT }}"
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6.1.1
         with:
           role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to AWS ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2.1.5
 
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_REGISTRY: "${{ steps.login-ecr.outputs.registry }}"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"

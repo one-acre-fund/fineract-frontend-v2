@@ -66,8 +66,8 @@ inputs:
     description: The URL of the APM server.
   APM_ACTIVE:
     description: Whether APM is active or not.
-    type: boolean
-    default: true
+    required: false
+    default: 'true'
 
 runs:
   using: composite
