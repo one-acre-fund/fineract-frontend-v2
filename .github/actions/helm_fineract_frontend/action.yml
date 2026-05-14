@@ -2,14 +2,14 @@ name: Helm Fineract Frontend
 description: GitHub Action for deploying ingresses.
 
 inputs:
-  ACR_REGISTRY:
-    description: The Azure Container Registry.
+  ECR_REGISTRY:
+    description: The Amazon Elastic Container Registry.
     required: true
-  ACR_PULL_PASSWORD:
-    description: The password for the Azure Container Registry.
+  ECR_PULL_PASSWORD:
+    description: The password for the Amazon Elastic Container Registry.
     required: true
-  ACR_PULL_USERNAME:
-    description: The username for the Azure Container Registry.
+  ECR_PULL_USERNAME:
+    description: The username for the Amazon Elastic Container Registry.
     required: true
   ARTIFACT_NAME:
     description: The name of the artifact.
@@ -109,7 +109,7 @@ runs:
     - name: Helm Install Fineract Frontend
       run: |
         export HELM_EXPERIMENTAL_OCI=1
-        echo "${{ inputs.ACR_PULL_PASSWORD }}" | helm registry login ${{ inputs.ACR_REGISTRY }} --username "${{ inputs.ACR_PULL_USERNAME }}" --password-stdin
+        echo "${{ inputs.ECR_PULL_PASSWORD }}" | helm registry login ${{ inputs.ECR_REGISTRY }} --username "${{ inputs.ECR_PULL_USERNAME }}" --password-stdin
 
         helm upgrade --install \
           "${{ inputs.RELEASE_NAME }}" \
@@ -117,5 +117,5 @@ runs:
           --values "${{ github.workspace }}/${{ inputs.ARTIFACT_NAME }}/values.yaml" \
           --namespace "${{ inputs.NAMESPACE }}" \
           --debug --wait \
-          oci://${{ inputs.ACR_REGISTRY }}/helm/fineract-frontend
+          oci://${{ inputs.ECR_REGISTRY }}/helm/fineract-frontend
       shell: bash

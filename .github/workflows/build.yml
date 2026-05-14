@@ -24,6 +24,9 @@ jobs:
   Build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -63,21 +66,25 @@ jobs:
       - name: Install Node Packages
         run: npm install
 
-      - name: Login to Azure registry
-        uses: docker/login-action@v3.3.0
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
         if: ${{ env.SHOULD_PUBLISH == 'true'}}
         with:
-          registry: ${{ vars.ACR_REGISTRY }}
-          username: ${{ vars.ACR_PULL_USERNAME }}
-          password: ${{ secrets.ACR_PULL_PASSWORD }}
+          role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        if: ${{ env.SHOULD_PUBLISH == 'true'}}
+        uses: aws-actions/amazon-ecr-login@v2
 
       - name: Docker Build & Push
         uses: docker/Build-push-action@v6.13.0
         with:
           push: ${{ env.SHOULD_PUBLISH == 'true'}}
           tags: |
-            ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
-            ${{ vars.ACR_REGISTRY }}/oneacrefund/fineract-frontend-v2:latest
+            ${{ steps.login-ecr.outputs.registry }}/oneacrefund/fineract-frontend-v2:${{ steps.set-env.outputs.IMAGE_TAGS }}
+            ${{ steps.login-ecr.outputs.registry }}/oneacrefund/fineract-frontend-v2:latest
           context: ${{ github.workspace }}
 
       - name: Use latest image tag
@@ -128,6 +135,9 @@ jobs:
     needs: [Build, QualityCheck]
     environment:
       name: Integration
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -142,13 +152,26 @@ jobs:
           K8S_URL: "${{ secrets.K8S_TEST_URL }}"
           K8S_SECRET: "${{ secrets.K8S_TEST_DEFAULT }}"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Generate ECR pull token
+        id: ecr-token
+        run: |
+          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
+          echo "::add-mask::$ECR_PASSWORD"
+          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
+
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
-          ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
-          ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
+          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
+          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -176,6 +199,9 @@ jobs:
     if: github.event.ref == 'refs/heads/main' || github.event.ref == 'refs/heads/develop' || contains(github.event.ref, 'refs/heads/hotfix/') || contains(github.event.ref, 'refs/heads/release/')
     environment:
       name: QA
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -190,13 +216,26 @@ jobs:
           K8S_URL: "${{ secrets.K8S_QA_URL }}"
           K8S_SECRET: "${{ secrets.K8S_QA_DEFAULT }}"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Generate ECR pull token
+        id: ecr-token
+        run: |
+          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
+          echo "::add-mask::$ECR_PASSWORD"
+          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
+
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
-          ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
-          ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
+          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
+          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -224,6 +263,9 @@ jobs:
     needs: [Build, QualityCheck]
     environment:
       name: UAT
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -238,13 +280,26 @@ jobs:
           K8S_URL: "${{ secrets.K8S_UAT_URL }}"
           K8S_SECRET: "${{ secrets.K8S_UAT_DEFAULT }}"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Generate ECR pull token
+        id: ecr-token
+        run: |
+          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
+          echo "::add-mask::$ECR_PASSWORD"
+          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
+
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
-          ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
-          ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
+          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
+          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
@@ -272,6 +327,9 @@ jobs:
     if: github.event.ref == 'refs/heads/main' || contains(github.event.ref, 'refs/heads/hotfix/') || contains(github.event.ref, 'refs/heads/release/')
     environment:
       name: Production
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4.2.2
@@ -286,13 +344,26 @@ jobs:
           K8S_URL: "${{ secrets.K8S_PROD_URL }}"
           K8S_SECRET: "${{ secrets.K8S_PROD_DEFAULT }}"
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.ECR_REGISTRY_ROLE }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Generate ECR pull token
+        id: ecr-token
+        run: |
+          ECR_PASSWORD=$(aws ecr get-login-password --region ${{ vars.AWS_REGION }})
+          echo "::add-mask::$ECR_PASSWORD"
+          echo "ECR_PASSWORD=$ECR_PASSWORD" >> $GITHUB_OUTPUT
+
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
         with:
           NAMESPACE: "${{ vars.NAMESPACE }}"
-          ACR_REGISTRY: "${{ vars.ACR_REGISTRY }}"
-          ACR_PULL_PASSWORD: "${{ secrets.ACR_PULL_PASSWORD }}"
-          ACR_PULL_USERNAME: "${{ vars.ACR_PULL_USERNAME }}"
+          ECR_REGISTRY: "${{ vars.ECR_REGISTRY }}"
+          ECR_PULL_PASSWORD: "${{ steps.ecr-token.outputs.ECR_PASSWORD }}"
+          ECR_PULL_USERNAME: "AWS"
           ARTIFACT_NAME: "${{ env.ARTIFACT_NAME }}"
           REPLICAS: "${{ vars.REPLICAS }}"
           RELEASE_NAME: "${{ vars.RELEASE_NAME }}"
