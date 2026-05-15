@@ -1,4 +1,10 @@
 commonconfig:
+  FINERACT_KEYCLOAK_CLIENT_ID: fineract
+  FINERACT_KEYCLOAK_PUBLIC_CLIENT: "true"
+  FINERACT_KEYCLOAK_REALM: OneAcreFund
+  FINERACT_PROXY_URL: https://fineract-fineract-backend-fineractrest:8443
+  MATOMO_SITE_URL: https://analytics.oneacrefund.org
+  SENTRY_DSN: https://de303153328352a5b50dfdd84d381428@o454511.ingest.us.sentry.io/4508318875844608
   APM_ACTIVE: "false"
   APM_SERVER_URL: https://api.dev.oneacrefund.org/apm
   AUTH_SERVER_URL: https://accounts.dev.oneacrefund.org
