@@ -10,3 +10,6 @@ initContainers:
       - |
         until wget -q -O - http://fineract-fineract-backend-fineractrest:8080/fineract-provider/actuator/health;
         do echo waiting for fineract backend; sleep 2; done;
+
+imagePullSecrets:
+  - name: acr-pull-secret
