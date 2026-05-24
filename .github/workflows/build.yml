@@ -4,27 +4,28 @@ run-name: fineract-frontend-v2-${{ github.ref_name }}-${{ github.run_number }}
 on:
   push:
     branches:
-      - master
       - main
       - develop
       - hotfix/*
       - release/*
   pull_request:
     branches:
-      - master
       - main
       - develop
       - release/*
 
 env:
-  SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/master' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') }}
-  IS_RELEASE: ${{ github.ref  == 'refs/heads/master' }}
+  SHOULD_PUBLISH: ${{ github.ref  == 'refs/heads/main' ||  github.ref == 'refs/heads/develop' || startsWith(github.ref , 'refs/heads/release') || startsWith(github.ref , 'refs/heads/hotfix/') }}
+  IS_RELEASE: ${{ github.ref  == 'refs/heads/main' }}
   ARTIFACT_NAME: fineract-frontend-v2
 
 jobs:
   Build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
@@ -99,8 +100,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git fetch origin main
-          git checkout main
+          git fetch origin develop
+          git checkout develop
 
           update_values() {
             local ENV=$1
@@ -143,7 +144,7 @@ jobs:
 
           Source branch: ${{ github.ref_name }}
           Commit: ${{ github.sha }}"
-          git push origin main
+          git push origin develop
 
   QualityCheck:
     name: Quality Check
