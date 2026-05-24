@@ -97,8 +97,8 @@ jobs:
         env:
           IMAGE_TAG: ${{ steps.set-env.outputs.IMAGE_TAGS }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "oneacrefund-automation"
+          git config user.email "oneacrefund-automation@users.noreply.github.com"
 
           git fetch origin develop
           git checkout develop
