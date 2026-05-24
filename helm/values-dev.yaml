@@ -16,6 +16,6 @@ commonconfig:
   MATOMO_SITE_ID: "2"
 
 image:
-  tag: 1.4.9.1.2026.05.15.852
+  tag: 1.4.9.1.2026.04.27.835
 
 replicaCount: 1
