@@ -90,6 +90,59 @@ jobs:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ github.workspace }}/deployment
 
+      - name: Commit and push updated image tag
+        env:
+          IMAGE_TAG: ${{ steps.set-env.outputs.IMAGE_TAGS }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git fetch origin main
+          git checkout main
+
+          update_values() {
+            local ENV=$1
+            local FILE="helm/values-${ENV}.yaml"
+
+            yq -i ".image.tag = \"${IMAGE_TAG}\"" "$FILE"
+            git add "$FILE"
+            echo "Staged $FILE with tag ${IMAGE_TAG}"
+          }
+
+          case "${{ github.ref }}" in
+            refs/heads/develop)
+              update_values dev
+              update_values qa
+              update_values uat
+              ;;
+            refs/heads/release/*)
+              update_values dev
+              update_values qa
+              update_values uat
+              ;;
+            refs/heads/hotfix/*)
+              update_values uat
+              update_values production
+              ;;
+            refs/heads/main)
+              update_values dev
+              update_values qa
+              update_values uat
+              update_values production
+              ;;
+          esac
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit — all envs already at ${IMAGE_TAG}"
+            exit 0
+          fi
+
+          git commit -m "chore(release): update image tag to ${IMAGE_TAG} [skip ci]
+
+          Source branch: ${{ github.ref_name }}
+          Commit: ${{ github.sha }}"
+          git push origin main
+
   QualityCheck:
     name: Quality Check
     runs-on: ubuntu-latest
