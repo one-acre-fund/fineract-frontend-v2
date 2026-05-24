@@ -99,6 +99,7 @@ jobs:
         run: |
           git config user.name "oneacrefund-automation"
           git config user.email "oneacrefund-automation@users.noreply.github.com"
+          git remote set-url origin "https://oneacrefund-automation:${{ secrets.GA_ARTIFACT_DOWNLOAD }}@github.com/${{ github.repository }}.git"
 
           git fetch origin develop
           git checkout develop
