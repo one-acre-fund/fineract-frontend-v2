@@ -255,7 +255,21 @@ export class ViewBulkImportComponent implements OnInit {
       case BulkImportsConstants.CLIENT_TRANSFER_IMPORT:
         return !this.getSelectedOfficeId();
       case BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT:
-        return !this.getEffectiveOfficeId();
+        const countryId = this.bulkImportForm.get('countryId')?.value;
+        const officeId = this.getSelectedOfficeId();
+        
+        // Enable if country selected but no office selected
+        if (countryId && !officeId) {
+          return false;
+        }
+        
+        // If office is selected, require lowest OU to be selected
+        if (officeId) {
+          return !this.getEffectiveOfficeId();
+        }
+        
+        // Disable if no country selected
+        return true;
 
       default:
         return false;
@@ -348,6 +362,7 @@ export class ViewBulkImportComponent implements OnInit {
       case BulkImportsConstants.CLIENT_TRANSFER_IMPORT:
       case BulkImportsConstants.GROUP_OFFICE_TRANSFER_IMPORT:
       case BulkImportsConstants.CLIENT_GROUP_REMOVAL_IMPORT:
+      case BulkImportsConstants.SAVINGS_TRANSACTIONS_IMPORT:
         countryId = this.bulkImportForm.get('countryId')?.value;
         if (!countryId) {
           return this.alertService.alert({
