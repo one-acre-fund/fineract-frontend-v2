@@ -14,4 +14,4 @@ initContainers:
 imagePullSecrets:
   - name: acr-pull-secret
 
-replicaCount: 2
+replicaCount: 1
