@@ -1,31 +1,30 @@
 <form [formGroup]="smsCampaignDetailsForm">
-
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="start center">
-
-    <div fxFlex="48%" >
-      <label for="officeId">Country</label>
-      <ng-select 
-        formControlName="countryId" 
+    <div fxFlex="48%">
+      <label for="officeId">{{ 'labels.oaf.Country' | translate }}</label>
+      <ng-select
+        formControlName="countryId"
         [items]="countryOptions"
         bindLabel="name"
         bindValue="id"
-        placeholder="Select a country"
+        placeholder="{{ 'labels.commons.Select a country' | translate }}"
         aria-labelledby="countryOptions"
         [virtualScroll]="true"
-        required>
+        required
+      >
       </ng-select>
     </div>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Campaign Name</mat-label>
-      <input matInput formControlName="campaignName" required>
-      <mat-error>
-        Campaign Name is <strong>required</strong>
+      <mat-label>{{ 'labels.inputs.Campaign Name' | translate }}</mat-label>
+      <input matInput formControlName="campaignName" required />
+      <mat-error
+        >{{ 'labels.inputs.Campaign Name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="48%" *ngIf="!smsCampaignDetailsForm.controls.isNotification.value">
-      <mat-label>SMS Provider</mat-label>
+      <mat-label>{{ 'labels.inputs.SMS Provider' | translate }}</mat-label>
       <mat-select formControlName="providerId">
         <mat-option *ngFor="let provider of smsProviders" [value]="provider.id">
           {{ provider.providerName }}
@@ -34,49 +33,60 @@
     </mat-form-field>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Trigger Type</mat-label>
+      <mat-label>{{ 'labels.inputs.Trigger Type' | translate }}</mat-label>
       <mat-select formControlName="triggerType" required>
         <mat-option *ngFor="let triggerType of triggerTypes" [value]="triggerType.id">
           {{ triggerType.value }}
         </mat-option>
       </mat-select>
-      <mat-error>
-        Trigger Type is <strong>required</strong>
+      <mat-error
+        >{{ 'labels.commons.Trigger Type is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
-    <mat-checkbox labelPosition="before" formControlName="isNotification" fxFlex="48%">
-      is Notification?
-    </mat-checkbox>
+    <mat-checkbox labelPosition="before" formControlName="isNotification" fxFlex="48%">{{
+      'labels.commons.is Notification' | translate
+    }}</mat-checkbox>
 
-    <mat-form-field fxFlex="48%" *ngIf="smsCampaignDetailsForm.controls.recurrenceStartDate" (click)="recurrenceStartDatePicker.open()">
-      <mat-label>Schedule Date</mat-label>
-      <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="recurrenceStartDatePicker"
-        formControlName="recurrenceStartDate" required>
+    <mat-form-field
+      fxFlex="48%"
+      *ngIf="smsCampaignDetailsForm.controls.recurrenceStartDate"
+      (click)="recurrenceStartDatePicker.open()"
+    >
+      <mat-label>{{ 'labels.inputs.Schedule Date' | translate }}</mat-label>
+      <input
+        matInput
+        [min]="minDate"
+        [max]="maxDate"
+        [matDatepicker]="recurrenceStartDatePicker"
+        formControlName="recurrenceStartDate"
+        required
+      />
       <mat-datepicker-toggle matSuffix [for]="recurrenceStartDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #recurrenceStartDatePicker></mat-datepicker>
-      <mat-error>
-        Schedule Date is <strong>required</strong>
+      <mat-error
+        >{{ 'labels.inputs.Schedule Date is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Business Rule</mat-label>
+      <mat-label>{{ 'labels.inputs.Business Rule' | translate }}</mat-label>
       <mat-select formControlName="runReportId" required>
         <mat-option *ngFor="let rule of businessRules" [value]="rule.reportId">
           {{ rule.reportName }}
         </mat-option>
       </mat-select>
-      <mat-error>
-        Business Rule is <strong>required</strong>
+      <mat-error
+        >{{ 'labels.commons.Business Rule is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
-
   </div>
 
-  <mifosx-edit-business-rule-parameters [paramData]="paramData" [smsCampaign]="smsCampaign"
-    [countryId] = "smsCampaignDetailsForm.controls.countryId?.value"
-    (templateParameters)="passParameters($event)">
+  <mifosx-edit-business-rule-parameters
+    [paramData]="paramData"
+    [smsCampaign]="smsCampaign"
+    [countryId]="smsCampaignDetailsForm.controls.countryId?.value"
+    (templateParameters)="passParameters($event)"
+  >
   </mifosx-edit-business-rule-parameters>
-
 </form>

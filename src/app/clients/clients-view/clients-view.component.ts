@@ -1,8 +1,11 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 /** Custom Dialogs */
 import { UnassignStaffDialogComponent } from './custom-dialogs/unassign-staff-dialog/unassign-staff-dialog.component';
@@ -16,18 +19,27 @@ import { CaptureImageDialogComponent } from './custom-dialogs/capture-image-dial
 /** Custom Services */
 import { ClientsService } from '../clients.service';
 import { MatomoTracker } from "@ngx-matomo/tracker";
+import { SystemService } from 'app/system/system.service';
+
+import { APP_CONSTANTS } from 'app/shared/constants/app.constants';
 
 @Component({
   selector: 'mifosx-clients-view',
   templateUrl: './clients-view.component.html',
   styleUrls: ['./clients-view.component.scss']
 })
-export class ClientsViewComponent implements OnInit {
+export class ClientsViewComponent implements OnInit, OnDestroy {
 
   clientViewData: any;
   clientDatatables: any;
   clientImage: any;
   clientTemplateData: any;
+  loanAccounts: any;
+  isEditAllowedFlag: boolean = false;
+  clientAccountsData: any;
+  kycFields: any[] = [];
+  private readonly destroy$ = new Subject<void>();
+
 
  /**
    * @param {ActivatedRoute} route Activated Route
@@ -36,12 +48,15 @@ export class ClientsViewComponent implements OnInit {
    * @param {DomSanitizer} _sanitizer Dom sanitizer service
    * @param {MatDialog} dialog Mat Dialog
    * @param {MatomoTracker} matomoTracker Matomo tracker service
+   * @param {TranslateService} translateService Translation service
    */  constructor(private route: ActivatedRoute,
     private router: Router,
     private clientsService: ClientsService,
     private _sanitizer: DomSanitizer,
     public dialog: MatDialog,
-    private matomoTracker: MatomoTracker
+    private readonly matomoTracker: MatomoTracker,
+    private readonly systemService: SystemService,
+    private readonly translateService: TranslateService,
   ) {
     this.route.data.subscribe((data: {
       clientViewData: any,
@@ -50,8 +65,35 @@ export class ClientsViewComponent implements OnInit {
     }) => {
       this.clientViewData = data.clientViewData;
       this.clientDatatables = data.clientDatatables;
-      // this.clientTemplateData = data.clientTemplateData;
+
     });
+    // Listen for route changes to detect when general tab loads
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.checkForClientAccountsData();
+    });
+  }
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  private checkForClientAccountsData(): void {
+    // Find the general tab child route
+    const generalRoute = this.route.children.find(child =>
+      child.snapshot.url.length > 0 && child.snapshot.url[0].path === 'general'
+    );
+
+    if (generalRoute) {
+      generalRoute.data.pipe(takeUntil(this.destroy$)).subscribe((childData: any) => {
+        if (childData.clientAccountsData) {
+          this.clientAccountsData = childData.clientAccountsData;
+          this.loanAccounts = childData.clientAccountsData?.loanAccounts;
+          this.checkEditPermission();
+        }
+      });
+    }
   }
 
   ngOnInit() {
@@ -64,13 +106,21 @@ export class ClientsViewComponent implements OnInit {
         this.clientImage = this._sanitizer.bypassSecurityTrustResourceUrl(base64Image);
       }, (error: any) => { }
     );
+
+    // Fetch KYC fields using the cached service method
+    this.clientsService.getKycFields().pipe(takeUntil(this.destroy$)).subscribe(
+      (fields: any[]) => {
+        this.kycFields = fields;
+      },
+      (error: any) => {}
+    );
   }
 
   /**
    * Performs action button/option action.
    * @param {string} name action name.
    */
-  doAction(name: string) {
+  doAction(name: string, countryId: string | null) {
     switch (name) {
       case 'Assign Staff':
       case 'Close':
@@ -88,7 +138,7 @@ export class ClientsViewComponent implements OnInit {
       case 'Add Charge':
       case 'Create Self Service User':
       case 'Client Screen Reports':
-        this.router.navigate([`actions/${name}`], { relativeTo: this.route });
+        this.router.navigate([`actions/${name}/${countryId}`], { relativeTo: this.route });
         break;
       case 'Unassign Staff':
         this.unassignStaff();
@@ -313,6 +363,130 @@ export class ClientsViewComponent implements OnInit {
         this.matomoTracker.trackEvent('clients', 'deleteProfileImageSuccess', this.clientViewData.id);
       }
     });
+  }
+  stringAppearsInCommaSeparatedString(value: string, searchString: string): boolean {
+    if (!value || !searchString) {
+      return false;
+    }
+    const valuesArray = value.split(',').map(item => item.trim());
+    return valuesArray.includes(searchString);
+  }
+  private hasActiveLoans(): boolean {
+    if (!this.loanAccounts || this.loanAccounts.length === 0) {
+      return false;
+    }
+    const activeLoans = this.loanAccounts.filter((loan: any) =>
+      loan.status?.id === APP_CONSTANTS.LOAN_STATUSES.ACTIVE
+    );
+    return activeLoans.length > 0;
+  }
+
+  private checkEditRestrictions(countryId: string): void {
+    this.systemService
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.RESTRICT_CLIENT_INFO_EDIT_WHEN_THEY_HAVE_ACTIVE_LOANS, { countryId })
+      .subscribe({
+        next: (config) => {
+          if (config?.enabled && (config?.country?.id === countryId)) {
+            // Loan qualification rules are enabled, check user permissions
+            this.checkUserPermissions(countryId);
+          }
+          else {
+            // Loan qualification rules not enabled, allow edit
+            this.isEditAllowedFlag = true;
+          }
+        },
+        error: (error) => {
+          this.isEditAllowedFlag = false;
+        }
+      });
+  }
+  private checkUserPermissions(countryId: string): void {
+    const credentials = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.MIFOS_CREDENTIALS);
+    const userEmail = credentials ? JSON.parse(credentials)?.username : null;
+
+    if (!userEmail) {
+      this.isEditAllowedFlag = false;
+      return;
+    }
+
+    this.systemService
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.SKIP_COUNTRY_SPECIFIC_CHECKS, { countryId })
+      .subscribe({
+        next: (config) => {
+          if (config?.enabled && this.stringAppearsInCommaSeparatedString(config?.stringValue, userEmail)) {
+            this.isEditAllowedFlag = true;
+          } else {
+            this.isEditAllowedFlag = false;
+          }
+        },
+        error: (error) => {
+          this.isEditAllowedFlag = false;
+        }
+      });
+  }
+
+  private checkEditPermission(): void {
+    const country = sessionStorage.getItem(APP_CONSTANTS.SESSION_STORAGE.SELECTED_COUNTRY);
+    const countryId = country ? JSON.parse(country)?.id : null;
+
+    // Check if client has active loans first
+    if (!this.hasActiveLoans()) {
+      this.isEditAllowedFlag = true;
+      return;
+    }
+
+    // If client has active loans, check loan qualification rules
+    if (countryId === null) {
+      // No country ID, allow edit
+      this.isEditAllowedFlag = true;
+    } else {
+      this.checkEditRestrictions(countryId);
+    }
+  }
+  isEditAllowed(): boolean {
+    return this.isEditAllowedFlag;
+  }
+
+  /**
+   * Formats failed KYC fields to be human-readable and comma-separated
+   * Uses the description from API which corresponds to translation keys
+   */
+  getFormattedFailedKycFields(): string {
+    if (!this.clientViewData.failedKycFields || this.clientViewData.failedKycFields.length === 0) {
+      return '';
+    }
+
+    // Map of field names to their translation key paths (exceptions from default labels.inputs)
+    const specialTranslationPaths: { [key: string]: string } = {
+      'clientImage': 'labels.commons.clientImage',
+    };
+
+    // Create a map from KYC fields API data (using 'description' property from narrations array)
+    const kycFieldNameMap: { [key: string]: string } = {};
+    if (this.kycFields && this.kycFields.length > 0) {
+      this.kycFields.forEach((field: any) => {
+        if (field.name && field.description) {
+          kycFieldNameMap[field.name] = field.description;
+        }
+      });
+    }
+
+    return this.clientViewData.failedKycFields
+      .map((field: string) => {
+        const description = kycFieldNameMap[field];
+        
+        if (description) {
+          // Check if this field has a special translation path
+          const translationKey = specialTranslationPaths[field] || `labels.inputs.${description}`;
+          
+          // Translate the description (e.g., "Client Image" -> "Picha ya Mteja" in Swahili)
+          return this.translateService.instant(translationKey);
+        }
+        
+        // Fallback to field name if not found
+        return field;
+      })
+      .join(', ');
   }
 
 }

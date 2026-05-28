@@ -1,43 +1,29 @@
 <div class="container">
-
   <mat-card>
-
     <div fxLayout="row" fxLayout.lt-md="column">
-
       <div fxFlex="50%">
-
         <mat-nav-list>
-
           <mat-list-item [routerLink]="['tax-components']" *mifosxHasPermission="'READ_TAXCOMPONENT'">
             <mat-icon matListIcon>
               <fa-icon icon="building" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Tax Components</h4>
-            <p matLine>Define Tax components</p>
+            <h4 matLine>{{ 'labels.heading.Manage Tax Components' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define Tax components' | translate }}</p>
           </mat-list-item>
-
         </mat-nav-list>
-
       </div>
 
       <div fxFlex="50%">
-
         <mat-nav-list>
-
           <mat-list-item [routerLink]="['tax-groups']" *mifosxHasPermission="'READ_TAXGROUP'">
             <mat-icon matListIcon>
               <fa-icon icon="building" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Tax Groups</h4>
-            <p matLine>Define Tax Groups</p>
+            <h4 matLine>{{ 'labels.heading.Manage Tax Groups' | translate }}</h4>
+            <p matLine>{{ 'labels.heading.Define Tax Groups' | translate }}</p>
           </mat-list-item>
-
         </mat-nav-list>
-
       </div>
-
     </div>
-
   </mat-card>
-
 </div>

@@ -8,6 +8,7 @@ import { FindPipe } from './find.pipe';
 import { UrlToStringPipe } from './url-to-string.pipe';
 import { DateFormatPipe } from './date-format.pipe';
 import { TranslatePipe } from './translate.pipe';
+import { DateArrayFormatPipe } from './date-array-format.pipe';
 
 @NgModule({
   imports: [CommonModule],
@@ -19,6 +20,7 @@ import { TranslatePipe } from './translate.pipe';
     FindPipe,
     UrlToStringPipe,
     DateFormatPipe,
+    DateArrayFormatPipe,
     TranslatePipe,
   ],
   providers: [
@@ -29,6 +31,7 @@ import { TranslatePipe } from './translate.pipe';
     FindPipe,
     UrlToStringPipe,
     DateFormatPipe,
+    DateArrayFormatPipe,
     TranslatePipe,
   ],
   exports: [
@@ -39,6 +42,7 @@ import { TranslatePipe } from './translate.pipe';
     FindPipe,
     UrlToStringPipe,
     DateFormatPipe,
+    DateArrayFormatPipe,
     TranslatePipe,
   ],
 })

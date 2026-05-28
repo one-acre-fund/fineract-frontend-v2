@@ -14,5 +14,4 @@ export class QualificationRulesViewComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

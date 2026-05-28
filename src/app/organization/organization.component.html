@@ -7,30 +7,32 @@
             <mat-icon matListIcon>
               <fa-icon icon="building" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Offices</h4>
-            <p matLine>Add new office or modify or deactivate office or modify hierarchy</p>
+            <h4 matLine>{{ 'labels.heading.Manage Offices' | translate }}</h4>
+            <p matLine>
+              {{ 'labels.text.Add new office or modify or deactivate office or modify hierarchy' | translate }}
+            </p>
           </mat-list-item>
           <mat-list-item [routerLink]="['rural-outlet']" *mifosxHasPermission="'READ_RURAL_RETAIL_OUTLET'">
             <mat-icon matListIcon>
               <fa-icon icon="calendar-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Rural Retail Outlet</h4>
-            <p matLine>Manage rural retail outlet</p>
+            <h4 matLine>{{ 'labels.commons.Manage Rural Retail Outlet' | translate }}</h4>
+            <p matLine>{{ 'labels.commons.Manage rural retail outlet' | translate }}</p>
           </mat-list-item>
           <mat-list-item [routerLink]="['holidays']" *mifosxHasPermission="'READ_HOLIDAY'">
             <mat-icon matListIcon>
               <fa-icon icon="calendar-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Holidays</h4>
-            <p matLine>Define holidays for office</p>
+            <h4 matLine>{{ 'labels.heading.Manage Holidays' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define holidays for office' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['employees']" *mifosxHasPermission="'READ_STAFF'">
             <mat-icon matListIcon>
               <fa-icon icon="user" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Employees</h4>
-            <p matLine>An employee represents loan officers with no access to systems</p>
+            <h4 matLine>{{ 'labels.heading.Manage Employees' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Employee represents loan officers' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item
@@ -40,16 +42,16 @@
             <mat-icon matListIcon>
               <fa-icon icon="book" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Standing Instructions History</h4>
-            <p matLine>View logged history of standing instructions</p>
+            <h4 matLine>{{ 'labels.heading.Standing Instructions History' | translate }}</h4>
+            <p matLine>{{ 'labels.text.View logged history' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['fund-mapping']" *mifosxHasPermission="'READ_OFFICE'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Fund Mapping</h4>
-            <p matLine>Bulk entry screen for mapping fund sources to loans</p>
+            <h4 matLine>{{ 'labels.heading.Fund Mapping' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Bulk entry screen for mapping' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item
@@ -59,16 +61,16 @@
             <mat-icon matListIcon>
               <fa-icon icon="lock" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Password Preferences</h4>
-            <p matLine>Define standards for enforcing the usage of stronger passwords</p>
+            <h4 matLine>{{ 'labels.heading.Password Preferences' | translate }}</h4>
+            <p matLine>{{ 'labels.text.The usage of stronger passwords' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['provisioning-criteria']" *mifosxHasPermission="'VIEW_PROVISIONS'">
             <mat-icon matListIcon>
               <fa-icon icon="edit" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Loan Provisioning Criteria</h4>
-            <p matLine>Define Loan Provisioning Criteria for Organization</p>
+            <h4 matLine>{{ 'labels.heading.Loan Provisioning Criteria' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Loan Provisioning Criteria Organization' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item
@@ -78,16 +80,16 @@
             <mat-icon matListIcon>
               <fa-icon icon="check" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Entity Data Table Checks</h4>
-            <p matLine>Define Entity Data Table Checks for Organization</p>
+            <h4 matLine>{{ 'labels.heading.Entity Data Table Checks' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Entity Data Table Checks Organization' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['/templates']" *mifosxHasPermission="'READ_TEMPLATE'">
             <mat-icon matListIcon>
               <fa-icon icon="envelope" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Templates</h4>
-            <p matLine>Create terms and conditions, etc.</p>
+            <h4 matLine>{{ 'labels.menus.Templates' | translate }}</h4>
+            <p matLine>{{ 'labels.commons.Create terms and conditions, etc.' | translate }}</p>
           </mat-list-item>
         </mat-nav-list>
       </div>
@@ -98,82 +100,89 @@
             <mat-icon matListIcon>
               <fa-icon icon="cogs" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Currency Configuration</h4>
-            <p matLine>Currencies available across organization for different products</p>
+            <h4 matLine>{{ 'labels.heading.Currency Configuration' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Currencies available across organization' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['manage-funds']" *mifosxHasPermission="'READ_FUND'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Manage Funds</h4>
-            <p matLine>Funds are associated with loans</p>
+            <h4 matLine>{{ 'labels.heading.Manage Funds' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Funds are associated with loans' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['bulkloan']" *mifosxHasPermission="'BULKREASSIGN_LOAN'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Bulk Loan Reassignment</h4>
-            <p matLine>Easy way to reassign all the loan from one LO to another LO</p>
+            <h4 matLine>{{ 'labels.heading.Bulk Loan Reassignment' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Easy way to reassign all the loan' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['tellers']" *mifosxHasPermission="'CREATE_TELLER'">
             <mat-icon matListIcon>
               <fa-icon icon="money-bill-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Teller / Cashier Management</h4>
-            <p matLine>Manage Tellers / Cashiers and Cash Allocation and Settlement</p>
+            <h4 matLine>{{ 'labels.heading.Teller / Cashier Management' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Manage Tellers / Cashiers' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['working-days']" *mifosxHasPermission="'READ_WORKINGDAYS'">
             <mat-icon matListIcon>
               <fa-icon icon="calendar-alt" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Working Days</h4>
-            <p matLine>Define working days and configure behaviour of payments due on holidays</p>
+            <h4 matLine>{{ 'labels.heading.Working Days' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Working days and configure behaviour of payments' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['payment-types']" *mifosxHasPermission="'READ_PAYMENTTYPE'">
             <mat-icon matListIcon>
               <fa-icon icon="dollar-sign" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Payment Type</h4>
-            <p matLine>Manage payment types</p>
+            <h4 matLine>{{ 'labels.heading.Payment Type' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Manage payment types' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['sms-campaigns']" *mifosxHasPermission="'READ_SMSCAMPAIGN'">
             <mat-icon matListIcon>
               <fa-icon icon="envelope" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>SMS Campaigns</h4>
-            <p matLine>Define SMS Campaigns for Organization</p>
+            <h4 matLine>{{ 'labels.heading.SMS Campaigns' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define SMS Campaigns for Organization' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['adhoc-query']" *mifosxHasPermission="'VIEW_ADHOC'">
             <mat-icon matListIcon>
               <fa-icon icon="chevron-right" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>AdHocQuery</h4>
-            <p matLine>Define AdHocQuery for Organization</p>
+            <h4 matLine>{{ 'labels.heading.AdHocQuery' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Define AdHocQuery for Organization' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['bulk-import']" *mifosxHasPermission="'READ_CLIENT'">
             <mat-icon matListIcon>
               <fa-icon icon="upload" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Bulk Import</h4>
-            <p matLine>Bulk data import using excel spreadsheet templates for clients, offices, etc.</p>
+            <h4 matLine>{{ 'labels.heading.Bulk Import' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Bulk data import using excel spreadsheet templates' | translate }}</p>
+          </mat-list-item>
+
+          <mat-list-item [routerLink]="['bulk-export']" *mifosxHasPermission="'READ_CLIENT'">
+            <mat-icon matListIcon>
+              <fa-icon icon="download" size="sm"></fa-icon>
+            </mat-icon>
+            <h4 matLine>{{ 'labels.heading.Bulk Export' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Bulk data export downloads' | translate }}</p>
           </mat-list-item>
 
           <mat-list-item [routerLink]="['audit-trails']">
             <mat-icon matListIcon>
               <fa-icon icon="money-check" size="sm"></fa-icon>
             </mat-icon>
-            <h4 matLine>Audit Trails</h4>
-            <p matLine>Audit logs of all the activities, such as create client, disburse loans etc</p>
+            <h4 matLine>{{ 'labels.heading.Audit Trails' | translate }}</h4>
+            <p matLine>{{ 'labels.text.Audit logs of all the activities' | translate }}</p>
           </mat-list-item>
-          
         </mat-nav-list>
       </div>
     </div>

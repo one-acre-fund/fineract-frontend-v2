@@ -31,6 +31,10 @@
   //Sentry integration
   window['env']['sentryDsn'] = '$SENTRY_DSN';
 
+  //APM
+  window['env']['apmServerUrl'] = '$APM_SERVER_URL';
+  window['env']['apmActive'] = '$APM_ACTIVE';
+
   // Loan submission button disabled timeout in seconds
   window['env']['loanSubmitButtonDisabledTimeOut'] = '$LOAN_SUBMIT_DISABLED_TIME_OUT';
 })(this);

@@ -1,7 +1,7 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormControl } from '@angular/forms';
 
 /** Custom Services */
 import { SystemService } from 'app/system/system.service';
@@ -16,55 +16,93 @@ import { SystemService } from 'app/system/system.service';
 })
 export class EditNotificationComponent implements OnInit {
 
-  /** Notification Configuration data */
-  notificationConfigurationData: any;
-  /** Notification Configuration Form */
   notificationConfigurationForm: UntypedFormGroup;
+  countryExternalService: any;
 
-  /**
-   * Retrieves the Notification configuration data from `resolve`.
-   * @param {FormBuilder} formBuilder Form Builder.
-   * @param {SystemService} systemService Accounting Service.
-   * @param {ActivatedRoute} route Activated Route.
-   * @param {Router} router Router for navigation.
-   */
-  constructor(private formBuilder: UntypedFormBuilder,
-              private systemService: SystemService,
-              private route: ActivatedRoute,
-              private router: Router) {
-    this.route.data.subscribe((data: { notificationConfiguration: any }) => {
-      this.notificationConfigurationData = data.notificationConfiguration;
-    });
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private systemService: SystemService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.countryExternalService =
+      this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
+
+    if (!this.countryExternalService) {
+      console.error("No config provided to edit page");
+    }
   }
 
-  /**
-   * Creates Notification configuration form.
-   */
   ngOnInit() {
-    this.setNotificationConfigurationForm();
+    this.setDynamicForm();
   }
 
-  /**
-   * Creates Notification configuration form.
-   */
-  setNotificationConfigurationForm() {
-    this.notificationConfigurationForm = this.formBuilder.group({
-      'server_key': [this.notificationConfigurationData[0].value, Validators.required],
-      'gcm_end_point': [this.notificationConfigurationData[1].value, Validators.required],
-      'fcm_end_point': [this.notificationConfigurationData[2].value, Validators.required]
+  /** Build form dynamically based on properties */
+  setDynamicForm() {
+    this.notificationConfigurationForm = this.formBuilder.group({});
+
+    const props = this.countryExternalService?.properties || [];
+
+    props.forEach((prop: any) => {
+      const value = prop.value ?? '';
+      this.notificationConfigurationForm.addControl(
+        prop.name,
+        new FormControl(value)
+      );
     });
+
+    this.notificationConfigurationForm.addControl(
+      'countryExternalServiceId',
+      new FormControl(this.countryExternalService.id)
+    );
   }
 
-  /**
-   * Submits the Notification configuration and updates the Notification configuration,
-   * if successful redirects to view Notification configuration.
-   */
+  /** Submit updated properties */
   submit() {
+    const formValue = { ...this.notificationConfigurationForm.value };
+      formValue.countryExternalServiceId = this.countryExternalService.id;
+
+    const isCountryConfig = !!this.countryExternalService.country;
+
+    if (isCountryConfig) {
+      const keysToRemove = [
+        'authentication_type',
+        'authentication_endpoint',
+        'username',
+        'password'
+      ];
+
+      keysToRemove.forEach(key => delete formValue[key]);
+    }
+
     this.systemService
-      .updateExternalConfiguration('NOTIFICATION', this.notificationConfigurationForm.value)
-      .subscribe((response: any) => {
+      .updateExternalConfiguration('NOTIFICATION', formValue)
+      .subscribe(() => {
         this.router.navigate(['../'], { relativeTo: this.route });
       });
+  }
+
+
+  private fieldTranslationMap: Record<string, string> = {
+    providerName: 'labels.commons.providerName',
+    locale: 'labels.commons.locale',
+    otpSmsTemplate: 'labels.commons.otpSMSTemplate',
+    smsSender: 'labels.commons.smsSender',
+    senderApiKey: 'labels.commons.senderApiKey',
+    generalApiKey: 'labels.commons.generalApiKey',
+    smsEndpoint: 'labels.commons.smsEndpoint',
+    countryExternalServiceId: 'labels.commons.countryExternalServiceId',
+    smsTemplate: 'labels.commons.smsTemplate',
+    serviceName: 'labels.commons.serviceName',
+    byCountry: 'labels.commons.byCountry',
+    byGlobal: 'labels.commons.byGlobal',
+    baseUrl: 'labels.commons.Base URL',
+    priority: 'labels.inputs.Priority'
+    // Add more as it comes up
+  };
+
+  getLabelKey(field: string): string {
+    return this.fieldTranslationMap[field] || field;
   }
 
 }

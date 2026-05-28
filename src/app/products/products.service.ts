@@ -18,9 +18,12 @@ export class ProductsService {
   private loanTypeId$ = new BehaviorSubject<any>(null);
   private countryId$ = new BehaviorSubject<any>(null);
   private prepaidAmount$ = new BehaviorSubject<any>(null);
-  private prepaidAmountCalculationType$ = new BehaviorSubject<any>(null);
+  private prepaidAmountCalculationType$ = new BehaviorSubject<any>('Flat');
   private isQualificationRequired$ = new BehaviorSubject<boolean>(false);
   private enableTermsAndConditions$ = new BehaviorSubject<boolean>(false);
+  private downPaymentQualificationStrategy$ = new BehaviorSubject<any>('STATIC');
+  private allowDynamicDownpayment$ = new BehaviorSubject<boolean>(false);
+  private qualificationPeriods$ = new BehaviorSubject<any[]>([]);
 
   /**
    * @param {HttpClient} http Http Client to send requests.
@@ -75,6 +78,32 @@ export class ProductsService {
   set enableTermsAndConditions(val: any) {
     this.enableTermsAndConditions$.next(val);
   }
+
+  get downPaymentQualificationStrategy(): any {
+    return this.downPaymentQualificationStrategy$.asObservable();
+  }
+
+  set downPaymentQualificationStrategy(val: any) {
+    this.downPaymentQualificationStrategy$.next(val);
+  }
+
+  get allowDynamicDownpayment(): any {
+    return this.allowDynamicDownpayment$.asObservable();
+  }
+
+  set allowDynamicDownpayment(val: any) {
+    this.allowDynamicDownpayment$.next(val);
+  }
+
+  getQualificationPeriods(): Observable<any[]> {
+    return this.qualificationPeriods$.asObservable();
+  }
+
+  setQualificationPeriods(val: any[]): void {
+    this.qualificationPeriods$.next(val);
+  }
+
+
 
   /**
    * @returns {Observable<any>} Loan products data

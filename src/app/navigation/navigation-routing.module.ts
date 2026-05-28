@@ -20,7 +20,7 @@ const routes: Routes = [
     {
       path: 'navigation',
       component: NavigationComponent,
-      data: { title: extract('Navigation'), breadcrumb: 'Navigation' },
+      data: { title: extract('labels.text.Navigation'), breadcrumb: 'Navigation' },
       resolve: {
         offices: OfficesResolver
       }

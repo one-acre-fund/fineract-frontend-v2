@@ -1,5 +1,129 @@
 # Release Notes
 
+## Version 1.4.9.1 - Community 1.0.0
+    * Clients
+        * * [CP-4095] - Payment Provider External service: Introduce support of date format for a payment provider
+
+## Version 1.4.9 - Community 1.0.0
+    * Bulk Uploads
+        * [CP-4042] - Add bulk upload to remove clients from groups
+    * Loans & Payments
+        * [CP-4067] - Apply country config to allow dynamic downpayment on loan products
+        * [CP-4065] - Add Delivery Details Tab and Fetch Button in Loan Management
+
+## Version 1.4.8.1 - Community 1.0.0
+    * Bulk Uploads
+        * [CP-4085] - Client Transfer: Rename client group transfer to client transfer and enable download template button only if the office is selected
+
+## Version 1.4.8 - Community 1.0.0
+    * Bulk Downloads
+        * [CP-4041] - Enable bulk download for unqualified and non picker clients for a loan product
+    * Bulk Uploads
+        * [CP-4015] - Add bulk upload to move groups to different sites
+
+
+## Version 1.4.7.1 - Community 1.0.0
+    * Clients
+        * [CP-4059] -  Client activation: allow activation of clients with inactive substatuses
+
+## Version 1.4.7 - Community 1.0.0
+
+    * Bulk Uploads
+        * [CP-4014] - Update bulk savings account transactions to fetch by last ou
+    * Clients
+       * [CP-3711] - Enable bulk upload of existing farmers to existing groups
+       * [CP-4053] - Squad Payment Provider setting: Remove validation on bank code field
+    * Loans & Payments
+       * [CP-4013] - Implement dynamic downpayment for Kenya
+       * [CP-4058] - Hide dynamic downpayment
+
+## Version 1.4.6 - Community 1.0.0
+    * Configurations
+        * [CP-3666] - Refactor Template Configuration with HTML Support Per Country
+    * Navigation Bar
+        * [CP-4004] - Disabling the notification tray for now since it's not being consumed
+    * Clients
+        * [CP-3711] - Enable bulk upload of existing farmers to existing groups
+           
+## Version 1.4.4 - Community 1.0.0
+    * Clients
+        * [CP-3935] - Add time a client landed in the checker inbox
+        * [CP-3971] - Rename phone number field in UI to Paid By in transaction history
+        * [CP-3536] - Fix Cannot read properties of undefined errors reported by Sentry
+
+## Version 1.4.3 - Community 1.0.0
+    * Clients
+        * [CP-3882] - Add display for gender and KYC Failed fields in client profile
+    * External Services
+        * [CP-3932] - Revamp the notification external service UI
+## Version 1.4.2 - Community 1.0.0
+    * Maker Checker 
+        * [CP-3873] - KYC Maker Checker UI Improvements
+        * [CP-3911] - Apply KYC backend changes to align with the updated requirements.
+        * [CP-3927] - Enable search by client name and order by date on Failed KYC tab.
+
+## Version 1.4.1 - Community 1.0.0
+
+    * Clients
+        * [CP-3663] - Fix: Only restrict cllient edits on clients with active loans
+        * [CP-3771] - Remove required on loan end date mode override field on loan product creation & Edit
+
+## Version 1.4.0 - Community 1.0.0
+
+    * Loans & Payments
+        * [CP-3722] - Hide previously taken input from loan product client eligibility
+        * [CP-3771] - Enable loan end date to be overridden by the loan product configuration
+
+    * Tranlations
+        * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
+        * [CP-3788] - Fix other translation reported issues
+        
+    * Maker Checker
+        * [CP-3723] - Improve user experience for the maker
+
+    * Clients
+        * [CP-3810] - Client transfer offices dorpdown fetch lowest OUs. Search clients also sends countryId query param to filter country clients
+        * [CP-3844] - Fix 404 after client transfer due to route hierarchy update
+
+## Version 1.3.9.1 - Community 1.0.0
+
+    * Organization Units
+        * [CP-3734] - Show OU Path for client, groups and offices
+    * Clients
+        * [CP-3663] - Restrict Client Info Edits when a client has active loans.
+    * External Services
+            * [CP-3737] - Bug to fix payment provider form validation to cater for providers using API key as authentication method. Also make subEntityCode optional
+
+## Version 1.3.9 - Community 1.0.0
+
+    * Loans & Payments
+        * [CP-3646] - Allow loan charges to optionally be rounded down to the nearest whole number
+    * External Services
+        * [CP-3554] - Modify payment provider form validation to cater for providers using API key as authentication method
+
+
+    * Translations
+        * [CP-3366] - Translation in Organisation related UI
+        * [CP-3367] - Translation in System related UI
+        * [CP-3721] - Implement translation in shared, home,navigation UIs
+
+## Version 1.3.8.1 - Community 1.0.0
+
+    * Miscellaneous
+        * [CP-1689] - Configure Real User Monitoring with Elastic APM
+
+## Version 1.3.8 - Community 1.0.0
+
+    * [CP-3564] - Show loan status and substatus on loan view
+
+## Version 1.3.7.2 - Community 1.0.0
+
+    * [SER-3365] - Implement label translation in Product related UIs
+
+## Version 1.3.7.1 - Community 1.0.0
+
+    * [CP-3527] - Rename Loan Dates for Kenya to match their expectation
+
 ## Version 1.3.7 - Community 1.0.0
 
     * [CP-3502] - Send country when submitting the account transfer bulk upload

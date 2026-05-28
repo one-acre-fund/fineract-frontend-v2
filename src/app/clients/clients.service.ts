@@ -1,9 +1,12 @@
 /** Angular Imports */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, tap, shareReplay } from 'rxjs/operators';
+
 /**
  * Clients service.
  */
@@ -12,9 +15,14 @@ import { Observable } from 'rxjs';
 })
 export class ClientsService {
   /**
+   * Cache for KYC fields to avoid repeated API calls
+   */
+  private kycFieldsCache: any[] = null;
+
+  /**
    * @param {HttpClient} http Http Client to send requests.
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getFilteredClients(
     orderBy: string,
@@ -27,19 +35,29 @@ export class ClientsService {
       .set('displayName', displayName)
       .set('orphansOnly', orphansOnly.toString())
       .set('sortOrder', sortOrder)
-      .set('orderBy', orderBy);
+      .set('orderBy', orderBy)
+      .set('includeOfficeHierarchyPath', true.toString());
     if (officeId) {
       httpParams = httpParams.set('officeId', officeId);
     }
     return this.http.get('/clients', { params: httpParams });
   }
 
-  getClients(orderBy: string, sortOrder: string, offset: number, limit: number): Observable<any> {
-    const httpParams = new HttpParams()
+  getClients(orderBy: string, sortOrder: string, offset: number, limit: number, subStatus?: string, displayName: string = undefined): Observable<any> {
+    let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
-      .set('orderBy', orderBy);
+      .set('orderBy', orderBy)
+      .set('includeOfficeHierarchyPath', true.toString());
+
+      if(subStatus) {
+        httpParams = httpParams.set('subStatus', subStatus);
+      }
+      if(displayName) {
+        httpParams = httpParams.set('displayName', displayName);
+      }
+
     return this.http.get('/clients', { params: httpParams });
   }
 
@@ -48,27 +66,42 @@ export class ClientsService {
     sortOrder: string,
     offset: number,
     limit: number,
-    countryId: string
+    countryId: string,
+    subStatus?: string,
   ): Observable<any> {
-    const httpParams = new HttpParams()
+    let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
       .set('sortOrder', sortOrder)
       .set('orderBy', orderBy)
-      .set('countryId', countryId);
+      .set('countryId', countryId)
+      .set('includeOfficeHierarchyPath', true.toString())
+
+      if(subStatus) {
+        httpParams = httpParams.set('subStatus', subStatus);
+      }
     return this.http.get('/clients', { params: httpParams });
   }
 
-  getClientTemplate(): Observable<any> {
-    return this.http.get('/clients/template');
+  getClientTemplate(getOfficeHierarchyPath: boolean): Observable<any> {
+
+    let httpParams = new HttpParams();
+    if (getOfficeHierarchyPath) {
+      httpParams = httpParams.set('includeOfficeHierarchyPath', 'true');
+    }
+
+    return this.http.get('/clients/template', { params: httpParams });
   }
 
   getClientData(clientId: string) {
-    return this.http.get(`/clients/${clientId}`);
+    const httpParams = new HttpParams().set('includeOfficeHierarchyPath', 'true');
+    return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
-  getClientDatawithCreditScore(clientId: string) {
-    const httpParams = new HttpParams().set('includeCreditScores', 'true');
+  getClientDataWithRequiredDetails(clientId: string) {
+    const httpParams = new HttpParams().set('includeCreditScores', 'true')
+    .set('includeOfficeHierarchyPath', 'true')
+    .set('includeEligibleForActivationFlag', 'true');
     return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
@@ -433,5 +466,49 @@ export class ClientsService {
    */
   validateClientOTP(countryId: number, otpData: any) {
     return this.http.post(`/clients/validateMobileNumberOTP/${countryId}`, otpData);
+  }
+
+  /**
+   * Get KYC fields with caching.
+   * Returns cached data if available, otherwise fetches from API.
+   * @returns {Observable<any[]>} KYC fields array
+   */
+  getKycFields(): Observable<any[]> {
+    if (this.kycFieldsCache) {
+      return of(this.kycFieldsCache);
+    }
+
+    const httpParams = new HttpParams().set('commandParam', 'clientKYCFields');
+    return this.http.get('/clients/template', { params: httpParams }).pipe(
+      map((response: any) => response.narrations || []),
+      tap((fields) => (this.kycFieldsCache = fields)),
+      shareReplay(1)
+    );
+  }
+
+  /**
+   * Refresh KYC fields cache.
+   * Use this method when KYC fields configuration has been updated.
+   * @returns {Observable<any[]>} Fresh KYC fields array
+   */
+  refreshKycFields(): Observable<any[]> {
+    this.kycFieldsCache = null;
+    return this.getKycFields();
+  }
+
+  /**
+   * Clear the KYC fields cache.
+   * Useful for testing or when you want to force a refresh on next call.
+   */
+  clearKycFieldsCache(): void {
+    this.kycFieldsCache = null;
+  }
+
+  /**
+    * Redirects to the client view page.
+    * @param clientId Client Id.
+   */
+  public redirectToClient(clientId: any) {
+    this.router.navigate(['clients', clientId, 'general'], { queryParamsHandling: 'preserve' });
   }
 }

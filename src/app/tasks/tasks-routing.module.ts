@@ -16,6 +16,9 @@ import { LoanApprovalComponent } from './checker-inbox-and-tasks-tabs/loan-appro
 import { LoanDisbursalComponent } from './checker-inbox-and-tasks-tabs/loan-disbursal/loan-disbursal.component';
 import { RescheduleLoanComponent } from './checker-inbox-and-tasks-tabs/reschedule-loan/reschedule-loan.component';
 import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inbox.component';
+import { ClientVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-verification-checker-inbox/client-verification-checker-inbox.component';
+import { ClientPendingReVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-pending-reverification-checker-inbox/client-pending-reverification-checker-inbox.component';
+import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-failed-kyc/client-failed-kyc.component';
 
 /** Custom Resolvers */
 import { GetMakerCheckers } from './common-resolvers/getmakercheckers.resolver';
@@ -25,6 +28,8 @@ import { GetLoans } from './common-resolvers/getLoans.resolver';
 import { GetRescheduleLoans } from './common-resolvers/getRescheduleLoans.resolver';
 import { MakerCheckerTemplate } from './common-resolvers/makerCheckerTemplate.resolver';
 import { GetCheckerInboxDetailResolver } from './common-resolvers/getCheckerInboxDetail.resolver';
+import { GetClientVerificationEntries } from './common-resolvers/getClientVerificationEntries.resolver';
+import { GetClientPendingReVerificationEntries } from './common-resolvers/getClientPendingReVerificationEntries.resolver';
 
 /** Tasks Routes */
 const routes: Routes = [
@@ -32,51 +37,72 @@ const routes: Routes = [
     {
       path: 'checker-inbox-and-tasks',
       component: CheckerInboxAndTasksComponent,
-      data: { title: extract('Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
+      data: { title: extract('labels.text.Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
       children: [
+        {
+          path: 'client-verification-checker-inbox',
+          component: ClientVerificationCheckerInboxComponent,
+          data: { title: extract('labels.commons.clientVerification') },
+          resolve: {
+            clientVerificationResource: GetClientVerificationEntries,
+          },
+        },
+        {
+          path: 'client-pending-reverification-checker-inbox',
+          component: ClientPendingReVerificationCheckerInboxComponent,
+          data: { title: extract('labels.commons.clientPendingReverification') },
+          resolve: {
+            clientPendingReVerificationResource: GetClientPendingReVerificationEntries,
+          },
+        },
+        {
+          path: 'client-failed-kyc',
+          component: ClientFailedKycComponent,
+          data: { title: extract('labels.commons.clientFailedKYC') },
+        },
         {
           path: 'checker-inbox',
           component: CheckerInboxComponent,
-          data: { title: extract('Checker Inbox') },
+          data: { title: extract('labels.text.Checker Inbox') },
           resolve: {
             makerCheckerResource: GetMakerCheckers,
-            makerCheckerTemplate: MakerCheckerTemplate
-          }
+            makerCheckerTemplate: MakerCheckerTemplate,
+          },
         },
         {
           path: 'client-approval',
           component: ClientApprovalComponent,
-          data: { title: extract('Client Approval') },
+          data: { title: extract('labels.text.Client Approval') },
           resolve: {
-            groupedClientData: GetGroupedClientsData
+            groupedClientData: GetGroupedClientsData,
           },
         },
         {
           path: 'loan-approval',
           component: LoanApprovalComponent,
-          data: { title: extract('Laon Approval') },
+          data: { title: extract('labels.input.Loan Approval') },
           resolve: {
             officesData: GetOffices,
-            loansData: GetLoans
+            loansData: GetLoans,
           },
         },
         {
           path: 'loan-disbursal',
           component: LoanDisbursalComponent,
-          data: { title: extract('Loan Disbursal') },
+          data: { title: extract('labels.text.Loan Disbursal') },
           resolve: {
-            loansData: GetLoans
-          }
+            loansData: GetLoans,
+          },
         },
         {
           path: 'reschedule-loan',
           component: RescheduleLoanComponent,
-          data: { title: extract('Reschedule Loan') },
+          data: { title: extract('labels.text.Reschedule Loan') },
           resolve: {
-            recheduleLoansData: GetRescheduleLoans
-          }
-        }
-      ]
+            recheduleLoansData: GetRescheduleLoans,
+          },
+        },
+      ],
     },
     {
       path: 'checker-inbox-and-tasks/checker-inbox',
@@ -84,14 +110,14 @@ const routes: Routes = [
         {
           path: ':id/view',
           component: ViewCheckerInboxComponent,
-          data: { title: extract('View Checker Inbox Component'), routeParamBreadcrumb: 'clientId' },
+          data: { title: extract('labels.text.View Checker Inbox Component'), routeParamBreadcrumb: 'clientId' },
           resolve: {
-            checkerInboxDetail: GetCheckerInboxDetailResolver
-          }
-        }
-      ]
+            checkerInboxDetail: GetCheckerInboxDetailResolver,
+          },
+        },
+      ],
     },
-  ])
+  ]),
 ];
 
 @NgModule({
@@ -104,7 +130,9 @@ const routes: Routes = [
     GetLoans,
     GetRescheduleLoans,
     MakerCheckerTemplate,
-    GetCheckerInboxDetailResolver
-  ]
+    GetCheckerInboxDetailResolver,
+    GetClientVerificationEntries,
+    GetClientPendingReVerificationEntries,
+  ],
 })
-export class TasksRoutingModule { }
+export class TasksRoutingModule {}

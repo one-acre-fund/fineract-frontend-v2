@@ -14,7 +14,7 @@ export class FileUploadComponent {
   /** Form field flex dimension */
   @Input() flex: any;
   /** Selected file name */
-  fileName: File;
+  fileName: string = '';
 
   constructor() { }
 
@@ -23,7 +23,8 @@ export class FileUploadComponent {
    * @param {any} event File input change event.
    */
   onFileSelect($event: any) {
-    this.fileName = $event.target.files[0].name;
+    const file = $event?.target?.files && $event.target.files.length > 0 ? $event.target.files[0] : null;
+    this.fileName = file ? file.name : '';
   }
 
 }

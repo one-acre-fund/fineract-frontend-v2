@@ -86,7 +86,7 @@ export class SidenavComponent implements OnInit {
    */
   getFrequentActivities() {
     const frequencyCounts: any = {};
-    let index = this.userActivity.length;
+    let index = this.userActivity?.length;
     while (index) {
       frequencyCounts[this.userActivity[--index]] = (frequencyCounts[this.userActivity[index]] || 0) + 1;
     }

@@ -30,14 +30,19 @@ export const environment = {
     redirectUri: window['env']['homeURL'] || 'http://localhost:4200/home'
   },
   defaultLanguage: window['env']['defaultLanguage'] || 'en-US',
-  supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR',
+  supportedLanguages: window['env']['supportedLanguages'] || 'en-US,fr-FR,sw-KE',
   headOfficeID: window['env']['headOfficeID'] || '1',
   //Matomo instance config
   matomoSiteId: window['env']['matomoSiteId'] || 1,
   matomoSiteUrl: window['env']['matomoSiteUrl'] || 'http://localhost',
   // Loan submission button disabled timeout in seconds
   loanSubmitButtonDisabledTimeOut: window['env']['loanSubmitButtonDisabledTimeOut'] || 5,
-  sentryDsn: window['env']['sentryDsn'] || ''
+  sentryDsn: window['env']['sentryDsn'] || '',
+  apm: {
+    ...commonEnvironments.apm,
+    serverUrl: window['env']['apmServerUrl'] || 'http://localhost:59183',
+    active: false
+  },
 
 };
 

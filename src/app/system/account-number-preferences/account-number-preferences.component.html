@@ -1,15 +1,13 @@
 <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
   <button mat-raised-button color="primary" [routerLink]="['create']" *mifosxHasPermission="'ADD_PREFERENCES'">
-    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;
-    Create Preference
-  </button>
+    <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Create Preference' | translate }}</button>
 </div>
 
 <div class="container">
 
   <div fxLayout="row">
     <mat-form-field fxFlex>
-      <mat-label>Filter</mat-label>
+      <mat-label>{{ 'labels.buttons.Filter' | translate }}</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
   </div>
@@ -19,7 +17,7 @@
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="accountType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Number Preferences </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.heading.Account Number Preferences' | translate }}</th>
         <td mat-cell *matCellDef="let accountNumberPreference"> {{ accountNumberPreference.accountType.value }} </td>
       </ng-container>
 

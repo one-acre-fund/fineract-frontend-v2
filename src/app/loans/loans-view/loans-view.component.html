@@ -35,6 +35,12 @@
                 <span *ngIf="loanDetailsData.group">
                   {{ 'labels.inputs.Group Name' | translate }} : {{ loanDetailsData.group.name }}
                 </span>
+                <span *ngIf="loanDetailsData.status">
+                  {{ 'labels.heading.Status' | translate }} : {{ ('labels.status.' + loanDetailsData?.status?.value) | translate }}
+                </span>
+                <span *ngIf="loanDetailsData.subStatus">
+                  - {{ ('labels.subStatus.' + loanDetailsData?.subStatus?.value) | translate }}
+                </span>
               </h3>
             </div>
 
@@ -151,6 +157,17 @@
           [active]="loanTrancheDetails.isActive"
         >
           {{ 'labels.inputs.Loan Tranche Details' | translate }}
+        </a>
+      </ng-container>
+      <ng-container *ngIf="showLoanDeliveryTabComponent()">
+        <a
+          mat-tab-link
+          [routerLink]="['./loanDeliveryDetails']"
+          routerLinkActive
+          #loanDeliveryDetails="routerLinkActive"
+          [active]="loanDeliveryDetails.isActive"
+        >
+          {{ 'labels.text.loan.delivery.details' | translate }}
         </a>
       </ng-container>
       <ng-container *ngIf="loanDetailsData.overdueCharges.length > 0">

@@ -22,19 +22,15 @@
     </mat-list-item>
 
     <div fxLayout="column" fxLayoutGap="10px" class="template-message">
-      <h3>Campaign Message :</h3>
+      <h3>{{ 'labels.heading.Campaign Message' | translate }}</h3>
       <textarea matInput disabled>{{ campaign.editFlag ? editedCampaignMessage : campaign.message }}</textarea>
     </div>
 
   </mat-list>
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
-    <button mat-raised-button [routerLink]="['../']">
-      Cancel
-    </button>
-    <button mat-raised-button color="primary" (click)="submit.emit()">
-      Submit
-    </button>
+    <button mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+    <button mat-raised-button color="primary" (click)="submit.emit()">{{ 'labels.buttons.Submit' | translate }}</button>
   </div>
 
 </div>

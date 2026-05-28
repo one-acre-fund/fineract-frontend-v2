@@ -26,12 +26,12 @@ const routes: Routes = [
     {
       path: 'home',
       component: HomeComponent,
-      data: { title: extract('Home') }
+      data: { title: extract('labels.text.Home') }
     },
     {
       path: 'dashboard',
       component: DashboardComponent,
-      data: { title: extract('Dashboard'), breadcrumb: 'Dashboard' },
+      data: { title: extract('labels.text.Dashboard'), breadcrumb: 'Dashboard' },
       resolve: {
         offices: OfficesResolver
       }

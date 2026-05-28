@@ -37,6 +37,12 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
 
   loanProductTemplateForm: UntypedFormGroup;
 
+  roundingModes: {modeValue: string, modeLabel: string}[] = [
+    {modeValue: 'SYSTEM_DEFAULT_ROUNDING_MODE', modeLabel: 'System Default Rounding Mode'},
+    {modeValue: 'DOWN_TO_NEAREST_WHOLE_NUMBER', modeLabel: 'Down to Nearest Whole Number'},
+    {modeValue: 'UP_TO_NEAREST_WHOLE_NUMBER', modeLabel: 'Up to Nearest Whole Number'}
+  ];
+
   constructor(
     private productsService: ProductsService,
     private formBuilder: UntypedFormBuilder,
@@ -60,6 +66,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       digitsAfterDecimal: this.loanProductsTemplate.currency.decimalPlaces,
       inMultiplesOf: this.loanProductsTemplate.currency.inMultiplesOf,
       installmentAmountInMultiplesOf: 1,
+      roundingModeOnCalculatedValues: this.loanProductsTemplate.roundingModeOnCalculatedValues
     });
   }
 
@@ -127,6 +134,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       this.isQualificationRequired = res.configurations?.isQualificationRequired;
       this.loanProductTemplates = res.loanProductTemplates;
       this.productsService.isQualificationRequired = this.isQualificationRequired;
+      this.productsService.allowDynamicDownpayment = res.configurations?.allowDynamicDownpayment ?? false;
       this.loanProductTemplateForm.patchValue({
         loanProductTemplates: this.loanProductTemplates,
         enableTermsAndConditions: this.enableTermsAndConditions,
@@ -146,6 +154,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       digitsAfterDecimal: ['', Validators.required],
       inMultiplesOf: ['', Validators.min(1)],
       installmentAmountInMultiplesOf: ['', Validators.required],
+      roundingModeOnCalculatedValues: ['SYSTEM_DEFAULT_ROUNDING_MODE']
     });
     this.loanProductTemplateForm = this.formBuilder.group({
       loanProductTemplates: [''],

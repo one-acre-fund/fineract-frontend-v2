@@ -25,7 +25,7 @@ export class HasPermissionDirective {
               private viewContainer: ViewContainerRef,
               private authenticationService: AuthenticationService) {
     const savedCredentials = this.authenticationService.getCredentials();
-    this.userPermissions = savedCredentials.permissions;
+    this.userPermissions = (savedCredentials && Array.isArray(savedCredentials.permissions)) ? savedCredentials.permissions : [];
   }
 
   /**

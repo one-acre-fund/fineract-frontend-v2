@@ -9,25 +9,25 @@
         <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
   
           <mat-form-field fxFlex="48%">
-            <mat-label>Entity</mat-label>
+            <mat-label>{{ 'labels.inputs.Entity' | translate }}</mat-label>
             <mat-select formControlName="entity">
-              <mat-option *ngFor="let entity of editTemplateData.entities" [value]="entity.id">
+              <mat-option *ngFor="let entity of editTemplateData.entities" [value]="entity.code">
                 {{ entity.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>		
   
           <mat-form-field fxFlex="48%">
-            <mat-label>Type</mat-label>
+            <mat-label>{{ 'labels.inputs.Type' | translate }}</mat-label>
             <mat-select formControlName="type">
-              <mat-option *ngFor="let type of editTemplateData.types" [value]="type.id">
+              <mat-option *ngFor="let type of templateTypes" [value]="type.code">
                 {{ type.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
   
-          <mat-form-field fxFlex="48%">
-            <mat-label>Name</mat-label>
+          <mat-form-field fxFlex="98%">
+            <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
             <input matInput formControlName="name">
           </mat-form-field>
   
@@ -39,7 +39,7 @@
 
     <div role="toggle" fxFlex="13%">
 
-      <button mat-raised-button color="primary" (click)="showAdvanceOptions = !showAdvanceOptions">Advance Options</button>
+      <button mat-raised-button color="primary" (click)="showAdvanceOptions = !showAdvanceOptions">{{ 'labels.buttons.Advance Options' | translate }}</button>
 
     </div>
 
@@ -48,21 +48,19 @@
       <div *ngFor="let mapper of mappers; index as i" fxLayout="row" fxLayoutGap="2%">
 
         <mat-form-field fxFlex="43%">
-          <mat-label>Mapper Key</mat-label>
+          <mat-label>{{ 'labels.inputs.Mapper Key' | translate }}</mat-label>
           <input matInput [formControl]="mapper.mapperskey">
         </mat-form-field>
 
         <mat-form-field fxFlex="43%">
-          <mat-label>Mapper Value</mat-label>
+          <mat-label>{{ 'labels.inputs.Mapper Value' | translate }}</mat-label>
           <input matInput [formControl]="mapper.mappersvalue">
         </mat-form-field>
 
         <button *ngIf="i === 0" class="mapper-button" fxFlex="8%" mat-raised-button color="primary" (click)="addMapper()">
-          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;Add
-        </button>
+          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Add' | translate }}</button>
         <button *ngIf="!(i === 0)" class="mapper-button" fxFlex="9%" mat-raised-button color="primary" (click)="removeMapper(i)">
-          <fa-icon icon="minus"></fa-icon>&nbsp;&nbsp;Remove
-        </button>
+          <fa-icon icon="minus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Remove' | translate }}</button>
 
       </div>
 
@@ -78,12 +76,10 @@
 
       <mat-accordion>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 0">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'CLIENT'">
   
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              Client Parameters
-            </mat-panel-title>
+            <mat-panel-title>{{ 'labels.inputs.Client Parameters' | translate }}</mat-panel-title>
           </mat-expansion-panel-header>
           
           <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
@@ -95,12 +91,10 @@
   
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 1">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'LOAN'">
   
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              Loan Parameters
-            </mat-panel-title>
+            <mat-panel-title>{{ 'labels.inputs.Loan Parameters' | translate }}</mat-panel-title>
           </mat-expansion-panel-header>
           
           <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
@@ -112,12 +106,10 @@
   
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 1">
+        <mat-expansion-panel *ngIf="templateForm.controls.entity.value === 'LOAN'">
   
           <mat-expansion-panel-header>
-            <mat-panel-title>
-              Repayment Schedule Parameters
-            </mat-panel-title>
+            <mat-panel-title>{{ 'labels.inputs.Repayment Schedule Parameters' | translate }}</mat-panel-title>
           </mat-expansion-panel-header>
           
           <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="center">
@@ -134,8 +126,8 @@
     </div>
 
     <mat-card-actions class="m-b-20" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-      <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
-      <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+      <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
+      <button mat-raised-button color="primary" (click)="submit()">{{ 'labels.buttons.Submit' | translate }}</button>
     </mat-card-actions>
   
   </mat-card>

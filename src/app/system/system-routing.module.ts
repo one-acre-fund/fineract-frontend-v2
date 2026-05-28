@@ -93,343 +93,362 @@ import { AddPaymentProviderComponent } from './external-services/payment-provide
 import { EditPaymentProviderComponent } from './external-services/payment-provider/edit-payment-provider/edit-payment-provider.component';
 import { OrderIntegrationComponent } from './external-services/order-integration/order-integration.component';
 import { EditOrderIntegrationComponent } from './external-services/order-integration/edit-order-integration/edit-order-integration.component';
+import { AddNotificationComponent } from './external-services/notification/add-notification/add-notification.component';
 
 const routes: Routes = [
   Route.withShell([
     {
       path: 'system',
-      data: { title: extract('System'), breadcrumb: 'System' },
+      data: { title: extract('labels.text.System'), breadcrumb: 'System' },
       children: [
         {
           path: '',
-          component: SystemComponent
+          component: SystemComponent,
         },
         {
           path: 'codes',
-          data: { title: extract('View Codes'), breadcrumb: 'Codes' },
+          data: { title: extract('labels.text.View Codes'), breadcrumb: 'Codes' },
           children: [
             {
               path: '',
               component: CodesComponent,
               resolve: {
-                codes: CodesResolver
-              }
+                codes: CodesResolver,
+              },
             },
             {
               path: 'create',
               component: CreateCodeComponent,
-              data: { title: extract('Create Code'), breadcrumb: 'Create' }
+              data: { title: extract('labels.text.Create Code'), breadcrumb: 'Create' },
             },
             {
               path: ':id',
-              data: { title: extract('View Code'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Code'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewCodeComponent,
                   resolve: {
                     code: CodeResolver,
-                    codeValues: CodeValuesResolver
-                  }
+                    codeValues: CodeValuesResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditCodeComponent,
-                  data: { title: extract('Edit Code'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: { title: extract('labels.text.Edit Code'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                   resolve: {
-                    code: CodeResolver
-                  }
-                }
-              ]
-            }
+                    code: CodeResolver,
+                  },
+                },
+              ],
+            },
           ],
-
         },
         {
           path: 'entity-to-entity-mapping',
           component: EntityToEntityMappingComponent,
-          data: { title: extract('Entity to Entity Mapping'), breadcrumb: 'Entity to Entity Mapping' },
+          data: { title: extract('labels.text.Entity to Entity Mapping'), breadcrumb: 'Entity to Entity Mapping' },
           resolve: {
-            entityMappings: EntityToEntityMappingResolver
-          }
+            entityMappings: EntityToEntityMappingResolver,
+          },
         },
         {
           path: 'external-services',
-          data: { title: extract('External Services'), breadcrumb: 'External Services' },
+          data: { title: extract('labels.text.External Services'), breadcrumb: 'External Services' },
           children: [
             {
               path: '',
-              component: ExternalServicesComponent
+              component: ExternalServicesComponent,
             },
             {
               path: 'amazon-s3',
-              data: { title: extract('View Amazon S3 Configuration'), breadcrumb: 'Amazon S3' },
+              data: { title: extract('labels.text.View Amazon S3 Configuration'), breadcrumb: 'Amazon S3' },
               children: [
                 {
                   path: '',
                   component: AmazonS3Component,
                   resolve: {
-                    amazonS3Configuration: AmazonS3ConfigurationResolver
-                  }
+                    amazonS3Configuration: AmazonS3ConfigurationResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditAmazonS3Component,
-                  data: { title: extract('Edit Amazon S3 Configuration'), breadcrumb: 'Edit' },
+                  data: { title: extract('labels.text.Edit Amazon S3 Configuration'), breadcrumb: 'Edit' },
                   resolve: {
-                    amazonS3Configuration: AmazonS3ConfigurationResolver
-                  }
-                }
-              ]
+                    amazonS3Configuration: AmazonS3ConfigurationResolver,
+                  },
+                },
+              ],
             },
             {
               path: 'email',
-              data: { title: extract('View Email Configuration'), breadcrumb: 'Email' },
+              data: { title: extract('labels.text.View Email Configuration'), breadcrumb: 'Email' },
               children: [
                 {
                   path: '',
                   component: EmailComponent,
                   resolve: {
-                    emailConfiguration: EmailConfigurationResolver
-                  }
+                    emailConfiguration: EmailConfigurationResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditEmailComponent,
-                  data: { title: extract('Edit Email Configuration'), breadcrumb: 'Edit' },
+                  data: { title: extract('labels.text.Edit Email Configuration'), breadcrumb: 'Edit' },
                   resolve: {
-                    emailConfiguration: EmailConfigurationResolver
-                  }
-                }
-              ]
+                    emailConfiguration: EmailConfigurationResolver,
+                  },
+                },
+              ],
             },
             {
               path: 'sms',
-              data: { title: extract('View SMS Configuration'), breadcrumb: 'SMS' },
+              data: { title: extract('labels.text.View SMS Configuration'), breadcrumb: 'SMS' },
               children: [
                 {
                   path: '',
                   component: SMSComponent,
                   resolve: {
-                    smsConfiguration: SMSConfigurationResolver
-                  }
+                    smsConfiguration: SMSConfigurationResolver,
+                  },
                 },
                 {
                   path: 'edit',
-                  data: { title: extract('Edit SMS Configuration'), breadcrumb: 'Edit' },
+                  data: { title: extract('labels.text.Edit SMS Configuration'), breadcrumb: 'Edit' },
                   component: EditSMSComponent,
                   resolve: {
-                    smsConfiguration: SMSConfigurationResolver
-                  }
-                }
-              ]
+                    smsConfiguration: SMSConfigurationResolver,
+                  },
+                },
+              ],
             },
             {
               path: 'notification',
-              data: { title: extract('View Notification Configuration'), breadcrumb: 'Notification' },
+              data: { title: extract('labels.text.View Notification Configuration'), breadcrumb: 'Notification' },
               children: [
                 {
                   path: '',
                   component: NotificationComponent,
                   resolve: {
-                    notificationConfiguration: NotificationConfigurationResolver
-                  }
+                    notificationConfiguration: NotificationConfigurationResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditNotificationComponent,
-                  data: { title: extract('Edit Notification Configuration'), breadcrumb: 'Edit' },
-                  resolve: {
-                    notificationConfiguration: NotificationConfigurationResolver
-                  }
-                }
-              ]
-            },
-            {
-              path: 'payment-provider',
-              data: { title: extract('Payment Providers Configuration'), breadcrumb: 'Payment Providers' },
-              children: [
-                {
-                  path: '',
-                  component: PaymentProviderComponent
+                  data: { title: extract('labels.text.Edit Notification Configuration'), breadcrumb: 'Edit' },
                 },
                 {
                   path: 'add',
-                  data: { title: extract('Add Payment providers Configuration'), breadcrumb: 'Add' },
-                  component: AddPaymentProviderComponent
+                  component: AddNotificationComponent,
+                  data: { title: extract('labels.text.Add Notification Configuration'), breadcrumb: 'Add' }
                 },
-                {
-                  path: 'edit',
-                  data: { title: extract('Edit Payment providers Configuration'), breadcrumb: 'Edit' },
-                  component: EditPaymentProviderComponent
-                }
-              ]
+              ],
             },
             {
-              path: 'order-integration',
-              data: { title: extract('Order Integration Service Configuration'), breadcrumb: 'Order Integration Service' },
+              path: 'payment-provider',
+              data: {
+                title: extract('labels.commons.Payment Providers Configuration'),
+                breadcrumb: 'Payment Providers',
+              },
               children: [
                 {
                   path: '',
-                  component: OrderIntegrationComponent
+                  component: PaymentProviderComponent,
+                },
+                {
+                  path: 'add',
+                  data: { title: extract('labels.commons.Add.Payment.providers.Configuration'), breadcrumb: 'Add' },
+                  component: AddPaymentProviderComponent,
                 },
                 {
                   path: 'edit',
-                  data: { title: extract('Edit Order Integration Service Configuration'), breadcrumb: 'Edit' },
-                  component: EditOrderIntegrationComponent
-                }
-              ]
+                  data: { title: extract('labels.commons.Edit.Payment.providers.Configuration'), breadcrumb: 'Edit' },
+                  component: EditPaymentProviderComponent,
+                },
+              ],
             },
-          ]
+            {
+              path: 'order-integration',
+              data: {
+                title: extract('labels.commons.Order Integration Service Configuration'),
+                breadcrumb: 'Order Integration Service',
+              },
+              children: [
+                {
+                  path: '',
+                  component: OrderIntegrationComponent,
+                },
+                {
+                  path: 'edit',
+                  data: {
+                    title: extract('labels.commons.Order Integration Service Configuration'),
+                    breadcrumb: 'Edit',
+                  },
+                  component: EditOrderIntegrationComponent,
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'data-tables',
-          data: { title: extract('Manage Data Tables'), breadcrumb: 'Manage Data Tables' },
+          data: { title: extract('labels.text.Manage Data Tables'), breadcrumb: 'Manage Data Tables' },
           children: [
             {
               path: '',
               component: ManageDataTablesComponent,
               resolve: {
-                dataTables: ManageDataTablesResolver
+                dataTables: ManageDataTablesResolver,
               },
             },
             {
               path: 'create',
               component: CreateDataTableComponent,
-              data: { title: extract('Create Data Table'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Data Table'), breadcrumb: 'Create' },
               resolve: {
-                columnCodes: CodesResolver
-              }
+                columnCodes: CodesResolver,
+              },
             },
             {
               path: ':datatableName',
-              data: { title: extract('View Data Table'), routeParamBreadcrumb: 'datatableName' },
+              data: { title: extract('labels.text.View Data Table'), routeParamBreadcrumb: 'datatableName' },
               children: [
                 {
                   path: '',
                   component: ViewDataTableComponent,
                   resolve: {
-                    dataTable: DataTableResolver
-                  }
+                    dataTable: DataTableResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditDataTableComponent,
-                  data: { title: extract('Edit Data table'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Data table'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     dataTable: DataTableResolver,
-                    columnCodes: CodesResolver
-                  }
-                }
-              ]
-            }
+                    columnCodes: CodesResolver,
+                  },
+                },
+              ],
+            },
           ],
         },
         {
           path: 'field-configuration',
-          data: { title: extract('Configure Data Fields'), breadcrumb: 'Configure Data Fields' },
+          data: { title: extract('labels.commons.Configure Data Fields'), breadcrumb: 'Configure Data Fields' },
           children: [
             {
               path: '',
               component: ConfigureDataFieldsComponent,
               resolve: {
-                dataTables: ManageDataFieldResolver
+                dataTables: ManageDataFieldResolver,
               },
             },
             {
               path: ':datatableName',
-              data: { title: extract('View Data Table'), routeParamBreadcrumb: 'datatableName' },
+              data: { title: extract('labels.text.View Data Table'), routeParamBreadcrumb: 'datatableName' },
               children: [
                 {
                   path: '',
                   component: ViewDataTableComponent,
                   resolve: {
-                    dataTable: DataTableResolver
-                  }
+                    dataTable: DataTableResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditDataTableComponent,
-                  data: { title: extract('Edit Data table'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Data table'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     dataTable: DataTableResolver,
-                    columnCodes: CodesResolver
-                  }
-                }
-              ]
-            }
+                    columnCodes: CodesResolver,
+                  },
+                },
+              ],
+            },
           ],
         },
         {
           path: 'configure-field/:id/:countryId/:countryName',
           component: DataFieldsComponent,
-          data: { title: extract('Configure Data Fields'), routeParamBreadcrumb: 'countryName' },
+          data: { title: extract('labels.commons.Configure Data Fields'), routeParamBreadcrumb: 'countryName' },
           resolve: {
-            columnCodes: ManageFieldsDataResolver
-          }
+            columnCodes: ManageFieldsDataResolver,
+          },
         },
         {
           path: 'hooks',
-          data: { title: extract('Manage Hooks'), breadcrumb: 'Manage Hooks' },
+          data: { title: extract('labels.text.Manage Hooks'), breadcrumb: 'Manage Hooks' },
           children: [
             {
               path: '',
               component: ManageHooksComponent,
               resolve: {
-                hooks: ManageHooksResolver
-              }
+                hooks: ManageHooksResolver,
+              },
             },
             {
               path: 'create',
               component: CreateHookComponent,
-              data: { title: extract('Create Hook'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Hook'), breadcrumb: 'Create' },
               resolve: {
-                hooksTemplate: HooksTemplateResolver
-              }
+                hooksTemplate: HooksTemplateResolver,
+              },
             },
             {
               path: ':id',
-              data: { title: extract('View Hook'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Hook'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewHookComponent,
                   resolve: {
-                    hook: HookResolver
-                  }
+                    hook: HookResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditHookComponent,
-                  data: { title: extract('Edit Hook'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: { title: extract('labels.text.Edit Hook'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                   resolve: {
                     hooksTemplate: HooksTemplateResolver,
-                    hook: HookResolver
-                  }
-                }
-              ]
-            }
-          ]
+                    hook: HookResolver,
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'roles-and-permissions',
-          data: { title: extract('Roles and Permissions'), breadcrumb: 'Roles and Permissions' },
+          data: { title: extract('labels.text.Roles and Permissions'), breadcrumb: 'Roles and Permissions' },
           children: [
             {
               path: '',
               component: RolesAndPermissionsComponent,
               resolve: {
-                roles: RolesAndPermissionsResolver
-              }
+                roles: RolesAndPermissionsResolver,
+              },
             },
             {
               path: 'add',
               component: AddRoleComponent,
-              data: { title: extract('Add Role'), breadcrumb: 'Add' }
+              data: { title: extract('labels.text.Add Role'), breadcrumb: 'Add' },
             },
             {
               path: ':id',
-              data: { title: extract('View Role'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Role'), routeParamBreadcrumb: 'id' },
               runGuardsAndResolvers: 'always',
               children: [
                 {
@@ -437,62 +456,65 @@ const routes: Routes = [
                   component: ViewRoleComponent,
                   resolve: {
                     roledetails: ViewRoleResolver,
-                  }
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditRoleComponent,
-                  data: { title: extract('Edit Role'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: { title: extract('labels.text.Edit Role'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
                   resolve: {
                     role: ViewRoleResolver,
-                  }
-                }
-              ]
-            }
-          ]
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'configure-mc-tasks',
-          data: { title: extract('Configure Maker Checker Tasks'), breadcrumb: 'Configure Maker Checker Tasks' },
+          data: {
+            title: extract('labels.text.Configure Maker Checker Tasks'),
+            breadcrumb: 'Configure Maker Checker Tasks',
+          },
           component: ConfigureMakerCheckerTasksComponent,
           resolve: {
-            permissions: MakerCheckerTasksResolver
-          }
+            permissions: MakerCheckerTasksResolver,
+          },
         },
         {
           path: 'surveys',
-          data: { title: extract('Manage Surveys'), breadcrumb: 'Manage Surveys' },
+          data: { title: extract('labels.text.Manage Surveys'), breadcrumb: 'Manage Surveys' },
           children: [
             {
               path: '',
               component: ManageSurveysComponent,
               resolve: {
-                surveys: ManageSurveysResolver
-              }
+                surveys: ManageSurveysResolver,
+              },
             },
             {
               path: 'create',
               component: CreateSurveyComponent,
-              data: { title: extract('Create Survey'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Survey'), breadcrumb: 'Create' },
             },
             {
               path: ':id',
-              data: { title: extract('View Survey'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Survey'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewSurveyComponent,
                   resolve: {
-                    survey: SurveyResolver
-                  }
-                }
-              ]
-            }
-          ]
+                    survey: SurveyResolver,
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'scheduler-jobs',
-          data: { title: extract('Manage Scheduler Jobs'), breadcrumb: 'Manage Scheduler Jobs' },
+          data: { title: extract('labels.heading.Manage Scheduler Jobs'), breadcrumb: 'Manage Scheduler Jobs' },
           children: [
             {
               path: '',
@@ -501,150 +523,166 @@ const routes: Routes = [
             },
             {
               path: ':id',
-              data: { title: extract('View Scheduler Job'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Scheduler Job'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewSchedulerJobComponent,
                   resolve: {
-                    selectedJob: ViewSchedulerJobResolver
-                  }
+                    selectedJob: ViewSchedulerJobResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditSchedulerJobComponent,
-                  data: { title: extract('Edit Scheduler Job'), routeParamBreadcrumb: false, breadcrumb: 'Edit' },
+                  data: {
+                    title: extract('labels.text.Edit Scheduler Job'),
+                    routeParamBreadcrumb: false,
+                    breadcrumb: 'Edit',
+                  },
                   resolve: {
-                    jobSelected: ManageSchedulerJobResolver
-                  }
+                    jobSelected: ManageSchedulerJobResolver,
+                  },
                 },
                 {
                   path: 'viewhistory',
                   component: ViewHistorySchedulerJobComponent,
-                  data: { title: extract('Scheduler Job History'), breadcrumb: 'View History' },
+                  data: { title: extract('labels.text.Scheduler Job History'), breadcrumb: 'View History' },
                   resolve: {
-                    jobsSchedulerHistory: ViewHistorySchedulerJobsResolver
+                    jobsSchedulerHistory: ViewHistorySchedulerJobsResolver,
                   },
-                }
-              ]
-            }
+                },
+              ],
+            },
           ],
         },
         {
           path: 'configurations',
-          data: { title: extract('Configurations'), breadcrumb: 'Configurations' },
+          data: { title: extract('labels.text.Configurations'), breadcrumb: 'Configurations' },
           children: [
             {
               path: '',
-              component: ConfigurationsComponent
+              component: ConfigurationsComponent,
             },
             {
               path: ':id/edit',
               component: EditConfigurationComponent,
-              data: { title: extract('Edit Configuration'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+              data: {
+                title: extract('labels.text.Edit Configuration'),
+                breadcrumb: 'Edit',
+                routeParamBreadcrumb: false,
+              },
               resolve: {
-                configuration: GlobalConfigurationResolver
-              }
+                configuration: GlobalConfigurationResolver,
+              },
             },
             {
               path: ':id/clone-config',
               component: CloneConfigurationComponent,
-              data: { title: extract('Clone Configuration'), breadcrumb: 'Clone', routeParamBreadcrumb: false },
+              data: {
+                title: extract('labels.commons.Clone Configuration'),
+                breadcrumb: 'Clone',
+                routeParamBreadcrumb: false,
+              },
               resolve: {
-                configuration: GlobalConfigurationResolver
-              }
-            }
-          ]
+                configuration: GlobalConfigurationResolver,
+              },
+            },
+          ],
         },
         {
           path: 'account-number-preferences',
-          data: { title: extract('Account Number Preferences'), breadcrumb: 'Account Number Preferences' },
+          data: { title: extract('labels.text.Account Number Preferences'), breadcrumb: 'Account Number Preferences' },
           children: [
             {
               path: '',
               component: AccountNumberPreferencesComponent,
               resolve: {
-                accountNumberPreferences: AccountNumberPreferencesResolver
-              }
+                accountNumberPreferences: AccountNumberPreferencesResolver,
+              },
             },
             {
               path: 'create',
               component: CreateAccountNumberPreferenceComponent,
-              data: { title: extract('Create Account Number Preference'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Account Number Preference'), breadcrumb: 'Create' },
               resolve: {
-                accountNumberPreferencesTemplate: AccountNumberPreferencesTemplateResolver
-              }
+                accountNumberPreferencesTemplate: AccountNumberPreferencesTemplateResolver,
+              },
             },
             {
               path: ':id',
-              data: { title: extract('View Account Number Preference'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Account Number Preference'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewAccountNumberPreferenceComponent,
                   resolve: {
-                    accountNumberPreference: AccountNumberPreferenceResolver
-                  }
+                    accountNumberPreference: AccountNumberPreferenceResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditAccountNumberPreferenceComponent,
-                  data: { title: extract('Edit Account Number Preference'), breadcrumb: 'Edit', routeParamBreadcrumb: false },
+                  data: {
+                    title: extract('labels.text.Edit Account Number Preference'),
+                    breadcrumb: 'Edit',
+                    routeParamBreadcrumb: false,
+                  },
                   resolve: {
                     accountNumberPreference: AccountNumberPreferenceResolver,
-                    accountNumberPreferencesTemplate: AccountNumberPreferencesTemplateResolver
-                  }
-                }
-              ]
-            }
-          ]
+                    accountNumberPreferencesTemplate: AccountNumberPreferencesTemplateResolver,
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'reports',
-          data: { title: extract('Manage Reports'), breadcrumb: 'Manage Reports' },
+          data: { title: extract('labels.text.Manage Reports'), breadcrumb: 'Manage Reports' },
           children: [
             {
               path: '',
               component: ManageReportsComponent,
               resolve: {
-                reports: ReportsResolver
-              }
+                reports: ReportsResolver,
+              },
             },
             {
               path: 'create',
               component: CreateReportComponent,
-              data: { title: extract('Create Report'), breadcrumb: 'Create' },
+              data: { title: extract('labels.text.Create Report'), breadcrumb: 'Create' },
               resolve: {
-                reportTemplate: ReportTemplateResolver
-              }
+                reportTemplate: ReportTemplateResolver,
+              },
             },
             {
               path: ':id',
-              data: { title: extract('View Report'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.text.View Report'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: '',
                   component: ViewReportComponent,
                   resolve: {
-                    report: ReportResolver
-                  }
+                    report: ReportResolver,
+                  },
                 },
                 {
                   path: 'edit',
                   component: EditReportComponent,
-                  data: { title: extract('Edit Report'), routeParamBreadcrumb: false, breadcrumb: 'Edit' },
+                  data: { title: extract('labels.text.Edit Report'), routeParamBreadcrumb: false, breadcrumb: 'Edit' },
                   resolve: {
                     report: ReportResolver,
-                    reportTemplate: ReportTemplateResolver
-                  }
-                }
-              ]
-            }
-          ]
+                    reportTemplate: ReportTemplateResolver,
+                  },
+                },
+              ],
+            },
+          ],
         },
-      ]
-    }
-  ])
+      ],
+    },
+  ]),
 ];
 
 @NgModule({
@@ -680,7 +718,7 @@ const routes: Routes = [
     ViewRoleResolver,
     EntityToEntityMappingResolver,
     MakerCheckerTasksResolver,
-    ViewHistorySchedulerJobsResolver
-  ]
+    ViewHistorySchedulerJobsResolver,
+  ],
 })
-export class SystemRoutingModule { }
+export class SystemRoutingModule {}

@@ -5,26 +5,12 @@
     <mat-card-content>
 
       <nav mat-tab-nav-bar class="navigation-tabs">
-        <a mat-tab-link [routerLink]="['./checker-inbox']" routerLinkActive #checkerInbox="routerLinkActive"
-        [active]="checkerInbox.isActive" *mifosxHasPermission="'ALL_FUNCTIONS_READ'">
-          Checker Inbox
-        </a>
-        <a mat-tab-link [routerLink]="['./client-approval']" routerLinkActive #clientApproval="routerLinkActive"
-          [active]="clientApproval.isActive" *mifosxHasPermission="'READ_CLIENT'">
-          Client Approval
-        </a>
-        <a mat-tab-link [routerLink]="['./loan-approval']" routerLinkActive #loanApproval="routerLinkActive"
-          [active]="loanApproval.isActive" *mifosxHasPermission="'READ_LOAN'">
-          Loan Approval
-        </a>
-        <a mat-tab-link [routerLink]="['./loan-disbursal']" routerLinkActive #loanDisbursal="routerLinkActive"
-          [active]="loanDisbursal.isActive" *mifosxHasPermission="'READ_LOAN'">
-          Loan Disbursal
-        </a>
-        <a mat-tab-link [routerLink]="['./reschedule-loan']" routerLinkActive #rescheduleLoan="routerLinkActive"
-          [active]="rescheduleLoan.isActive" *mifosxHasPermission="'RESCHEDULE_LOAN'">
-          Reschedule Loan
-        </a>
+        <a mat-tab-link [routerLink]="['./client-verification-checker-inbox']" routerLinkActive #clientVerifCheckerInbox="routerLinkActive"
+        [active]="clientVerifCheckerInbox.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientVerification' | translate }}</a>
+        <a mat-tab-link [routerLink]="['./client-failed-kyc']" routerLinkActive #clientFailedKYC="routerLinkActive"
+          [active]="clientFailedKYC.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientFailedKYC' | translate }}</a>
+        <a mat-tab-link [routerLink]="['./client-pending-reverification-checker-inbox']" routerLinkActive #pendingReverifCheckerInbox="routerLinkActive"
+          [active]="pendingReverifCheckerInbox.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientPendingReverification' | translate }}</a>
       </nav>
 
       <router-outlet></router-outlet>

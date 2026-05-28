@@ -18,6 +18,22 @@ export class SettingsService {
   public static businessDateConfigName = 'enable_business_date';
   public static businessDateType = 'BUSINESS_DATE';
   public static cobDateType = 'COB_DATE';
+  /** Date formats. */
+  public static readonly dateFormats: string[] = [
+    'dd MMMM yyyy',
+    'dd MM yyyy',
+    'dd/MMMM/yyyy',
+    'dd/MM/yyyy',
+    'dd-MMMM-yyyy',
+    'dd-MM-yyyy',
+    'MMMM-dd-yyyy',
+    'MMMM dd yyyy',
+    'MMMM/dd/yyyy',
+    'MM-dd-yyyy',
+    'MM dd yyyy',
+    'MM/dd/yyyy',
+    'yyyy-MM-dd'
+  ];
 
   constructor(private alertService: AlertService,
     private dateUtils: DatePipe) { }
@@ -75,7 +91,13 @@ export class SettingsService {
     if (!localStorage.getItem('mifosXLanguage')) {
       this.setDefaultLanguage();
     }
-    return JSON.parse(localStorage.getItem('mifosXLanguage'));
+    let lang = JSON.parse(localStorage.getItem('mifosXLanguage'));
+
+    // Always return en as language code as it is used to send locale field to the server.
+    if(lang && lang.code !=='en') {
+       lang.code = 'en';
+    }
+    return lang;
   }
 
   /**

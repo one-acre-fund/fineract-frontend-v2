@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header-div">
-    <span>Configure Field</span>
+    <span>{{ 'labels.commons.Configure Field' | translate }}</span>
   </div>
   <div class="mat-elevation-z8 bg-white">
     <!--   <mat-form-field class="country-search">
@@ -20,81 +20,76 @@
         </mat-form-field> -->
 
     <div class="country-search">
-      <label for="country">Sub Module</label>
+      <label for="country">{{ 'labels.commons.Sub Module' | translate }}</label>
       <ng-select
         #countryddl
         [items]="subModule"
         bindLabel="subentity"
-        placeholder="Search"
+        placeholder="{{ 'labels.buttons.Search' | translate }}"
         [(ngModel)]="fieldConfigurationId"
         aria-labelledby="country"
         (change)="selectedSubModule(fieldConfigurationId.subentity)"
       >
       </ng-select>
 
-      <mat-error *ngIf="!fieldConfigurationId"> SubModule is <strong>required</strong> </mat-error>
+      <mat-error *ngIf="!fieldConfigurationId">{{ 'labels.commons.SubModule is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
     </div>
 
     <div class="partial" *ngIf="!toggleMatTable">
       <mat-form-field fxFlex="48%">
-        <mat-label>Add Field</mat-label>
+        <mat-label>{{ 'labels.commons.Add Field' | translate }}</mat-label>
         <input matInput required [(ngModel)]="fieldName" #addField="ngModel" />
-        <mat-error *ngIf="addField.invalid && addField.errors && addField.errors['required']">
-          Field Name is <strong>required</strong>
+        <mat-error *ngIf="addField.invalid && addField.errors && addField.errors['required']">{{ 'labels.inputs.Field Name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="column-search">
-        <mat-label>Column Type</mat-label>
-        <mat-select placeholder="Search" #columnTypeddl required [(ngModel)]="columnType">
+        <mat-label>{{ 'labels.inputs.Column Type' | translate }}</mat-label>
+        <mat-select placeholder="{{ 'labels.buttons.Search' | translate }}" #columnTypeddl required [(ngModel)]="columnType">
           <mat-option *ngFor="let list of columnTypeList" [value]="list.name">
             {{ list.name }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="!columnType"> Column Type is <strong>required</strong> </mat-error>
+        <mat-error *ngIf="!columnType">{{ 'labels.commons.Column Type is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong> </mat-error>
       </mat-form-field>
-      <button mat-icon-button color="primary" class="button-add" (click)="addControl()" matTooltip="Add New Control">
+      <button mat-icon-button color="primary" class="button-add" (click)="addControl()" matTooltip="{{ 'labels.commons.Add New Control' | translate }}">
         <fa-icon icon="plus"></fa-icon>
       </button>
     </div>
   </div>
   <div class="mat-elevation-z8" *ngIf="updatedFieldsData.length > 0 && !toggleMatTable">
     <mat-table #table [dataSource]="updatedFieldsData" matSort>
-      <caption class="display-none">
-        Manage Configuration Field
-      </caption>
-      <caption class="display-none">
-        Manage Fields
-      </caption>
+      <caption class="display-none">{{ 'labels.commons.Manage Configuration Field' | translate }}</caption>
+      <caption class="display-none">{{ 'labels.commons.Manage Fields' | translate }}</caption>
       <ng-container matColumnDef="field">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Field Name </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'labels.inputs.Field Name' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let element"> {{ element.field }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="isEnabled">
-        <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Active' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <mat-checkbox [(ngModel)]="element.isEnabled"></mat-checkbox>
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="isMandatory">
-        <mat-header-cell *matHeaderCellDef> Mandatory </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Mandatory' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <mat-checkbox [(ngModel)]="element.isMandatory"></mat-checkbox>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="isUnique">
-        <mat-header-cell *matHeaderCellDef> Unique </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Unique' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <mat-checkbox [(ngModel)]="element.isUnique"></mat-checkbox>
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>{{ 'labels.buttons.Actions' | translate }}</mat-header-cell>
         <mat-cell *matCellDef="let row; let index = index">
           <span *ngIf="!row.isBaseField">
-            <button mat-icon-button color="primary" matTooltip="Update" (click)="updateControl(row)">
+            <button mat-icon-button color="primary" matTooltip="{{ 'labels.buttons.Update' | translate }}" (click)="updateControl(row)">
               <fa-icon icon="check"></fa-icon>
             </button>
           </span>
@@ -102,7 +97,7 @@
             <button
               mat-icon-button
               color="warn"
-              matTooltip="Delete"
+              matTooltip="{{ 'labels.buttons.Delete' | translate }}"
               (click)="deleteRecord(row.field, row.fieldConfigurationId)"
             >
               <fa-icon icon="trash"></fa-icon>
@@ -118,26 +113,24 @@
   <div class="mat-elevation-z8" *ngIf="toggleMatTable">
     <form [formGroup]="form">
       <table mat-table [dataSource]="addDataSource" formArrayName="tableArray">
-        <caption class="display-none">
-          Add Field Configuration
-        </caption>
+        <caption class="display-none">{{ 'labels.commons.Add Field Configuration' | translate }}</caption>
         <!-- Row definitions -->
         <tr mat-header-row *matHeaderRowDef="addDisplayedColumns"></tr>
         <tr mat-row *matRowDef="let row; let i = index; columns: addDisplayedColumns"></tr>
 
         <!-- Column definitions -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Field Name</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Field Name' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-            <input matInput type="text" class="form-control" formControlName="name" placeholder="Field Name" />
+            <input matInput type="text" class="form-control" formControlName="name" placeholder="{{ 'labels.inputs.Field Name' | translate }}" />
           </td>
         </ng-container>
 
         <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Type' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
             <mat-select
-              placeholder="Search"
+              placeholder="{{ 'labels.buttons.Search' | translate }}"
               required
               formControlName="type"
               (selectionChange)="changeType(index, $event.value)"
@@ -150,30 +143,30 @@
         </ng-container>
 
         <ng-container matColumnDef="mandatory">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>Mandatory</th>
+          <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Mandatory' | translate }}</th>
           <td class="text-center" mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
             <mat-checkbox formControlName="mandatory"></mat-checkbox>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="isUnique">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>Unique</th>
+          <th class="text-center" mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Unique' | translate }}</th>
           <td class="text-center" mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
             <mat-checkbox formControlName="isUnique"></mat-checkbox>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="length">
-          <th mat-header-cell *matHeaderCellDef>Length</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Length' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-            <input matInput type="text" class="form-control" formControlName="length" placeholder="length" />
+            <input matInput type="text" class="form-control" formControlName="length" placeholder="{{ 'labels.inputs.Length' | translate }}" />
           </td>
         </ng-container>
 
         <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef>Code</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Code' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
-            <mat-select placeholder="Code" required formControlName="code">
+            <mat-select placeholder="{{ 'labels.inputs.Code' | translate }}" required formControlName="code">
               <mat-option *ngFor="let list of codes" [value]="list.id">
                 {{ list.name }}
               </mat-option>
@@ -182,15 +175,15 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.buttons.Actions' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index">
             <span>
-              <button mat-icon-button color="primary" matTooltip="Add Field" (click)="saveControls()">
+              <button mat-icon-button color="primary" matTooltip="{{ 'labels.commons.Add Field' | translate }}" (click)="saveControls()">
                 <fa-icon icon="plus"></fa-icon>
               </button>
             </span>
             <span>
-              <button mat-icon-button color="warn" matTooltip="Delete Field" (click)="removeNode(index)">
+              <button mat-icon-button color="warn" matTooltip="{{ 'labels.commons.Delete Field' | translate }}" (click)="removeNode(index)">
                 <fa-icon icon="trash"></fa-icon>
               </button>
             </span>
@@ -201,8 +194,7 @@
   </div>
   <div class="bottom-button">
     <button *ngIf="toggleMatTable" type="button" color="primary" mat-raised-button (click)="goBack()">
-      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;Back
-    </button>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Back' | translate }}</button>
 
     <button
       *ngIf="!toggleMatTable"
@@ -211,7 +203,6 @@
       mat-raised-button
       [routerLink]="['/system/field-configuration']"
     >
-      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;Back
-    </button>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Back' | translate }}</button>
   </div>
 </div>

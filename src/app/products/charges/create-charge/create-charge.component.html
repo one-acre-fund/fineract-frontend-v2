@@ -3,7 +3,7 @@
     <form [formGroup]="chargeForm" (ngSubmit)="submit()">
       <mat-card-content>
         <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
-         <!--  <mat-form-field fxFlex="48%">
+          <!--  <mat-form-field fxFlex="48%">
             <mat-label>Country</mat-label>
             <mat-select placeholder="Search" #country required formControlName="country">
               <mat-select-filter
@@ -22,15 +22,14 @@
             </mat-error>
           </mat-form-field> -->
 
-
           <div fxFlex="48%">
-            <label for="country">Country</label>
+            <label for="country">{{ 'labels.inputs.Country' | translate }}</label>
             <ng-select
               #country
               [items]="countries"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Country"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
               formControlName="country"
               aria-labelledby="country"
               [virtualScroll]="true"
@@ -48,14 +47,14 @@
             fxLayout.lt-md="column"
           >
             <mat-form-field fxFlex="48%">
-              <mat-label>Charge Name</mat-label>
+              <mat-label>{{ 'labels.inputs.Charge Name' | translate }}</mat-label>
               <input matInput required formControlName="name" />
               <mat-error *ngIf="chargeForm.controls.name.hasError('required')">
-                Charge Name is <strong>required</strong>
+                {{ 'validation.msg.charge.name.cannot.be.blank' | translate }}
               </mat-error>
             </mat-form-field>
 
-           <!--  <mat-form-field fxFlex="48%">
+            <!--  <mat-form-field fxFlex="48%">
               <mat-label>Currency</mat-label>
               <mat-select required formControlName="currencyCode">
                 <mat-option *ngFor="let currency of chargesTemplateData.currencyOptions" [value]="currency.code">
@@ -68,13 +67,13 @@
             </mat-form-field> -->
 
             <div fxFlex="48%">
-              <label for="currencyCode">Currency</label>
+              <label for="currencyCode">{{ 'labels.inputs.Currency' | translate }}</label>
               <ng-select
                 #country
                 [items]="chargesTemplateData.currencyOptions"
                 bindLabel="name"
                 bindValue="code"
-                placeholder="Select Currency"
+                placeholder="{{ 'labels.inputs.Select Currency' | translate }}"
                 formControlName="currencyCode"
                 aria-labelledby="currencyCode"
                 [virtualScroll]="true"
@@ -83,7 +82,7 @@
             </div>
 
             <mat-form-field fxFlex="48%">
-              <mat-label>Charge Time Type</mat-label>
+              <mat-label>{{ 'labels.inputs.Charge Time Type' | translate }}</mat-label>
               <mat-select required formControlName="chargeTimeType" (selectionChange)="showHidepenalty($event)">
                 <mat-option
                   *ngFor="let chargeTimeType of chargesTemplateData.loanChargeTimeTypeOptions"
@@ -93,12 +92,12 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="chargeForm.controls.chargeTimeType.hasError('required')">
-                Charge Time Type is <strong>required</strong>
+                {{ 'validation.msg.charge.chargeTimeType.cannot.be.blank' | translate }}
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="48%">
-              <mat-label>Charge Calculation Type</mat-label>
+              <mat-label>{{ 'labels.inputs.Charge Calculation Type' | translate }}</mat-label>
               <mat-select required formControlName="chargeCalculationType">
                 <mat-option
                   *ngFor="let chargeCalculationType of chargesTemplateData.loanChargeCalculationTypeOptions"
@@ -108,43 +107,49 @@
                 </mat-option>
               </mat-select>
               <mat-error *ngIf="chargeForm.controls.chargeCalculationType.hasError('required')">
-                Charge Calculation Type is <strong>required</strong>
+                {{ 'validation.msg.charge.chargeCalculationType.cannot.be.blank' | translate }}
               </mat-error>
             </mat-form-field>
 
             <mat-form-field fxFlex="48%">
-              <mat-label>Amount</mat-label>
+              <mat-label>{{ 'labels.inputs.Amount' | translate }}</mat-label>
               <input matInput required formControlName="amount" />
               <mat-error *ngIf="chargeForm.controls.amount.hasError('required')">
-                Amount is <strong>required</strong>
+                {{ 'validation.msg.charge.amount.cannot.be.blank' | translate }}
               </mat-error>
             </mat-form-field>
 
             <div fxFlex="30%" fxLayout="row" fxLayoutGap="2%" fxLayout.lt-md="column">
               <div fxFlex="50%" class="active-wrapper">
-                <mat-checkbox labelPosition="before" formControlName="active"> Active </mat-checkbox>
+                <mat-checkbox labelPosition="before" formControlName="active">
+                  {{ 'labels.inputs.Active' | translate }}
+                </mat-checkbox>
               </div>
 
               <div fxFlex="30%" class="penalty-wrapper" *ngIf="showPenalty">
-                <mat-checkbox required labelPosition="before" formControlName="penalty"> Is Penalty </mat-checkbox>
+                <mat-checkbox required labelPosition="before" formControlName="penalty">
+                  {{ 'labels.inputs.Is Penalty' | translate }}
+                </mat-checkbox>
                 <mat-error *ngIf="chargeForm.controls.penalty.hasError('required')">
-                  Penalty is <strong>required</strong>
+                  {{ 'validation.msg.charge.penalty.cannot.be.blank' | translate }}
                 </mat-error>
               </div>
               <div fxFlex="30%" class="penalty-wrapper" *ngIf="showPenalty && isPenaltyChecked">
-                <mat-checkbox labelPosition="before" formControlName="isExtensible"> Is Extensible </mat-checkbox>
+                <mat-checkbox labelPosition="before" formControlName="isExtensible">
+                  {{ 'labels.inputs.Is Extensible' | translate }}
+                </mat-checkbox>
               </div>
             </div>
             <mat-form-field fxFlex="48%" *ngIf="isPenaltyChecked && isExtensibleChecked">
-              <mat-label>Extension Frequency</mat-label>
+              <mat-label>{{ 'labels.inputs.Extension Frequency' | translate }}</mat-label>
               <input matInput formControlName="extensionFrequency" />
             </mat-form-field>
             <mat-form-field fxFlex="48%" *ngIf="isPenaltyChecked && isExtensibleChecked">
-              <mat-label>Fee Interval</mat-label>
+              <mat-label>{{ 'labels.inputs.Fee Interval' | translate }}</mat-label>
               <input matInput formControlName="feeInterval" />
             </mat-form-field>
             <mat-form-field fxFlex="48%" *ngIf="isPenaltyChecked && isExtensibleChecked">
-              <mat-label>Fee Frequency</mat-label>
+              <mat-label>{{ 'labels.inputs.Fee Frequency' | translate }}</mat-label>
               <mat-select formControlName="feeFrequency">
                 <mat-option
                   *ngFor="let selectedFeeFrequency of chargesTemplateData.feeFrequencyOptions"
@@ -159,9 +164,9 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">{{ 'labels.inputs.Cancel' | translate }}</button>
         <button mat-raised-button color="primary" [disabled]="!chargeForm.valid" *mifosxHasPermission="'CREATE_CHARGE'">
-          Submit
+          {{ 'labels.inputs.Submit' | translate }}
         </button>
       </mat-card-actions>
     </form>

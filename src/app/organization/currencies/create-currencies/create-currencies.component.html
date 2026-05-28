@@ -22,13 +22,13 @@
                     </mat-error>
                   </mat-form-field> -->
           <div fxFlex="48%">
-            <label for="countryId">Country</label>
+            <label for="countryId">{{ 'labels.oaf.Country' | translate }}</label>
             <ng-select
               #countryId
               [items]="countries"
               bindLabel="name"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.commons.Select Country' | translate }}"
               formControlName="countryId"
               aria-labelledby="countryId"
               [virtualScroll]="true"
@@ -37,13 +37,13 @@
           </div>
 
           <div fxFlex="48%">
-            <label for="currencyCode">Currency Name</label>
+            <label for="currencyCode">{{ 'labels.inputs.Currency Name' | translate }}</label>
             <ng-select
               #currencyCode
               [items]="currencyTemplateData.currencyOptions"
               bindLabel="name"
               bindValue="code"
-              placeholder="Select Currency"
+              placeholder="{{ 'labels.inputs.Select Currency' | translate }}"
               formControlName="currencyCode"
               aria-labelledby="currencyCode"
               [virtualScroll]="true"
@@ -69,18 +69,22 @@
                       Currency Name is <strong>required</strong>
                     </mat-error>
                   </mat-form-field> -->
-          <mat-checkbox labelPosition="before" formControlName="active"> Active </mat-checkbox>
+          <mat-checkbox labelPosition="before" formControlName="active">{{
+            'labels.inputs.Active' | translate
+          }}</mat-checkbox>
         </div>
       </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['../']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['../']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
         <button
           mat-raised-button
           color="primary"
           [disabled]="!currencyForm.valid"
           *mifosxHasPermission="'UPDATE_CURRENCY'"
         >
-          Submit
+          {{ 'labels.buttons.Submit' | translate }}
         </button>
       </mat-card-actions>
     </form>

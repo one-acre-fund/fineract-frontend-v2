@@ -21,8 +21,14 @@ export class TemplatesService {
   /**
    * @returns {Observable<any>} Templates data
    */
-  getTemplates(): Observable<any> {
-    return this.http.get('/templates');
+  getTemplates(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+    Object.keys(params).forEach(key => {
+      if (params[key] !== null && params[key] !== undefined) {
+        httpParams = httpParams.set(key, params[key]);
+      }
+    });
+    return this.http.get('/templates', { params: httpParams });
   }
 
   /**
@@ -64,6 +70,15 @@ export class TemplatesService {
    */
   updateTemplate(templateData: any, templateId: any): Observable<any>  {
     return this.http.put(`/templates/${templateId}`, templateData);
+  }
+
+  /**
+   * Call API to activate/deactivate a template by id
+   * @param templateId
+   * @returns
+   */
+  activateOrDeactivateTemplate(templateId: string, isActivate: boolean): Observable<any> {
+    return this.http.post(`/templates/${templateId}/status`, { isActivate });
   }
 
   /**

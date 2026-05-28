@@ -3,26 +3,23 @@
   <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Product Name</mat-label>
+      <mat-label>{{ 'labels.oaf.Product Name' | translate }}</mat-label>
       <input matInput formControlName="name" required>
-      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.name.hasError('required')">
-        Product Name is <strong>required</strong>
+      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.name.hasError('required')">{{ 'labels.inputs.Product Name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="48%">
-      <mat-label>Short Name</mat-label>
+      <mat-label>{{ 'labels.oaf.Short Name' | translate }}</mat-label>
       <input matInput formControlName="shortName" maxlength="4" required>
-      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.shortName.hasError('required')">
-        Short Name is <strong>required</strong>
+      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.shortName.hasError('required')">{{ 'labels.inputs.Short Name is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field fxFlex="98%">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'labels.inputs.Description' | translate }}</mat-label>
       <textarea matInput formControlName="description"></textarea>
-      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.description.hasError('required')">
-        Description is <strong>required</strong>
+      <mat-error *ngIf="recurringDepositProductDetailsForm.controls.description.hasError('required')">{{ 'labels.commons.Description is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
 
@@ -30,11 +27,9 @@
 
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
     <button mat-raised-button matStepperPrevious disabled>
-      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;
-      Previous
-    </button>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Previous' | translate }}</button>
     <button mat-raised-button matStepperNext>
-      Next&nbsp;&nbsp;
+      {{ 'labels.buttons.Next' | translate }}&nbsp;&nbsp;
       <fa-icon icon="arrow-right"></fa-icon>
     </button>
   </div>

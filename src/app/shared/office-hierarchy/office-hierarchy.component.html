@@ -1,17 +1,18 @@
 <div class="mat-card mat-focus-indicator">
     <div class="col-8">
-        <h3>Country Hierarchy</h3>
+        <h3>{{ 'labels.commons.Country Hierarchy' | translate }}</h3>
     </div>
-  <div class="col-4">
-    <button type="button" (click)="hasData=true" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary pull-right">
-        Add New
-       </button>
+  <div class="col-8">
+    <h3>{{ 'labels.commons.Country Hierarchy' | translate }}</h3>
   </div>
-    
-    
+  <div class="col-4">
+    <button type="button" (click)="hasData=true" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary pull-right">{{ 'labels.commons.Add New' | translate }}</button>
+  </div>
+
+
       <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" #tree *ngIf="hasData">
         <!-- /////// delete the first <mat-tree-node> -->
-      
+
         <mat-tree-node
           *matTreeNodeDef="let node; when: hasNoContent"
           matTreeNodePadding
@@ -23,7 +24,7 @@
           </mat-form-field>
           <button type="button" mat-button (click)="saveNode(node, itemValue.value)" class="lh-30 mat-raised-button mat-primary mat-focus-indicator mat-raised-button mat-primary">Add Level</button>
         </mat-tree-node>
-      
+
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <button type="button"
             mat-icon-button
@@ -35,11 +36,11 @@
               {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
             </mat-icon>
           </button>
-      
+
           <!-- //////////// add this line to make space for removed button -->
           <div *ngIf="!node.hasChild" class="pad"></div>
-      
-          
+
+
           <input matInput type="text" value="{{node.levelName}}">
           <button type="button" mat-icon-button title="Add new Level" (click)="addNewItem(node)" *ngIf="!node.hasChild">
             <mat-icon>add</mat-icon>

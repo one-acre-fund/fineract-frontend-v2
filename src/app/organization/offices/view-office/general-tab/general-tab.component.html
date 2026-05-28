@@ -1,34 +1,40 @@
 <div class="tab-container mat-typography">
   <div class="container m-b-20" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="20px">
     <button *ngIf="officeData.status === false" mat-raised-button color="primary" (click)="activateOffice()">
-      <i class="fa fa-power-off"></i>&nbsp;&nbsp;Activate
+      <i class="fa fa-power-off"></i>&nbsp;&nbsp;{{ 'labels.buttons.Activate' | translate }}
     </button>
 
     <button *ngIf="officeData.status === true" mat-raised-button color="info" (click)="deActivateOffice()">
-      <fa-icon icon="times"></fa-icon>&nbsp;&nbsp;Deactivate
+      <fa-icon icon="times"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Deactivate' | translate }}
     </button>
 
     <button mat-raised-button color="warn" (click)="deleteOffice()">
-      <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;Delete
+      <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}
     </button>
   </div>
 
   <mat-list>
-    <mat-list-item> Parent Office : {{ officeData.parentName ? officeData.parentName : 'N/A' }} </mat-list-item>
-
     <mat-list-item>
-      Opened On : {{ officeData.openingDate ? (officeData.openingDate | dateFormat) : 'Unassigned' }}
+      {{ 'labels.inputs.Parent Office' | translate }} : {{ officeData.parentName ? officeData.parentName : 'N/A' }}
     </mat-list-item>
 
-    <mat-list-item> Name : {{ officeData.name ? officeData.name : 'Unassigned' }} </mat-list-item>
+    <mat-list-item>
+      {{ 'labels.inputs.Opened On' | translate }} :
+      {{ officeData.openingDate ? (officeData.openingDate | dateFormat) : 'Unassigned' }}
+    </mat-list-item>
 
     <mat-list-item>
-      Hierarchy Level :
+      {{ 'labels.inputs.Name' | translate }} : {{ officeData.name ? officeData.name : 'Unassigned' }}
+    </mat-list-item>
+
+    <mat-list-item>
+      {{ 'labels.inputs.Hierarchy Level' | translate }} :
       {{ officeData.officeCountryHierarchyLevelName ? officeData.officeCountryHierarchyLevelName : 'Unassigned' }}
     </mat-list-item>
 
     <mat-list-item>
-      OU Path: {{ officeData.officeHierarchyPath ? officeData.officeHierarchyPath : 'Unassigned' }}
+      {{ 'labels.oaf.OUPath' | translate }}:
+      {{ officeData.officeHierarchyPath ? officeData.officeHierarchyPath : 'Unassigned' }}
     </mat-list-item>
   </mat-list>
 </div>

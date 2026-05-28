@@ -43,7 +43,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dataSource = new MatTableDataSource(this.profileData.roles);
+    const roles = this.profileData && this.profileData.roles ? this.profileData.roles : [];
+    this.dataSource = new MatTableDataSource(roles);
   }
 
   /**
@@ -59,7 +60,7 @@ export class ProfileComponent implements OnInit {
         const password = response.password;
         const repeatPassword = response.repeatPassword;
         const data = {password: password, repeatPassword: repeatPassword};
-        this.userService.changePassword(this.profileData.userId, data).subscribe(() => {
+        this.userService.changePassword(this.profileData?.userId, data).subscribe(() => {
           this.router.navigate(['/home']);
         });
       }

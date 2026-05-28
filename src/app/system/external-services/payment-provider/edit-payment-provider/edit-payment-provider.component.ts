@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SystemService } from 'app/system/system.service';
-import { GetExternalServiceModel } from '../../external-service.model';
+import {APIKEY, GetExternalServiceModel, hasRequiredValidator} from '../../external-service.model';
 import { ExternalServiceConfigurationService } from '../../external-services.service';
 import { MatomoTracker } from '@ngx-matomo/tracker';
+import { SettingsService } from 'app/settings/settings.service';
 
 @Component({
   selector: 'mifosx-edit-payment-provider',
@@ -19,6 +20,8 @@ export class EditPaymentProviderComponent implements OnInit {
   officeOptions: any = [];
   countryOptions: any = [];
   authenticationTypeOptions = ExternalServiceConfigurationService.AUTHENTICATION_TYPE;
+  /** Date formats. */
+  dateFormats: string[] =  SettingsService.dateFormats;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -30,7 +33,7 @@ export class EditPaymentProviderComponent implements OnInit {
   ) {
     let title = document.title;
     this.matomoTracker.setDocumentTitle(`${title}`);
-    this.countryExternalService = this.router.getCurrentNavigation().extras.state.countryExternalService;
+    this.countryExternalService = this.router.getCurrentNavigation()?.extras?.state?.countryExternalService;
   }
 
   ngOnInit() {
@@ -46,21 +49,63 @@ export class EditPaymentProviderComponent implements OnInit {
     const office = this.countryExternalService.office;
     this.countryOptions.push({ id: country?.id, name: country?.name });
     this.officeOptions.push({ id: office?.id, name: office?.name });
+
+    const getProp = (name: string) =>
+      this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, name);
+
     this.editPaymentProviderForm = this.formBuilder.group({
       countryExternalServiceId: [this.countryExternalService.id],
-      provider_name: [{ value: this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'provider_name'), disabled: true }, Validators.required],
+      provider_name: [{ value: getProp('provider_name'), disabled: true }, Validators.required],
       country_id: [{ value: country?.id, disabled: true }, Validators.required],
       office_id: [{ value: office?.id, disabled: true }],
-      base_url: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'base_url'), Validators.required],
-      account_creation_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'account_creation_endpoint'), Validators.required],
-      bank_code: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'bank_code'), Validators.required],
-      authentication_endpoint: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_endpoint'), Validators.required],
-      authentication_type: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'authentication_type'), Validators.required],
-      business_id: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'business_id'), Validators.required],
-      sub_entity_code: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'sub_entity_code'), Validators.required],
-      username: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'username'), Validators.required],
-      password: [this.externalServiceConfigurationService.getExternalServicePropertyByName(this.countryExternalService, 'password'), Validators.required],
+      base_url: [getProp('base_url'), Validators.required],
+      account_creation_endpoint: [getProp('account_creation_endpoint'), Validators.required],
+      bank_code: [getProp('bank_code')],
+      authentication_endpoint: [getProp('authentication_endpoint')],
+      authentication_type: [getProp('authentication_type'), Validators.required],
+      business_id: [getProp('business_id'), Validators.required],
+      sub_entity_code: [getProp('sub_entity_code')],
+      username: [getProp('username')],
+      password: [getProp('password')],
+      paymentProviderDateFormat: [getProp('paymentProviderDateFormat'), Validators.required]
     });
+    this.applyAuthTypeConditionalValidators();
+  }
+
+  /**
+   * Applies conditional validators based on the authentication type selected.
+   */
+  private applyAuthTypeConditionalValidators(): void {
+    const authTypeControl = this.editPaymentProviderForm.get('authentication_type');
+    const endpointControl = this.editPaymentProviderForm.get('authentication_endpoint');
+    const usernameControl = this.editPaymentProviderForm.get('username');
+    const passwordControl = this.editPaymentProviderForm.get('password');
+
+    const updateValidators = (authType: string) => {
+      if (authType?.toLowerCase() === APIKEY) {
+        endpointControl?.clearValidators();
+        usernameControl?.clearValidators();
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
+      } else {
+        endpointControl?.setValidators([Validators.required]);
+        usernameControl?.setValidators([Validators.required]);
+        endpointControl?.updateValueAndValidity();
+        usernameControl?.updateValueAndValidity();
+      }
+      // Password is always required
+      passwordControl?.setValidators([Validators.required]);
+      passwordControl?.updateValueAndValidity();
+    };
+    updateValidators(authTypeControl?.value);
+    authTypeControl?.valueChanges.subscribe(updateValidators);
+  }
+
+  /**
+   * Helper to check if a control has the required validator
+   */
+  hasRequiredValidator(controlName: string): boolean {
+    return hasRequiredValidator(this.editPaymentProviderForm, controlName);
   }
 
   /**
@@ -80,5 +125,5 @@ export class EditPaymentProviderComponent implements OnInit {
       });
   }
 
-  
+
 }

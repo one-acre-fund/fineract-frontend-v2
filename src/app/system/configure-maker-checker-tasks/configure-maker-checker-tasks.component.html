@@ -1,8 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="end" fxLayoutGap="2%" fxLayout.lt-md="column" class="container m-b-20">
   <button mat-raised-button color="primary" (click)="editTask(); backupCheckValues();" *mifosxHasPermission="'UPDATE_PERMISSION'">
-    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;
-    Edit
-  </button>
+    <fa-icon icon="edit"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Edit' | translate }}</button>
 </div>
 
 <div class="container">
@@ -46,8 +44,8 @@
 
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px" *ngIf="!isDisabled">
       <mat-card-actions>
-        <button type="button" mat-raised-button (click)="cancel(); restoreCheckboxes();">Cancel</button>
-        <button mat-raised-button color="primary" (click)="submit()" *mifosxHasPermission="'UPDATE_PERMISSION'">Submit</button>
+        <button type="button" mat-raised-button (click)="cancel(); restoreCheckboxes();">{{ 'labels.buttons.Cancel' | translate }}</button>
+        <button mat-raised-button color="primary" (click)="submit()" *mifosxHasPermission="'UPDATE_PERMISSION'">{{ 'labels.buttons.Submit' | translate }}</button>
       </mat-card-actions>
     </div>
 

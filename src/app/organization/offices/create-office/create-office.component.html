@@ -4,7 +4,7 @@
       <mat-card-content>
         <div fxLayout="column">
           <div floatLabel="always" appearance="outline" class="full-width radio-container">
-            <mat-label class="ou-label">Is the OU a country</mat-label>
+            <mat-label class="ou-label">{{ 'labels.commons.Is the OU a country' | translate }}</mat-label>
             <input
               class="custom-radio"
               (change)="change_country(true)"
@@ -13,7 +13,7 @@
               value="Yes"
               id="yes"
             />
-            <label class="mat-label-for" for="yes">Yes</label>
+            <label class="mat-label-for" for="yes">{{ 'labels.buttons.Yes' | translate }}</label>
             <input
               class="custom-radio"
               (change)="change_country(false)"
@@ -22,14 +22,14 @@
               value="No"
               id="no"
             />
-            <label class="mat-label-for" for="no">No</label>
+            <label class="mat-label-for" for="no">{{ 'labels.buttons.No' | translate }}</label>
           </div>
 
           <mat-form-field>
-            <mat-label>Office</mat-label>
+            <mat-label>{{ 'labels.inputs.Office' | translate }}</mat-label>
             <input required matInput formControlName="name" />
-            <mat-error *ngIf="officeForm.controls.name.hasError('required')">
-              Office is <strong>required</strong>
+            <mat-error *ngIf="officeForm.controls.name.hasError('required')"
+              >{{ 'labels.commons.Office is' | translate }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
@@ -50,13 +50,14 @@
           </mat-form-field> -->
 
           <div>
-            <label for="parentId">Parent Office</label>
+            <label for="parentId">{{ 'labels.inputs.Parent Office' | translate }}</label>
             <ng-select
               #office
+              id="parentId"
               [items]="officeData"
               bindLabel="officeHierarchyPath"
               bindValue="id"
-              placeholder="Select Office"
+              placeholder="{{ 'labels.inputs.Select Office' | translate }}"
               formControlName="parentId"
               aria-labelledby="parentId"
               [virtualScroll]="true"
@@ -65,7 +66,7 @@
           </div>
 
           <mat-form-field (click)="openedOnDatePicker.open()">
-            <mat-label>Opened On</mat-label>
+            <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input
               matInput
               [min]="minDate"
@@ -76,13 +77,14 @@
             />
             <mat-datepicker-toggle matSuffix [for]="openedOnDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #openedOnDatePicker></mat-datepicker>
-            <mat-error *ngIf="officeForm.controls.openingDate.hasError('required')">
-              Opening Date is <strong>required</strong>
+            <mat-error *ngIf="officeForm.controls.openingDate.hasError('required')"
+              >{{ 'labels.inputs.Opening Date is' | translate
+              }}<strong>{{ 'labels.commons.required' | translate }}</strong>
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>External ID</mat-label>
+            <mat-label>{{ 'labels.inputs.External ID' | translate }}</mat-label>
             <input matInput formControlName="externalId" />
           </mat-form-field>
         </div>
@@ -93,9 +95,11 @@
       </mat-card-content>
 
       <mat-card-actions fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="5px">
-        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">Cancel</button>
+        <button type="button" mat-raised-button [routerLink]="['/organization/offices']">
+          {{ 'labels.buttons.Cancel' | translate }}
+        </button>
         <button mat-raised-button color="primary" [disabled]="!officeForm.valid" *mifosxHasPermission="'CREATE_OFFICE'">
-          Submit
+          {{ 'labels.buttons.Submit' | translate }}
         </button>
       </mat-card-actions>
     </form>
