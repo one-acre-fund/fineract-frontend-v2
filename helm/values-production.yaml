@@ -17,5 +17,3 @@ commonconfig:
 
 image:
   tag: 1.4.9.1.2026.04.27.835
-
-replicaCount: 2
