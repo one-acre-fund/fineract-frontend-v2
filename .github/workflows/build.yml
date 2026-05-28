@@ -8,6 +8,9 @@ on:
       - develop
       - hotfix/*
       - release/*
+    paths-ignore:
+      - 'helm/**'
+      - '.github/**'
   pull_request:
     branches:
       - main
