@@ -14,6 +14,7 @@ import { GroupsViewComponent } from './groups-view/groups-view.component';
 import { GeneralTabComponent } from './groups-view/general-tab/general-tab.component';
 import { NotesTabComponent } from './groups-view/notes-tab/notes-tab.component';
 import { CommitteeTabComponent } from './groups-view/committee-tab/committee-tab.component';
+import { AuditTabComponent } from './groups-view/audit-tab/audit-tab.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { DatatableTabsComponent } from './groups-view/datatable-tabs/datatable-tabs.component';
 import { AddRoleComponent } from './groups-view/add-role/add-role.component';
@@ -93,6 +94,15 @@ const routes: Routes = [
                   data: {
                     title: extract('labels.text.Committee'),
                     breadcrumb: 'Committee',
+                    routeParamBreadcrumb: false,
+                  },
+                },
+                {
+                  path: 'audit',
+                  component: AuditTabComponent,
+                  data: {
+                    title: extract('labels.text.Audit'),
+                    breadcrumb: 'Audit',
                     routeParamBreadcrumb: false,
                   },
                 },

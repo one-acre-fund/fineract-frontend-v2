@@ -652,6 +652,7 @@
       "Withdraw": "Withdraw",
       "View Active Charges": "View Active Charges",
       "View Inactive Charges": "View Inactive Charges",
+      "FetchHistory": "Fetch History",
       "Yes": "Yes"
     },
     "catalogs": {
@@ -1508,7 +1509,11 @@
       "deactivateTemplateHeading": "Deactivate Template",
       "confirmTemplateActivation": "This will deactivate current active template and activate the selected one. Do you want to proceed?",
       "confirmTemplateDeactivation": "This will leave this template type without active template. Do you want to proceed?",
-      "addLoanQualificationPeriodHeading": "Add Loan Qualification Period"
+      "addLoanQualificationPeriodHeading": "Add Loan Qualification Period",
+      "AffectedClients": "Affected Clients",
+      "Maker": "Maker",
+      "Date": "Date",
+      "MembershipHistory": "Membership History"
     },
     "inputs": {
       "accounting": {
@@ -1560,6 +1565,7 @@
       "Add Clients": "Add Clients",
       "Add Fee Frequency": "Add Fee Frequency",
       "Add Groups": "Add Groups",
+      "Add Members": "Add Members",
       "Add Journal Entries": "Add Journal Entries",
       "Added On": "Added On",
       "Address": "Address",
@@ -1620,6 +1626,7 @@
       "Arrears By": "Arrears By",
       "Arrears Since": "Arrears Since",
       "Arrears tolerance": "Arrears tolerance",
+      "Assign Group Leader": "Assign Group Leader",
       "Assignment Date": "Assignment Date",
       "Assignment Period": "Assignment Period",
       "Associated Center": "Associated Center",
@@ -1751,6 +1758,7 @@
       "Command": "Command",
       "Command Value": "Command Value",
       "Comments": "Comments",
+      "Audit": "Audit",
       "Committee": "Committee",
       "Comparison Condition": "Comparison Condition",
       "Comparison Value": "Comparison Value",
@@ -2500,6 +2508,7 @@
       "Remaining Amount": "Remaining Amount",
       "Remarks": "Remarks",
       "Remember me": "Remember me",
+      "Remove Members": "Remove Members",
       "Reopened On Date": "Reopened On Date",
       "Repaid every": "Repaid every",
       "Repay Every": "Repay Every",
@@ -2728,6 +2737,7 @@
       "Type/Quality": "Type/Quality",
       "Unassigned": "Unassigned",
       "Unassignment Date": "Unassignment Date",
+      "Unassign Group Leader": "Unassign Group Leader",
       "Unique": "Unique",
       "Unit Type": "Unit Type",
       "Updated By": "Updated By",
@@ -3184,6 +3194,7 @@
       "Collateral": "Collateral",
       "Collateral View": "Collateral View",
       "Collaterals": "Collaterals",
+      "Audit": "Audit",
       "Committee": "Committee",
       "Configurations": "Configurations",
       "Configurations page allows you to further customize": "The Configurations page allows you to further customize the way your organization uses the Mifos system.",
@@ -3730,7 +3741,8 @@
       "Write a note": "Write a note",
       "Add new extra fields to any entity in the form of data table": "Add new extra fields to any entity in the form of data table",
       "Preferences for generating account numbers for client, loan and savings accounts": "Preferences for generating account numbers for client, loan and savings accounts",
-      "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it."
+      "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it.",
+      "NoAuditRecordsFound": "No audit records found for this account."
     },
     "titles": {
       "Dashboard": "Dashboard",

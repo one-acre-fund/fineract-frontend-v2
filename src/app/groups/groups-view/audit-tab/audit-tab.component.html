@@ -1,0 +1,115 @@
+<div class="tab-container mat-typography">
+
+  <!-- Filter Section -->
+  <form [formGroup]="searchForm" (ngSubmit)="fetchAudits(0)" class="audit-filter-form">
+    <div fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start center">
+
+      <!-- Action Dropdown -->
+      <mat-form-field fxFlex="400px">
+        <mat-label>{{ 'labels.inputs.Action' | translate }}</mat-label>
+        <mat-select formControlName="actionName">
+          <mat-option *ngFor="let action of auditActions" [value]="action.value">
+            {{ action.labelKey | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Start Date -->
+      <mat-form-field fxFlex="250px">
+        <mat-label>{{ 'labels.inputs.Start Date' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startDatePicker"
+          formControlName="startDate"
+          placeholder="dd MMMM yyyy"
+        />
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- End Date -->
+      <mat-form-field fxFlex="250px">
+        <mat-label>{{ 'labels.inputs.End Date' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endDatePicker"
+          formControlName="endDate"
+          placeholder="dd MMMM yyyy"
+        />
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Search Button -->
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="isLoading || searchForm.invalid"
+        >
+          <mat-spinner *ngIf="isLoading" diameter="18" class="btn-spinner"></mat-spinner>
+          <span *ngIf="!isLoading">{{ 'labels.buttons.FetchHistory' | translate }}</span>
+        </button>
+      </div>
+
+    </div>
+  </form>
+
+  <!-- Results Section -->
+  <div class="audit-results m-t-20" *ngIf="hasSearched">
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-container" fxLayoutAlign="center center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && auditResults.length === 0" class="empty-state" fxLayoutAlign="center center">
+      <p class="mat-body-1">{{ 'labels.text.NoAuditRecordsFound' | translate }}</p>
+    </div>
+
+    <!-- Results Table -->
+    <div *ngIf="!isLoading && auditResults.length > 0">
+      <h4 class="audit-table-heading">{{ 'labels.heading.MembershipHistory' | translate }}</h4>
+      <table mat-table [dataSource]="auditResults" class="mat-elevation-z1 audit-table">
+
+        <!-- Affected Clients Column -->
+        <ng-container matColumnDef="affectedClients">
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.heading.AffectedClients' | translate }}</th>
+          <td mat-cell *matCellDef="let row">
+            <div *ngFor="let client of row.affectedClients" class="client-line">
+              <a [routerLink]="['/clients', client.id, 'general']">{{ client.accountNo }} - {{ client.displayName }}</a>
+            </div>
+            <span *ngIf="!row.affectedClients || row.affectedClients.length === 0">—</span>
+          </td>
+        </ng-container>
+
+        <!-- User Column -->
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.heading.Maker' | translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ row.maker }}</td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>{{ 'labels.heading.Date' | translate }}</th>
+          <td mat-cell *matCellDef="let row">{{ formatTimestamp(row.madeOnDate) }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator
+        [length]="totalRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        (page)="onPageChange($event)"
+        showFirstLastButtons
+      ></mat-paginator>
+    </div>
+
+  </div>
+
+</div>
