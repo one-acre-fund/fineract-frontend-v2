@@ -4,9 +4,6 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 
-/** rxjs Imports */
-import { BehaviorSubject } from 'rxjs';
-
 /** Custom Services */
 import { AuditService } from 'app/organization/audit-trails/audit.service';
 import { SettingsService } from 'app/settings/settings.service';
@@ -14,10 +11,10 @@ import { SettingsService } from 'app/settings/settings.service';
 /** Audit action configuration — extend this list to support new action types */
 export const GROUP_AUDIT_ACTIONS = [
   { labelKey: 'labels.inputs.Select Action', value: '' },
-  { labelKey: 'labels.inputs.Add Members', value: 'ASSOCIATECLIENTS' },
-  { labelKey: 'labels.inputs.Remove Members', value: 'DISASSOCIATECLIENTS' },
-  { labelKey: 'labels.inputs.Assign Group Leader', value: 'ASSIGNROLE' },
-  { labelKey: 'labels.inputs.Unassign Group Leader', value: 'UNASSIGNROLE' }
+  { labelKey: 'labels.inputs.Add_Members', value: 'ASSOCIATECLIENTS' },
+  { labelKey: 'labels.inputs.Remove_Members', value: 'DISASSOCIATECLIENTS' },
+  { labelKey: 'labels.inputs.Assign_Group_Leader', value: 'ASSIGNROLE' },
+  { labelKey: 'labels.inputs.Unassign_Group_Leader', value: 'UNASSIGNROLE' }
 ];
 
 /**
@@ -53,12 +50,12 @@ export class AuditTabComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private route: ActivatedRoute,
-    private fb: UntypedFormBuilder,
-    private auditService: AuditService,
-    private settingsService: SettingsService
+    private readonly route: ActivatedRoute,
+    private readonly fb: UntypedFormBuilder,
+    private readonly auditService: AuditService,
+    private readonly settingsService: SettingsService
   ) {
-    this.groupId = this.route.parent!.snapshot.params['groupId'];
+    this.groupId = this.route.parent.snapshot.params['groupId'];
   }
 
   ngOnInit(): void {
