@@ -153,6 +153,7 @@ export class AuditTabComponent implements OnInit {
    * Called when the paginator emits a page event.
    */
   onPageChange(event: any): void {
+    this.pageSize = event.pageSize;
     this.fetchAudits(event.pageIndex);
   }
 }
