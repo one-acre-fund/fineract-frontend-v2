@@ -651,6 +651,7 @@
       "Withdraw": "Retirer",
       "View Active Charges": "Afficher les frais actifs",
       "View Inactive Charges": "Afficher les frais inactifs",
+      "FetchHistory": "Récupérer l'historique",
       "Yes": "Oui"
     },
     "catalogs": {
@@ -1503,7 +1504,11 @@
       "deactivateTemplateHeading": "Désactiver le modèle",
       "confirmTemplateActivation": "Cela désactivera le modèle actif actuel et activera celui sélectionné. Voulez-vous continuer ?",
       "confirmTemplateDeactivation": "Cela laissera ce type de modèle sans modèle actif. Voulez-vous continuer ?",
-      "addLoanQualificationPeriodHeading": "Ajouter une période de qualification de prêt"
+      "addLoanQualificationPeriodHeading": "Ajouter une période de qualification de prêt",
+      "AffectedClients": "Clients affectés",
+      "Maker": "Créateur",
+      "Date": "Date",
+      "MembershipHistory": "Historique de l'adhésion"
     },
     "inputs": {
       "accounting": {
@@ -1554,6 +1559,7 @@
       "Add Clients": "Ajouter des clients",
       "Add Fee Frequency": "Ajouter une fréquence de frais",
       "Add Groups": "Ajouter des groupes",
+      "Add_Members": "Ajouter des membres",
       "Add Journal Entries": "Ajouter des entrées de journal",
       "Added On": "Ajouté",
       "Address": "Adresse",
@@ -1615,6 +1621,7 @@
       "Arrears By": "Arriérés par",
       "Arrears Since": "Arriérés depuis",
       "Arrears tolerance": "Tolérance aux arriérés",
+      "Assign_Group_Leader": "Affecter un chef de groupe",
       "Assignment Date": "Date d'affectation",
       "Assignment Period": "Période d'affectation",
       "Associated Center": "Centre associé",
@@ -1747,6 +1754,7 @@
       "Command": "Commande",
       "Command Value": "Valeur de la commande",
       "Comments": "commentaires",
+      "Audit": "Audit",
       "Committee": "Comité",
       "Comparison Condition": "Condition de comparaison",
       "Comparison Value": "Valeur de comparaison",
@@ -2496,6 +2504,7 @@
       "Remaining Amount": "Montant restant",
       "Remarks": "Remarques",
       "Remember me": "Souviens-toi de moi",
+      "Remove_Members": "Supprimer des membres",
       "Reopened On Date": "Réouvert à la date",
       "Repaid every": "Remboursé tous les",
       "Repay Every": "Rembourser tous les",
@@ -2724,6 +2733,7 @@
       "Type/Quality": "Type/Qualité",
       "Unassigned": "Non attribué",
       "Unassignment Date": "Date de désaffectation",
+      "Unassign_Group_Leader": "Désaffecter le chef de groupe",
       "Unique": "Unique",
       "Unit Type": "Type d'unité",
       "Updated By": "Mis à jour par",
@@ -3160,6 +3170,7 @@
       "Collateral": "Collatéral",
       "Collateral View": "Vue des garanties",
       "Collaterals": "Garanties",
+      "Audit": "Audit",
       "Committee": "Comité",
       "Configurations": "Configurations",
       "Configurations page allows you to further customize": "La page Configurations vous permet de personnaliser davantage la façon dont votre organisation utilise le système Mifos.",
@@ -3706,7 +3717,8 @@
       "Write a note": "Écrire une note",
       "Add new extra fields to any entity in the form of data table": "Ajouter de nouveaux champs supplémentaires à n'importe quelle entité sous forme de tableau de données",
       "Preferences for generating account numbers for client, loan and savings accounts": "Préférences de génération de numéros de compte pour les comptes clients, de prêt et d'épargne",
-      "“Maker-Checker” principle requires every tasks": "Le principe « Maker-Checker » exige que chaque tâche soit effectuée par deux personnes afin de réduire les risques d'erreurs et de mauvaise utilisation. Une personne lance le processus et la seconde le termine."
+      "“Maker-Checker” principle requires every tasks": "Le principe « Maker-Checker » exige que chaque tâche soit effectuée par deux personnes afin de réduire les risques d'erreurs et de mauvaise utilisation. Une personne lance le processus et la seconde le termine.",
+      "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte."
     },
     "titles": {
       "Dashboard": "Tableau de bord",

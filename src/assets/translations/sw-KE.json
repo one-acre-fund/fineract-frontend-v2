@@ -652,7 +652,8 @@
       "Withdraw": "Toa",
       "View Active Charges": "Ona Malipo Yanayotumika",
       "View Inactive Charges": "Ona Malipo Yasiyotumika",
-      "Yes": "Ndiyo"
+      "Yes": "Ndiyo",
+      "FetchHistory": "Pata Historia"
     },
     "catalogs": {
       "Interest payment waiver": "Kuachilia Malipo ya Riba",
@@ -1506,7 +1507,11 @@
       "deactivateTemplateHeading": "Zima Kiolezo",
       "confirmTemplateActivation": "Hii itazima kiolezo cha hali halisi cha sasa na kuwezesha kilichochaguliwa. Je, ungependa kuendelea?",
       "confirmTemplateDeactivation": "Hii itaacha aina hii ya kiolezo bila kiolezo cha hali halisi. Je, ungependa kuendelea?",
-      "addLoanQualificationPeriodHeading": "Ongeza Kipindi cha Uthibitisho wa Mkopo"
+      "addLoanQualificationPeriodHeading": "Ongeza Kipindi cha Uthibitisho wa Mkopo",
+      "AffectedClients": "Wateja Walioathiriwa",
+      "Maker": "Muumba",
+      "Date": "Tarehe",
+      "MembershipHistory": "Historia ya Uanachama"
     },
     "inputs": {
       "accounting": {
@@ -1558,6 +1563,7 @@
       "Add Clients": "Ongeza Wateja",
       "Add Fee Frequency": "Ongeza Marudio ya Ada",
       "Add Groups": "Ongeza Vikundi",
+      "Add_Members": "Ongeza Wanachama",
       "Add Journal Entries": "Ongeza Ingizo za Jarida",
       "Added On": "Imeongezwa Tarehe",
       "Address": "Anwani",
@@ -1618,6 +1624,7 @@
       "Arrears By": "Madeni ya",
       "Arrears Since": "Madeni Tangu",
       "Arrears tolerance": "Uvumilivu wa madeni",
+      "Assign_Group_Leader": "Teua Kiongozi wa Kikundi",
       "Assignment Date": "Tarehe ya Mgawo",
       "Assignment Period": "Kipindi cha Mgawo",
       "Associated Center": "Kituo Kinachohusiana",
@@ -1749,6 +1756,7 @@
       "Command": "Amri",
       "Command Value": "Thamani ya Amri",
       "Comments": "Maelezo",
+      "Audit": "Ukaguzi",
       "Committee": "Kamati",
       "Comparison Condition": "Hali ya Kulinganisha",
       "Comparison Value": "Thamani ya Kulinganisha",
@@ -2498,6 +2506,7 @@
       "Remaining Amount": "Kiasi Kilichobaki",
       "Remarks": "Maelezo",
       "Remember me": "Nikumbuke",
+      "Remove_Members": "Ondoa Wanachama",
       "Reopened On Date": "Tarehe ya Kufunguliwa Upya",
       "Repaid every": "Kulipwa kila",
       "Repay Every": "Lipa Kila",
@@ -2726,6 +2735,7 @@
       "Type/Quality": "Aina/Ubora",
       "Unassigned": "Haijawekwa",
       "Unassignment Date": "Tarehe ya Kuondoa Kazi",
+      "Unassign_Group_Leader": "Ondoa Kiongozi wa Kikundi",
       "Unique": "Ya kipekee",
       "Unit Type": "Aina ya Kipimo",
       "Updated By": "Imesasishwa na",
@@ -3182,6 +3192,7 @@
       "Collateral": "Dhamana",
       "Collateral View": "Mwonekano wa Dhamana",
       "Collaterals": "Dhamana",
+      "Audit": "Ukaguzi",
       "Committee": "Kamati",
       "Configurations": "Mipangilio",
       "Configurations page allows you to further customize": "Ukurasa wa Mipangilio unakuruhusu kuongeza ubadiliko wa jinsi shirika lako linavyotumia mfumo wa Mifos.",
@@ -3728,7 +3739,8 @@
       "Write a note": "Andika muhtasari",
       "Add new extra fields to any entity in the form of data table": "Ongeza sehemu za ziada mpya kwa huluki yoyote katika muundo wa jedwali la data",
       "Preferences for generating account numbers for client, loan and savings accounts": "Mapendeleo ya kuzalisha nambari za akaunti za mteja, mkopo na akiba",
-      "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it."
+      "“Maker-Checker” principle requires every tasks": "Kanuni ya “Mtengenezaji-Mkaguzi” inahitaji kila kazi ikamilishwe na watu wawili ili kupunguza uwezekano wa makosa na matumizi mabaya. Mtu mmoja anaanzisha mchakato na wa pili anaukamilisha.",
+      "NoAuditRecordsFound": "Hakuna rekodi za ukaguzi zilizopatikana"
     },
     "titles": {
       "Dashboard": "Dashibodi",
