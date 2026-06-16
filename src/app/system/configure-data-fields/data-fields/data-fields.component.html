@@ -167,7 +167,7 @@
           <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Code' | translate }}</th>
           <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
             <mat-select placeholder="{{ 'labels.inputs.Code' | translate }}" required formControlName="code">
-              <mat-option *ngFor="let list of codes" [value]="list.id">
+              <mat-option *ngFor="let list of codes" [value]="list.name">
                 {{ list.name }}
               </mat-option>
             </mat-select>

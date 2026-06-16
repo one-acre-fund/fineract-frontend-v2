@@ -1,5 +1,16 @@
 # Release Notes
 
+## Version 1.4.10 - Community 1.0.0
+    * Loans & Payments
+        * [CP-4057] - Improve Rahisi Model UI to show more details and make it more user friendly
+    * System
+        * [FOX-202] - Resolve errors during create/modify custom fields of dropdown type
+    * Savings Accounts & Products
+        * [HQX-235] - Ability to download savings transaction template without selecting an office
+    * Clients & Groups
+        * [HQX-72] - Provide Visibility on Group Leader History 
+        * [HQX-270] - Ability to track historical group removal for audit & analysis
+
 ## Version 1.4.9.1 - Community 1.0.0
     * Clients
         * * [CP-4095] - Payment Provider External service: Introduce support of date format for a payment provider

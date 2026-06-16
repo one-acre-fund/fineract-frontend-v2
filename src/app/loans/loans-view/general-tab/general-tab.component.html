@@ -7,6 +7,10 @@
       <p>
         {{ 'labels.inputs.Maturity Date' | translate }} :{{ getLatestDueDate() | dateFormat }}
       </p>
+
+      <p *ngIf="loanDetails?.loanCounter != null">
+        {{ 'labels.inputs.Loan Cycle' | translate }}: {{ loanDetails?.loanCounter }}
+      </p>
     </div>
   </ng-container>
 
@@ -192,6 +196,33 @@
           <span fxFlex="50%">{{ 'labels.inputs.Arrears By' | translate }}:</span>
           <span fxFlex="50%"> {{ 'labels.inputs.Not Provided' | translate }}</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Approved Loan Profile: Downpayment Qualification (Rahisi Model) -->
+  <div *ngIf="downPaymentQualification">
+    <h3>{{ 'labels.heading.Approved_Loan_Profile' | translate }}</h3>
+    <div class="container">
+      <div fxLayout="row wrap" fxLayout.lt-md="column">
+
+        <div fxFlexFill>
+          <span fxFlex="50%">{{ 'labels.heading.Down_Payment_Amount_Paid' | translate }}:</span>
+          <span fxFlex="50%">{{ downPaymentQualification.amountPaid | number }}</span>
+        </div>
+        <div fxFlexFill *ngIf="downPaymentQualification.expectedAmount">
+          <span fxFlex="50%">{{ 'labels.heading.Down_Payment_Required' | translate }}:</span>
+          <span fxFlex="50%">{{ downPaymentQualification.expectedAmount | number }}</span>
+        </div>
+        <div fxFlexFill *ngIf="downPaymentQualification.percentagePaid != null">
+          <span fxFlex="50%">{{ 'labels.heading.Down_Payment_Percentage_Paid' | translate }}:</span>
+          <span fxFlex="50%">{{ downPaymentQualification.percentagePaid }}%</span>
+        </div>
+        <div fxFlexFill *ngIf="downPaymentQualification.dateQualified">
+          <span fxFlex="50%">{{ 'labels.inputs.Qualification_Date' | translate }}:</span>
+          <span fxFlex="50%">{{ downPaymentQualification.dateQualified | dateFormat }}</span>
+        </div>
+
       </div>
     </div>
   </div>

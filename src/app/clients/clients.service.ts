@@ -505,6 +505,16 @@ export class ClientsService {
   }
 
   /**
+   * Get qualification data for a specific client.
+   * @param {number} clientId Client Id
+   * @returns {Observable<any>} Qualification data for the client.
+   */
+  getClientQualificationData(clientId: number): Observable<any> {
+    const httpParams = new HttpParams().set('clientId', clientId.toString());
+    return this.http.get('/loanproducts/qualifiedclients', { params: httpParams });
+  }
+
+  /**
     * Redirects to the client view page.
     * @param clientId Client Id.
    */

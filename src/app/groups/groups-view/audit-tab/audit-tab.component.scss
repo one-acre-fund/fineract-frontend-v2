@@ -1,0 +1,41 @@
+.tab-container {
+  padding: 1rem;
+}
+
+.audit-filter-form {
+  margin-bottom: 1rem;
+}
+
+.audit-table-heading {
+  margin: 0 0 12px 0;
+  font-weight: 500;
+}
+
+.audit-table {
+  width: 100%;
+}
+
+.client-line {
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.loading-container {
+  padding: 2rem;
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.btn-spinner {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.m-t-20 {
+  margin-top: 20px;
+}

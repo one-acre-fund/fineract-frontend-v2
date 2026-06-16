@@ -169,6 +169,15 @@
       >
         {{ 'labels.inputs.Committee' | translate }}
       </a>
+      <a
+        mat-tab-link
+        [routerLink]="['./audit']"
+        routerLinkActive
+        #audit="routerLinkActive"
+        [active]="audit.isActive"
+      >
+        {{ 'labels.inputs.Audit' | translate }}
+      </a>
       <!-- <span *ngFor="let groupDatatable of groupDatatables">
         <a mat-tab-link *mifosxHasPermission="'READ_' + groupDatatable.registeredTableName"
           [routerLink]="['./datatables',groupDatatable.registeredTableName]"
