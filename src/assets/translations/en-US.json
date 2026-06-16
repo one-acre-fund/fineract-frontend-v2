@@ -3368,7 +3368,7 @@
       "Elastic Search": "Elastic Search",
       "Email Service Configuration": "Email Service Configuration",
       "Employee represents loan officers": "An employee represents loan officers with no access to systems",
-      "End_Date_Must_Be_Before_Start_date": "The end date must be before the start date",
+      "End_Date_Must_Be_Before_Start_date": "The end date must be after the start date",
       "end_point": "end_point",
       "Entity Data Table Checks": "Entity Data Table Checks",
       "Entity Data Table Checks Organization": "Define Entity Data Table Checks for Organization",

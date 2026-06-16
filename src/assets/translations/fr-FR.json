@@ -3345,7 +3345,7 @@
       "Elastic Search": "Recherche élastique",
       "Email Service Configuration": "Configuration du service de messagerie",
       "Employee represents loan officers": "Un employé représente des agents de crédit sans accès aux systèmes",
-      "End_Date_Must_Be_Before_Start_date": "La date de fin doit être avant la date de début",
+      "End_Date_Must_Be_Before_Start_date": "La date de fin doit être après la date de début",
       "end_point": "point_fin",
       "Entity Data Table Checks": "Vérifications du tableau de données d'entité",
       "Entity Data Table Checks Organization": "Définir des contrôles de table de données d'entité pour l'organisation",
