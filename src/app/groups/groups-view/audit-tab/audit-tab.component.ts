@@ -63,7 +63,19 @@ export class AuditTabComponent implements OnInit {
       actionName: [GROUP_AUDIT_ACTIONS[0].value, Validators.required],
       startDate: [null],
       endDate: [null]
-    });
+    }, { validators: this.endDateAfterStartDate });
+  }
+
+  /**
+   * Cross-field validator: endDate must be after startDate.
+   */
+  private endDateAfterStartDate(group: import('@angular/forms').AbstractControl): { [key: string]: boolean } | null {
+    const start = group.get('startDate')?.value;
+    const end = group.get('endDate')?.value;
+    if (start && end && new Date(end) < new Date(start)) {
+      return { endDateBeforeStartDate: true };
+    }
+    return null;
   }
 
   /**
