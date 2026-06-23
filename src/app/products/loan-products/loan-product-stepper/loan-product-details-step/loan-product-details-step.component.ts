@@ -47,7 +47,7 @@ export class LoanProductDetailsStepComponent implements OnInit {
       'closeDate': this.loanProductsTemplate.closeDate && new Date(this.loanProductsTemplate.closeDate),
       'includeInBorrowerCycle': this.loanProductsTemplate.includeInBorrowerCycle,
       'loanTypeId': this.loanProductsTemplate.loanType?.id,
-      'inScope': this.loanProductsTemplate.inScope || false
+      'inScope': this.loanProductsTemplate.inScope ?? true
     });
   }
 
