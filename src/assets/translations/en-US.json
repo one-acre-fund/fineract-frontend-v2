@@ -323,6 +323,7 @@
       "Loan Type": "Loan Type",
       "Product Name": "Product Name",
       "in_scope": "In Scope",
+      "in_scope_tooltip": "Indicates whether this loan product is currently active and available for use within the organisation's operational scope.",
       "Is Equal Amortization": "Is Equal Amortization",
       "OverdueCharges": "Overdue Charges",
       "Qualification Rules": "Qualification Rules",
