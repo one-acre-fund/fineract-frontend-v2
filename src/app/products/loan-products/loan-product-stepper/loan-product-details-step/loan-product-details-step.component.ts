@@ -46,7 +46,8 @@ export class LoanProductDetailsStepComponent implements OnInit {
       'startDate': this.loanProductsTemplate.startDate && new Date(this.loanProductsTemplate.startDate),
       'closeDate': this.loanProductsTemplate.closeDate && new Date(this.loanProductsTemplate.closeDate),
       'includeInBorrowerCycle': this.loanProductsTemplate.includeInBorrowerCycle,
-      'loanTypeId': this.loanProductsTemplate.loanType?.id
+      'loanTypeId': this.loanProductsTemplate.loanType?.id,
+      'inScope': this.loanProductsTemplate.inScope || false
     });
   }
 
@@ -58,7 +59,8 @@ export class LoanProductDetailsStepComponent implements OnInit {
       'startDate': [''],
       'closeDate': [''],
       'includeInBorrowerCycle': [false],
-      'loanTypeId': ['', Validators.required]
+      'loanTypeId': ['', Validators.required],
+      'inScope': [true]
     });
   }
 

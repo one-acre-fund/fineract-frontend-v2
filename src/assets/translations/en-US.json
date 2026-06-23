@@ -322,6 +322,7 @@
       "Short Name": "Short Name",
       "Loan Type": "Loan Type",
       "Product Name": "Product Name",
+      "in_scope": "In Scope",
       "Is Equal Amortization": "Is Equal Amortization",
       "OverdueCharges": "Overdue Charges",
       "Qualification Rules": "Qualification Rules",
