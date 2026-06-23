@@ -321,6 +321,8 @@
       "Short Name": "Nom court",
       "Loan Type": "Type de prêt",
       "Product Name": "Nom du produit",
+      "in_scope": "Dans le périmètre",
+      "in_scope_tooltip": "Indique si ce produit de prêt est actuellement actif et disponible dans le périmètre opérationnel de l'organisation.",
       "Is Equal Amortization": "Amortissement égal",
       "Qualification Rules": "Règles de qualification",
       "Previously not taken credit": "Crédit non pris précédemment",

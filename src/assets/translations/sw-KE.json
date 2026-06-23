@@ -322,6 +322,8 @@
       "Short Name": "Jina Fupi",
       "Loan Type": "Aina ya Mkopo",
       "Product Name": "Jina la Bidhaa",
+      "in_scope": "Inatumika",
+      "in_scope_tooltip": "Inaonyesha kama bidhaa hii ya mkopo iko katika matumizi na inapatikana ndani ya upeo wa uendeshaji wa shirika.",
       "Is Equal Amortization": "Ni Amortization Sawa",
       "OverdueCharges": "Malipo ya Kuchelewa",
       "Qualification Rules": "Sheria za Utauzi",
