@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
 export class RequestInfoDialogComponent implements OnInit {
   form: FormGroup;
   kycFields: any = [];
+  kycFieldRejectionNotes: any = [];
   isRequestSubmitButtonDisabled = false
 
   constructor(
@@ -43,6 +44,7 @@ export class RequestInfoDialogComponent implements OnInit {
         } else {
           this.kycFields = [];
         }
+        this.kycFieldRejectionNotes = response.kycRejectionNotes;
       },
       error: (err) => {
         this.alertService.alert({
@@ -70,6 +72,7 @@ export class RequestInfoDialogComponent implements OnInit {
 
   submit() {
     const data = { ...this.form.value };
+    console.log('Submitting data:', data);
      this.taskService.rejectClientVerification(this.data?.client?.id, data).subscribe({
       next: () => {
         this.dialogRef.close(this.form.value);
