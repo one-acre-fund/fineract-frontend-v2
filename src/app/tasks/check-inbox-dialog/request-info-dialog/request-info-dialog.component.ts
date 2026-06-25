@@ -12,7 +12,7 @@ import { environment } from 'environments/environment';
 export class RequestInfoDialogComponent implements OnInit {
   form: FormGroup;
   kycFields: any = [];
-  kycFieldRejectionNotes: any = [];
+  kycFieldRejectionNotes: string[] = [];
   isRequestSubmitButtonDisabled = false
 
   constructor(
