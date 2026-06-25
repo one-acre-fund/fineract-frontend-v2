@@ -23,8 +23,8 @@ export class RequestInfoDialogComponent implements OnInit {
     private readonly alertService: AlertService,
   ) {
     this.form = this.fb.group({
-      failedKycFields: ['', Validators.required],
-      kycRejectionNotes: ['', Validators.required]
+      failedKycFields: [[], Validators.required],
+      kycRejectionNotes: [[], Validators.required]
     });
   }
 
@@ -44,7 +44,7 @@ export class RequestInfoDialogComponent implements OnInit {
         } else {
           this.kycFields = [];
         }
-        this.kycFieldRejectionNotes = response.kycRejectionNotes;
+        this.kycFieldRejectionNotes = Array.isArray(response?.kycRejectionNotes) ? response.kycRejectionNotes : [];
       },
       error: (err) => {
         this.alertService.alert({
@@ -72,7 +72,6 @@ export class RequestInfoDialogComponent implements OnInit {
 
   submit() {
     const data = { ...this.form.value };
-    console.log('Submitting data:', data);
      this.taskService.rejectClientVerification(this.data?.client?.id, data).subscribe({
       next: () => {
         this.dialogRef.close(this.form.value);
