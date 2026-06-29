@@ -40,8 +40,6 @@ export class GeneralTabComponent implements OnInit {
     'Account No',
     'Loan Account',
     'Original Loan',
-    'Loan Balance',
-    'Amount Paid',
     'Type',
     'Date Deleted',
   ];
@@ -81,8 +79,6 @@ export class GeneralTabComponent implements OnInit {
   /** Client Summary Data */
   clientSummary: any;
 
-  /** Show Closed Loan Accounts */
-  showClosedLoanAccounts = false;
   /** Show Closed Saving Accounts */
   showClosedSavingAccounts = false;
   /** Show Closed Share Accounts */
@@ -126,13 +122,10 @@ export class GeneralTabComponent implements OnInit {
     let title = document.title || '';
     this.matomoTracker.setDocumentTitle(`${title}`);
   }
+ 
   /**
-   * Toggles Loan Accounts Overview
+   * Toggles Loan Accounts View
    */
-  toggleLoanAccountsOverview() {
-    this.showClosedLoanAccounts = !this.showClosedLoanAccounts;
-  }
-
   onLoanAccountsViewChange(event: any): void {
     this.loanAccountsView = event.value;
   }
