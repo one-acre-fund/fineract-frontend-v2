@@ -148,7 +148,8 @@ export class ClientsService {
   }
 
   getClientAccountData(clientId: string) {
-    return this.http.get(`/clients/${clientId}/accounts`);
+    const httpParams = new HttpParams().set('includeDeletedLoanAccounts', 'true');
+    return this.http.get(`/clients/${clientId}/accounts`, { params: httpParams });
   }
 
   getClientChargesData(clientId: string) {
