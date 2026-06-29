@@ -126,7 +126,7 @@ export class GeneralTabComponent implements OnInit {
   /**
    * Toggles Loan Accounts View
    */
-  onLoanAccountsViewChange(event: any): void {
+  onLoanAccountsViewChange(event: { value: 'active' | 'closed' | 'deleted' }): void {
     this.loanAccountsView = event.value;
   }
 
