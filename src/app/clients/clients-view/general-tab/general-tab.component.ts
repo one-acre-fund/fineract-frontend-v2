@@ -35,6 +35,16 @@ export class GeneralTabComponent implements OnInit {
     'Type',
     'Closed Date',
   ];
+  /** Deleted Loan Accounts Columns */
+  deletedLoansColumns: string[] = [
+    'Account No',
+    'Loan Account',
+    'Original Loan',
+    'Loan Balance',
+    'Amount Paid',
+    'Type',
+    'Date Deleted',
+  ];
   /** Open Savings Accounts Columns */
   openSavingsColumns: string[] = ['Account No', 'Saving Account', 'Last Active', 'Balance', 'Actions'];
   /** Closed Savings Accounts Columns */
@@ -85,6 +95,9 @@ export class GeneralTabComponent implements OnInit {
   /** Client Id */
   clientid: any;
 
+  /** Loan Accounts View */
+  loanAccountsView: 'active' | 'closed' | 'deleted' = 'active';
+
   /**
    * @param {ActivatedRoute} route Activated Route
    * @param {ClientsService} clientService Clients Service
@@ -118,6 +131,10 @@ export class GeneralTabComponent implements OnInit {
    */
   toggleLoanAccountsOverview() {
     this.showClosedLoanAccounts = !this.showClosedLoanAccounts;
+  }
+
+  onLoanAccountsViewChange(event: any): void {
+    this.loanAccountsView = event.value;
   }
 
   /**

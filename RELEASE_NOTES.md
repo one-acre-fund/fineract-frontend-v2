@@ -7,6 +7,8 @@
     * Clients & Groups
         * [HQX-117] - Add standardized configurable kyc failure reasons
         * [HQX-120] - Display client status transitions
+    * Loans & Payments
+        * [HQX-276] - Display client deleted loans for visibility
 
 ## Version 1.4.10 - Community 1.0.0
 
@@ -69,7 +71,6 @@
         * [CP-4004] - Disabling the notification tray for now since it's not being consumed
     * Clients
         * [CP-3711] - Enable bulk upload of existing farmers to existing groups
-
 
 ## Version 1.4.4 - Community 1.0.0
 

@@ -105,14 +105,18 @@
     </div>
     <div fxLayout="column" fxFlex="50%">
       <div fxLayout="row" fxLayoutAlign="flex-end">
-        <button mat-raised-button class="f-right" color="primary" (click)="toggleLoanAccountsOverview()">
-          {{ viewAccountsLabel(showClosedLoanAccounts) | translate }}
-        </button>
+        <div *ngIf="(loanAccounts | accountsFilter : 'loan' : 'closed').length || (loanAccounts | accountsFilter : 'loan' : 'deleted').length" class="action-button m-b-10">
+          <mat-button-toggle-group [(ngModel)]="loanAccountsView" (change)="onLoanAccountsViewChange($event)" class="mat-primary">
+            <mat-button-toggle value="active">{{ 'labels.status.Active' | translate }}</mat-button-toggle>
+            <mat-button-toggle value="closed">{{ 'labels.status.Closed' | translate }}</mat-button-toggle>
+            <mat-button-toggle value="deleted">{{ 'labels.status.Deleted' | translate }}</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
       </div>
     </div>
   </div>
 
-  <table *ngIf="!showClosedLoanAccounts" mat-table [dataSource]="loanAccounts | accountsFilter : 'loan'">
+  <table *ngIf="loanAccountsView === 'active'" mat-table [dataSource]="loanAccounts | accountsFilter : 'loan'">
     <ng-container matColumnDef="Account No">
       <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Account No' | translate }}</th>
       <td mat-cell *matCellDef="let element">
@@ -212,7 +216,7 @@
   </table>
 
   <!-- Closed Loan Accounts -->
-  <table *ngIf="showClosedLoanAccounts" mat-table [dataSource]="loanAccounts | accountsFilter : 'loan' : 'closed'">
+  <table *ngIf="loanAccountsView === 'closed'" mat-table [dataSource]="loanAccounts | accountsFilter : 'loan' : 'closed'">
     <ng-container matColumnDef="Account No">
       <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Account No' | translate }}</th>
       <td mat-cell *matCellDef="let element">
@@ -265,6 +269,65 @@
     <tr
       mat-row
       *matRowDef="let row; columns: closedLoansColumns"
+      [routerLink]="['../', 'loans-accounts', row.id, 'general']"
+      class="select-row"
+    ></tr>
+  </table>
+
+  <!-- Deleted Loan Accounts -->
+  <table *ngIf="loanAccountsView === 'deleted'" mat-table [dataSource]="loanAccounts | accountsFilter : 'loan' : 'deleted'">
+    <ng-container matColumnDef="Account No">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Account No' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        <i
+          class="fa fa-stop"
+          [ngClass]="element.inArrears ? 'status-active-overdue' : (element.status.code | statusLookup)"
+        ></i>
+        {{ element.accountNo }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Loan Account">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Loan Product' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.productName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Original Loan">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Original Loan' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.lastActiveTransactionDate | dateFormat }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Loan Balance">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Loan Balance' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.loanBalance }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Amount Paid">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Amount Paid' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.accountBalance }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Type">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Type' | translate }}</th>
+      <td mat-cell *matCellDef="let element">
+        <i
+          class="fa fa-large"
+          [ngClass]="element.loanType.value === 'Individual' ? 'fa-user' : 'fa-group'"
+          matTooltip=" {{ element.loanType.value }}"
+          matTooltipPosition="above"
+        ></i>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Date Deleted">
+      <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.dateDeleted' | translate }}</th>
+      <td mat-cell *matCellDef="let element">{{ element.timeline.deletedOnDate | dateFormat }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="deletedLoansColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: deletedLoansColumns"
       [routerLink]="['../', 'loans-accounts', row.id, 'general']"
       class="select-row"
     ></tr>
