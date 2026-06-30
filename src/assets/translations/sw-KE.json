@@ -1513,7 +1513,8 @@
       "AffectedClients": "Wateja Walioathiriwa",
       "Maker": "Muumba",
       "Date": "Tarehe",
-      "MembershipHistory": "Historia ya Uanachama"
+      "MembershipHistory": "Historia ya Uanachama",
+      "StatusTransitions": "Mabadiliko ya Hali"
     },
     "inputs": {
       "accounting": {
@@ -2637,6 +2638,11 @@
       "Starting Date": "Tarehe ya Kuanza",
       "State / Province": "Jimbo / Mkoa",
       "Status": "Hali",
+      "StatusTransitions": "Mabadiliko ya Hali",
+      "TransitionType": "Aina ya Mabadiliko",
+      "Transition": "Mabadiliko",
+      "StatusChangedOn": "Hali Ilibadilishwa Tarehe",
+      "TransitionCreatedOn": "Imeundwa Tarehe",
       "Step Name": "Jina la Hatua",
       "Street": "Barabara",
       "String": "Mlolongo",
@@ -3743,7 +3749,8 @@
       "Add new extra fields to any entity in the form of data table": "Ongeza sehemu za ziada mpya kwa huluki yoyote katika muundo wa jedwali la data",
       "Preferences for generating account numbers for client, loan and savings accounts": "Mapendeleo ya kuzalisha nambari za akaunti za mteja, mkopo na akiba",
       "“Maker-Checker” principle requires every tasks": "Kanuni ya “Mtengenezaji-Mkaguzi” inahitaji kila kazi ikamilishwe na watu wawili ili kupunguza uwezekano wa makosa na matumizi mabaya. Mtu mmoja anaanzisha mchakato na wa pili anaukamilisha.",
-      "NoAuditRecordsFound": "Hakuna rekodi za ukaguzi zilizopatikana"
+      "NoAuditRecordsFound": "Hakuna rekodi za ukaguzi zilizopatikana",
+      "NoStatusTransitionsFound": "Hakuna mabadiliko ya hali yaliyopatikana kwa mteja huyu."
     },
     "titles": {
       "Dashboard": "Dashibodi",

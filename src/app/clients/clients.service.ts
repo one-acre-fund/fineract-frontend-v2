@@ -156,6 +156,22 @@ export class ClientsService {
     return this.http.get(`/clients/${clientId}/charges`, { params: httpParams });
   }
 
+  getClientStatusTransitions(
+    clientId: string,
+    offset: number,
+    limit: number,
+    orderBy: string = 'statusChangedOn',
+    sortOrder: string = 'DESC'
+  ) {
+    const httpParams = new HttpParams()
+      .set('offset', offset.toString())
+      .set('limit', limit.toString())
+      .set('orderBy', orderBy)
+      .set('sortOrder', sortOrder);
+
+    return this.http.get(`/clients/${clientId}/status-transitions`, { params: httpParams });
+  }
+
   getSelectedChargeData(clientId: string, chargeId: string) {
     const httpParams = new HttpParams().set('associations', 'all');
     return this.http.get(`/clients/${clientId}/charges/${chargeId}`, { params: httpParams });

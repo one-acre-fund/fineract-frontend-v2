@@ -19,6 +19,7 @@ import { NotesTabComponent } from './clients-view/notes-tab/notes-tab.component'
 import { DocumentsTabComponent } from './clients-view/documents-tab/documents-tab.component';
 import { DatatableTabComponent } from './clients-view/datatable-tab/datatable-tab.component';
 import { AddressTabComponent } from './clients-view/address-tab/address-tab.component';
+import { StatusTransitionsTabComponent } from './clients-view/status-transitions-tab/status-transitions-tab.component';
 import { ClientActionsComponent } from './clients-view/client-actions/client-actions.component';
 import { ViewChargeComponent } from './clients-view/charges/view-charge/view-charge.component';
 import { ClientPayChargesComponent } from './clients-view/charges/client-pay-charges/client-pay-charges.component';
@@ -42,6 +43,7 @@ import { ClientDatatableResolver } from './common-resolvers/client-datatable.res
 import { ClientIdentifierTemplateResolver } from './common-resolvers/client-identifier-template.resolver';
 import { ClientAddressFieldConfigurationResolver } from './common-resolvers/client-address-fieldconfiguration.resolver';
 import { ClientAddressTemplateResolver } from './common-resolvers/client-address-template.resolver';
+import { ClientStatusTransitionsResolver } from './common-resolvers/client-status-transitions.resolver';
 import { ChargesOverviewComponent } from './clients-view/charges/charges-overview/charges-overview.component';
 import { ClientChargeOverviewResolver } from './clients-view/charges/charges-overview/charge-overview.resolver';
 import { ClientActionsResolver } from './common-resolvers/client-actions.resolver';
@@ -174,6 +176,18 @@ const routes: Routes = [
               data: { title: extract('labels.heading.Notes'), breadcrumb: 'Notes', routeParamBreadcrumb: false },
               resolve: {
                 clientNotes: ClientNotesResolver,
+              },
+            },
+            {
+              path: 'status-transitions',
+              component: StatusTransitionsTabComponent,
+              data: {
+                title: extract('labels.heading.StatusTransitions'),
+                breadcrumb: 'Status Transitions',
+                routeParamBreadcrumb: false,
+              },
+              resolve: {
+                clientStatusTransitions: ClientStatusTransitionsResolver,
               },
             },
             {
@@ -310,6 +324,7 @@ const routes: Routes = [
     ClientIdentifierTemplateResolver,
     ClientAddressFieldConfigurationResolver,
     ClientAddressTemplateResolver,
+    ClientStatusTransitionsResolver,
     ClientChargeOverviewResolver,
     ClientActionsResolver,
     ClientChargeViewResolver,

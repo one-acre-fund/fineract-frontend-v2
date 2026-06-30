@@ -1510,7 +1510,8 @@
       "AffectedClients": "Clients affectés",
       "Maker": "Créateur",
       "Date": "Date",
-      "MembershipHistory": "Historique de l'adhésion"
+      "MembershipHistory": "Historique de l'adhésion",
+      "StatusTransitions": "Historique des transitions de statut"
     },
     "inputs": {
       "accounting": {
@@ -2635,6 +2636,11 @@
       "Starting date": "Date de début",
       "State / Province": "État/Province",
       "Status": "Statut",
+      "StatusTransitions": "Transitions de statut",
+      "TransitionType": "Type de transition",
+      "Transition": "Transition",
+      "StatusChangedOn": "Statut modifié le",
+      "TransitionCreatedOn": "Créé le",
       "Step Name": "Nom de l'étape",
       "Street": "Rue",
       "String": "Chaîne",
@@ -3721,7 +3727,8 @@
       "Add new extra fields to any entity in the form of data table": "Ajouter de nouveaux champs supplémentaires à n'importe quelle entité sous forme de tableau de données",
       "Preferences for generating account numbers for client, loan and savings accounts": "Préférences de génération de numéros de compte pour les comptes clients, de prêt et d'épargne",
       "“Maker-Checker” principle requires every tasks": "Le principe « Maker-Checker » exige que chaque tâche soit effectuée par deux personnes afin de réduire les risques d'erreurs et de mauvaise utilisation. Une personne lance le processus et la seconde le termine.",
-      "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte."
+      "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte.",
+      "NoStatusTransitionsFound": "Aucune transition de statut trouvée pour ce client."
     },
     "titles": {
       "Dashboard": "Tableau de bord",

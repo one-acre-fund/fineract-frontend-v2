@@ -58,6 +58,7 @@ import { ClientFamilyMemberDialogComponent } from './client-stepper/client-famil
 import { CaptureImageDialogComponent } from './clients-view/custom-dialogs/capture-image-dialog/capture-image-dialog.component';
 import { CreateSelfServiceUserComponent } from './clients-view/client-actions/create-self-service-user/create-self-service-user.component';
 import { ClientOtpDialogComponent } from './client-otp-dialog/client-otp-dialog.component';
+import { StatusTransitionsTabComponent } from './clients-view/status-transitions-tab/status-transitions-tab.component';
 
 
 /**
@@ -122,7 +123,8 @@ import { ClientOtpDialogComponent } from './client-otp-dialog/client-otp-dialog.
     ClientFamilyMemberDialogComponent,
     CaptureImageDialogComponent,
     CreateSelfServiceUserComponent,
-    ClientOtpDialogComponent
+    ClientOtpDialogComponent,
+    StatusTransitionsTabComponent
   ],
   providers: [ ]
 

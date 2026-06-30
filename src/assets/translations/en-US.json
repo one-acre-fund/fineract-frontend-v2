@@ -1515,7 +1515,8 @@
       "AffectedClients": "Affected Clients",
       "Maker": "Maker",
       "Date": "Date",
-      "MembershipHistory": "Membership History"
+      "MembershipHistory": "Membership History",
+      "StatusTransitions": "Status Transitions"
     },
     "inputs": {
       "accounting": {
@@ -2639,6 +2640,11 @@
       "Starting Date": "Starting Date",
       "State / Province": "State / Province",
       "Status": "Status",
+      "StatusTransitions": "Status Transitions",
+      "TransitionType": "Transition Type",
+      "Transition": "Transition",
+      "StatusChangedOn": "Status Changed On",
+      "TransitionCreatedOn": "Created On",
       "Step Name": "Step Name",
       "Street": "Street",
       "String": "String",
@@ -3745,7 +3751,8 @@
       "Add new extra fields to any entity in the form of data table": "Add new extra fields to any entity in the form of data table",
       "Preferences for generating account numbers for client, loan and savings accounts": "Preferences for generating account numbers for client, loan and savings accounts",
       "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it.",
-      "NoAuditRecordsFound": "No audit records found for this account."
+      "NoAuditRecordsFound": "No audit records found for this account.",
+      "NoStatusTransitionsFound": "No status transitions found for this client."
     },
     "titles": {
       "Dashboard": "Dashboard",
