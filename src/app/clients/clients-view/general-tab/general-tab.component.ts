@@ -35,6 +35,14 @@ export class GeneralTabComponent implements OnInit {
     'Type',
     'Closed Date',
   ];
+  /** Deleted Loan Accounts Columns */
+  deletedLoansColumns: string[] = [
+    'Account No',
+    'Loan Account',
+    'Original Loan',
+    'Type',
+    'Date Deleted',
+  ];
   /** Open Savings Accounts Columns */
   openSavingsColumns: string[] = ['Account No', 'Saving Account', 'Last Active', 'Balance', 'Actions'];
   /** Closed Savings Accounts Columns */
@@ -71,8 +79,6 @@ export class GeneralTabComponent implements OnInit {
   /** Client Summary Data */
   clientSummary: any;
 
-  /** Show Closed Loan Accounts */
-  showClosedLoanAccounts = false;
   /** Show Closed Saving Accounts */
   showClosedSavingAccounts = false;
   /** Show Closed Share Accounts */
@@ -84,6 +90,9 @@ export class GeneralTabComponent implements OnInit {
 
   /** Client Id */
   clientid: any;
+
+  /** Loan Accounts View */
+  loanAccountsView: 'active' | 'closed' | 'deleted' = 'active';
 
   /**
    * @param {ActivatedRoute} route Activated Route
@@ -113,11 +122,12 @@ export class GeneralTabComponent implements OnInit {
     let title = document.title || '';
     this.matomoTracker.setDocumentTitle(`${title}`);
   }
+ 
   /**
-   * Toggles Loan Accounts Overview
+   * Toggles Loan Accounts View
    */
-  toggleLoanAccountsOverview() {
-    this.showClosedLoanAccounts = !this.showClosedLoanAccounts;
+  onLoanAccountsViewChange(event: { value: 'active' | 'closed' | 'deleted' }): void {
+    this.loanAccountsView = event.value;
   }
 
   /**
