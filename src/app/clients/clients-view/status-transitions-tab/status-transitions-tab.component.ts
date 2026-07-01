@@ -37,6 +37,8 @@ export class StatusTransitionsTabComponent implements OnInit {
   pageSize = 50;
   /** Loading indicator */
   isLoading = false;
+  /** Flag to track whether resolver data has been applied */
+  resolverDataApplied = false;
 
   /**
    * @param {ActivatedRoute} route Activated Route.
@@ -47,12 +49,13 @@ export class StatusTransitionsTabComponent implements OnInit {
     this.route.data.subscribe((data: { clientStatusTransitions: any }) => {
       if (data.clientStatusTransitions) {
         this.setStatusTransitionsData(data.clientStatusTransitions);
+        this.resolverDataApplied = true;
       }
     });
   }
 
   ngOnInit(): void {
-    if (this.dataSource.data.length === 0) {
+    if (!this.resolverDataApplied) {
       this.fetchStatusTransitions(0, this.pageSize);
     }
   }

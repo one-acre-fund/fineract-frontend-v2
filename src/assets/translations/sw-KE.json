@@ -2641,6 +2641,7 @@
       "StatusTransitions": "Mabadiliko ya Hali",
       "TransitionType": "Aina ya Mabadiliko",
       "Transition": "Mabadiliko",
+      "InitialStatus": "Hali ya Kwanza",
       "StatusChangedOn": "Hali Ilibadilishwa Tarehe",
       "TransitionCreatedOn": "Imeundwa Tarehe",
       "Step Name": "Jina la Hatua",
@@ -3072,6 +3073,10 @@
       "Transfer in progress": "Uhamisho unaendelea",
       "Transfer on hold": "Uhamisho umesitishwa",
       "Withdrawn": "Imeondolewa"
+    },
+    "transitionType": {
+      "STATUS": "Hali",
+      "SUB_STATUS": "Hali Ndogo"
     },
     "dialogContext": {
       "Are you sure you want Unassign Staff": "Una uhakika unataka kuondoa kazi kwa Mfanyakazi",

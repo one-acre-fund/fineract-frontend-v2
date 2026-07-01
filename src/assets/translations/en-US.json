@@ -2643,6 +2643,7 @@
       "StatusTransitions": "Status Transitions",
       "TransitionType": "Transition Type",
       "Transition": "Transition",
+      "InitialStatus": "Initial status",
       "StatusChangedOn": "Status Changed On",
       "TransitionCreatedOn": "Created On",
       "Step Name": "Step Name",
@@ -3074,6 +3075,10 @@
       "Transfer in progress": "Transfer in progress",
       "Transfer on hold": "Transfer on hold",
       "Withdrawn": "Withdrawn"
+    },
+    "transitionType": {
+      "STATUS": "Status",
+      "SUB_STATUS": "Sub Status"
     },
     "dialogContext": {
       "Are you sure you want Unassign Staff": "Are you sure you want Unassign Staff",
