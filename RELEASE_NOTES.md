@@ -1,14 +1,15 @@
 # Release Notes
 
-## Version 1.4.12 - Community 1.0.0
-    * Clients & Groups
-        * [HQX-120] - Display client status transitions
-
 ## Version 1.4.11 - Community 1.0.0
+
     * Savings Accounts & Products
         * [FOX-212] - Add inScope field to LoanProduct entity to allow isolation of loan products in scope for field operations for summary calculations
+    * Clients & Groups
+        * [HQX-117] - Add standardized configurable kyc failure reasons
+        * [HQX-120] - Display client status transitions
 
 ## Version 1.4.10 - Community 1.0.0
+
     * Loans & Payments
         * [CP-4057] - Improve Rahisi Model UI to show more details and make it more user friendly
     * System
@@ -16,14 +17,16 @@
     * Savings Accounts & Products
         * [HQX-235] - Ability to download savings transaction template without selecting an office
     * Clients & Groups
-        * [HQX-72] - Provide Visibility on Group Leader History 
+        * [HQX-72] - Provide Visibility on Group Leader History
         * [HQX-270] - Ability to track historical group removal for audit & analysis
 
 ## Version 1.4.9.1 - Community 1.0.0
+
     * Clients
         * * [CP-4095] - Payment Provider External service: Introduce support of date format for a payment provider
 
 ## Version 1.4.9 - Community 1.0.0
+
     * Bulk Uploads
         * [CP-4042] - Add bulk upload to remove clients from groups
     * Loans & Payments
@@ -31,17 +34,19 @@
         * [CP-4065] - Add Delivery Details Tab and Fetch Button in Loan Management
 
 ## Version 1.4.8.1 - Community 1.0.0
+
     * Bulk Uploads
         * [CP-4085] - Client Transfer: Rename client group transfer to client transfer and enable download template button only if the office is selected
 
 ## Version 1.4.8 - Community 1.0.0
+
     * Bulk Downloads
         * [CP-4041] - Enable bulk download for unqualified and non picker clients for a loan product
     * Bulk Uploads
         * [CP-4015] - Add bulk upload to move groups to different sites
 
-
 ## Version 1.4.7.1 - Community 1.0.0
+
     * Clients
         * [CP-4059] -  Client activation: allow activation of clients with inactive substatuses
 
@@ -57,26 +62,32 @@
        * [CP-4058] - Hide dynamic downpayment
 
 ## Version 1.4.6 - Community 1.0.0
+
     * Configurations
         * [CP-3666] - Refactor Template Configuration with HTML Support Per Country
     * Navigation Bar
         * [CP-4004] - Disabling the notification tray for now since it's not being consumed
     * Clients
         * [CP-3711] - Enable bulk upload of existing farmers to existing groups
-           
+
+
 ## Version 1.4.4 - Community 1.0.0
+
     * Clients
         * [CP-3935] - Add time a client landed in the checker inbox
         * [CP-3971] - Rename phone number field in UI to Paid By in transaction history
         * [CP-3536] - Fix Cannot read properties of undefined errors reported by Sentry
 
 ## Version 1.4.3 - Community 1.0.0
+
     * Clients
         * [CP-3882] - Add display for gender and KYC Failed fields in client profile
     * External Services
         * [CP-3932] - Revamp the notification external service UI
+
 ## Version 1.4.2 - Community 1.0.0
-    * Maker Checker 
+
+    * Maker Checker
         * [CP-3873] - KYC Maker Checker UI Improvements
         * [CP-3911] - Apply KYC backend changes to align with the updated requirements.
         * [CP-3927] - Enable search by client name and order by date on Failed KYC tab.
@@ -96,7 +107,7 @@
     * Tranlations
         * [CP-3741] - Fix Translations Related to Angular Material Pagination and Breadcrumbs
         * [CP-3788] - Fix other translation reported issues
-        
+
     * Maker Checker
         * [CP-3723] - Improve user experience for the maker
 

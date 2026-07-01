@@ -12,6 +12,7 @@ import { environment } from 'environments/environment';
 export class RequestInfoDialogComponent implements OnInit {
   form: FormGroup;
   kycFields: any = [];
+  kycFieldRejectionNotes: string[] = [];
   isRequestSubmitButtonDisabled = false
 
   constructor(
@@ -22,8 +23,8 @@ export class RequestInfoDialogComponent implements OnInit {
     private readonly alertService: AlertService,
   ) {
     this.form = this.fb.group({
-      failedKycFields: ['', Validators.required],
-      kycRejectionNotes: ['', Validators.required]
+      failedKycFields: [[], Validators.required],
+      kycRejectionNotes: [[], Validators.required]
     });
   }
 
@@ -43,6 +44,7 @@ export class RequestInfoDialogComponent implements OnInit {
         } else {
           this.kycFields = [];
         }
+        this.kycFieldRejectionNotes = Array.isArray(response?.kycRejectionNotes) ? response.kycRejectionNotes : [];
       },
       error: (err) => {
         this.alertService.alert({
