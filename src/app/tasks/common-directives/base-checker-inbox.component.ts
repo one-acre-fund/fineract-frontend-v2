@@ -127,7 +127,7 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
 
   viewClient(clientId: string) {
     const dialogRef = this.dialog.open(ClientDetailsDialogComponent, { data: { clientId } });
-    dialogRef.afterClosed().subscribe(result => result === 'confirmed' && this.reload());
+    dialogRef.afterClosed().subscribe(result => result === 'confirmed' && this.refreshCurrentResults());
   }
 
   approveChecker() {
@@ -149,9 +149,13 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
       this.tasksService.executeClientKYCAction(el.clientId, action)
     );
     forkJoin(requests).subscribe({
-      next: () => this.reload(),
+      next: () => this.refreshCurrentResults(),
       error: (err) => console.error('Bulk Approve maker checker action failed:', err)
     });
+  }
+
+  private refreshCurrentResults() {
+    this.loadCheckerData();
   }
 
   applyFilter(filterValue: string = '') {
