@@ -91,7 +91,11 @@ export class ClientFailedKYCDataSource implements DataSource<any> {
     const ob = orderBy || 'last_kyc_approval_on_date';
     const so = (sortOrder || 'ASC').toUpperCase();
     const offset = pageIndex * limit;
-    this.clientsService.getClients(ob, so, offset, limit, this.subStatus, filter).subscribe((clients: any) => {
+    const countryId = this.settingsService.getSelectedCountry()?.id;
+    const clientsCall$ = countryId
+      ? this.clientsService.getClientsByCountry(ob, so, offset, limit, countryId, this.subStatus, filter)
+      : this.clientsService.getClients(ob, so, offset, limit, this.subStatus, filter);
+    clientsCall$.subscribe((clients: any) => {
 
       const items = (clients?.pageItems ?? []).filter((c: any) => c?.status?.value !== 'Closed');
       this.recordsSubject.next(clients?.totalFilteredRecords ?? items.length);
