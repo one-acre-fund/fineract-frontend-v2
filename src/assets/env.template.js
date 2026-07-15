@@ -37,4 +37,8 @@
 
   // Loan submission button disabled timeout in seconds
   window['env']['loanSubmitButtonDisabledTimeOut'] = '$LOAN_SUBMIT_DISABLED_TIME_OUT';
+
+  // Feature flags are public runtime release controls, not secrets or security controls.
+  // Supported examples: "clients.kyc-v2=false" or "clients.kyc-v2=false,notifications.v2=true".
+  window['env']['featureFlags'] = '$FEATURE_FLAGS';
 })(this);

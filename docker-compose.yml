@@ -24,3 +24,4 @@ services:
       - MATOMO_SITE_ID=1
       - MATOMO_SITE_URL=https://analytics.integration.oneacrefund.org
       - LOAN_SUBMIT_DISABLED_TIME_OUT=5
+      - FEATURE_FLAGS=clients.kyc-v2=false

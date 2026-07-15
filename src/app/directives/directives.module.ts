@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 /** Custom Directives */
 import { HasPermissionDirective } from './has-permission/has-permission.directive';
+import { FeatureFlagDirective } from './feature-flag/feature-flag.directive';
 
 /**
  *  Directives Module
@@ -14,7 +15,7 @@ import { HasPermissionDirective } from './has-permission/has-permission.directiv
   imports: [
     CommonModule
   ],
-  declarations: [HasPermissionDirective],
-  exports: [HasPermissionDirective]
+  declarations: [HasPermissionDirective, FeatureFlagDirective],
+  exports: [HasPermissionDirective, FeatureFlagDirective]
 })
 export class DirectivesModule { }

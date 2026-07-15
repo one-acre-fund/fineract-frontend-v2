@@ -1,0 +1,21 @@
+.feature-flag-demo {
+  max-width: 46rem;
+
+  mat-chip-list {
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  code {
+    background: #f5f5f5;
+    border-radius: 3px;
+    padding: 0.1rem 0.25rem;
+  }
+
+  .important-note {
+    border-left: 4px solid #f9a825;
+    margin-top: 1rem;
+    padding-left: 0.75rem;
+  }
+}
+
