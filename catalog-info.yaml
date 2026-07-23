@@ -1,0 +1,33 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fineract-ui
+  description: UI component for Fineract for managing clients, offices, loans and client payments
+  links:
+    - title: Production URL
+      url: https://loans.oneacrefund.org/
+      icon: web
+    - title: UAT URL
+      url: https://loans.uat.oneacrefund.org/
+      icon: web
+    - title: QA URL
+      url: https://loans.qa.oneacrefund.org/
+      icon: web
+    - title: Dev URL
+      url: https://loans.dev.oneacrefund.org/
+      icon: web
+  annotations:
+    backstage.io/source-location: url:https://github.com/one-acre-fund/fineract-frontend-v2/tree/main
+    sonarqube.org/project-key: one-acre-fund_one-acre-fund_fineract-frontend-v2
+    github.com/project-slug: one-acre-fund/fineract-frontend-v2
+    sentry.io/project-slug: fineract-ui
+spec:
+  type: website
+  lifecycle: production
+  owner: group:one-acre-fund/credits-and-payments
+  system: system:default/clif
+  dependsOn:
+    - component:default/fineract
+    - component:default/keycloak
+    - component:default/matomo
+    - component:default/elastic-apm
