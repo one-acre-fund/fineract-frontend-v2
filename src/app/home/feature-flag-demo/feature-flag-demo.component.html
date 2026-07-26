@@ -1,0 +1,35 @@
+<div class="container feature-flag-demo">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Feature Flag POC: Clients KYC V2</mat-card-title>
+      <mat-card-subtitle>Demo route protected by the <strong>{{ flagName }}</strong> runtime flag.</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-chip-list aria-label="Feature flag status">
+        <mat-chip color="accent" selected>{{ flagName }} = true</mat-chip>
+      </mat-chip-list>
+
+      <p>
+        You can see this page because the environment enabled the demo flag. If
+        <strong>{{ flagName }}</strong> is false, this route is blocked and the Home page button is hidden.
+      </p>
+
+      <ol>
+        <li>Merge the feature branch into <code>develop</code>.</li>
+        <li>Deploy the same build to Test/QA/UAT.</li>
+        <li>Set <code>FEATURE_FLAGS=clients.kyc-v2=false</code> to hide this feature.</li>
+        <li>Set <code>FEATURE_FLAGS=clients.kyc-v2=true</code> to show this feature.</li>
+      </ol>
+
+      <p class="important-note">
+        This is a frontend release-control POC. Backend-sensitive behavior still needs backend enforcement.
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/home']">Back Home</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

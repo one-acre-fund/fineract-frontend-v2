@@ -35,6 +35,9 @@
   // Loan submission button disabled timeout in seconds
   window['env']['loanSubmitButtonDisabledTimeOut'] = 5;
 
+  // Feature flags are public runtime release controls, not secrets or security controls.
+  window['env']['featureFlags'] = 'clients.kyc-v2=false';
+
   //APM
-  window['env']['apmServerUrl'] = '';
+  window['env']['apmServerUrl'] = ''; 
 })(this);

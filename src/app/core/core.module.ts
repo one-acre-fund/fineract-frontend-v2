@@ -12,9 +12,11 @@ import { HttpService } from './http/http.service';
 import { HttpCacheService } from './http/http-cache.service';
 import { ProgressBarService } from './progress-bar/progress-bar.service';
 import { I18nService } from './i18n/i18n.service';
+import { FeatureFlagsService } from './feature-flags/feature-flags.service';
 
 /** Custom Guards */
 import { AuthenticationGuard } from './authentication/authentication.guard';
+import { FeatureFlagGuard } from './feature-flags/feature-flag.guard';
 
 /** Custom Interceptors */
 import { ProgressInterceptor } from './progress-bar/progress.interceptor';
@@ -29,8 +31,6 @@ import { RouteReusableStrategy } from './route/route-reusable-strategy';
 
 /** Custom Modules */
 import { SharedModule } from '../shared/shared.module';
-import { NotificationsModule } from '../notifications/notifications.module';
-import { SearchModule } from 'app/search/search.module';
 
 /** Custom Components */
 import { ShellComponent } from './shell/shell.component';
@@ -38,8 +38,6 @@ import { SidenavComponent } from './shell/sidenav/sidenav.component';
 import { ToolbarComponent } from './shell/toolbar/toolbar.component';
 import { BreadcrumbComponent } from './shell/breadcrumb/breadcrumb.component';
 import { ContentComponent } from './shell/content/content.component';
-import { InjectionToken } from '@angular/core';
-import { APP_BASE_HREF, LocationStrategy } from '@angular/common';
 import { ApmInitService } from './init/elastic-apm/apm.init.service';
 import { PipesModule } from 'app/pipes/pipes.module';
 
@@ -49,7 +47,7 @@ import { PipesModule } from 'app/pipes/pipes.module';
  * Main app shell components and singleton services should be here.
  */
 @NgModule({
-  imports: [SharedModule, HttpClientModule, TranslateModule, RouterModule,PipesModule],
+  imports: [SharedModule, HttpClientModule, TranslateModule, RouterModule, PipesModule],
   declarations: [ShellComponent, SidenavComponent, ToolbarComponent, BreadcrumbComponent, ContentComponent],
   exports: [
     SharedModule, // TO BE REMOVED: Once all components have replaced the core module import by shared module.
@@ -57,6 +55,8 @@ import { PipesModule } from 'app/pipes/pipes.module';
   providers: [
     AuthenticationService,
     AuthenticationGuard,
+    FeatureFlagsService,
+    FeatureFlagGuard,
     AuthenticationInterceptor,
     {
       provide: HTTP_INTERCEPTORS,

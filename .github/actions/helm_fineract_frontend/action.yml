@@ -73,6 +73,9 @@ inputs:
   APM_ACTIVE:
     description: Whether APM is active or not.
     default: true
+  FEATURE_FLAGS:
+    description: Public runtime feature flags for frontend release controls.
+    default: ""
 
 runs:
   using: composite
@@ -96,6 +99,7 @@ runs:
           SENTRY_DSN: "${{ inputs.SENTRY_DSN }}"
           APM_SERVER_URL: "${{ inputs.APM_SERVER_URL }}"
           APM_ACTIVE: "${{ inputs.APM_ACTIVE }}"
+          FEATURE_FLAGS: "${{ inputs.FEATURE_FLAGS }}"
 
         initContainers:
           - name: wait-for-fineract-backend

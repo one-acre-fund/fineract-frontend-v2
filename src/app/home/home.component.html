@@ -2,6 +2,12 @@
   <button mat-raised-button color="primary" [routerLink]="['/dashboard']">
     <fa-icon icon="tachometer-alt"></fa-icon>&nbsp;&nbsp;{{ 'labels.menus.Dashboard' | translate }}
   </button>
+  <!-- POC: This button exists in merged/deployed code, but only renders when clients.kyc-v2=true. -->
+  <ng-container *mifosxFeatureFlag="'clients.kyc-v2'">
+    <button mat-raised-button color="accent" [routerLink]="['/feature-flags/clients-kyc-v2-demo']">
+      <fa-icon icon="flag"></fa-icon>&nbsp;&nbsp;KYC V2 Flag Demo
+    </button>
+  </ng-container>
 </div>
 
 <div class="container">
