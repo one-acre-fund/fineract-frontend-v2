@@ -390,8 +390,8 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           RUN_ID: "${{ github.run_id }}"
           CI_REPOSITORY: "${{ github.repository }}"
-          K8S_URL: "${{ secrets.K8S_PROD_URL }}"
-          K8S_SECRET: "${{ secrets.K8S_PROD_DEFAULT }}"
+          K8S_URL: "${{ secrets.EKS_PROD_URL }}"
+          K8S_SECRET: "${{ secrets.EKS_PROD_DEFAULT }}"
 
       - name: Deploy using Helm
         uses: "./.github/actions/helm_fineract_frontend"
