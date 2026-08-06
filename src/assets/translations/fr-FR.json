@@ -664,6 +664,7 @@
       "Undo Rejection": "Annuler le rejet",
       "Undo Transfer": "Annuler le transfert",
       "Update Default Savings": "Mettre à jour les économies par défaut",
+      "UpdateTenure": "Mettre à jour la durée",
       "Upload": "Télécharger",
       "Upload Signature": "Télécharger la signature",
       "Validate": "Valider",
@@ -1542,7 +1543,8 @@
       "Maker": "Créateur",
       "Date": "Date",
       "MembershipHistory": "Historique de l'adhésion",
-      "StatusTransitions": "Historique de statut"
+      "StatusTransitions": "Historique de statut",
+      "CreditScoreTenure": "Durée du score de crédit"
     },
     "inputs": {
       "accounting": {
@@ -2672,11 +2674,15 @@
       "State / Province": "État/Province",
       "Status": "Statut",
       "StatusTransitions": "Transitions de statut",
+      "CreditScoreTenure": "Durée de crédit",
       "TransitionType": "Type de transition",
       "Transition": "Transition",
       "InitialStatus": "Statut initial",
       "StatusChangedOn": "Statut modifié le",
       "TransitionCreatedOn": "Créé le",
+      "Tenure": "Mandat",
+      "RecalculationReason": "Motif de recalcul",
+      "RecalculationDate": "Date de Recalcul",
       "Step Name": "Nom de l'étape",
       "Street": "Rue",
       "String": "Chaîne",
@@ -3769,7 +3775,13 @@
       "Preferences for generating account numbers for client, loan and savings accounts": "Préférences de génération de numéros de compte pour les comptes clients, de prêt et d'épargne",
       "“Maker-Checker” principle requires every tasks": "Le principe « Maker-Checker » exige que chaque tâche soit effectuée par deux personnes afin de réduire les risques d'erreurs et de mauvaise utilisation. Une personne lance le processus et la seconde le termine.",
       "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte.",
-      "NoStatusTransitionsFound": "Aucune transition de statut trouvée pour ce client."
+      "NoStatusTransitionsFound": "Aucune transition de statut trouvée pour ce client.",
+      "NoCreditScoreTenureFound": "Aucun enregistrement de durée du score de crédit trouvé pour ce client.",
+      "TenureUpdateSuccessful": "Mise à jour de la durée réussie",
+      "RefreshCreditScorePrompt": "Voulez-vous actualiser maintenant le score de crédit de ce client",
+      "CreditScoreRefreshSuccessful": "Actualisation du score de crédit déclenchée avec succès.",
+      "UpdateTenureRefreshScoresWarning": "La soumission de cette mise à jour actualisera les scores de crédit du client. Voulez-vous continuer",
+      "TenureAndCreditScoreUpdateSuccessful": "Durée mise à jour avec succès et actualisation du score de crédit déclenchée."
     },
     "titles": {
       "Dashboard": "Tableau de bord",

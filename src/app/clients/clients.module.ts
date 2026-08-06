@@ -59,6 +59,8 @@ import { CaptureImageDialogComponent } from './clients-view/custom-dialogs/captu
 import { CreateSelfServiceUserComponent } from './clients-view/client-actions/create-self-service-user/create-self-service-user.component';
 import { ClientOtpDialogComponent } from './client-otp-dialog/client-otp-dialog.component';
 import { StatusTransitionsTabComponent } from './clients-view/status-transitions-tab/status-transitions-tab.component';
+import { CreditScoreTenureTabComponent } from './clients-view/credit-score-tenure-tab/credit-score-tenure-tab.component';
+import { AddClientTenureDialogComponent } from './clients-view/custom-dialogs/add-client-tenure-dialog/add-client-tenure-dialog.component';
 
 
 /**
@@ -124,7 +126,9 @@ import { StatusTransitionsTabComponent } from './clients-view/status-transitions
     CaptureImageDialogComponent,
     CreateSelfServiceUserComponent,
     ClientOtpDialogComponent,
-    StatusTransitionsTabComponent
+    StatusTransitionsTabComponent,
+    CreditScoreTenureTabComponent,
+    AddClientTenureDialogComponent
   ],
   providers: [ ]
 
