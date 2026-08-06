@@ -80,6 +80,8 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
     const pageSize = this.paginator ? this.paginator.pageSize : this.pageSize;
     const dateFormat = "dd MMMM yyyy";
 
+    const countryId = this.settingsService.getSelectedCountry()?.id;
+
     const params = {
       ...cleanForm,
       offset: pageIndex * pageSize,
@@ -88,7 +90,8 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
       sortOrder: this.sort?.direction || undefined,
       includeClientHierarchyPath: this.includeOUPath ? this.includeOUPath.checked : true,
       dateFrom: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.dateFrom, dateFormat),
-      dateTo: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.dateTo, dateFormat)
+      dateTo: this.dateUtils.formatDate(this.makerCheckerSearchForm.value.dateTo, dateFormat),
+      ...(countryId ? { countryId } : {})
     };
 
     this.tasksService.getClientKYCApprovals(params)
@@ -127,7 +130,7 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
 
   viewClient(clientId: string) {
     const dialogRef = this.dialog.open(ClientDetailsDialogComponent, { data: { clientId } });
-    dialogRef.afterClosed().subscribe(result => result === 'confirmed' && this.reload());
+    dialogRef.afterClosed().subscribe(result => result === 'confirmed' && this.refreshCurrentResults());
   }
 
   approveChecker() {
@@ -149,9 +152,13 @@ export abstract class BaseCheckerInboxComponent implements OnDestroy, AfterViewI
       this.tasksService.executeClientKYCAction(el.clientId, action)
     );
     forkJoin(requests).subscribe({
-      next: () => this.reload(),
+      next: () => this.refreshCurrentResults(),
       error: (err) => console.error('Bulk Approve maker checker action failed:', err)
     });
+  }
+
+  private refreshCurrentResults() {
+    this.loadCheckerData();
   }
 
   applyFilter(filterValue: string = '') {

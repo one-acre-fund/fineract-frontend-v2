@@ -48,6 +48,13 @@
     </mat-form-field>
   </div>
 
+  <div fxLayout="row wrap" fxLayoutGap="2%" fxLayout.lt-md="column">
+    <mat-checkbox fxFlex="48%" labelPosition="before" formControlName="inScope">
+      {{ 'labels.oaf.in_scope' | translate }}
+      <fa-icon icon="question-circle" matTooltip="{{ 'labels.oaf.in_scope_tooltip' | translate }}" matTooltipPosition="right"></fa-icon>
+    </mat-checkbox>
+  </div>
+
   <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
     <button mat-raised-button matStepperPrevious disabled>
       <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Previous' | translate }}

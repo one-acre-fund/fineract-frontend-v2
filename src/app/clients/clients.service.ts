@@ -68,6 +68,7 @@ export class ClientsService {
     limit: number,
     countryId: string,
     subStatus?: string,
+    displayName?: string,
   ): Observable<any> {
     let httpParams = new HttpParams()
       .set('offset', offset.toString())
@@ -79,6 +80,9 @@ export class ClientsService {
 
       if(subStatus) {
         httpParams = httpParams.set('subStatus', subStatus);
+      }
+      if(displayName) {
+        httpParams = httpParams.set('displayName', displayName);
       }
     return this.http.get('/clients', { params: httpParams });
   }
@@ -148,12 +152,29 @@ export class ClientsService {
   }
 
   getClientAccountData(clientId: string) {
-    return this.http.get(`/clients/${clientId}/accounts`);
+    const httpParams = new HttpParams().set('includeDeletedLoanAccounts', 'true');
+    return this.http.get(`/clients/${clientId}/accounts`, { params: httpParams });
   }
 
   getClientChargesData(clientId: string) {
     const httpParams = new HttpParams().set('pendingPayment', 'true');
     return this.http.get(`/clients/${clientId}/charges`, { params: httpParams });
+  }
+
+  getClientStatusTransitions(
+    clientId: string,
+    offset: number,
+    limit: number,
+    orderBy: string = 'statusChangedOn',
+    sortOrder: string = 'DESC'
+  ) {
+    const httpParams = new HttpParams()
+      .set('offset', offset.toString())
+      .set('limit', limit.toString())
+      .set('orderBy', orderBy)
+      .set('sortOrder', sortOrder);
+
+    return this.http.get(`/clients/${clientId}/status-transitions`, { params: httpParams });
   }
 
   getSelectedChargeData(clientId: string, chargeId: string) {

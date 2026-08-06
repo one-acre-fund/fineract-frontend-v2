@@ -16,13 +16,18 @@ export class AccountsFilterPipe implements PipeTransform {
               account.status.code === 'loanStatusType.withdrawn.by.client' ||
               account.status.code === 'loanStatusType.rejected');
           });
+        } else if (status === 'deleted') {
+          accounts = accounts.filter((account: any) => {
+            return (account.status.code === 'loanStatusType.deleted');
+          });
         } else {
           accounts = accounts.filter((account: any) => {
             return (account.status.code !== 'loanStatusType.closed.written.off' &&
               account.status.code !== 'loanStatusType.closed.obligations.met' &&
               account.status.code !== 'loanStatusType.closed.reschedule.outstanding.amount' &&
               account.status.code !== 'loanStatusType.withdrawn.by.client' &&
-              account.status.code !== 'loanStatusType.rejected');
+              account.status.code !== 'loanStatusType.rejected' &&
+              account.status.code !== 'loanStatusType.deleted');
           });
         }
       }

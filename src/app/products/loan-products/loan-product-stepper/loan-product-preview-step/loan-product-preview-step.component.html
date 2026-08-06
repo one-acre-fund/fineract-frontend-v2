@@ -39,6 +39,11 @@
     <span fxFlex="60%">{{ loanProduct.description }}</span>
   </div>
 
+  <div fxFlexFill>
+    <span fxFlex="40%">{{ 'labels.oaf.in_scope' | translate }}</span>
+    <span fxFlex="60%">{{ loanProduct.inScope ? ('labels.boolean.Yes' | translate) : ('labels.boolean.No' | translate) }}</span>
+  </div>
+
   <h3 class="mat-h3" fxFlexFill>{{ 'labels.inputs.Currency' | translate }}</h3>
 
   <mat-divider fxFlexFill></mat-divider>

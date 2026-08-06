@@ -321,6 +321,8 @@
       "Short Name": "Nom court",
       "Loan Type": "Type de prêt",
       "Product Name": "Nom du produit",
+      "in_scope": "Dans le périmètre",
+      "in_scope_tooltip": "Indique si ce produit de prêt est actuellement actif et disponible dans le périmètre opérationnel de l'organisation.",
       "Is Equal Amortization": "Amortissement égal",
       "Qualification Rules": "Règles de qualification",
       "Previously not taken credit": "Crédit non pris précédemment",
@@ -1508,7 +1510,8 @@
       "AffectedClients": "Clients affectés",
       "Maker": "Créateur",
       "Date": "Date",
-      "MembershipHistory": "Historique de l'adhésion"
+      "MembershipHistory": "Historique de l'adhésion",
+      "StatusTransitions": "Historique de statut"
     },
     "inputs": {
       "accounting": {
@@ -1730,6 +1733,7 @@
       "Closed (written-off)": "Fermé (radié)",
       "Closed By": "Fermé par",
       "Close Date": "Date de clôture",
+      "dateDeleted": "Date de suppression",
       "Closed Date": "Date de fermeture",
       "Closed On": "Fermé le",
       "Closed On Date": "Date de fermeture",
@@ -2633,6 +2637,12 @@
       "Starting date": "Date de début",
       "State / Province": "État/Province",
       "Status": "Statut",
+      "StatusTransitions": "Transitions de statut",
+      "TransitionType": "Type de transition",
+      "Transition": "Transition",
+      "InitialStatus": "Statut initial",
+      "StatusChangedOn": "Statut modifié le",
+      "TransitionCreatedOn": "Créé le",
       "Step Name": "Nom de l'étape",
       "Street": "Rue",
       "String": "Chaîne",
@@ -3033,6 +3043,7 @@
       "Active": "Actif",
       "Approved": "Approuvé",
       "Closed": "Fermé",
+      "Deleted": "Supprimé",
       "Closed (obligations met)": "Fermé (obligations respectées)",
       "Closed (rescheduled)": "Fermé (reprogrammé)",
       "Closed (written off)": "Fermé (radié)",
@@ -3043,6 +3054,10 @@
       "Transfer in progress": "Transfert en cours",
       "Transfer on hold": "Transfert en attente",
       "Withdrawn": "Retiré"
+    },
+    "transitionType": {
+      "STATUS": "Statut",
+      "SUB_STATUS": "Sous-statut"
     },
     "dialogContext": {
       "Are you sure you want Unassign Staff": "Êtes-vous sûr de vouloir désassigner le personnel",
@@ -3719,7 +3734,8 @@
       "Add new extra fields to any entity in the form of data table": "Ajouter de nouveaux champs supplémentaires à n'importe quelle entité sous forme de tableau de données",
       "Preferences for generating account numbers for client, loan and savings accounts": "Préférences de génération de numéros de compte pour les comptes clients, de prêt et d'épargne",
       "“Maker-Checker” principle requires every tasks": "Le principe « Maker-Checker » exige que chaque tâche soit effectuée par deux personnes afin de réduire les risques d'erreurs et de mauvaise utilisation. Une personne lance le processus et la seconde le termine.",
-      "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte."
+      "NoAuditRecordsFound": "Aucun enregistrement d'audit trouvé pour ce compte.",
+      "NoStatusTransitionsFound": "Aucune transition de statut trouvée pour ce client."
     },
     "titles": {
       "Dashboard": "Tableau de bord",

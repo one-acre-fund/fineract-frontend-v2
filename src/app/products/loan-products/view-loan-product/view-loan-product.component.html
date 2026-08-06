@@ -51,6 +51,11 @@
           <span fxFlex="60%">{{ loanProduct.closeDate | dateFormat }}</span>
         </div>
 
+        <div fxFlexFill>
+          <span fxFlex="40%">{{ 'labels.oaf.in_scope' | translate }}</span>
+          <span fxFlex="60%">{{ loanProduct.inScope ? ('labels.boolean.Yes' | translate) : ('labels.boolean.No' | translate) }}</span>
+        </div>
+
         <div fxFlexFill *ngIf="loanProduct.description">
           <span fxFlex="40%">{{ 'labels.inputs.Description' | translate }}</span>
           <span fxFlex="60%">{{ loanProduct.description }}</span>

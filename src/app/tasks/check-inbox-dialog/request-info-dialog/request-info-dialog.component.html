@@ -2,9 +2,17 @@
 <mat-dialog-content>
   <form [formGroup]="form">
 
-    <mat-form-field appearance="fill" class="w-full">
+    <mat-form-field>
       <mat-label>{{ 'labels.inputs.Reason' | translate }}</mat-label>
-      <textarea matInput rows="4" formControlName="kycRejectionNotes"></textarea>
+      <mat-select required formControlName="kycRejectionNotes" multiple>
+        <mat-option *ngFor="let note of kycFieldRejectionNotes" [value]="note">
+          {{ note }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.kycRejectionNotes.hasError('required')">
+        {{ 'labels.inputs.Reason' | translate }}
+        <strong>{{ 'labels.commons.required' | translate }}</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>

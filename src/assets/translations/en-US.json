@@ -322,6 +322,8 @@
       "Short Name": "Short Name",
       "Loan Type": "Loan Type",
       "Product Name": "Product Name",
+      "in_scope": "In Scope",
+      "in_scope_tooltip": "Indicates whether this loan product is currently active and available for use within the organisation's operational scope.",
       "Is Equal Amortization": "Is Equal Amortization",
       "OverdueCharges": "Overdue Charges",
       "Qualification Rules": "Qualification Rules",
@@ -1513,7 +1515,8 @@
       "AffectedClients": "Affected Clients",
       "Maker": "Maker",
       "Date": "Date",
-      "MembershipHistory": "Membership History"
+      "MembershipHistory": "Membership History",
+      "StatusTransitions": "Status Transitions"
     },
     "inputs": {
       "accounting": {
@@ -1735,6 +1738,7 @@
       "Closed (written-off)": "Closed (written-off)",
       "Closed By": "Closed By",
       "Close Date": "Close Date",
+      "dateDeleted": "Date Deleted",
       "Closed Date": "Closed Date",
       "Closed On": "Closed On",
       "Closed On Date": "Closed On Date",
@@ -2637,6 +2641,12 @@
       "Starting Date": "Starting Date",
       "State / Province": "State / Province",
       "Status": "Status",
+      "StatusTransitions": "Status Transitions",
+      "TransitionType": "Transition Type",
+      "Transition": "Transition",
+      "InitialStatus": "Initial status",
+      "StatusChangedOn": "Status Changed On",
+      "TransitionCreatedOn": "Created On",
       "Step Name": "Step Name",
       "Street": "Street",
       "String": "String",
@@ -3056,6 +3066,7 @@
       "Active": "Active",
       "Approved": "Approved",
       "Closed": "Closed",
+      "Deleted": "Deleted",
       "Closed (obligations met)": "Closed (obligations met)",
       "Closed (rescheduled)": "Closed (rescheduled)",
       "Closed (written off)": "Closed (written off)",
@@ -3066,6 +3077,10 @@
       "Transfer in progress": "Transfer in progress",
       "Transfer on hold": "Transfer on hold",
       "Withdrawn": "Withdrawn"
+    },
+    "transitionType": {
+      "STATUS": "Status",
+      "SUB_STATUS": "Sub Status"
     },
     "dialogContext": {
       "Are you sure you want Unassign Staff": "Are you sure you want Unassign Staff",
@@ -3743,7 +3758,8 @@
       "Add new extra fields to any entity in the form of data table": "Add new extra fields to any entity in the form of data table",
       "Preferences for generating account numbers for client, loan and savings accounts": "Preferences for generating account numbers for client, loan and savings accounts",
       "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it.",
-      "NoAuditRecordsFound": "No audit records found for this account."
+      "NoAuditRecordsFound": "No audit records found for this account.",
+      "NoStatusTransitionsFound": "No status transitions found for this client."
     },
     "titles": {
       "Dashboard": "Dashboard",
