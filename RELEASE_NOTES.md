@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 1.4.11 - Community 1.0.0
+## Version 1.4.11 - Community 1.0.0 
 
     * Savings Accounts & Products
         * [FOX-212] - Add inScope field to LoanProduct entity to allow isolation of loan products in scope for field operations for summary. calculations
