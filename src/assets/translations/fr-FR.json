@@ -2680,7 +2680,7 @@
       "InitialStatus": "Statut initial",
       "StatusChangedOn": "Statut modifié le",
       "TransitionCreatedOn": "Créé le",
-      "Tenure": "Mandat",
+      "Tenure": "Durée",
       "RecalculationReason": "Motif de recalcul",
       "RecalculationDate": "Date de Recalcul",
       "Step Name": "Nom de l'étape",

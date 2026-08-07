@@ -44,6 +44,7 @@
       [length]="totalRecords"
       [pageSize]="pageSize"
       [pageSizeOptions]="[5, 10, 25, 50]"
+      [disabled]="isLoading"
       (page)="onPageChange($event)"
       showFirstLastButtons
     ></mat-paginator>

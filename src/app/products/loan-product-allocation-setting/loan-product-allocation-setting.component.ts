@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../products.service';
@@ -18,9 +17,6 @@ export class LoanProductAllocationSettingComponent implements OnInit {
   pageSize = 10;
   pageIndex = 0;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: any = null;
-  @ViewChild(MatSort, { static: true }) sort: any = null;
-
   constructor(private route: ActivatedRoute, private productsService: ProductsService) {
     this.route.data.subscribe({
       next: (data: any) => {
@@ -31,7 +27,6 @@ export class LoanProductAllocationSettingComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.data = this.loanProductAllocationData;
-    this.dataSource.sort = this.sort;
   }
 
   private setTableData(response: any): void {
@@ -69,9 +64,5 @@ export class LoanProductAllocationSettingComponent implements OnInit {
     this.productsService.getLoanProductAllocationSetting(this.pageIndex, this.pageSize).subscribe((response: any) => {
       this.setTableData(response);
     });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
