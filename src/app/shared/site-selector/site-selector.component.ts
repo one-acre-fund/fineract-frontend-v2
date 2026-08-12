@@ -3,8 +3,8 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganizationService } from 'app/organization/organization.service';
 import { SettingsService } from 'app/settings/settings.service';
-import { EMPTY, Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 /**
  * Emitted whenever the region, district or site selection changes.
@@ -15,6 +15,8 @@ export interface SiteSelectorChange {
   districtId: number | null;
   districtName: string | null;
   siteIds: number[] | null;
+  firstLevelLabel?: string;
+  secondLevelLabel?: string;
 }
 
 /**
@@ -46,6 +48,13 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
   regionOptions: any[] = [];
   districtOptions: any[] = [];
   siteOptions: any[] = [];
+  allCountryOffices: any[] = [];
+
+  firstLevelLabel = 'Region';
+  secondLevelLabel = 'District';
+  thirdLevelLabel = 'Site';
+
+  private levelHierarchyIds: number[] = [];
 
   /** Sentinel value representing the "All Sites" option (no specific sites selected). */
   readonly ALL_SITES: number[] | null = null;
@@ -56,12 +65,6 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
   /** Site options for the dropdown, prefixed with an "All Sites" option when sites exist. */
   siteDropdownOptions: any[] = [];
 
-  /** Triggers a (cancellable) fetch of regions for the given country office id. */
-  private regionsRequest$ = new Subject<number | null>();
-  /** Triggers a (cancellable) fetch of districts for the given region office id (null cancels). */
-  private districtsRequest$ = new Subject<number | null>();
-  /** Triggers a (cancellable) fetch of sites for the given district office id (null cancels). */
-  private sitesRequest$ = new Subject<number | null>();
   /** Completes on destroy to tear down subscriptions. */
   private destroy$ = new Subject<void>();
 
@@ -79,60 +82,18 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.setupRequestStreams();
     if (!this.countryId) {
       this.countryId = this.settingsService.getSelectedCountry()?.id ?? null;
     }
     if (this.countryId) {
-      this.loadRegions();
+      this.loadCountryOffices();
     }
-  }
-
-  /** Wires the request subjects to cancellable (switchMap) hierarchy fetches. */
-  private setupRequestStreams(): void {
-    this.regionsRequest$
-      .pipe(
-        switchMap((officeId) => (officeId ? this.organizationService.fetchByHierarchyLevel(officeId, 'LOWER') : EMPTY)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((response: any) => {
-        this.regionOptions = (response || []).filter((office: any) => office.status === true);
-      });
-
-    this.districtsRequest$
-      .pipe(
-        switchMap((officeId) => (officeId ? this.organizationService.fetchByHierarchyLevel(officeId, 'LOWER') : EMPTY)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((response: any) => {
-        this.districtOptions = (response || []).filter((office: any) => office.status === true);
-      });
-
-    this.sitesRequest$
-      .pipe(
-        switchMap((officeId) => (officeId ? this.organizationService.fetchByHierarchyLevel(officeId, 'LOWER') : EMPTY)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe((response: any) => {
-        this.siteOptions = (response || []).filter((office: any) => office.status === true);
-        this.siteDropdownOptions = this.siteOptions.length
-          ? [
-              { id: this.ALL_SITES_OPTION_ID, name: this.translateService.instant('labels.oaf.AllSites') },
-              ...this.siteOptions,
-            ]
-          : [];
-        this.siteSelectorForm.patchValue(
-          { siteIds: this.siteOptions.map((site: any) => site.id) },
-          { emitEvent: false }
-        );
-        this.emitSelection();
-      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['countryId'] && !changes['countryId'].firstChange) {
       this.resetForm();
-      this.loadRegions();
+      this.loadCountryOffices();
     }
   }
 
@@ -142,22 +103,32 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private resetForm(): void {
+    this.allCountryOffices = [];
     this.regionOptions = [];
     this.districtOptions = [];
     this.siteOptions = [];
     this.siteDropdownOptions = [];
-    // Cancel any in-flight child fetches so stale responses can't repopulate options.
-    this.districtsRequest$.next(null);
-    this.sitesRequest$.next(null);
+    this.firstLevelLabel = 'Region';
+    this.secondLevelLabel = 'District';
+    this.thirdLevelLabel = 'Site';
+    this.levelHierarchyIds = [];
     this.siteSelectorForm.reset({ regionId: null, districtId: null, siteIds: this.ALL_SITES });
     this.emitSelection();
   }
 
-  private loadRegions(): void {
+  private loadCountryOffices(): void {
     if (!this.countryId) {
       return;
     }
-    this.regionsRequest$.next(this.countryId);
+    this.organizationService
+      .getOfficesByCountry(this.countryId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((response: any[]) => {
+        this.allCountryOffices = (response || []).filter((office: any) => office.status === true);
+        this.initializeHierarchyLevels();
+        this.regionOptions = this.getOfficesByHierarchyLevel(this.levelHierarchyIds[0]);
+        this.emitSelection();
+      });
   }
 
   onRegionChange(region: any): void {
@@ -166,13 +137,8 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
     this.siteDropdownOptions = [];
     this.siteSelectorForm.patchValue({ districtId: null, siteIds: this.ALL_SITES });
 
-    if (region?.id) {
-      this.districtsRequest$.next(region.id);
-    } else {
-      this.districtsRequest$.next(null);
-    }
-    // Supersede any pending site fetch for the previous district.
-    this.sitesRequest$.next(null);
+    const selectedRegionId = typeof region === 'object' ? region?.id : region;
+    this.districtOptions = this.getChildOffices(selectedRegionId, this.levelHierarchyIds[1]);
     this.emitSelection();
   }
 
@@ -181,7 +147,18 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
     this.siteDropdownOptions = [];
     this.siteSelectorForm.patchValue({ siteIds: this.ALL_SITES });
 
-    this.sitesRequest$.next(district?.id ?? null);
+    const selectedDistrictId = typeof district === 'object' ? district?.id : district;
+    this.siteOptions = this.getChildOffices(selectedDistrictId, this.levelHierarchyIds[2]);
+    this.siteDropdownOptions = this.siteOptions.length
+      ? [
+          { id: this.ALL_SITES_OPTION_ID, name: this.getAllLowestLevelLabel() },
+          ...this.siteOptions,
+        ]
+      : [];
+    this.siteSelectorForm.patchValue(
+      { siteIds: this.siteOptions.map((site: any) => site.id) },
+      { emitEvent: false }
+    );
     this.emitSelection();
   }
 
@@ -219,6 +196,60 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
     this.emitSelection();
   }
 
+  get firstLevelPlaceholder(): string {
+    return `Select ${this.firstLevelLabel}`;
+  }
+
+  get secondLevelPlaceholder(): string {
+    return `Select ${this.secondLevelLabel}`;
+  }
+
+  get thirdLevelPlaceholder(): string {
+    return `Select ${this.thirdLevelLabel}`;
+  }
+
+  private initializeHierarchyLevels(): void {
+    const hierarchyIds = this.allCountryOffices
+      .map((office: any) => office.officeCountryHierarchyId)
+      .filter((id: any) => typeof id === 'number' && id > 0);
+
+    const uniqueSorted = Array.from(new Set(hierarchyIds)).sort((a: number, b: number) => a - b);
+    this.levelHierarchyIds = uniqueSorted.slice(-3);
+
+    this.firstLevelLabel = this.getLevelLabel(this.levelHierarchyIds[0], 'Region');
+    this.secondLevelLabel = this.getLevelLabel(this.levelHierarchyIds[1], 'District');
+    this.thirdLevelLabel = this.getLevelLabel(this.levelHierarchyIds[2], 'Site');
+  }
+
+  private getLevelLabel(levelId: number | undefined, fallback: string): string {
+    if (levelId === undefined) {
+      return fallback;
+    }
+    const match = this.allCountryOffices.find((office: any) => office.officeCountryHierarchyId === levelId);
+    return match?.officeCountryHierarchyLevelName || fallback;
+  }
+
+  private getOfficesByHierarchyLevel(levelId: number | undefined): any[] {
+    if (levelId === undefined) {
+      return [];
+    }
+    return this.allCountryOffices.filter((office: any) => office.officeCountryHierarchyId === levelId);
+  }
+
+  private getChildOffices(parentId: number | null, levelId: number | undefined): any[] {
+    if (!parentId || levelId === undefined) {
+      return [];
+    }
+    return this.allCountryOffices.filter(
+      (office: any) => office.officeCountryHierarchyId === levelId && office.parentId === parentId
+    );
+  }
+
+  private getAllLowestLevelLabel(): string {
+    const label = this.thirdLevelLabel || this.translateService.instant('labels.oaf.AllSites');
+    return label.endsWith('s') ? `All ${label}` : `All ${label}s`;
+  }
+
   private emitSelection(): void {
     const value = this.siteSelectorForm.value;
     const region = this.regionOptions.find((office: any) => office.id === value.regionId);
@@ -229,6 +260,8 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
       districtId: value.districtId ?? null,
       districtName: district?.name ?? null,
       siteIds: value.siteIds?.length ? value.siteIds : null,
+      firstLevelLabel: this.firstLevelLabel,
+      secondLevelLabel: this.secondLevelLabel,
     });
   }
 }

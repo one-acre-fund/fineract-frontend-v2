@@ -19,6 +19,9 @@ import { ClientDetailsDialogComponent } from './check-inbox-dialog/client-detail
 import { RequestInfoDialogComponent } from './check-inbox-dialog/request-info-dialog/request-info-dialog.component';
 import { ClientPendingReVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-pending-reverification-checker-inbox/client-pending-reverification-checker-inbox.component';
 import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-failed-kyc/client-failed-kyc.component';
+import { ClientApprovalsFlowComponent } from './checker-inbox-and-tasks-tabs/client-approvals-flow/client-approvals-flow.component';
+import { ClientRemovalApprovalsComponent } from './checker-inbox-and-tasks-tabs/client-removal-approvals/client-removal-approvals.component';
+import { ClientRemovalApprovalReviewComponent } from './checker-inbox-and-tasks-tabs/client-removal-approval-review/client-removal-approval-review.component';
 /**
  * Tasks Module
  */
@@ -41,7 +44,10 @@ import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-
     ClientDetailsDialogComponent,
     RequestInfoDialogComponent,
     ClientPendingReVerificationCheckerInboxComponent,
-    ClientFailedKycComponent
+    ClientFailedKycComponent,
+    ClientApprovalsFlowComponent,
+    ClientRemovalApprovalsComponent,
+    ClientRemovalApprovalReviewComponent
   ],
   providers: [ ]
 })

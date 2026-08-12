@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="review-loading" *ngIf="loading">
+    Loading request details...
+  </div>
+
+  <div class="review-not-found" *ngIf="!loading && notFound">
+    Request not found.
+  </div>
+
+  <mifosx-group-removal-review
+    *ngIf="!loading && !notFound"
+    [heading]="'Review'" 
+    [scope]="scope"
+    [groupsAffected]="groupsAffected"
+    [clientsInScope]="clientsInScope"
+    [toBeRemoved]="toBeRemoved"
+    [toBeSkipped]="toBeSkipped"
+    [exceptions]="exceptions"
+    [rows]="rows"
+    [totalGroups]="totalGroups"
+    [canDownloadSkipped]="canDownloadCsv('skipped')"
+    [canDownloadRemoved]="canDownloadCsv('removed')"
+    (closeClicked)="back()"
+    (downloadClicked)="onDownloadClicked($event)"
+  ></mifosx-group-removal-review>
+
+  <div class="review-comment" *ngIf="!loading && !notFound && isPending" [formGroup]="reviewForm">
+    <mat-form-field appearance="outline" class="comment-field">
+      <mat-label>Review comment</mat-label>
+      <textarea matInput rows="3" formControlName="comment" maxlength="250"></textarea>
+      <mat-hint align="end">{{ reviewForm.get('comment')?.value?.length || 0 }}/250</mat-hint>
+      <mat-error *ngIf="reviewForm.get('comment')?.hasError('required')">Comment is required.</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="review-meta" *ngIf="!loading && !notFound && showReviewMeta">
+    <div class="review-meta-row">
+      <span class="review-meta-label">{{ 'labels.oaf.Reviewer' | translate }}</span>
+      <span class="review-meta-value">{{ reviewedBy || '-' }}</span>
+    </div>
+    <div class="review-meta-row">
+      <span class="review-meta-label">{{ 'labels.oaf.ReviewComment' | translate }}</span>
+      <span class="review-meta-value">{{ reviewComment || '-' }}</span>
+    </div>
+  </div>
+
+  <div class="page-actions" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!loading && !notFound">
+    <button mat-stroked-button (click)="back()">
+      <fa-icon icon="times"></fa-icon>&nbsp;{{ 'labels.buttons.Back' | translate }}
+    </button>
+    <div fxLayout="row" fxLayoutGap="12px" *ngIf="isPending">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="approve()"
+        [disabled]="!isPending || submitting || reviewForm.invalid"
+      >
+        Approve
+      </button>
+      <button
+        mat-stroked-button
+        color="warn"
+        (click)="reject()"
+        [disabled]="!isPending || submitting || reviewForm.invalid"
+      >
+        Reject
+      </button>
+    </div>
+  </div>
+</div>
