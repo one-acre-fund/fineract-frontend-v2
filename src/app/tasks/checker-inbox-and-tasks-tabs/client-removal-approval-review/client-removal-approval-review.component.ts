@@ -21,6 +21,7 @@ import { downloadCsvRows } from 'app/shared/group-removal-impact-requests.utils'
 export class ClientRemovalApprovalReviewComponent implements OnInit {
   requestId: number | null = null;
   loading = false;
+  detailLoaded = false;
   submitting = false;
   notFound = false;
   isPending = true;
@@ -73,14 +74,17 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
   private loadRequestDetail(requestId: number): void {
     this.loading = true;
     this.notFound = false;
+    this.detailLoaded = false;
     this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe({
       next: (detail) => {
         this.loading = false;
         this.bindDetail(detail);
+        this.detailLoaded = true;
       },
       error: (error) => {
         this.loading = false;
         this.notFound = error?.status === 404;
+        this.detailLoaded = false;
         const message = this.notFound ? 'Request not found.' : 'Failed to load request details.';
         this.snackBar.open(message, 'Close', { duration: 3000 });
       },

@@ -80,7 +80,12 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of history" class="clickable-row" (click)="onReview(row)" (keydown.enter)="onReview(row)">
+                <tr
+                  *ngFor="let row of history"
+                  class="clickable-row"
+                  (click)="$event.stopPropagation(); onReview(row)"
+                  (keydown.enter)="$event.stopPropagation(); onReview(row)"
+                >
                   <td>{{ row.createdOn | date: 'dd-MM-yyyy, HH:mm' }}</td>
                   <td>
                     <div class="district-primary">{{ 'labels.oaf.District' | translate }}: {{ row.secondLastHierarchyOfficeName || '-' }}</div>
@@ -97,7 +102,13 @@
                     <div [ngClass]="row.status === 'REJECTED' ? 'reviewed-by-rejected' : 'reviewed-by-approved'">{{ row.reviewedBy || '-' }}</div>
                   </td>
                   <td>
-                    <button mat-raised-button color="primary" class="review-button" (click)="onReview(request)">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="review-button"
+                      (click)="$event.stopPropagation(); onReview(row)"
+                      (keydown.enter)="$event.stopPropagation(); onReview(row)"
+                    >
                       {{ 'labels.oaf.Review' | translate }}
                     </button>
                   </td>

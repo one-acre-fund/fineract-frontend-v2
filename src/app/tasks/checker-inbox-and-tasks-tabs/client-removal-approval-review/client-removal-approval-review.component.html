@@ -8,7 +8,7 @@
   </div>
 
   <mifosx-group-removal-review
-    *ngIf="!loading && !notFound"
+    *ngIf="!loading && !notFound && detailLoaded"
     [heading]="'labels.oaf.Review' | translate"
     [scope]="scope"
     [groupsAffected]="groupsAffected"
@@ -24,7 +24,7 @@
     (downloadClicked)="onDownloadClicked($event)"
   ></mifosx-group-removal-review>
 
-  <div class="review-comment" *ngIf="!loading && !notFound && isPending" [formGroup]="reviewForm">
+  <div class="review-comment" *ngIf="!loading && !notFound && detailLoaded && isPending" [formGroup]="reviewForm">
     <mat-form-field appearance="outline" class="comment-field">
       <mat-label id="review-comment-label">{{ 'labels.oaf.ReviewComment' | translate }}</mat-label>
       <textarea
@@ -40,7 +40,7 @@
     </mat-form-field>
   </div>
 
-  <div class="review-meta" *ngIf="!loading && !notFound && showReviewMeta">
+  <div class="review-meta" *ngIf="!loading && !notFound && detailLoaded && showReviewMeta">
     <div class="review-meta-row">
       <span class="review-meta-label">{{ 'labels.oaf.Reviewer' | translate }}</span>
       <span class="review-meta-value">{{ reviewedBy || '-' }}</span>
@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="page-actions" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!loading && !notFound">
+  <div class="page-actions" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!loading && !notFound && detailLoaded">
     <button mat-stroked-button (click)="back()">
       <fa-icon icon="times"></fa-icon>&nbsp;{{ 'labels.buttons.Back' | translate }}
     </button>
