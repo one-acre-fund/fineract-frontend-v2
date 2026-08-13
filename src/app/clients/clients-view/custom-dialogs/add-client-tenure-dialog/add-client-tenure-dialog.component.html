@@ -2,13 +2,19 @@
 <div mat-dialog-content>
   <form [formGroup]="tenureForm">
     <mat-form-field>
-      <mat-label>{{ 'labels.inputs.Tenure' | translate }}</mat-label>
-      <input matInput type="number" formControlName="tenure" min="0" />
+      <mat-label id="tenure-label">{{ 'labels.inputs.Tenure' | translate }}</mat-label>
+      <input id="tenure" matInput type="number" formControlName="tenure" min="0" aria-labelledby="tenure-label" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>{{ 'labels.inputs.RecalculationReason' | translate }}</mat-label>
-      <input matInput formControlName="recalculationReason" maxlength="50" />
+      <mat-label id="recalculation-reason-label">{{ 'labels.inputs.RecalculationReason' | translate }}</mat-label>
+      <input
+        id="recalculation-reason"
+        matInput
+        formControlName="recalculationReason"
+        maxlength="50"
+        aria-labelledby="recalculation-reason-label"
+      />
       <mat-hint align="end">{{ tenureForm.get('recalculationReason')?.value?.length || 0 }}/50</mat-hint>
     </mat-form-field>
   </form>

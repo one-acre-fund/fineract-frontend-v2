@@ -1,6 +1,6 @@
 /** Angular Imports */
 import { Component, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 /**
@@ -21,7 +21,7 @@ export class AddClientTenureDialogComponent implements OnInit {
    */
   constructor(
     public dialogRef: MatDialogRef<AddClientTenureDialogComponent>,
-    private formBuilder: UntypedFormBuilder,
+    private readonly formBuilder: UntypedFormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.tenureForm = this.formBuilder.group({});

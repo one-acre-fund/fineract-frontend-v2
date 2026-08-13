@@ -1,10 +1,9 @@
 /** Angular Imports */
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 
 /** Angular Material Imports */
 import { MatTableDataSource } from '@angular/material/table';
@@ -52,13 +51,13 @@ export class CreditScoreTenureTabComponent implements OnInit {
    * @param {SettingsService} settingsService Settings service.
    */
   constructor(
-    private route: ActivatedRoute,
-    private clientsService: ClientsService,
-    private settingsService: SettingsService,
-    private dialog: MatDialog,
-    private translateService: TranslateService,
-    private snackBar: MatSnackBar,
-    private router: Router
+    private readonly route: ActivatedRoute,
+    private readonly clientsService: ClientsService,
+    private readonly settingsService: SettingsService,
+    private readonly dialog: MatDialog,
+    private readonly translateService: TranslateService,
+    private readonly snackBar: MatSnackBar,
+    private readonly router: Router
   ) {
     this.clientId = this.route.parent?.snapshot.paramMap.get('clientId') || '';
     this.countryId = this.route.parent?.snapshot.data?.clientViewData?.countryId || '';
