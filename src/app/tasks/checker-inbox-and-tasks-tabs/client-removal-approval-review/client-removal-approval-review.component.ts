@@ -118,14 +118,7 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
 
   canDownloadCsv(type: 'skipped' | 'removed'): boolean {
     const backendRows = type === 'removed' ? this.removedClientsCsvRows : this.skippedClientsCsvRows;
-    if (backendRows.length > 0) {
-      return true;
-    }
-
-    if (type === 'removed') {
-      return this.rows.some((row) => row.toRemove > 0);
-    }
-    return this.rows.some((row) => row.toSkip > 0);
+    return backendRows.length > 0;
   }
 
   onDownloadClicked(type: 'skipped' | 'removed'): void {
@@ -137,7 +130,7 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['../../'], { relativeTo: this.route });
+    this.router.navigate(['../client-removal-approvals'], { relativeTo: this.route });
   }
 
   approve(): void {

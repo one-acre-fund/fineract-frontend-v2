@@ -83,7 +83,7 @@
     </table>
 
     <div class="table-footnote" *ngIf="totalGroups > 0">
-      Showing {{ shownRows }} of {{ totalGroups }} groups - export CSV for the complete list.
+      {{ 'labels.oaf.ImpactTableFootnote' | translate: { shownRows: shownRows, totalGroups: totalGroups } }}
     </div>
 
     <mat-paginator

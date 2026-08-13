@@ -87,17 +87,4 @@ export class GroupRemovalCheckerTabsComponent {
     return getStatusChipClass(status);
   }
 
-  formatExceptions(row: GroupRemovalCheckerTableRow): string {
-    const list: string[] = [];
-    if (row.exceptions?.bannedClients) {
-      list.push('Banned Clients');
-    }
-    if (row.exceptions?.clientsWithActiveLoans) {
-      list.push('Clients with Active Loans');
-    }
-    if (row.exceptions?.groupsWithActiveLoans) {
-      list.push('Groups with Active Loans');
-    }
-    return list.length ? list.join(', ') : 'None';
-  }
 }

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { ClientRemovalApprovalReviewComponent } from './client-removal-approval-review.component';
@@ -42,6 +43,7 @@ describe('ClientRemovalApprovalReviewComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ClientRemovalApprovalReviewComponent],
+      imports: [RouterTestingModule],
       providers: [
         { provide: GroupsService, useValue: groupsService },
         { provide: ActivatedRoute, useValue: { snapshot: { paramMap: new Map([['requestId', '12']]) } } },

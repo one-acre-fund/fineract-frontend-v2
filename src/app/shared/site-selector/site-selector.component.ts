@@ -197,15 +197,15 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   get firstLevelPlaceholder(): string {
-    return `Select ${this.firstLevelLabel}`;
+    return this.translateService.instant('labels.oaf.SelectLevel', { level: this.firstLevelLabel });
   }
 
   get secondLevelPlaceholder(): string {
-    return `Select ${this.secondLevelLabel}`;
+    return this.translateService.instant('labels.oaf.SelectLevel', { level: this.secondLevelLabel });
   }
 
   get thirdLevelPlaceholder(): string {
-    return `Select ${this.thirdLevelLabel}`;
+    return this.translateService.instant('labels.oaf.SelectLevel', { level: this.thirdLevelLabel });
   }
 
   private initializeHierarchyLevels(): void {
@@ -247,7 +247,7 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
 
   private getAllLowestLevelLabel(): string {
     const label = this.thirdLevelLabel || this.translateService.instant('labels.oaf.AllSites');
-    return label.endsWith('s') ? `All ${label}` : `All ${label}s`;
+    return this.translateService.instant('labels.oaf.AllLevel', { level: label });
   }
 
   private emitSelection(): void {

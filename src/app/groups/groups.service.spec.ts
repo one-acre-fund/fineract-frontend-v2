@@ -21,14 +21,10 @@ describe('GroupsService', () => {
   });
 
   it('should call create group removal impact request endpoint', () => {
-    service
-      .createGroupRemovalImpactRequest({ officeIds: [101, 201], secondLastHierarchyOfficeId: 99 }, 10)
-      .subscribe();
+    service.createGroupRemovalImpactRequest({ officeIds: [101, 201], secondLastHierarchyOfficeId: 99 }).subscribe();
 
     const req = httpMock.expectOne((request) =>
-      request.method === 'POST' &&
-      request.url === '/groups/groupRemovalImpactRequests' &&
-      request.params.get('groupId') === '10'
+      request.method === 'POST' && request.url === '/groups/groupRemovalRequests'
     );
 
     expect(req.request.body).toEqual({ officeIds: [101, 201], secondLastHierarchyOfficeId: 99 });
@@ -40,7 +36,7 @@ describe('GroupsService', () => {
 
     const req = httpMock.expectOne((request) =>
       request.method === 'GET' &&
-      request.url === '/groups/groupRemovalImpactRequests' &&
+      request.url === '/groups/groupRemovalRequests' &&
       request.params.get('offset') === '20' &&
       request.params.get('limit') === '25'
     );
@@ -53,7 +49,7 @@ describe('GroupsService', () => {
 
     const req = httpMock.expectOne((request) =>
       request.method === 'GET' &&
-      request.url === '/groups/groupRemovalImpactRequests/history' &&
+      request.url === '/groups/groupRemovalRequests/history' &&
       request.params.get('offset') === '0' &&
       request.params.get('limit') === '50'
     );
@@ -62,13 +58,12 @@ describe('GroupsService', () => {
   });
 
   it('should call review endpoint with command', () => {
-    service.reviewGroupRemovalImpactRequest(12, 'approve', { comment: 'ok' }, 99).subscribe();
+    service.reviewGroupRemovalImpactRequest(12, 'approve', { comment: 'ok' }).subscribe();
 
     const req = httpMock.expectOne((request) =>
       request.method === 'POST' &&
-      request.url === '/groups/groupRemovalImpactRequests/12' &&
-      request.params.get('command') === 'approve' &&
-      request.params.get('groupId') === '99'
+      request.url === '/groups/groupRemovalRequests/12' &&
+      request.params.get('command') === 'approve'
     );
 
     expect(req.request.body).toEqual({ comment: 'ok' });

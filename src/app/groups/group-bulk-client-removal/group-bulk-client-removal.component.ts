@@ -63,10 +63,10 @@ export class GroupBulkClientRemovalComponent implements OnInit {
   removedClientsCsvRows: Array<Record<string, string | number | boolean | null>> = [];
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private groupsService: GroupsService,
-    private snackBar: MatSnackBar
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
+    private readonly groupsService: GroupsService,
+    private readonly snackBar: MatSnackBar
   ) {
     this.requestDetail =
       this.router.getCurrentNavigation()?.extras?.state?.['requestDetail'] ??
@@ -100,11 +100,12 @@ export class GroupBulkClientRemovalComponent implements OnInit {
       return;
     }
 
-    const templateFromState = this.isImpactTemplatePayload(this.impactTemplate)
-      ? this.impactTemplate
-      : this.isImpactTemplatePayload(this.requestDetail)
-        ? this.requestDetail
-        : null;
+    let templateFromState: GroupRemovalImpactTemplate | null = null;
+    if (this.isImpactTemplatePayload(this.impactTemplate)) {
+      templateFromState = this.impactTemplate;
+    } else if (this.isImpactTemplatePayload(this.requestDetail)) {
+      templateFromState = this.requestDetail;
+    }
 
     if (!templateFromState) {
       this.router.navigate(['../'], { relativeTo: this.route });
@@ -146,9 +147,10 @@ export class GroupBulkClientRemovalComponent implements OnInit {
     this.requestId = detail.id;
     this.reviewedBy = detail.reviewedBy;
     this.reviewComment = detail.reviewComment;
-    this.scope = [this.siteSelection?.regionName, this.siteSelection?.districtName].filter(
+    const selectionScope = [this.siteSelection?.regionName, this.siteSelection?.districtName].filter(
       (name): name is string => !!name
     );
+    this.scope = selectionScope.length ? selectionScope : detail.impactTemplate.scope || [];
     this.bindImpactTemplate(detail.impactTemplate);
   }
 
@@ -195,7 +197,7 @@ export class GroupBulkClientRemovalComponent implements OnInit {
 
     this.exceptions = {
       ...this.exceptions,
-      ...(template.exceptions || {}),
+      ...template.exceptions,
     };
 
     this.groups = (template.rows || []).map((row: any) => ({

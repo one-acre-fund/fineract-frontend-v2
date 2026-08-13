@@ -26,8 +26,10 @@
                 <tr *ngFor="let request of requests">
                   <td>{{ request.createdOn | date: 'dd-MM-yyyy, HH:mm' }}</td>
                   <td>
-                    <div class="district-primary">District: {{ request.secondLastHierarchyOfficeName || '-' }}</div>
-                    <div class="district-secondary">{{ request.lastHierarchyOfficesCount | number }} Sites</div>
+                    <div class="district-primary">
+                      {{ 'labels.oaf.District' | translate }}: {{ request.secondLastHierarchyOfficeName || '-' }}
+                    </div>
+                    <div class="district-secondary">{{ request.lastHierarchyOfficesCount | number }} {{ 'labels.oaf.Sites' | translate }}</div>
                   </td>
                   <td>{{ request.toRemove | number }}</td>
                   <td>{{ request.toSkip | number }}</td>
@@ -35,7 +37,7 @@
                   <td><span [class]="getStatusClass(request.status)">{{ request.status }}</span></td>
                   <td>
                     <button mat-raised-button color="primary" class="review-button" (click)="onReview(request)">
-                      Review
+                      {{ 'labels.oaf.Review' | translate }}
                     </button>
                   </td>
                 </tr>
@@ -78,11 +80,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of history" class="clickable-row" (click)="onReview(row)">
+                <tr *ngFor="let row of history" class="clickable-row" (click)="onReview(row)" (keydown.enter)="onReview(row)">
                   <td>{{ row.createdOn | date: 'dd-MM-yyyy, HH:mm' }}</td>
                   <td>
-                    <div class="district-primary">District: {{ row.secondLastHierarchyOfficeName || '-' }}</div>
-                    <div class="district-secondary">{{ row.lastHierarchyOfficesCount | number }} Sites</div>
+                    <div class="district-primary">{{ 'labels.oaf.District' | translate }}: {{ row.secondLastHierarchyOfficeName || '-' }}</div>
+                    <div class="district-secondary">{{ row.lastHierarchyOfficesCount | number }} {{ 'labels.oaf.Sites' | translate }}</div>
                   </td>
                   <td>{{ row.toRemove | number }}</td>
                   <td>{{ row.toSkip | number }}</td>
@@ -93,6 +95,11 @@
                       {{ row.status === 'REJECTED' ? ('labels.oaf.RejectedBy' | translate) : ('labels.oaf.ApprovedBy' | translate) }}
                     </span>
                     <div [ngClass]="row.status === 'REJECTED' ? 'reviewed-by-rejected' : 'reviewed-by-approved'">{{ row.reviewedBy || '-' }}</div>
+                  </td>
+                  <td>
+                    <button mat-raised-button color="primary" class="review-button" (click)="onReview(request)">
+                      {{ 'labels.oaf.Review' | translate }}
+                    </button>
                   </td>
                 </tr>
                 <tr *ngIf="!history.length">
