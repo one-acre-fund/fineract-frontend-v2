@@ -134,7 +134,7 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['../client-removal-approvals'], { relativeTo: this.route });
+    this.router.navigate(['/checker-inbox-and-tasks/client-removal-approvals']);
   }
 
   approve(): void {
@@ -157,9 +157,8 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
         comment: this.reviewForm.value.comment,
       })
       .subscribe({
-        next: (detail) => {
+        next: () => {
           this.submitting = false;
-          this.bindDetail(detail);
           this.snackBar.open(
             command === 'approve' ? 'Request approved successfully.' : 'Request rejected successfully.',
             'Close',
@@ -175,7 +174,8 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
             this.snackBar.open('Invalid review comment.', 'Close', { duration: 3000 });
             return;
           }
-          this.snackBar.open('Failed to submit review action.', 'Close', { duration: 3000 });
+          const domainMessage = error?.error?.errors?.[0]?.defaultUserMessage;
+          this.snackBar.open(domainMessage || 'Failed to submit review action.', 'Close', { duration: 3000 });
         },
       });
   }
