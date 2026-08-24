@@ -1,4 +1,4 @@
-export type GroupRemovalRequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+export type GroupRemovalRequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED' | 'FAILED';
 
 export interface GroupRemovalImpactSummary {
   groupsAffected: number;
@@ -42,6 +42,7 @@ export interface GroupRemovalImpactRequestDetail {
   reviewedOn: string | null;
   reviewedBy: string | null;
   reviewComment: string | null;
+  actionResult?: string | null;
 }
 
 export interface GroupRemovalImpactRequestListItem {

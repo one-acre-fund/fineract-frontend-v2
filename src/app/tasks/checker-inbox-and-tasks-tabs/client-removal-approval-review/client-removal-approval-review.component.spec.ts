@@ -72,4 +72,30 @@ describe('ClientRemovalApprovalReviewComponent', () => {
       { comment: 'Validated and approved' }
     );
   });
+
+  it('should keep review meta visible and map actionResult when status is FAILED', () => {
+    (component as any).bindDetail({
+      id: 12,
+      status: 'FAILED',
+      officeIds: [1],
+      impactTemplate: {
+        summary: { groupsAffected: 1, clientsInScope: 2, toBeRemoved: 1, toBeSkipped: 1 },
+        exceptions: { bannedClients: true, clientsWithActiveLoans: true, groupsWithActiveLoans: false },
+        rows: [{ group: 'G1', site: 'S1', toRemove: 1, toSkip: 1 }],
+        totalGroups: 1,
+        skippedClientsCsvRows: [],
+        removedClientsCsvRows: [],
+      },
+      createdOn: '2026-08-10T15:24:10Z',
+      createdBy: 'maker',
+      reviewedOn: null,
+      reviewedBy: null,
+      reviewComment: null,
+      actionResult: 'Failed to execute client removal',
+    } as any);
+
+    expect(component.status).toBe('FAILED');
+    expect(component.actionResult).toBe('Failed to execute client removal');
+    expect(component.showReviewMeta).toBeTrue();
+  });
 });

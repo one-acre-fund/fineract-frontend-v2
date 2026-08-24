@@ -49,6 +49,10 @@
       <span class="review-meta-label">{{ 'labels.oaf.ReviewComment' | translate }}</span>
       <span class="review-meta-value">{{ reviewComment || '-' }}</span>
     </div>
+    <div class="review-meta-row" *ngIf="isFailed || actionResult">
+      <span class="review-meta-label">{{ 'labels.oaf.ActionResult' | translate }}</span>
+      <span class="review-meta-value">{{ actionResult || '-' }}</span>
+    </div>
   </div>
 
   <div class="page-actions" fxLayout="row" fxLayoutAlign="space-between center" *ngIf="!loading && !notFound && detailLoaded">

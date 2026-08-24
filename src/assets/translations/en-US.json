@@ -334,6 +334,7 @@
       "RequestNotFound": "Request not found.",
       "Reviewer": "Reviewer",
       "ReviewComment": "Review comment",
+      "ActionResult": "Result",
       "ReviewCommentRequired": "Comment is required.",
       "ImpactTableFootnote": "Showing {{shownRows}} of {{totalGroups}} groups - export CSV for the complete list.",
       "ApprovedBy": "Approved by",

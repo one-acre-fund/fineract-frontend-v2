@@ -332,6 +332,7 @@
       "RequestNotFound": "Demande introuvable.",
       "Reviewer": "Examinateur",
       "ReviewComment": "Commentaire de révision",
+      "ActionResult": "Résultat",
       "ReviewCommentRequired": "Le commentaire est obligatoire.",
       "ImpactTableFootnote": "Affichage de {{shownRows}} sur {{totalGroups}} groupes - exportez le CSV pour la liste complete.",
       "ApprovedBy": "Approuvé par",

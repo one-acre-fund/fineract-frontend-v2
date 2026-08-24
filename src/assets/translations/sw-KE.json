@@ -334,6 +334,7 @@
       "RequestNotFound": "Ombi halijapatikana.",
       "Reviewer": "Mkaguzi",
       "ReviewComment": "Maoni ya ukaguzi",
+      "ActionResult": "Matokeo",
       "ReviewCommentRequired": "Maoni yanahitajika.",
       "ImpactTableFootnote": "Inaonyesha {{shownRows}} kati ya {{totalGroups}} vikundi - pakua CSV kwa orodha kamili.",
       "ApprovedBy": "Imeidhinishwa na",

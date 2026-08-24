@@ -10,7 +10,9 @@ import {
   GroupRemovalReviewExceptions,
   GroupRemovalReviewRow,
 } from 'app/shared/group-removal-review/group-removal-review.component';
-import { GroupRemovalImpactRequestDetail } from 'app/shared/group-removal-impact-requests.models';
+import {
+  GroupRemovalImpactRequestDetail,
+} from 'app/shared/group-removal-impact-requests.models';
 import { downloadCsvRows } from 'app/shared/group-removal-impact-requests.utils';
 
 @Component({
@@ -25,8 +27,10 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
   submitting = false;
   notFound = false;
   isPending = true;
+  status: string | null = null;
   reviewedBy: string | null = null;
   reviewComment: string | null = null;
+  actionResult: string | null = null;
 
   scope: string[] = [];
   groupsAffected = 0;
@@ -105,9 +109,11 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
     this.skippedClientsCsvRows = detail.impactTemplate?.skippedClientsCsvRows || [];
     this.removedClientsCsvRows = detail.impactTemplate?.removedClientsCsvRows || [];
     this.scope = [`Request #${detail.id}`, detail.createdBy];
+    this.status = detail.status;
     this.isPending = detail.status === 'PENDING';
     this.reviewedBy = detail.reviewedBy;
     this.reviewComment = detail.reviewComment;
+    this.actionResult = detail.actionResult || null;
     this.reviewForm.patchValue({ comment: detail.reviewComment || '' });
     if (!this.isPending) {
       this.reviewForm.disable();
@@ -117,7 +123,11 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
   }
 
   get showReviewMeta(): boolean {
-    return !this.isPending && (!!this.reviewedBy || !!this.reviewComment);
+    return !this.isPending && (this.isFailed || !!this.reviewedBy || !!this.reviewComment || !!this.actionResult);
+  }
+
+  get isFailed(): boolean {
+    return (this.status || '').toUpperCase() === 'FAILED';
   }
 
   canDownloadCsv(type: 'skipped' | 'removed'): boolean {
