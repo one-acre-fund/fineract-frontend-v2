@@ -688,6 +688,7 @@
       "Undo Rejection": "Tengua Ukataliaji",
       "Undo Transfer": "Tengua Uhamisho",
       "Update Default Savings": "Sasisha Akiba ya Kawaida",
+      "UpdateTenure": "Sasisha Kipindi cha Huduma",
       "Upload": "Pakia",
       "Upload Signature": "Pakia Saini",
       "Validate": "Thibitisha",
@@ -1568,7 +1569,8 @@
       "Maker": "Muumba",
       "Date": "Tarehe",
       "MembershipHistory": "Historia ya Uanachama",
-      "StatusTransitions": "Mabadiliko ya Hali"
+      "StatusTransitions": "Mabadiliko ya Hali",
+      "CreditScoreTenure": "Muda wa Alama ya Mkopo"
     },
     "inputs": {
       "accounting": {
@@ -2697,11 +2699,15 @@
       "State / Province": "Jimbo / Mkoa",
       "Status": "Hali",
       "StatusTransitions": "Mabadiliko ya Hali",
+      "CreditScoreTenure": "Muda wa Alama ya Mkopo",
       "TransitionType": "Aina ya Mabadiliko",
       "Transition": "Mabadiliko",
       "InitialStatus": "Hali ya Kwanza",
       "StatusChangedOn": "Hali Ilibadilishwa Tarehe",
       "TransitionCreatedOn": "Imeundwa Tarehe",
+      "Tenure": "Muda",
+      "RecalculationReason": "Sababu ya Kukokotoa Upya",
+      "RecalculationDate": "Tarehe ya Kuhesabu upya",
       "Step Name": "Jina la Hatua",
       "Street": "Barabara",
       "String": "Mlolongo",
@@ -3813,7 +3819,13 @@
       "Preferences for generating account numbers for client, loan and savings accounts": "Mapendeleo ya kuzalisha nambari za akaunti za mteja, mkopo na akiba",
       "“Maker-Checker” principle requires every tasks": "Kanuni ya “Mtengenezaji-Mkaguzi” inahitaji kila kazi ikamilishwe na watu wawili ili kupunguza uwezekano wa makosa na matumizi mabaya. Mtu mmoja anaanzisha mchakato na wa pili anaukamilisha.",
       "NoAuditRecordsFound": "Hakuna rekodi za ukaguzi zilizopatikana",
-      "NoStatusTransitionsFound": "Hakuna mabadiliko ya hali yaliyopatikana kwa mteja huyu."
+      "NoStatusTransitionsFound": "Hakuna mabadiliko ya hali yaliyopatikana kwa mteja huyu.",
+      "NoCreditScoreTenureFound": "Hakuna rekodi za muda wa alama ya mkopo zilizopatikana kwa mteja huyu.",
+      "TenureUpdateSuccessful": "Usasishaji wa muda umefanikiwa",
+      "RefreshCreditScorePrompt": "Unataka kuhuisha alama ya mkopo ya mteja huyu sasa",
+      "CreditScoreRefreshSuccessful": "Uhuishaji wa alama ya mkopo umeanzishwa kwa mafanikio.",
+      "UpdateTenureRefreshScoresWarning": "Kuwasilisha usasishaji huu kutahuisha alama za mkopo za mteja. Unataka kuendelea",
+      "TenureAndCreditScoreUpdateSuccessful": "Muda umesasishwa kwa mafanikio na uhuishaji wa alama ya mkopo umeanzishwa."
     },
     "titles": {
       "Dashboard": "Dashibodi",

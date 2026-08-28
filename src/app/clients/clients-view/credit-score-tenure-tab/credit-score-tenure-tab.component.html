@@ -1,0 +1,52 @@
+<div class="tab-container mat-typography">
+  <div style="margin-top: 5px">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
+      <h2>{{ 'labels.heading.CreditScoreTenure' | translate }}</h2>
+      <button mat-raised-button color="primary" (click)="openUpdateTenureDialog()">
+        {{ 'labels.buttons.UpdateTenure' | translate }}
+      </button>
+    </div>
+
+    <div class="loading-container" *ngIf="isLoading" fxLayoutAlign="center center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <div *ngIf="!isLoading && dataSource.data.length === 0" class="empty-state" fxLayoutAlign="center center">
+      <p class="mat-body-1">{{ 'labels.text.NoCreditScoreTenureFound' | translate }}</p>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" *ngIf="!isLoading && dataSource.data.length > 0">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Id' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="recalculationReason">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.RecalculationReason' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.recalculationReason || '-' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tenure">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.Tenure' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.tenure }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="createdDate">
+        <th mat-header-cell *matHeaderCellDef>{{ 'labels.inputs.RecalculationDate' | translate }}</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdDate | dateFormat:dateTimeFormat }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [length]="totalRecords"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      [disabled]="isLoading"
+      (page)="onPageChange($event)"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

@@ -530,8 +530,14 @@ export class ProductsService {
   /**
    * @returns {Observable<any>} Loan product allocation settings.
    */
-  getLoanProductAllocationSetting(): Observable<any> {
-    return this.http.get("/loanpaymentallocationsettings");
+  getLoanProductAllocationSetting(pageNumber?: number, pageSize?: number): Observable<any> {
+    let httpParams = new HttpParams();
+    if (pageNumber !== undefined && pageSize !== undefined) {
+      httpParams = httpParams
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString());
+    }
+    return this.http.get('/loanpaymentallocationsettings', { params: httpParams });
   }
 
   getLoanProductAllocationSettingById(loanProductAllocationId: string, template: boolean = false): Observable<any> {

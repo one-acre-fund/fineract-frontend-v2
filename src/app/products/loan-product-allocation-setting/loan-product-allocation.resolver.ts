@@ -24,7 +24,7 @@ export class LoanProductAllocationResolver implements Resolve<Object> {
    * @returns {Observable<any>}
    */
   resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    return this.productsService.getLoanProductAllocationSetting();
+    return this.productsService.getLoanProductAllocationSetting(0, 10);
   }
 
 }
