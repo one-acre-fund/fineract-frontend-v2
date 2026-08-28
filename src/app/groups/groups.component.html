@@ -91,4 +91,36 @@
     </div>
   </mat-card>
   </div>
+  <br />
+  
+
+  <div class="logs-section">
+    <div class="logs-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
+      <div class="logs-icon">
+        <fa-icon icon="list"></fa-icon>
+      </div>
+      <div>
+        <h3 class="logs-title">{{ 'labels.oaf.Logs' | translate }}</h3>
+        <p class="logs-subtitle">{{ 'labels.oaf.RecentActionsAndApprovals' | translate }}</p>
+      </div>
+    </div>
+
+    <mifosx-group-removal-checker-tabs
+      [showTitle]="false"
+      [requests]="removalCheckerRequests"
+      [history]="removalCheckerHistory"
+      [loadingRequests]="loadingRequests"
+      [loadingHistory]="loadingHistory"
+      [requestsOffset]="requestsOffset"
+      [requestsLimit]="requestsLimit"
+      [requestsTotal]="requestsTotal"
+      [historyOffset]="historyOffset"
+      [historyLimit]="historyLimit"
+      [historyTotal]="historyTotal"
+      [groupId]="groupContextId"
+      (tabChanged)="onRemovalCheckerTabChanged($event)"
+      (pageChanged)="onRemovalCheckerPageChanged($event)"
+      (review)="onRemovalCheckerReview($event)"
+    ></mifosx-group-removal-checker-tabs>
+  </div>
 </div>

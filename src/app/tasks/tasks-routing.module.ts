@@ -19,6 +19,9 @@ import { ViewCheckerInboxComponent } from './view-checker-inbox/view-checker-inb
 import { ClientVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-verification-checker-inbox/client-verification-checker-inbox.component';
 import { ClientPendingReVerificationCheckerInboxComponent } from './checker-inbox-and-tasks-tabs/client-pending-reverification-checker-inbox/client-pending-reverification-checker-inbox.component';
 import { ClientFailedKycComponent } from './checker-inbox-and-tasks-tabs/client-failed-kyc/client-failed-kyc.component';
+import { ClientApprovalsFlowComponent } from './checker-inbox-and-tasks-tabs/client-approvals-flow/client-approvals-flow.component';
+import { ClientRemovalApprovalsComponent } from './checker-inbox-and-tasks-tabs/client-removal-approvals/client-removal-approvals.component';
+import { ClientRemovalApprovalReviewComponent } from './checker-inbox-and-tasks-tabs/client-removal-approval-review/client-removal-approval-review.component';
 
 /** Custom Resolvers */
 import { GetMakerCheckers } from './common-resolvers/getmakercheckers.resolver';
@@ -40,25 +43,67 @@ const routes: Routes = [
       data: { title: extract('labels.text.Checker Inbox & Tasks'), breadcrumb: 'Checker Inbox & Tasks' },
       children: [
         {
+          path: '',
+          pathMatch: 'full',
+          redirectTo: 'client-approvals',
+        },
+        {
+          path: 'client-approvals',
+          component: ClientApprovalsFlowComponent,
+          data: { title: extract('Client Approval Flows') },
+          children: [
+            {
+              path: '',
+              pathMatch: 'full',
+              redirectTo: 'client-verification-checker-inbox',
+            },
+            {
+              path: 'client-verification-checker-inbox',
+              component: ClientVerificationCheckerInboxComponent,
+              data: { title: extract('labels.commons.clientVerification') },
+              resolve: {
+                clientVerificationResource: GetClientVerificationEntries,
+              },
+            },
+            {
+              path: 'client-pending-reverification-checker-inbox',
+              component: ClientPendingReVerificationCheckerInboxComponent,
+              data: { title: extract('labels.commons.clientPendingReverification') },
+              resolve: {
+                clientPendingReVerificationResource: GetClientPendingReVerificationEntries,
+              },
+            },
+            {
+              path: 'client-failed-kyc',
+              component: ClientFailedKycComponent,
+              data: { title: extract('labels.commons.clientFailedKYC') },
+            },
+          ],
+        },
+        {
+          path: 'client-removal-approvals',
+          component: ClientRemovalApprovalsComponent,
+          data: { title: extract('Client Removal Approvals') },
+        },
+        {
+          path: 'client-removal-approvals/review/:requestId',
+          component: ClientRemovalApprovalReviewComponent,
+          data: { title: extract('Client Removal Approval Review') },
+        },
+        {
           path: 'client-verification-checker-inbox',
-          component: ClientVerificationCheckerInboxComponent,
-          data: { title: extract('labels.commons.clientVerification') },
-          resolve: {
-            clientVerificationResource: GetClientVerificationEntries,
-          },
+          pathMatch: 'full',
+          redirectTo: 'client-approvals/client-verification-checker-inbox',
         },
         {
           path: 'client-pending-reverification-checker-inbox',
-          component: ClientPendingReVerificationCheckerInboxComponent,
-          data: { title: extract('labels.commons.clientPendingReverification') },
-          resolve: {
-            clientPendingReVerificationResource: GetClientPendingReVerificationEntries,
-          },
+          pathMatch: 'full',
+          redirectTo: 'client-approvals/client-pending-reverification-checker-inbox',
         },
         {
           path: 'client-failed-kyc',
-          component: ClientFailedKycComponent,
-          data: { title: extract('labels.commons.clientFailedKYC') },
+          pathMatch: 'full',
+          redirectTo: 'client-approvals/client-failed-kyc',
         },
         {
           path: 'checker-inbox',

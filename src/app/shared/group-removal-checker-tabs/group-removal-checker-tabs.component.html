@@ -1,0 +1,136 @@
+<div class="removal-checker-tabs mat-typography">
+  <h3 class="page-title" *ngIf="showTitle">{{ title }}</h3>
+
+  <mat-card class="removal-approvals-card">
+    <mat-tab-group class="request-tabs" animationDuration="0ms" (selectedTabChange)="onTabChange($event)">
+      <mat-tab [label]="'labels.oaf.Requests' | translate">
+        <div class="tab-panel">
+          <div class="loading-state" *ngIf="loadingRequests">
+            <div class="skeleton-row" *ngFor="let _ of [1, 2, 3, 4]"></div>
+          </div>
+
+          <div class="table-container" *ngIf="!loadingRequests">
+            <table class="removal-table">
+              <thead>
+                <tr>
+                  <th>{{ 'labels.inputs.Date' | translate }}</th>
+                  <th>{{ 'labels.oaf.District' | translate }}</th>
+                  <th>{{ 'labels.oaf.ToRemove' | translate }}</th>
+                  <th>{{ 'labels.oaf.ToSkip' | translate }}</th>
+                  <th>{{ 'labels.oaf.Requester' | translate }}</th>
+                  <th>{{ 'labels.inputs.Status' | translate }}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let request of requests">
+                  <td>{{ request.createdOn | date: 'dd-MM-yyyy, HH:mm' }}</td>
+                  <td>
+                    <div class="district-primary">
+                      {{ 'labels.oaf.District' | translate }}: {{ request.secondLastHierarchyOfficeName || '-' }}
+                    </div>
+                    <div class="district-secondary">{{ request.lastHierarchyOfficesCount | number }} {{ 'labels.oaf.Sites' | translate }}</div>
+                  </td>
+                  <td>{{ request.toRemove | number }}</td>
+                  <td>{{ request.toSkip | number }}</td>
+                  <td>{{ request.requesterEmail || '-' }}</td>
+                  <td><span [class]="getStatusClass(request.status)">{{ request.status }}</span></td>
+                  <td>
+                    <button mat-raised-button color="primary" class="review-button" (click)="onReview(request)">
+                      {{ 'labels.oaf.Review' | translate }}
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="!requests.length">
+                  <td class="empty-state" colspan="7">{{ 'labels.oaf.NoPendingRequestsFound' | translate }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <mat-paginator
+              [length]="requestsTotal || requests.length"
+              [pageSize]="requestsLimit"
+              [pageIndex]="requestsPageIndex"
+              [pageSizeOptions]="[10, 25, 50, 100]"
+              (page)="onRequestsPageChange($event)"
+              showFirstLastButtons
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab [label]="'labels.oaf.History' | translate">
+        <div class="tab-panel">
+          <div class="loading-state" *ngIf="loadingHistory">
+            <div class="skeleton-row" *ngFor="let _ of [1, 2, 3, 4]"></div>
+          </div>
+
+          <div class="table-container" *ngIf="!loadingHistory">
+            <table class="removal-table">
+              <thead>
+                <tr>
+                  <th>{{ 'labels.inputs.Date' | translate }}</th>
+                  <th>{{ 'labels.oaf.District' | translate }}</th>
+                  <th>{{ 'labels.oaf.ToRemove' | translate }}</th>
+                  <th>{{ 'labels.oaf.ToSkip' | translate }}</th>
+                  <th>{{ 'labels.oaf.Requester' | translate }}</th>
+                  <th>{{ 'labels.inputs.Status' | translate }}</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let row of history"
+                  class="clickable-row"
+                  (click)="$event.stopPropagation(); onReview(row)"
+                  (keydown.enter)="$event.stopPropagation(); onReview(row)"
+                >
+                  <td>{{ row.createdOn | date: 'dd-MM-yyyy, HH:mm' }}</td>
+                  <td>
+                    <div class="district-primary">{{ 'labels.oaf.District' | translate }}: {{ row.secondLastHierarchyOfficeName || '-' }}</div>
+                    <div class="district-secondary">{{ row.lastHierarchyOfficesCount | number }} {{ 'labels.oaf.Sites' | translate }}</div>
+                  </td>
+                  <td>{{ row.toRemove | number }}</td>
+                  <td>{{ row.toSkip | number }}</td>
+                  <td>{{ row.requesterEmail || '-' }}</td>
+                  <td><span [class]="getStatusClass(row.status)">{{ row.status }}</span></td>
+                  <td>
+                    <span class="reviewed-by" [ngClass]="row.status === 'REJECTED' ? 'reviewed-by-rejected' : 'reviewed-by-approved'">
+                      {{ row.status === 'REJECTED' ? ('labels.oaf.RejectedBy' | translate) : ('labels.oaf.ApprovedBy' | translate) }}
+                    </span>
+                    <div [ngClass]="row.status === 'REJECTED' ? 'reviewed-by-rejected' : 'reviewed-by-approved'">{{ row.reviewedBy || '-' }}</div>
+                  </td>
+                  <td>
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="review-button"
+                      (click)="$event.stopPropagation(); onReview(row)"
+                      (keydown.enter)="$event.stopPropagation(); onReview(row)"
+                    >
+                      {{ 'labels.oaf.Review' | translate }}
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="!history.length">
+                  <td class="empty-state" colspan="7">{{ 'labels.oaf.NoHistoryRecordsFound' | translate }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <mat-paginator
+              [length]="historyTotal || history.length"
+              [pageSize]="historyLimit"
+              [pageIndex]="historyPageIndex"
+              [pageSizeOptions]="[10, 25, 50, 100]"
+              (page)="onHistoryPageChange($event)"
+              showFirstLastButtons
+            >
+            </mat-paginator>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

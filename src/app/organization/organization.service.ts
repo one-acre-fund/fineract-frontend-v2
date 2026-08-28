@@ -76,6 +76,13 @@ export class OrganizationService {
     return this.http.get('/offices', { params: httpParams });
   }
 
+  getOfficesByCountry(countryId: number): Observable<any> {
+    const httpParams = new HttpParams()
+      .set('includeOfficeHierarchyPath', 'true')
+      .set('countryId', countryId.toString());
+    return this.http.get('/offices', { params: httpParams });
+  }
+
   /**
    * Get Office Template.
    * @param {string} officeId Office Id of the office selected.

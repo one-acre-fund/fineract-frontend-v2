@@ -29,6 +29,8 @@ import { OfficeTreeViewComponent } from './office-tree-view/office-tree-view.com
 import { OfficeHierarchyComponent } from './office-hierarchy/office-hierarchy.component';
 import { CountryTreeViewComponent } from './country-tree-view/country-tree-view.component';
 import { SiteSelectorComponent } from './site-selector/site-selector.component';
+import { GroupRemovalCheckerTabsComponent } from './group-removal-checker-tabs/group-removal-checker-tabs.component';
+import { GroupRemovalReviewComponent } from './group-removal-review/group-removal-review.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOtpInputModule } from 'ng-otp-input';
 
@@ -68,6 +70,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     OfficeHierarchyComponent,
     CountryTreeViewComponent,
     SiteSelectorComponent,
+    GroupRemovalCheckerTabsComponent,
+    GroupRemovalReviewComponent,
   ],
   exports: [
     FileUploadComponent,
@@ -87,6 +91,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     OfficeHierarchyComponent,
     CountryTreeViewComponent,
     SiteSelectorComponent,
+    GroupRemovalCheckerTabsComponent,
+    GroupRemovalReviewComponent,
     NgOtpInputModule,
     TranslateModule,
   ],

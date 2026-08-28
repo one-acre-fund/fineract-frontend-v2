@@ -65,3 +65,36 @@ table {
     }
   }
 }
+
+.logs-section {
+  margin-top: 24px;
+
+  .logs-header {
+    margin-bottom: 12px;
+
+    .logs-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background-color: #1673b4;
+      color: #fff;
+      font-size: 18px;
+      margin-right: 12px;
+    }
+
+    .logs-title {
+      margin: 0;
+      color: #1673b4;
+      font-weight: 600;
+    }
+
+    .logs-subtitle {
+      margin: 0;
+      color: rgba(0, 0, 0, 0.54);
+      font-size: 12px;
+    }
+  }
+}

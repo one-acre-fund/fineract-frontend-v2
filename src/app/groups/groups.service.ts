@@ -4,6 +4,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
 import { Observable } from 'rxjs';
+import {
+  CreateGroupRemovalImpactRequestPayload,
+  GroupRemovalImpactRequestDetail,
+  GroupRemovalImpactRequestListResponse,
+  ReviewGroupRemovalImpactRequestPayload,
+} from 'app/shared/group-removal-impact-requests.models';
 
 /**
  * Groups service.
@@ -351,5 +357,64 @@ export class GroupsService {
   getStaff(id: number): Observable<any> {
     const httpParams = new HttpParams().set('officeId', id.toString()).set('staffInSelectedOfficeOnly', 'true');
     return this.http.get('/groups/template', { params: httpParams });
+  }
+
+  createGroupRemovalImpactRequest(
+    payload: CreateGroupRemovalImpactRequestPayload
+  ): Observable<GroupRemovalImpactRequestDetail> {
+    return this.http.post<GroupRemovalImpactRequestDetail>('/groups/groupRemovalRequests', payload);
+  }
+
+  getGroupRemovalImpactRequests(
+    countryId?: number | null,
+    offset: number = 0,
+    limit: number = 10
+  ): Observable<GroupRemovalImpactRequestListResponse> {
+    let httpParams = new HttpParams().set('offset', offset.toString()).set('limit', limit.toString());
+    if (countryId != null) {
+      httpParams = httpParams.set('countryId', countryId.toString());
+    }
+    return this.http.get<GroupRemovalImpactRequestListResponse>('/groups/groupRemovalRequests', {
+      params: httpParams,
+    });
+  }
+
+  getGroupRemovalImpactRequestsHistory(
+    countryId?: number | null,
+    offset: number = 0,
+    limit: number = 10
+  ): Observable<GroupRemovalImpactRequestListResponse> {
+    let httpParams = new HttpParams().set('offset', offset.toString()).set('limit', limit.toString());
+    if (countryId != null) {
+      httpParams = httpParams.set('countryId', countryId.toString());
+    }
+    return this.http.get<GroupRemovalImpactRequestListResponse>('/groups/groupRemovalRequests/history', {
+      params: httpParams,
+    });
+  }
+
+  getGroupRemovalImpactRequestById(
+    requestId: number
+  ): Observable<GroupRemovalImpactRequestDetail> {
+    return this.http.get<GroupRemovalImpactRequestDetail>(`/groups/groupRemovalRequests/${requestId}`);
+  }
+
+  reviewGroupRemovalImpactRequest(
+    requestId: number,
+    command: 'approve' | 'reject',
+    payload: ReviewGroupRemovalImpactRequestPayload,
+    groupId?: number | null
+  ): Observable<GroupRemovalImpactRequestDetail> {
+    let httpParams = new HttpParams().set('command', command);
+    if (groupId != null) {
+      httpParams = httpParams.set('groupId', groupId.toString());
+    }
+    return this.http.post<GroupRemovalImpactRequestDetail>(`/groups/groupRemovalRequests/${requestId}`, payload, {
+      params: httpParams,
+    });
+  }
+
+  getGroupRemovalImpactTemplate(payload: { officeIds: number[] }): Observable<any> {
+    return this.http.post('/groups/groupRemovalImpactTemplate', payload);
   }
 }

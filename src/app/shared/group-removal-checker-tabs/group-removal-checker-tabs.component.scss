@@ -1,0 +1,177 @@
+.removal-checker-tabs {
+  margin-top: 0.5rem;
+}
+
+.page-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.removal-approvals-card {
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.tab-panel {
+  padding: 1rem 0;
+}
+
+.select-all-row {
+  padding: 0 1.5rem 1rem;
+}
+
+.table-container {
+  overflow-x: hidden;
+  padding: 0 1.5rem 1rem;
+}
+
+.loading-state {
+  padding: 0 1.5rem 1rem;
+
+  .skeleton-row {
+    height: 14px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #edf2f7 0%, #f8fafc 50%, #edf2f7 100%);
+    background-size: 200% 100%;
+    animation: loading 1.2s infinite;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.removal-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 0;
+  table-layout: fixed;
+
+  th,
+  td {
+    text-align: left;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  thead tr {
+    border: 1px solid #d1d5db;
+  }
+
+  th {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  td {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.87);
+  }
+}
+
+.exceptions-cell {
+  max-width: 260px;
+}
+
+.district-primary {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.district-secondary {
+  margin-top: 0.2rem;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.reviewed-by {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+
+.reviewed-by-approved {
+  color: #2b6cb0;
+}
+
+.reviewed-by-rejected {
+  color: #e53e3e;
+}
+
+.reviewed-by-email {
+  margin-top: 0.15rem;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2b6cb0;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #92400e;
+  background-color: #fef3c7;
+}
+
+.status-approved {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.status-rejected {
+  color: #991b1b;
+  background-color: #fee2e2;
+}
+
+.review-button {
+  min-width: 90px;
+  font-weight: 600;
+}
+
+.empty-state {
+  text-align: center;
+  color: #6b7280;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: rgba(22, 115, 180, 0.04);
+}
+
+@media (max-width: 768px) {
+  .table-container,
+  .loading-state {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}

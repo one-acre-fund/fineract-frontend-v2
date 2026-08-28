@@ -1,0 +1,29 @@
+.checker-flow-tabs {
+	margin-top: 0.5rem;
+	border-bottom: 1px solid #1f2937;
+
+	.mat-tab-link {
+		min-width: 220px;
+		min-height: 74px;
+		opacity: 1;
+		font-size: 1.1rem;
+		font-weight: 500;
+		color: #4b5563;
+		background: #ffffff;
+		border: 1px solid #e5e7eb;
+		border-bottom: none;
+		margin-right: 0.25rem;
+		border-top-left-radius: 0.375rem;
+		border-top-right-radius: 0.375rem;
+	}
+
+	.mat-tab-link.mat-tab-label-active {
+		color: #ffffff;
+		background: #2f6da7;
+		border-color: #2f6da7;
+	}
+}
+
+.checker-flow-content {
+	padding-top: 0.75rem;
+}

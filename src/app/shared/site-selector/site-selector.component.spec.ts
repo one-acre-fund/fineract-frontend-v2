@@ -13,8 +13,14 @@ describe('SiteSelectorComponent', () => {
   let settingsService: jasmine.SpyObj<SettingsService>;
 
   beforeEach(async () => {
-    organizationService = jasmine.createSpyObj<OrganizationService>('OrganizationService', ['fetchByHierarchyLevel']);
-    organizationService.fetchByHierarchyLevel.and.returnValue(of([]));
+    organizationService = jasmine.createSpyObj<OrganizationService>('OrganizationService', ['getOfficesByCountry']);
+    organizationService.getOfficesByCountry.and.returnValue(
+      of([
+        { id: 101, name: 'District A', status: true, officeCountryHierarchyId: 10, officeCountryHierarchyLevelName: 'District' },
+        { id: 201, name: 'Sector A', parentId: 101, status: true, officeCountryHierarchyId: 11, officeCountryHierarchyLevelName: 'Sector' },
+        { id: 301, name: 'Site A', parentId: 201, status: true, officeCountryHierarchyId: 12, officeCountryHierarchyLevelName: 'Site' },
+      ])
+    );
 
     settingsService = jasmine.createSpyObj<SettingsService>('SettingsService', ['getSelectedCountry']);
     settingsService.getSelectedCountry.and.returnValue({ id: 1 } as any);
@@ -43,14 +49,15 @@ describe('SiteSelectorComponent', () => {
 
   it('should load regions when countryId is set on init', () => {
     fixture.detectChanges();
-    expect(organizationService.fetchByHierarchyLevel).toHaveBeenCalledWith(1, 'LOWER');
+    expect(organizationService.getOfficesByCountry).toHaveBeenCalledWith(1);
   });
 
   it('should load districts when a region is selected', () => {
     component.countryId = 1;
     fixture.detectChanges();
-    component.onRegionChange({ id: 5 });
-    expect(organizationService.fetchByHierarchyLevel).toHaveBeenCalledWith(5, 'LOWER');
+    component.onRegionChange(101);
+    expect(component.districtOptions.length).toBe(1);
+    expect(component.districtOptions[0].id).toBe(201);
   });
 
   it('should reset site selection to All Sites when district changes', () => {

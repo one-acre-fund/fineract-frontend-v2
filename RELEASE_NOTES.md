@@ -7,6 +7,7 @@
     * Clients & Groups
         * [HQX-269] - Initial work on bulk removal of clients from groups
         * [HQX-370] - Add functionality to display and update client credit score tenure on client profile
+        * [HQX-358] - Approval flow: Removal of farmers from groups
 
 ## Version 1.4.11 - Community 1.0.0
 

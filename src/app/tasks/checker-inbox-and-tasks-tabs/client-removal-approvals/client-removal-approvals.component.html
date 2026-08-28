@@ -1,0 +1,18 @@
+ <mifosx-group-removal-checker-tabs
+  [title]="'labels.oaf.BulkClientRemoval' | translate"
+  [showTitle]="true"
+  [requests]="requests"
+  [history]="history"
+  [loadingRequests]="loadingRequests"
+  [loadingHistory]="loadingHistory"
+  [requestsOffset]="requestsOffset"
+  [requestsLimit]="requestsLimit"
+  [requestsTotal]="requestsTotal"
+  [historyOffset]="historyOffset"
+  [historyLimit]="historyLimit"
+  [historyTotal]="historyTotal"
+  [groupId]="null"
+  (tabChanged)="onTabChanged($event)"
+  (pageChanged)="onPageChanged($event)"
+  (review)="onReviewClicked($event)"
+></mifosx-group-removal-checker-tabs>

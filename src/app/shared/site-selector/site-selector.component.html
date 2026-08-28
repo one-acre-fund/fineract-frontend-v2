@@ -8,13 +8,13 @@
   >
    
     <div class="site-selector-field" fxFlex="33%" fxFlex.lt-md="100%">
-      <label for="regionId">{{ 'labels.commons.Region' | translate }}</label>
+      <label for="regionId">{{ firstLevelLabel }}</label>
       <ng-select
         #region
         [items]="regionOptions"
         bindLabel="name"
         bindValue="id"
-        placeholder="{{ 'labels.oaf.SelectARegion' | translate }}"
+        [placeholder]="firstLevelPlaceholder"
         formControlName="regionId"
         aria-labelledby="regionId"
         (change)="onRegionChange($event)"
@@ -25,13 +25,13 @@
     </div>
 
     <div class="site-selector-field" fxFlex="33%" fxFlex.lt-md="100%">
-      <label for="districtId">{{ 'labels.oaf.District' | translate }}</label>
+      <label for="districtId">{{ secondLevelLabel }}</label>
       <ng-select
         #district
         [items]="districtOptions"
         bindLabel="name"
         bindValue="id"
-        placeholder="{{ 'labels.oaf.SelectADistrict' | translate }}"
+        [placeholder]="secondLevelPlaceholder"
         formControlName="districtId"
         aria-labelledby="districtId"
         (change)="onDistrictChange($event)"
@@ -42,13 +42,13 @@
     </div>
 
     <div class="site-selector-field" fxFlex="33%" fxFlex.lt-md="100%">
-      <label for="siteIds">{{ 'labels.oaf.SiteOptionalDefaultsToAllSites' | translate }}</label>
+      <label for="siteIds">{{ thirdLevelLabel }} ({{ 'labels.oaf.Optional' | translate }})</label>
       <ng-select
         #site
         [items]="siteDropdownOptions"
         bindLabel="name"
         bindValue="id"
-        placeholder="{{ 'labels.oaf.AllSites' | translate }}"
+        [placeholder]="thirdLevelPlaceholder"
         formControlName="siteIds"
         aria-labelledby="siteIds"
         (change)="onSiteChange()"

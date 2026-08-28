@@ -1,22 +1,16 @@
 <div class="container">
+  <nav mat-tab-nav-bar class="checker-flow-tabs">
+    <a mat-tab-link [routerLink]="['./client-approvals']" routerLinkActive #clientApprovals="routerLinkActive"
+      [active]="clientApprovals.isActive">
+      {{ 'labels.oaf.ManualKYC' | translate }}
+    </a>
+    <a mat-tab-link [routerLink]="['./client-removal-approvals']" routerLinkActive
+      #clientRemovalApprovals="routerLinkActive" [active]="clientRemovalApprovals.isActive">
+      {{ 'labels.oaf.BulkClientRemoval' | translate }}
+    </a>
+  </nav>
 
-  <mat-card class="tasks-card">
-
-    <mat-card-content>
-
-      <nav mat-tab-nav-bar class="navigation-tabs">
-        <a mat-tab-link [routerLink]="['./client-verification-checker-inbox']" routerLinkActive #clientVerifCheckerInbox="routerLinkActive"
-        [active]="clientVerifCheckerInbox.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientVerification' | translate }}</a>
-        <a mat-tab-link [routerLink]="['./client-failed-kyc']" routerLinkActive #clientFailedKYC="routerLinkActive"
-          [active]="clientFailedKYC.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientFailedKYC' | translate }}</a>
-        <a mat-tab-link [routerLink]="['./client-pending-reverification-checker-inbox']" routerLinkActive #pendingReverifCheckerInbox="routerLinkActive"
-          [active]="pendingReverifCheckerInbox.isActive" *mifosxHasPermission="'VERIFY_CLIENT'">{{ 'labels.commons.clientPendingReverification' | translate }}</a>
-      </nav>
-
-      <router-outlet></router-outlet>
-
-    </mat-card-content>
-
-  </mat-card>
-
+  <div class="checker-flow-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
