@@ -665,6 +665,7 @@
       "Undo Rejection": "Undo Rejection",
       "Undo Transfer": "Undo Transfer",
       "Update Default Savings": "Update Default Savings",
+      "UpdateTenure": "Update Tenure",
       "Upload": "Upload",
       "Upload Signature": "Upload Signature",
       "Validate": "Validate",
@@ -1547,7 +1548,8 @@
       "Maker": "Maker",
       "Date": "Date",
       "MembershipHistory": "Membership History",
-      "StatusTransitions": "Status Transitions"
+      "StatusTransitions": "Status Transitions",
+      "CreditScoreTenure": "Credit Score Tenure"
     },
     "inputs": {
       "accounting": {
@@ -2676,11 +2678,15 @@
       "State / Province": "State / Province",
       "Status": "Status",
       "StatusTransitions": "Status Transitions",
+      "CreditScoreTenure": "Credit Score Tenure",
       "TransitionType": "Transition Type",
       "Transition": "Transition",
       "InitialStatus": "Initial status",
       "StatusChangedOn": "Status Changed On",
       "TransitionCreatedOn": "Created On",
+      "Tenure": "Tenure",
+      "RecalculationReason": "Recalculation Reason",
+      "RecalculationDate": "Recalculation Date",
       "Step Name": "Step Name",
       "Street": "Street",
       "String": "String",
@@ -3793,7 +3799,13 @@
       "Preferences for generating account numbers for client, loan and savings accounts": "Preferences for generating account numbers for client, loan and savings accounts",
       "“Maker-Checker” principle requires every tasks": "The “Maker-Checker” principle requires every tasks to be completed by two people to reduce the chance of errors and misuse. One person initiates the process and the second completes it.",
       "NoAuditRecordsFound": "No audit records found for this account.",
-      "NoStatusTransitionsFound": "No status transitions found for this client."
+      "NoStatusTransitionsFound": "No status transitions found for this client.",
+      "NoCreditScoreTenureFound": "No credit score tenure records found for this client.",
+      "TenureUpdateSuccessful": "Tenure update successful",
+      "RefreshCreditScorePrompt": "Do you want to refresh this client's credit score now",
+      "CreditScoreRefreshSuccessful": "Credit score refresh triggered successfully.",
+      "UpdateTenureRefreshScoresWarning": "Submitting this update will refresh the client's credit scores. Do you want to continue",
+      "TenureAndCreditScoreUpdateSuccessful": "Tenure updated successfully and credit score refresh has been triggered."
     },
     "titles": {
       "Dashboard": "Dashboard",
