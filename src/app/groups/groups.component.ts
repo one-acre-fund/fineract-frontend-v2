@@ -217,25 +217,11 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       secondLastHierarchyOfficeId,
     };
 
-    this.groupsService.getGroupRemovalImpactTemplate(payload).subscribe({
-      next: (impactTemplate: any) => {
+    this.groupsService.getGroupRemovalImpactTemplate(payload).subscribe((impactTemplate: any) => {
         this.router.navigate(['bulk-client-removal'], {
           relativeTo: this.route,
           state: { siteSelection: this.siteSelection, impactTemplate },
         });
-      },
-      error: (error) => {
-        if (error?.status === 400) {
-          this.snackBar.open('At least one office must be selected.', this.translateService.instant('labels.buttons.Close'), {
-            duration: 3500,
-          });
-          return;
-        }
-
-        this.snackBar.open('Failed to create group removal request.', this.translateService.instant('labels.buttons.Close'), {
-          duration: 3500,
-        });
-      },
     });
   }
 
@@ -253,9 +239,6 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       },
       error: () => {
         this.loadingRequests = false;
-        this.snackBar.open('Failed to load pending requests.', this.translateService.instant('labels.buttons.Close'), {
-          duration: 3000,
-        });
       },
     });
   }
@@ -274,9 +257,6 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       },
       error: () => {
         this.loadingHistory = false;
-        this.snackBar.open('Failed to load request history.', this.translateService.instant('labels.buttons.Close'), {
-          duration: 3000,
-        });
       },
     });
   }

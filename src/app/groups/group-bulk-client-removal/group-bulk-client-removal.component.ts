@@ -126,21 +126,9 @@ export class GroupBulkClientRemovalComponent implements OnInit {
 
   private loadRequestById(requestId: number): void {
     this.loading = true;
-    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe({
-      next: (detail) => {
+    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe((detail) => {
         this.loading = false;
         this.bindRequestDetail(detail);
-      },
-      error: (error) => {
-        this.loading = false;
-        if (error?.status === 404) {
-          this.alertService.alert({ type: 'error', message: 'Request not found.' });
-        } else {
-          this.alertService.alert({ type: 'error', message: this.getApiErrorMessage(error) || 'Failed to load request details.' });
-        }
-        this.router.navigate(['../'], { relativeTo: this.route });
-      },
-
     });
   }
 
@@ -260,21 +248,11 @@ export class GroupBulkClientRemovalComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.groupsService.createGroupRemovalImpactRequest(payload).subscribe({
-      next: () => {
+    this.groupsService.createGroupRemovalImpactRequest(payload).subscribe((response) => {
         this.submitting = false;
         this.snackBar.open('Group removal request submitted for approval.', 'Close', { duration: 3000 });
         this.router.navigate(['../'], { relativeTo: this.route });
-      },
-      error: (error) => {
-        this.submitting = false;
-        if (error?.status === 400) {
-          this.alertService.alert({ type: 'error', message: 'At least one office must be selected.' });
-          return;
-        }
-        this.alertService.alert({ type: 'error', message: this.getApiErrorMessage(error) || 'Failed to submit request.' });
-      },
-    });
+      });
   }
 
   private buildCreatePayload(): CreateGroupRemovalImpactRequestPayload | null {
@@ -289,30 +267,6 @@ export class GroupBulkClientRemovalComponent implements OnInit {
       officeIds,
       secondLastHierarchyOfficeId,
     };
-  }
-
-  /**
-   * Extracts a human-readable error message from various API error shapes.
-   */
-  private getApiErrorMessage(error: any): string | null {
-    if (!error) return 'Unknown error';
-
-    // Angular HttpErrorResponse: error.error may contain payload
-    const payload = error?.error ?? error;
-
-    if (typeof payload === 'string') return payload;
-
-    if (payload == null) return error?.message ?? error?.statusText ?? `HTTP ${error?.status ?? 'error'}`;
-
-    if (typeof payload?.message === 'string') return payload.message;
-
-    if (Array.isArray(payload?.errors)) return payload.errors.map((e: any) => e?.message || JSON.stringify(e)).join('; ');
-
-    try {
-      return JSON.stringify(payload);
-    } catch (e) {
-      return error?.message ?? 'An unknown error occurred';
-    }
   }
 
   private isRequestDetailPayload(payload: unknown): payload is GroupRemovalImpactRequestDetail {

@@ -79,19 +79,10 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
     this.loading = true;
     this.notFound = false;
     this.detailLoaded = false;
-    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe({
-      next: (detail) => {
+    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe((detail) => {
         this.loading = false;
         this.bindDetail(detail);
         this.detailLoaded = true;
-      },
-      error: (error) => {
-        this.loading = false;
-        this.notFound = error?.status === 404;
-        this.detailLoaded = false;
-        const message = this.notFound ? 'Request not found.' : 'Failed to load request details.';
-        this.snackBar.open(message, 'Close', { duration: 3000 });
-      },
     });
   }
 
@@ -166,8 +157,7 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
       .reviewGroupRemovalImpactRequest(this.requestId, command, {
         comment: this.reviewForm.value.comment,
       })
-      .subscribe({
-        next: () => {
+      .subscribe((response: any) => {
           this.submitting = false;
           this.snackBar.open(
             command === 'approve' ? 'Request approved successfully.' : 'Request rejected successfully.',
@@ -177,16 +167,6 @@ export class ClientRemovalApprovalReviewComponent implements OnInit {
             }
           );
           this.back();
-        },
-        error: (error) => {
-          this.submitting = false;
-          if (error?.status === 400) {
-            this.snackBar.open('Invalid review comment.', 'Close', { duration: 3000 });
-            return;
-          }
-          const domainMessage = error?.error?.errors?.[0]?.defaultUserMessage;
-          this.snackBar.open(domainMessage || 'Failed to submit review action.', 'Close', { duration: 3000 });
-        },
       });
   }
 }

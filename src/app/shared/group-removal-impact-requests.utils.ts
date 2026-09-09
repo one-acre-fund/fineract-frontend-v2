@@ -50,6 +50,7 @@ export function getStatusChipClass(status: GroupRemovalRequestStatus): string {
     case 'APPROVED':
       return 'status-chip status-approved';
     case 'REJECTED':
+    case 'FAILED':
       return 'status-chip status-rejected';
     case 'PENDING':
     default:
