@@ -134,7 +134,7 @@ export class GroupBulkClientRemovalComponent implements OnInit {
         if (error?.status === 404) {
           this.snackBar.open('Request not found.', 'Close', { duration: 3000 });
         } else {
-          this.snackBar.open('Failed to load request details.', 'Close', { duration: 3000 });
+          this.snackBar.open(this.getApiErrorMessage(error) || 'Failed to load request details.', 'Close', { duration: 5000 });
         }
         this.router.navigate(['../'], { relativeTo: this.route });
       },
@@ -269,7 +269,7 @@ export class GroupBulkClientRemovalComponent implements OnInit {
           this.snackBar.open('At least one office must be selected.', 'Close', { duration: 3500 });
           return;
         }
-        this.snackBar.open('Failed to submit group removal request.', 'Close', { duration: 3500 });
+        this.snackBar.open(this.getApiErrorMessage(error), 'Close', { duration: 7000 });
       },
     });
   }
@@ -286,6 +286,42 @@ export class GroupBulkClientRemovalComponent implements OnInit {
       officeIds,
       secondLastHierarchyOfficeId,
     };
+  }
+
+  /**
+   * Extracts a human-readable error message from various API error shapes.
+   */
+  private getApiErrorMessage(error: any): string {
+    if (!error) return 'Unknown error';
+
+    // Angular's HttpErrorResponse often contains error.error which may be a string or object
+    const payload = error?.error ?? error;
+
+    if (typeof payload === 'string') {
+      // Sometimes the backend returns plain text
+      return payload;
+    }
+
+    if (payload == null) {
+      return error?.message || error?.statusText || `HTTP ${error?.status ?? 'error'}`;
+    }
+
+    // Common API error shape: { message: '...' }
+    if (typeof payload?.message === 'string') {
+      return payload.message;
+    }
+
+    // Some APIs return { errors: [{ message: '...' }, ...] }
+    if (Array.isArray(payload?.errors)) {
+      return payload.errors.map((e: any) => e?.message || JSON.stringify(e)).join('; ');
+    }
+
+    // Fallback to serializing payload
+    try {
+      return JSON.stringify(payload);
+    } catch (e) {
+      return error?.message || 'An unknown error occurred';
+    }
   }
 
   private isRequestDetailPayload(payload: unknown): payload is GroupRemovalImpactRequestDetail {
