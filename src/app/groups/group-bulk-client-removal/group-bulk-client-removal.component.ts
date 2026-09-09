@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from 'app/core/alert/alert.service';
 
 /** Custom Components */
 import { SiteSelectorChange } from 'app/shared/site-selector/site-selector.component';
@@ -66,7 +67,8 @@ export class GroupBulkClientRemovalComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly groupsService: GroupsService,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly alertService: AlertService
   ) {
     this.requestDetail =
       this.router.getCurrentNavigation()?.extras?.state?.['requestDetail'] ??
@@ -132,12 +134,13 @@ export class GroupBulkClientRemovalComponent implements OnInit {
       error: (error) => {
         this.loading = false;
         if (error?.status === 404) {
-          this.snackBar.open('Request not found.', 'Close', { duration: 3000 });
+          this.alertService.alert({ type: 'error', message: 'Request not found.' });
         } else {
-          this.snackBar.open(this.getApiErrorMessage(error) || 'Failed to load request details.', 'Close', { duration: 5000 });
+          this.alertService.alert({ type: 'error', message: this.getApiErrorMessage(error) || 'Failed to load request details.' });
         }
         this.router.navigate(['../'], { relativeTo: this.route });
       },
+
     });
   }
 
@@ -266,10 +269,10 @@ export class GroupBulkClientRemovalComponent implements OnInit {
       error: (error) => {
         this.submitting = false;
         if (error?.status === 400) {
-          this.snackBar.open('At least one office must be selected.', 'Close', { duration: 3500 });
+          this.alertService.alert({ type: 'error', message: 'At least one office must be selected.' });
           return;
         }
-        this.snackBar.open(this.getApiErrorMessage(error), 'Close', { duration: 7000 });
+        this.alertService.alert({ type: 'error', message: this.getApiErrorMessage(error) || 'Failed to submit request.' });
       },
     });
   }
@@ -291,36 +294,24 @@ export class GroupBulkClientRemovalComponent implements OnInit {
   /**
    * Extracts a human-readable error message from various API error shapes.
    */
-  private getApiErrorMessage(error: any): string {
+  private getApiErrorMessage(error: any): string | null {
     if (!error) return 'Unknown error';
 
-    // Angular's HttpErrorResponse often contains error.error which may be a string or object
+    // Angular HttpErrorResponse: error.error may contain payload
     const payload = error?.error ?? error;
 
-    if (typeof payload === 'string') {
-      // Sometimes the backend returns plain text
-      return payload;
-    }
+    if (typeof payload === 'string') return payload;
 
-    if (payload == null) {
-      return error?.message || error?.statusText || `HTTP ${error?.status ?? 'error'}`;
-    }
+    if (payload == null) return error?.message ?? error?.statusText ?? `HTTP ${error?.status ?? 'error'}`;
 
-    // Common API error shape: { message: '...' }
-    if (typeof payload?.message === 'string') {
-      return payload.message;
-    }
+    if (typeof payload?.message === 'string') return payload.message;
 
-    // Some APIs return { errors: [{ message: '...' }, ...] }
-    if (Array.isArray(payload?.errors)) {
-      return payload.errors.map((e: any) => e?.message || JSON.stringify(e)).join('; ');
-    }
+    if (Array.isArray(payload?.errors)) return payload.errors.map((e: any) => e?.message || JSON.stringify(e)).join('; ');
 
-    // Fallback to serializing payload
     try {
       return JSON.stringify(payload);
     } catch (e) {
-      return error?.message || 'An unknown error occurred';
+      return error?.message ?? 'An unknown error occurred';
     }
   }
 
