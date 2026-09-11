@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AlertService } from 'app/core/alert/alert.service';
 
 /** Custom Components */
 import { SiteSelectorChange } from 'app/shared/site-selector/site-selector.component';
@@ -67,8 +66,7 @@ export class GroupBulkClientRemovalComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly groupsService: GroupsService,
-    private readonly snackBar: MatSnackBar,
-    private readonly alertService: AlertService
+    private readonly snackBar: MatSnackBar
   ) {
     this.requestDetail =
       this.router.getCurrentNavigation()?.extras?.state?.['requestDetail'] ??
