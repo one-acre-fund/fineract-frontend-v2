@@ -245,6 +245,11 @@
             {{ 'labels.buttons.Reject transfer' | translate }}
           </button></span
         >
+        <span *ngIf="clientViewData?.isClientReadyForKYCVerification === true" 
+          ><button mat-menu-item (click)="doAction('Push To Kyc', clientViewData.countryId)" *mifosxHasPermission="'PUSH_TO_KYC_CLIENT'">
+            {{ 'labels.buttons.PushToKyc' | translate }}
+          </button></span
+        >
       </mat-menu>
 
       <span *ngIf="!clientViewData.staffId">
