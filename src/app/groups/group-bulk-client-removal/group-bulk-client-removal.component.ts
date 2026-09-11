@@ -124,20 +124,9 @@ export class GroupBulkClientRemovalComponent implements OnInit {
 
   private loadRequestById(requestId: number): void {
     this.loading = true;
-    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe({
-      next: (detail) => {
+    this.groupsService.getGroupRemovalImpactRequestById(requestId).subscribe((detail) => {
         this.loading = false;
         this.bindRequestDetail(detail);
-      },
-      error: (error) => {
-        this.loading = false;
-        if (error?.status === 404) {
-          this.snackBar.open('Request not found.', 'Close', { duration: 3000 });
-        } else {
-          this.snackBar.open('Failed to load request details.', 'Close', { duration: 3000 });
-        }
-        this.router.navigate(['../'], { relativeTo: this.route });
-      },
     });
   }
 
@@ -257,21 +246,11 @@ export class GroupBulkClientRemovalComponent implements OnInit {
     }
 
     this.submitting = true;
-    this.groupsService.createGroupRemovalImpactRequest(payload).subscribe({
-      next: () => {
+    this.groupsService.createGroupRemovalImpactRequest(payload).subscribe((response) => {
         this.submitting = false;
         this.snackBar.open('Group removal request submitted for approval.', 'Close', { duration: 3000 });
         this.router.navigate(['../'], { relativeTo: this.route });
-      },
-      error: (error) => {
-        this.submitting = false;
-        if (error?.status === 400) {
-          this.snackBar.open('At least one office must be selected.', 'Close', { duration: 3500 });
-          return;
-        }
-        this.snackBar.open('Failed to submit group removal request.', 'Close', { duration: 3500 });
-      },
-    });
+      });
   }
 
   private buildCreatePayload(): CreateGroupRemovalImpactRequestPayload | null {

@@ -6,7 +6,7 @@
     fxLayoutAlign="start start"
     fxLayoutAlign.lt-md="start stretch"
   >
-   
+
     <div class="site-selector-field" fxFlex="33%" fxFlex.lt-md="100%">
       <label for="regionId">{{ firstLevelLabel }}</label>
       <ng-select
@@ -74,19 +74,5 @@
         </ng-template>
       </ng-select>
     </div>
-  </div>
-
-  <div class="selected-sites" *ngIf="selectedSites.length">
-    <span class="selected-site-chip" *ngFor="let site of selectedSites">
-      {{ site.name }}
-      <button
-        type="button"
-        class="remove-site-button"
-        [attr.aria-label]="('labels.buttons.Remove' | translate) + ' ' + site.name"
-        (click)="removeSite(site.id)"
-      >
-        &times;
-      </button>
-    </span>
   </div>
 </mat-card>

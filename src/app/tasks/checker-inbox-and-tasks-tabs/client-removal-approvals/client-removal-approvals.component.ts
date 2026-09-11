@@ -84,7 +84,6 @@ export class ClientRemovalApprovalsComponent implements OnInit {
       },
       error: () => {
         this.loadingRequests = false;
-        this.snackBar.open('Failed to load pending requests.', 'Close', { duration: 3000 });
       },
     });
   }
@@ -103,7 +102,6 @@ export class ClientRemovalApprovalsComponent implements OnInit {
       },
       error: () => {
         this.loadingHistory = false;
-        this.snackBar.open('Failed to load request history.', 'Close', { duration: 3000 });
       },
     });
   }
