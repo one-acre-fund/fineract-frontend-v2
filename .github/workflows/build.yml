@@ -99,13 +99,15 @@ jobs:
         if: ${{ env.SHOULD_PUBLISH == 'true'}}
         env:
           IMAGE_TAG: ${{ steps.set-env.outputs.IMAGE_TAGS }}
+          BRANCH: ${{ github.ref_name }}
         run: |
           git config user.name "oneacrefund-automation"
           git config user.email "oneacrefund-automation@users.noreply.github.com"
           git remote set-url origin "https://oneacrefund-automation:${{ secrets.GA_TOKEN }}@github.com/${{ github.repository }}.git"
 
-          git fetch origin develop
-          git checkout develop
+          git fetch origin "$BRANCH"
+          git checkout "$BRANCH"
+          git pull origin "$BRANCH"
 
           update_values() {
             local ENV=$1
@@ -148,7 +150,7 @@ jobs:
 
           Source branch: ${{ github.ref_name }}
           Commit: ${{ github.sha }}"
-          git push origin develop
+          git push origin "$BRANCH"
 
   QualityCheck:
     name: Quality Check
