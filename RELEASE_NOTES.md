@@ -3,7 +3,7 @@
 ## Version 1.4.11.1 - Community 1.0.0
 
     * Clients & Groups
-        * [FNG-424] - Add ability to push client to KYC checker inbox
+        * [FNG-424] - Add ability to push eligible client to KYC checker inbox
 
 ## Version 1.4.11 - Community 1.0.0
 
