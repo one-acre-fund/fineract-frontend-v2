@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { EMPTY, Subject } from 'rxjs';
+import { catchError, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 /** Custom Services */
 import { ProductsService } from '../../../products.service';
@@ -65,7 +65,11 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit, OnDestr
     this.countryOptions$
       .pipe(
         tap(() => this.resetCountryConfigFlags()),
-        switchMap((countryId) => this.productsService.getLoanProductWithCountryOptions(countryId)),
+        switchMap((countryId) =>
+          this.productsService.getLoanProductWithCountryOptions(countryId).pipe(
+            catchError(() => EMPTY)
+          )
+        ),
         takeUntil(this.destroy$)
       )
       .subscribe((res: any) => {
