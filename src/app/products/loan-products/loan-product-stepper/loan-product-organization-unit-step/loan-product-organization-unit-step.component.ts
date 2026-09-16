@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 
 /** Custom Services */
 import { ProductsService } from '../../../products.service';
@@ -14,7 +16,7 @@ import { AlertService } from 'app/core/alert/alert.service';
   templateUrl: './loan-product-organization-unit-step.component.html',
   styleUrls: ['./loan-product-organization-unit-step.component.scss'],
 })
-export class LoanProductOrganizationUnitStepComponent implements OnInit {
+export class LoanProductOrganizationUnitStepComponent implements OnInit, OnDestroy {
   @Input() loanProductsTemplate: any;
   @Input() loanProduct: any;
   @ViewChild(CountryTreeViewComponent) countryTreeComponent: CountryTreeViewComponent;
@@ -38,6 +40,9 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
 
   loanProductTemplateForm: UntypedFormGroup;
 
+  private countryOptions$ = new Subject<any>();
+  private destroy$ = new Subject<void>();
+
   roundingModes: {modeValue: string, modeLabel: string}[] = [
     {modeValue: 'SYSTEM_DEFAULT_ROUNDING_MODE', modeLabel: 'System Default Rounding Mode'},
     {modeValue: 'DOWN_TO_NEAREST_WHOLE_NUMBER', modeLabel: 'Down to Nearest Whole Number'},
@@ -56,6 +61,27 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
 
   ngOnInit(): void {
     this.createLoanProductOrganizationForm();
+
+    this.countryOptions$
+      .pipe(
+        tap(() => this.resetCountryConfigFlags()),
+        switchMap((countryId) => this.productsService.getLoanProductWithCountryOptions(countryId)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((res: any) => {
+        this.enableTermsAndConditions = res.configurations?.enableTermsAndConditions;
+        this.isCreditScoringEnabled = res.configurations?.isCreditScoringEnabled;
+        this.productsService.enableTermsAndConditions = this.enableTermsAndConditions;
+        this.productsService.isCreditScoringEnabled = this.isCreditScoringEnabled;
+        this.isQualificationRequired = res.configurations?.isQualificationRequired;
+        this.loanProductTemplates = res.loanProductTemplates;
+        this.productsService.isQualificationRequired = this.isQualificationRequired;
+        this.productsService.allowDynamicDownpayment = res.configurations?.allowDynamicDownpayment ?? false;
+        this.loanProductTemplateForm.patchValue({
+          loanProductTemplates: this.loanProductTemplates,
+          enableTermsAndConditions: this.enableTermsAndConditions,
+        });
+      });
 
     if (this.router.url.includes('edit')) {
       this.search(this.loanProductsTemplate.countryId);
@@ -129,20 +155,22 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
       this.countryTreeComponent?.refreshDataSource(this.treeDataSource);
     });
 
-    this.productsService.getLoanProductWithCountryOptions(this.countryId).subscribe((res: any) => {
-      this.enableTermsAndConditions = res.configurations?.enableTermsAndConditions;
-      this.isCreditScoringEnabled = res.configurations?.isCreditScoringEnabled;
-      this.productsService.enableTermsAndConditions = this.enableTermsAndConditions;
-      this.productsService.isCreditScoringEnabled = this.isCreditScoringEnabled;
-      this.isQualificationRequired = res.configurations?.isQualificationRequired;
-      this.loanProductTemplates = res.loanProductTemplates;
-      this.productsService.isQualificationRequired = this.isQualificationRequired;
-      this.productsService.allowDynamicDownpayment = res.configurations?.allowDynamicDownpayment ?? false;
-      this.loanProductTemplateForm.patchValue({
-        loanProductTemplates: this.loanProductTemplates,
-        enableTermsAndConditions: this.enableTermsAndConditions,
-      });
-    });
+    this.countryOptions$.next(this.countryId);
+  }
+
+  private resetCountryConfigFlags() {
+    this.enableTermsAndConditions = false;
+    this.isCreditScoringEnabled = false;
+    this.isQualificationRequired = false;
+    this.productsService.enableTermsAndConditions = false;
+    this.productsService.isCreditScoringEnabled = false;
+    this.productsService.isQualificationRequired = false;
+    this.productsService.allowDynamicDownpayment = false;
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   getCheckedUnits(event: any) {

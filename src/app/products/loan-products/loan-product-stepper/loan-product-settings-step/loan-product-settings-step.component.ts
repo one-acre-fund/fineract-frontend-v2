@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mifosx-loan-product-settings-step',
@@ -32,7 +31,6 @@ export class LoanProductSettingsStepComponent implements OnInit, OnChanges {
   interestRecalculationOnDayTypeData: any;
   // terms and conditions template
   templateForTermsAndConditions: any;
-  private isCreditScoringEnabled$ = new BehaviorSubject<boolean>(false);
 
   constructor(private formBuilder: UntypedFormBuilder) {
     this.createLoanProductSettingsForm();
@@ -45,6 +43,7 @@ export class LoanProductSettingsStepComponent implements OnInit, OnChanges {
       if (this.isCreditScoringEnabled) {
         control.enable();
       } else {
+        control.setValue(false);
         control.disable();
       }
     }
