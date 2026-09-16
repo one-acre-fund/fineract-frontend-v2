@@ -1,17 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'mifosx-loan-product-settings-step',
   templateUrl: './loan-product-settings-step.component.html',
   styleUrls: ['./loan-product-settings-step.component.scss']
 })
-export class LoanProductSettingsStepComponent implements OnInit {
+export class LoanProductSettingsStepComponent implements OnInit, OnChanges {
 
   @Input() loanProductsTemplate: any;
   @Input() isLinkedToFloatingInterestRates: UntypedFormControl;
   @Input() loanProductTemplates: any;
   @Input() enableTermsAndConditions: boolean;
+  @Input() isCreditScoringEnabled: boolean;
 
   loanProductSettingsForm: UntypedFormGroup;
 
@@ -30,10 +32,22 @@ export class LoanProductSettingsStepComponent implements OnInit {
   interestRecalculationOnDayTypeData: any;
   // terms and conditions template
   templateForTermsAndConditions: any;
+  private isCreditScoringEnabled$ = new BehaviorSubject<boolean>(false);
 
   constructor(private formBuilder: UntypedFormBuilder) {
     this.createLoanProductSettingsForm();
     this.setConditionalControls();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isCreditScoringEnabled']) {
+      const control = this.loanProductSettingsForm.get('markedForCreditScoreRefresh');
+      if (this.isCreditScoringEnabled) {
+        control.enable();
+      } else {
+        control.disable();
+      }
+    }
   }
 
   ngOnInit() {
@@ -89,6 +103,8 @@ export class LoanProductSettingsStepComponent implements OnInit {
       'showTermsAndConditions': this.loanProductsTemplate.settings?.loanProductTemplate != null || this.loanProductsTemplate.settings?.loanProductTemplate != undefined,
       'templateForTermsAndConditions': this.loanProductsTemplate.settings?.loanProductTemplate?.id,
       'canBeRecurring': this.loanProductsTemplate.canBeRecurring,
+      'markedForCreditScoreRefresh': this.loanProductsTemplate.markedForCreditScoreRefresh || false,
+      'allowedEnrolmentsPerClient': this.loanProductsTemplate.allowedEnrolmentsPerClient,
     });
 
     if (this.loanProductsTemplate.isInterestRecalculationEnabled) {
@@ -179,6 +195,8 @@ export class LoanProductSettingsStepComponent implements OnInit {
       'templateForTermsAndConditions': [''],
       'showTermsAndConditions': [false],
       'canBeRecurring': [false],
+      'markedForCreditScoreRefresh': [false],
+      'allowedEnrolmentsPerClient': ['', Validators.min(1)],
     });
   }
 

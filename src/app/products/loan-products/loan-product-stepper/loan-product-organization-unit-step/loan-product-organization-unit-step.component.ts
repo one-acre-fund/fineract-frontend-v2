@@ -31,6 +31,7 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
 
   // loan terms and condition templates
   enableTermsAndConditions: boolean = false;
+  isCreditScoringEnabled: boolean = false;
   loanProductTemplates: any = [];
 
   isQualificationRequired: boolean = false;
@@ -130,7 +131,9 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit {
 
     this.productsService.getLoanProductWithCountryOptions(this.countryId).subscribe((res: any) => {
       this.enableTermsAndConditions = res.configurations?.enableTermsAndConditions;
+      this.isCreditScoringEnabled = res.configurations?.isCreditScoringEnabled;
       this.productsService.enableTermsAndConditions = this.enableTermsAndConditions;
+      this.productsService.isCreditScoringEnabled = this.isCreditScoringEnabled;
       this.isQualificationRequired = res.configurations?.isQualificationRequired;
       this.loanProductTemplates = res.loanProductTemplates;
       this.productsService.isQualificationRequired = this.isQualificationRequired;
