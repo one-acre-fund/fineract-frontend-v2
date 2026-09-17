@@ -396,6 +396,8 @@
       "creditScoreRefreshWarning": "Kitendo hiki kitapanga usasishaji wa alama za mkopo kwa wateja wote katika kila Kitengo cha Shirika (OU) kilichounganishwa na bidhaa hii. Tafadhali hakikisha kuwa OU zote zilizounganishwa zinakusudiwa kwa sasisho hili",
       "allowedEnrolmentsPerClient": "Usajili unaoruhusiwa kwa kila mteja",
       "mustBeAtLeastOne": "lazima iwe angalau 1",
+      "mustBeGreaterThanOne": "lazima iwe zaidi ya 1 wakati mkopo unaweza kuchukuliwa mara nyingi",
+      "mustBeExactlyOne": "lazima iwe 1 wakati mkopo hauwezi kuchukuliwa mara nyingi",
       "Advance payments adjustment type is": "Aina ya marekebisho ya malipo ya mapema ni",
       "Allowed to be used for providing Topup Loans": "Inaruhusiwa kutumika kutoa Mikopo ya Kuongeza",
       "Amortization is": "Amortization ni",

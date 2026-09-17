@@ -195,12 +195,21 @@ export class LoanProductSettingsStepComponent implements OnInit, OnChanges {
       'showTermsAndConditions': [false],
       'canBeRecurring': [false],
       'markedForCreditScoreRefresh': [false],
-      'allowedEnrolmentsPerClient': ['', Validators.min(1)],
+      'allowedEnrolmentsPerClient': ['', [Validators.min(1), Validators.max(1)]],
     });
   }
 
   setConditionalControls() {
     const allowAttributeOverrides = this.loanProductSettingsForm.get('allowAttributeOverrides');
+
+    this.loanProductSettingsForm.get('canBeRecurring').valueChanges
+      .subscribe((canBeRecurring: boolean) => {
+        const allowedEnrolmentsPerClient = this.loanProductSettingsForm.get('allowedEnrolmentsPerClient');
+        allowedEnrolmentsPerClient.setValidators(
+          canBeRecurring ? Validators.min(2) : [Validators.min(1), Validators.max(1)]
+        );
+        allowedEnrolmentsPerClient.updateValueAndValidity();
+      });
 
     this.loanProductSettingsForm.get('interestCalculationPeriodType').valueChanges
       .subscribe((interestCalculationPeriodType: any) => {

@@ -396,6 +396,8 @@
       "creditScoreRefreshWarning": "This action will schedule a credit score refresh for all clients across every Organizational Unit (OU) mapped to this product. Please verify that all mapped OUs are intended for this update",
       "allowedEnrolmentsPerClient": "Allowed enrolments per client",
       "mustBeAtLeastOne": "must be at least 1",
+      "mustBeGreaterThanOne": "must be greater than 1 when loan can be taken multiple times",
+      "mustBeExactlyOne": "must be 1 when loan cannot be taken multiple times",
       "Advance payments adjustment type is": "Advance payments adjustment type is",
       "Allowed to be used for providing Topup Loans": "Allowed to be used for providing Top Up Loans",
       "Amortization is": "Amortization is",
