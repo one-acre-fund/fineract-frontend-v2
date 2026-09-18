@@ -60,22 +60,26 @@
       <fa-icon icon="times"></fa-icon>&nbsp;{{ 'labels.buttons.Back' | translate }}
     </button>
     <div fxLayout="row" fxLayoutGap="12px" *ngIf="isPending">
-      <button
+      <ng-container *mifosxHasPermission="'APPROVE_BULK_REMOVAL_GROUP'">
+        <button
         mat-raised-button
         color="primary"
         (click)="approve()"
         [disabled]="!isPending || submitting || reviewForm.invalid"
-      >
-        {{ 'labels.buttons.Approve' | translate }}
-      </button>
-      <button
+        >
+          {{ 'labels.buttons.Approve' | translate }}
+        </button>
+      </ng-container>
+      <ng-container *mifosxHasPermission="'REJECT_BULK_REMOVAL_GROUP'">
+        <button
         mat-stroked-button
         color="warn"
         (click)="reject()"
         [disabled]="!isPending || submitting || reviewForm.invalid"
-      >
-        {{ 'labels.buttons.Reject' | translate }}
-      </button>
+        >
+          {{ 'labels.buttons.Reject' | translate }}
+        </button>
+      </ng-container>
     </div>
   </div>
 </div>
