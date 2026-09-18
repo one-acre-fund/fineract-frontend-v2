@@ -69,4 +69,51 @@ describe('GroupsService', () => {
     expect(req.request.body).toEqual({ comment: 'ok' });
     req.flush({});
   });
+
+  it('should append one repeated officeIds param per office for getGroups', () => {
+    service.getGroups([{ type: 'name', value: 'abc' }], 'name', 'ASC', 0, 10, [12, 19]).subscribe();
+
+    const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === '/groups');
+
+    expect(req.request.params.getAll('officeIds')).toEqual(['12', '19']);
+    expect(req.request.params.get('name')).toBe('abc');
+    req.flush({ pageItems: [], totalFilteredRecords: 0 });
+  });
+
+  it('should omit officeIds param for getGroups when no offices are selected', () => {
+    service.getGroups([], 'name', 'ASC', 0, 10, []).subscribe();
+
+    const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === '/groups');
+
+    expect(req.request.params.has('officeIds')).toBe(false);
+    req.flush({ pageItems: [], totalFilteredRecords: 0 });
+  });
+
+  it('should omit officeIds param for getGroups when the list is undefined', () => {
+    service.getGroups([], 'name', 'ASC', 0, 10).subscribe();
+
+    const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === '/groups');
+
+    expect(req.request.params.has('officeIds')).toBe(false);
+    req.flush({ pageItems: [], totalFilteredRecords: 0 });
+  });
+
+  it('should append one repeated officeIds param per office for getGroupsByCountryId', () => {
+    service.getGroupsByCountryId([], 'name', 'ASC', 0, 10, '5', [7]).subscribe();
+
+    const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === '/groups');
+
+    expect(req.request.params.get('countryId')).toBe('5');
+    expect(req.request.params.getAll('officeIds')).toEqual(['7']);
+    req.flush({ pageItems: [], totalFilteredRecords: 0 });
+  });
+
+  it('should omit officeIds param for getGroupsByCountryId when no offices are selected', () => {
+    service.getGroupsByCountryId([], 'name', 'ASC', 0, 10, '5').subscribe();
+
+    const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === '/groups');
+
+    expect(req.request.params.has('officeIds')).toBe(false);
+    req.flush({ pageItems: [], totalFilteredRecords: 0 });
+  });
 });

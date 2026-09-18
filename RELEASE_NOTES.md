@@ -7,6 +7,7 @@
     * Clients & Groups
         * [HQX-269] - Initial work on bulk removal of clients from groups
         * [HQX-358] - Approval flow: Removal of farmers from groups
+        * [HQX-402] - Guard bulk removal of clients from groups using permissions and filter groups by offices selected
 
 ## Version 1.4.11 - Community 1.0.0
 

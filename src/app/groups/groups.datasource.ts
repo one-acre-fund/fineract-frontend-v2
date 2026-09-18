@@ -31,6 +31,7 @@ export class GroupsDataSource implements DataSource<any> {
    * @param {number} pageIndex Page number.
    * @param {number} limit Number of entries within the page.
    * @param {boolean} groupActive Specify whether to only filter active groups.
+   * @param {number[]} officeIds Lowest-level office ids to restrict the listing to.
    */
   getGroups(
     filterBy: any,
@@ -38,7 +39,8 @@ export class GroupsDataSource implements DataSource<any> {
     sortOrder: string = "",
     pageIndex: number = 0,
     limit: number = 10,
-    groupActive: boolean = true
+    groupActive: boolean = true,
+    officeIds: number[] = []
   ) {
     this.groupsSubject.next([]);
     let countryId = JSON.parse(sessionStorage.getItem("selectedCountry"))?.id;
@@ -50,10 +52,11 @@ export class GroupsDataSource implements DataSource<any> {
         sortOrder,
         pageIndex * limit,
         limit,
-        countryId
+        countryId,
+        officeIds
       );
     } else {
-      groupsObs = this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit);
+      groupsObs = this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit, officeIds);
     }
 
     groupsObs.subscribe((groups: any) => {

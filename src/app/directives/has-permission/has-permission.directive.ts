@@ -32,9 +32,9 @@ export class HasPermissionDirective {
    * Evaluates the condition to show template.
    */
   @Input()
-  set mifosxHasPermission(permission: any) {
-    if (typeof permission !== 'string') {
-      throw new Error('hasPermission value must be a string');
+  set mifosxHasPermission(permission: string | string[]) {
+    if (!this.isValidPermissionValue(permission)) {
+      throw new Error('hasPermission value must be a string or string array');
     }
     /** Clear the template beforehand to prevent overlap OnChanges. */
     this.viewContainer.clear();
@@ -55,7 +55,10 @@ export class HasPermissionDirective {
    * - Passed permission doesn't fall under either of above given permission grants.
    * - No value was passed to the has permission directive.
    */
-  private hasPermission(permission: string) {
+  private hasPermission(permission: string | string[]) {
+    if (Array.isArray(permission)) {
+      return permission.some((value) => this.hasPermission(value));
+    }
     permission = permission.trim();
     if (this.userPermissions.includes('ALL_FUNCTIONS')) {
       return true;
@@ -70,6 +73,11 @@ export class HasPermissionDirective {
     } else {
       return false;
     }
+  }
+
+  private isValidPermissionValue(permission: string | string[]): boolean {
+    return typeof permission === 'string' ||
+      (Array.isArray(permission) && permission.every((value) => typeof value === 'string'));
   }
 
 }

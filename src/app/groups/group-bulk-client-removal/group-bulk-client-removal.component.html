@@ -30,7 +30,7 @@
     <button mat-stroked-button (click)="cancel()">
       <fa-icon icon="times"></fa-icon>&nbsp;{{ 'labels.buttons.Cancel' | translate }}
     </button>
-    <button mat-raised-button color="primary" (click)="submitForApproval()" *ngIf="canSubmitForApproval">
+    <button mat-raised-button color="primary" (click)="submitForApproval()" *mifosxHasPermission="'CREATE_BULK_REMOVAL_GROUP'" [disabled]="!canSubmitForApproval">
       <fa-icon icon="circle"></fa-icon>&nbsp;{{ 'labels.oaf.SubmitForApproval' | translate }}
     </button>
   </div>
