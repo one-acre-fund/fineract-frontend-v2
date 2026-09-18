@@ -150,25 +150,6 @@
       'labels.oaf.Loan can be taken multiple times by same client' | translate
     }}</mat-checkbox>
 
-    <mat-checkbox 
-    *ngIf="isCreditScoringEnabled"
-    fxFlex="48%" 
-    labelPosition="before" 
-    formControlName="markedForCreditScoreRefresh" 
-    class="margin-v">{{
-      'labels.oaf.markedForCreditScoreRefresh' | translate
-    }}</mat-checkbox>
-
-    <p
-      *ngIf="isCreditScoringEnabled && loanProductSettingsForm.value.markedForCreditScoreRefresh"
-      fxFlex="98%"
-      class="mat-body-1 warning-text"
-    >
-      <fa-icon icon="exclamation-triangle"></fa-icon>&nbsp;{{
-        'labels.oaf.creditScoreRefreshWarning' | translate
-      }}
-    </p>
-
     <mat-form-field fxFlex="48%">
       <mat-label>{{ 'labels.oaf.allowedEnrolmentsPerClient' | translate }}</mat-label>
       <input
@@ -446,6 +427,25 @@
         }}<strong>{{ 'labels.commons.required' | translate }}</strong>
       </mat-error>
     </mat-form-field>
+
+    <mat-checkbox 
+    *ngIf="isCreditScoringEnabled"
+    fxFlex="48%" 
+    labelPosition="before" 
+    formControlName="markedForCreditScoreRefresh" 
+    class="margin-v">{{
+      'labels.oaf.markedForCreditScoreRefresh' | translate
+    }}</mat-checkbox>
+
+    <p
+      *ngIf="isCreditScoringEnabled && loanProductSettingsForm.value.markedForCreditScoreRefresh"
+      fxFlex="98%"
+      class="mat-body-1 warning-text"
+    >
+      <fa-icon icon="exclamation-triangle"></fa-icon>&nbsp;{{
+        'labels.oaf.creditScoreRefreshWarning' | translate
+      }}
+    </p>
 
     <mat-divider fxFlex="98%"></mat-divider>
 
