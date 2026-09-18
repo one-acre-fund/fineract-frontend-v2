@@ -21,6 +21,7 @@ export class ProductsService {
   private prepaidAmountCalculationType$ = new BehaviorSubject<any>('Flat');
   private isQualificationRequired$ = new BehaviorSubject<boolean>(false);
   private enableTermsAndConditions$ = new BehaviorSubject<boolean>(false);
+  private isCreditScoringEnabled$ = new BehaviorSubject<boolean>(false);
   private downPaymentQualificationStrategy$ = new BehaviorSubject<any>('STATIC');
   private allowDynamicDownpayment$ = new BehaviorSubject<boolean>(false);
   private qualificationPeriods$ = new BehaviorSubject<any[]>([]);
@@ -77,6 +78,14 @@ export class ProductsService {
 
   set enableTermsAndConditions(val: any) {
     this.enableTermsAndConditions$.next(val);
+  }
+
+  get isCreditScoringEnabled(): any {
+    return this.isCreditScoringEnabled$.asObservable();
+  }
+
+  set isCreditScoringEnabled(val: any) {
+    this.isCreditScoringEnabled$.next(val);
   }
 
   get downPaymentQualificationStrategy(): any {
@@ -530,8 +539,14 @@ export class ProductsService {
   /**
    * @returns {Observable<any>} Loan product allocation settings.
    */
-  getLoanProductAllocationSetting(): Observable<any> {
-    return this.http.get("/loanpaymentallocationsettings");
+  getLoanProductAllocationSetting(pageNumber?: number, pageSize?: number): Observable<any> {
+    let httpParams = new HttpParams();
+    if (pageNumber !== undefined && pageSize !== undefined) {
+      httpParams = httpParams
+        .set('pageNumber', pageNumber.toString())
+        .set('pageSize', pageSize.toString());
+    }
+    return this.http.get('/loanpaymentallocationsettings', { params: httpParams });
   }
 
   getLoanProductAllocationSettingById(loanProductAllocationId: string, template: boolean = false): Observable<any> {

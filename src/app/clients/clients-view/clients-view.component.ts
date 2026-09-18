@@ -60,14 +60,11 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
     private readonly systemService: SystemService,
     private readonly translateService: TranslateService,
   ) {
-    this.route.data.subscribe((data: {
-      clientViewData: any,
-      clientTemplateData: any,
-      clientDatatables: any
-    }) => {
-      this.clientViewData = data.clientViewData;
-      this.clientDatatables = data.clientDatatables;
-
+    this.route.data.subscribe({
+      next: (data: any) => {
+        this.clientViewData = data.clientViewData;
+        this.clientDatatables = data.clientDatatables;
+      }
     });
     // Listen for route changes to detect when general tab loads
     this.router.events.pipe(
@@ -184,7 +181,6 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
         break;
     }
   }
-
 
   /**
    * Refetches data for the component

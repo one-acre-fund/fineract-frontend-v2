@@ -177,6 +177,31 @@ export class ClientsService {
     return this.http.get(`/clients/${clientId}/status-transitions`, { params: httpParams });
   }
 
+  getClientCreditScoreTenure(
+    clientId: string,
+    offset: number,
+    limit: number,
+    orderBy: string = 'id',
+    sortOrder: string = 'DESC'
+  ) {
+    const httpParams = new HttpParams()
+      .set('offset', offset.toString())
+      .set('limit', limit.toString())
+      .set('orderBy', orderBy)
+      .set('sortOrder', sortOrder);
+
+    return this.http.get(`/clients/tenure/${clientId}`, { params: httpParams });
+  }
+
+  saveClientTenure(countryId: string, clientId: string, payload: any, refreshScores: boolean = false) {
+    const httpParams = new HttpParams().set('refreshScores', refreshScores.toString());
+    return this.http.post(`/clients/${countryId}/saveClientTenure/${clientId}`, payload, { params: httpParams });
+  }
+
+  triggerClientCreditScoreUpdates(countryId: string, payload: { clientIds: number[] }) {
+    return this.http.post(`/clients/${countryId}/triggerCreditScoreUpdates`, payload);
+  }
+
   getSelectedChargeData(clientId: string, chargeId: string) {
     const httpParams = new HttpParams().set('associations', 'all');
     return this.http.get(`/clients/${clientId}/charges/${chargeId}`, { params: httpParams });

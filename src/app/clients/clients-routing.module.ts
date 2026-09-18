@@ -20,6 +20,7 @@ import { DocumentsTabComponent } from './clients-view/documents-tab/documents-ta
 import { DatatableTabComponent } from './clients-view/datatable-tab/datatable-tab.component';
 import { AddressTabComponent } from './clients-view/address-tab/address-tab.component';
 import { StatusTransitionsTabComponent } from './clients-view/status-transitions-tab/status-transitions-tab.component';
+import { CreditScoreTenureTabComponent } from './clients-view/credit-score-tenure-tab/credit-score-tenure-tab.component';
 import { ClientActionsComponent } from './clients-view/client-actions/client-actions.component';
 import { ViewChargeComponent } from './clients-view/charges/view-charge/view-charge.component';
 import { ClientPayChargesComponent } from './clients-view/charges/client-pay-charges/client-pay-charges.component';
@@ -188,6 +189,15 @@ const routes: Routes = [
               },
               resolve: {
                 clientStatusTransitions: ClientStatusTransitionsResolver,
+              },
+            },
+            {
+              path: 'credit-score-tenure',
+              component: CreditScoreTenureTabComponent,
+              data: {
+                title: extract('labels.heading.CreditScoreTenure'),
+                breadcrumb: 'Credit Score Tenure',
+                routeParamBreadcrumb: false,
               },
             },
             {

@@ -127,6 +127,10 @@ export class CreateLoanProductComponent implements OnInit {
     return this.loanProductOrganizationStep.enableTermsAndConditions;
   }
 
+  get isCreditScoringEnabled(){
+    return this.loanProductOrganizationStep.isCreditScoringEnabled;
+  }
+
   submit() {
     // TODO: Update once language and date settings are setup
     const dateFormat = this.settingsService.dateFormat;

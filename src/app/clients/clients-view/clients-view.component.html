@@ -369,6 +369,15 @@
       >
         {{ 'labels.inputs.StatusTransitions' | translate }}
       </a>
+      <a
+        mat-tab-link
+        [routerLink]="['./credit-score-tenure']"
+        routerLinkActive
+        #creditScoreTenure="routerLinkActive"
+        [active]="creditScoreTenure.isActive"
+      >
+        {{ 'labels.inputs.CreditScoreTenure' | translate }}
+      </a>
       <!--  <ng-container *ngFor="let clientDatatable of clientDatatables">
         <a mat-tab-link [routerLink]="['./datatables',clientDatatable.registeredTableName]"
           routerLinkActive #datatable="routerLinkActive" [active]="datatable.isActive" *mifosxHasPermission="'READ_' + clientDatatable.registeredTableName">
