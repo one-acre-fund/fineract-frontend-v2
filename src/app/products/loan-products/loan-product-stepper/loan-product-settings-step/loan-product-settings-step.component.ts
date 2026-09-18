@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } from '@angular/forms';
 
 @Component({
@@ -6,12 +6,13 @@ import { UntypedFormGroup, UntypedFormBuilder, Validators, UntypedFormControl } 
   templateUrl: './loan-product-settings-step.component.html',
   styleUrls: ['./loan-product-settings-step.component.scss']
 })
-export class LoanProductSettingsStepComponent implements OnInit {
+export class LoanProductSettingsStepComponent implements OnInit, OnChanges {
 
   @Input() loanProductsTemplate: any;
   @Input() isLinkedToFloatingInterestRates: UntypedFormControl;
   @Input() loanProductTemplates: any;
   @Input() enableTermsAndConditions: boolean;
+  @Input() isCreditScoringEnabled: boolean;
 
   loanProductSettingsForm: UntypedFormGroup;
 
@@ -34,6 +35,18 @@ export class LoanProductSettingsStepComponent implements OnInit {
   constructor(private formBuilder: UntypedFormBuilder) {
     this.createLoanProductSettingsForm();
     this.setConditionalControls();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isCreditScoringEnabled']) {
+      const control = this.loanProductSettingsForm.get('markedForCreditScoreRefresh');
+      if (this.isCreditScoringEnabled) {
+        control.enable();
+      } else {
+        control.setValue(false);
+        control.disable();
+      }
+    }
   }
 
   ngOnInit() {
@@ -89,6 +102,8 @@ export class LoanProductSettingsStepComponent implements OnInit {
       'showTermsAndConditions': this.loanProductsTemplate.settings?.loanProductTemplate != null || this.loanProductsTemplate.settings?.loanProductTemplate != undefined,
       'templateForTermsAndConditions': this.loanProductsTemplate.settings?.loanProductTemplate?.id,
       'canBeRecurring': this.loanProductsTemplate.canBeRecurring,
+      'markedForCreditScoreRefresh': this.loanProductsTemplate.markedForCreditScoreRefresh || false,
+      'allowedEnrolmentsPerClient': this.loanProductsTemplate.allowedEnrolmentsPerClient,
     });
 
     if (this.loanProductsTemplate.isInterestRecalculationEnabled) {
@@ -179,11 +194,22 @@ export class LoanProductSettingsStepComponent implements OnInit {
       'templateForTermsAndConditions': [''],
       'showTermsAndConditions': [false],
       'canBeRecurring': [false],
+      'markedForCreditScoreRefresh': [false],
+      'allowedEnrolmentsPerClient': ['', [Validators.min(1), Validators.max(1)]],
     });
   }
 
   setConditionalControls() {
     const allowAttributeOverrides = this.loanProductSettingsForm.get('allowAttributeOverrides');
+
+    this.loanProductSettingsForm.get('canBeRecurring').valueChanges
+      .subscribe((canBeRecurring: boolean) => {
+        const allowedEnrolmentsPerClient = this.loanProductSettingsForm.get('allowedEnrolmentsPerClient');
+        allowedEnrolmentsPerClient.setValidators(
+          canBeRecurring ? [Validators.required, Validators.min(2)] : [Validators.required, Validators.min(1), Validators.max(1)]
+        );
+        allowedEnrolmentsPerClient.updateValueAndValidity();
+      });
 
     this.loanProductSettingsForm.get('interestCalculationPeriodType').valueChanges
       .subscribe((interestCalculationPeriodType: any) => {

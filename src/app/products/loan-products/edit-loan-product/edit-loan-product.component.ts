@@ -37,6 +37,7 @@ export class EditLoanProductComponent implements OnInit {
   loanProductAndTemplate: any;
   accountingRuleData = ['None', 'Cash', 'Accrual (periodic)', 'Accrual (upfront)'];
   isQualificationRequired: boolean = false;
+  isCreditScoringEnabled: boolean = false;
   enableTermsAndConditions: boolean = false;
   
 
@@ -55,6 +56,7 @@ export class EditLoanProductComponent implements OnInit {
       this.loanProductAndTemplate = data.loanProductAndTemplate;
       this.isQualificationRequired = this.loanProductAndTemplate.configurations?.isQualificationRequired;
       this.enableTermsAndConditions = this.loanProductAndTemplate.configurations?.enableTermsAndConditions;
+      this.isCreditScoringEnabled = this.loanProductAndTemplate.configurations?.isCreditScoringEnabled;
       // this.addTermsAndConditions = this.loanProductAndTemplate.settings?.loanProductTemplate != null || this.loanProductAndTemplate.settings?.loanProductTemplate != undefined;
     });
   }
