@@ -5,7 +5,8 @@
       {{ 'labels.oaf.ManualKYC' | translate }}
     </a>
     <a mat-tab-link [routerLink]="['./client-removal-approvals']" routerLinkActive
-      #clientRemovalApprovals="routerLinkActive" [active]="clientRemovalApprovals.isActive">
+      #clientRemovalApprovals="routerLinkActive" [active]="clientRemovalApprovals.isActive"
+      *mifosxHasPermission="['CREATE_BULK_REMOVAL_GROUP', 'APPROVE_BULK_REMOVAL_GROUP', 'REJECT_BULK_REMOVAL_GROUP']">
       {{ 'labels.oaf.BulkClientRemoval' | translate }}
     </a>
   </nav>

@@ -30,6 +30,7 @@ import {
   CreateGroupRemovalImpactRequestPayload,
   GroupRemovalImpactRequestListItem,
 } from 'app/shared/group-removal-impact-requests.models';
+import { AuthenticationService } from 'app/core/authentication/authentication.service';
 
 /** Custom Data Source */
 import { GroupsDataSource } from './groups.datasource';
@@ -67,6 +68,12 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   /** Current site selector selection. */
   siteSelection: SiteSelectorChange | null = null;
 
+  /** Lowest-level office ids currently applied to the groups listing query. */
+  appliedOfficeIds: number[] = [];
+
+  /** Whether the user can see and load client bulk removal logs. */
+  private canViewClientBulkRemovalLogs = false;
+
   /** Optional group context id for group-specific checker queries. */
   groupContextId: number | null = null;
 
@@ -97,15 +104,25 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private translateService: TranslateService,
-    private settingsService: SettingsService
-  ) {}
+    private settingsService: SettingsService,
+    private authenticationService: AuthenticationService
+  ) {
+    const permissions = this.authenticationService.getCredentials()?.permissions || [];
+    this.canViewClientBulkRemovalLogs =
+      permissions.includes('ALL_FUNCTIONS') ||
+      permissions.includes('APPROVE_BULK_REMOVAL_GROUP') ||
+      permissions.includes('CREATE_BULK_REMOVAL_GROUP') ||
+      permissions.includes('REJECT_BULK_REMOVAL_GROUP');
+  }
 
   ngOnInit() {
     const groupIdParam = this.route.snapshot.paramMap.get('groupId');
     this.groupContextId = groupIdParam ? Number(groupIdParam) : null;
     this.selectedCountryId = this.getSelectedCountryId();
     this.getGroups();
-    this.loadRemovalRequests(this.requestsOffset, this.requestsLimit);
+    if (this.canViewClientBulkRemovalLogs) {
+      this.loadRemovalRequests(this.requestsOffset, this.requestsLimit);
+    }
   }
 
   /**
@@ -148,7 +165,8 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.sort.direction,
       this.paginator.pageIndex,
       this.paginator.pageSize,
-      !this.showClosedGroups.checked
+      !this.showClosedGroups.checked,
+      this.appliedOfficeIds
     );
   }
 
@@ -174,7 +192,9 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.sort.active,
       this.sort.direction,
       this.paginator.pageIndex,
-      this.paginator.pageSize
+      this.paginator.pageSize,
+      true,
+      this.appliedOfficeIds
     );
   }
 
@@ -183,6 +203,40 @@ export class GroupsComponent implements OnInit, AfterViewInit {
    */
   onSiteSelectionChange(selection: SiteSelectorChange) {
     this.siteSelection = selection;
+  }
+
+  /** Whether the current selection contains at least one lowest-level office. */
+  get canApplyOfficeFilter(): boolean {
+    return !!this.siteSelection?.siteIds?.length;
+  }
+
+  /** Whether an office filter is currently applied to the listing. */
+  get hasAppliedOfficeFilter(): boolean {
+    return this.appliedOfficeIds.length > 0;
+  }
+
+  /**
+   * Applies the selected lowest-level offices to the groups listing query.
+   */
+  applyOfficeFilter() {
+    if (!this.canApplyOfficeFilter) {
+      return;
+    }
+    this.appliedOfficeIds = [...this.siteSelection.siteIds];
+    this.paginator.pageIndex = 0;
+    this.loadGroupsPage();
+  }
+
+  /**
+   * Removes the office filter from the groups listing query.
+   */
+  clearOfficeFilter() {
+    if (!this.hasAppliedOfficeFilter) {
+      return;
+    }
+    this.appliedOfficeIds = [];
+    this.paginator.pageIndex = 0;
+    this.loadGroupsPage();
   }
 
   /**

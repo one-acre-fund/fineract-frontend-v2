@@ -1,6 +1,27 @@
 <div class="container">
   <mifosx-site-selector (selectionChange)="onSiteSelectionChange($event)"></mifosx-site-selector>
 
+  <div class="office-filter-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="12px">
+    <button
+      mat-stroked-button
+      color="primary"
+      type="button"
+      [disabled]="!hasAppliedOfficeFilter"
+      (click)="clearOfficeFilter()"
+    >
+      {{ 'labels.buttons.Clear Filter' | translate }}
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="!canApplyOfficeFilter"
+      (click)="applyOfficeFilter()"
+    >
+      <fa-icon icon="filter"></fa-icon>&nbsp;{{ 'labels.buttons.Filter' | translate }}
+    </button>
+  </div>
+
   <mat-card>
     <div fxLayout="row" fxLayoutAlign="start center">
     <div class="search-box">
@@ -68,7 +89,7 @@
   ></mat-paginator>
   </mat-card>
 
-  <div class="actions-section">
+  <div class="actions-section" *mifosxHasPermission="'CREATE_BULK_REMOVAL_GROUP'">
   <div class="actions-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
     <div class="actions-icon">
       <fa-icon icon="hand-pointer"></fa-icon>
@@ -90,11 +111,10 @@
       </button>
     </div>
   </mat-card>
-  </div>
   <br />
-  
+  </div>
 
-  <div class="logs-section">
+  <div class="logs-section" *mifosxHasPermission="['CREATE_BULK_REMOVAL_GROUP', 'APPROVE_BULK_REMOVAL_GROUP', 'REJECT_BULK_REMOVAL_GROUP']">
     <div class="logs-header" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="12px">
       <div class="logs-icon">
         <fa-icon icon="list"></fa-icon>

@@ -31,7 +31,14 @@ export class GroupsService {
    * @param {number} limit Number of entries within the page.
    * @returns {Observable<any>} Groups.
    */
-  getGroups(filterBy: any, orderBy: string, sortOrder: string, offset?: number, limit?: number): Observable<any> {
+  getGroups(
+    filterBy: any,
+    orderBy: string,
+    sortOrder: string,
+    offset?: number,
+    limit?: number,
+    officeIds?: number[]
+  ): Observable<any> {
     let httpParams = new HttpParams()
       .set('offset', offset.toString())
       .set('limit', limit.toString())
@@ -45,6 +52,7 @@ export class GroupsService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
+    httpParams = this.appendOfficeIds(httpParams, officeIds);
     return this.http.get('/groups', { params: httpParams });
   }
 
@@ -54,7 +62,8 @@ export class GroupsService {
     sortOrder: string,
     offset?: number,
     limit?: number,
-    countryId?: string
+    countryId?: string,
+    officeIds?: number[]
   ): Observable<any> {
     let httpParams = new HttpParams()
       .set('offset', offset.toString())
@@ -70,7 +79,16 @@ export class GroupsService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
+    httpParams = this.appendOfficeIds(httpParams, officeIds);
     return this.http.get('/groups', { params: httpParams });
+  }
+
+  /** Appends one repeated `officeIds` query parameter per selected office. */
+  private appendOfficeIds(httpParams: HttpParams, officeIds?: number[]): HttpParams {
+    (officeIds || []).forEach((officeId: number) => {
+      httpParams = httpParams.append('officeIds', officeId.toString());
+    });
+    return httpParams;
   }
 
   /**
