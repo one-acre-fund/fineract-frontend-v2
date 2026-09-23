@@ -153,6 +153,9 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
       case 'Delete':
         this.deleteClient();
         break;
+      case 'Push To Kyc':
+        this.pushToKyc();
+        break;
       case 'View Signature':
         this.viewSignature();
         break;
@@ -212,6 +215,12 @@ export class ClientsViewComponent implements OnInit, OnDestroy {
         this.matomoTracker.trackEvent('clients', 'deleteSuccess', this.clientViewData.id);
       }
     });
+  }
+
+  pushToKyc() {
+    this.clientsService.pushToKyc(this.clientViewData.id).subscribe(() => {
+          this.router.navigate(['/clients'], { relativeTo: this.route });
+        });
   }
 
   /**

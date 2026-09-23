@@ -11,6 +11,11 @@
         * [HQX-332/HQX-379] - Add markedForCreditScoreRefresh and allowedEnrolmentsPerClient fields on loan product UI
         * [HQX-402] - Guard bulk removal of clients from groups using permissions and filter groups by offices selected
 
+## Version 1.4.11.1 - Community 1.0.0
+
+    * Clients & Groups
+        * [FNG-424] - Add ability to push eligible client to KYC checker inbox
+
 ## Version 1.4.11 - Community 1.0.0
 
     * Savings Accounts & Products
