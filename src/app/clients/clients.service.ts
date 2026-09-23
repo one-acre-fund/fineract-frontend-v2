@@ -105,7 +105,8 @@ export class ClientsService {
   getClientDataWithRequiredDetails(clientId: string) {
     const httpParams = new HttpParams().set('includeCreditScores', 'true')
     .set('includeOfficeHierarchyPath', 'true')
-    .set('includeEligibleForActivationFlag', 'true');
+    .set('includeEligibleForActivationFlag', 'true')
+    .set('includeIsClientReadyForKYCVerification', 'true');
     return this.http.get(`/clients/${clientId}`, { params: httpParams });
   }
 
@@ -548,6 +549,10 @@ export class ClientsService {
    */
   clearKycFieldsCache(): void {
     this.kycFieldsCache = null;
+  }
+
+  pushToKyc(clientId: string) {
+    return this.http.post(`/kycApprovals/${clientId}/pushToKyc`, null);
   }
 
   /**

@@ -716,7 +716,8 @@
       "View Active Charges": "Afficher les frais actifs",
       "View Inactive Charges": "Afficher les frais inactifs",
       "FetchHistory": "Récupérer l'historique",
-      "Yes": "Oui"
+      "Yes": "Oui",
+      "PushToKyc": "Pousser vers Kyc"
     },
     "catalogs": {
       "Interest payment waiver": "Renonciation au paiement des intérêts",

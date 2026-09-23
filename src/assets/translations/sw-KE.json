@@ -717,7 +717,8 @@
       "View Active Charges": "Ona Malipo Yanayotumika",
       "View Inactive Charges": "Ona Malipo Yasiyotumika",
       "Yes": "Ndiyo",
-      "FetchHistory": "Pata Historia"
+      "FetchHistory": "Pata Historia",
+      "PushToKyc": "Sukuma kwa Kyc"
     },
     "catalogs": {
       "Interest payment waiver": "Kuachilia Malipo ya Riba",

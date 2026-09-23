@@ -717,7 +717,8 @@
       "View Active Charges": "View Active Charges",
       "View Inactive Charges": "View Inactive Charges",
       "FetchHistory": "Fetch History",
-      "Yes": "Yes"
+      "Yes": "Yes",
+      "PushToKyc": "Push To Kyc"
     },
     "catalogs": {
       "Interest payment waiver": "Interest Payment Waiver",
