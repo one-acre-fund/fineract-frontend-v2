@@ -1575,6 +1575,8 @@
       "Date": "Date",
       "MembershipHistory": "Historique de l'adhésion",
       "StatusTransitions": "Historique de statut",
+      "DeletedOnDate": "Supprimé le",
+      "DeletedBy": "Supprimé par",
       "CreditScoreTenure": "Durée du score de crédit"
     },
     "inputs": {

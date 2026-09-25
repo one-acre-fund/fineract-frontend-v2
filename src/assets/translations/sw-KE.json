@@ -1578,6 +1578,8 @@
       "Date": "Tarehe",
       "MembershipHistory": "Historia ya Uanachama",
       "StatusTransitions": "Mabadiliko ya Hali",
+      "DeletedOnDate": "Imefutwa mnamo",
+      "DeletedBy": "Imefutwa na",
       "CreditScoreTenure": "Muda wa Alama ya Mkopo"
     },
     "inputs": {

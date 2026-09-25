@@ -1580,6 +1580,8 @@
       "Date": "Date",
       "MembershipHistory": "Membership History",
       "StatusTransitions": "Status Transitions",
+      "DeletedOnDate": "Deleted on",
+      "DeletedBy": "Deleted by",
       "CreditScoreTenure": "Credit Score Tenure"
     },
     "inputs": {

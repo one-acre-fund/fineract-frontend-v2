@@ -34,12 +34,19 @@
                 <br />
                 <span *ngIf="loanDetailsData.group">
                   {{ 'labels.inputs.Group Name' | translate }} : {{ loanDetailsData.group.name }}
+                  <br />
                 </span>
                 <span *ngIf="loanDetailsData.status">
                   {{ 'labels.heading.Status' | translate }} : {{ ('labels.status.' + loanDetailsData?.status?.value) | translate }}
                 </span>
                 <span *ngIf="loanDetailsData.subStatus">
                   - {{ ('labels.subStatus.' + loanDetailsData?.subStatus?.value) | translate }}
+                </span>
+                <span *ngIf = "loanDetailsData.status?.code == 'loanStatusType.deleted'">
+                  <br />
+                   {{ 'labels.heading.DeletedOnDate' | translate }} : {{ loanDetailsData.timeline?.deletedOnDate | dateArrayFormat }}
+                   <br />
+                   {{ 'labels.heading.DeletedBy' | translate }} : {{ loanDetailsData.timeline?.deletedByFirstname }}  {{ loanDetailsData.timeline?.deletedByLastname }} 
                 </span>
               </h3>
             </div>
