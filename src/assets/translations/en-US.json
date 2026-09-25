@@ -1517,7 +1517,9 @@
       "Maker": "Maker",
       "Date": "Date",
       "MembershipHistory": "Membership History",
-      "StatusTransitions": "Status Transitions"
+      "StatusTransitions": "Status Transitions",
+      "DeletedOnDate": "Deleted on",
+      "DeletedBy": "Deleted by"
     },
     "inputs": {
       "accounting": {

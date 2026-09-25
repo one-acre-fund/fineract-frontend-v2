@@ -1515,7 +1515,9 @@
       "Maker": "Muumba",
       "Date": "Tarehe",
       "MembershipHistory": "Historia ya Uanachama",
-      "StatusTransitions": "Mabadiliko ya Hali"
+      "StatusTransitions": "Mabadiliko ya Hali",
+      "DeletedOnDate": "Imefutwa mnamo",
+      "DeletedBy": "Imefutwa na"
     },
     "inputs": {
       "accounting": {

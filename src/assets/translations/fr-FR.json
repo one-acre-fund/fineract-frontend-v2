@@ -1512,7 +1512,9 @@
       "Maker": "Créateur",
       "Date": "Date",
       "MembershipHistory": "Historique de l'adhésion",
-      "StatusTransitions": "Historique de statut"
+      "StatusTransitions": "Historique de statut",
+      "DeletedOnDate": "Supprimé le",
+      "DeletedBy": "Supprimé par"
     },
     "inputs": {
       "accounting": {

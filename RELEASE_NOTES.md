@@ -1,5 +1,10 @@
 # Release Notes
 
+## Version 1.4.11.2 - Community 1.0.0
+
+    *  Loans & Payments
+        * [HQX-215] - Display deleted date and deleted by information on deleted loans
+
 ## Version 1.4.11.1 - Community 1.0.0
 
     * Clients & Groups
