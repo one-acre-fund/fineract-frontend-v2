@@ -3,3 +3,10 @@ image:
   name: "oaftech.azurecr.io/oneacrefund/fineract-frontend-v2"
   # Fineract Frontend v2 image tag placeholder that will be replaced in Azure pipeline task
   tag: "oneacrefund"
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
