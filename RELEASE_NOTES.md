@@ -10,6 +10,7 @@
         * [HQX-358] - Approval flow: Removal of farmers from groups
         * [HQX-332/HQX-379] - Add markedForCreditScoreRefresh and allowedEnrolmentsPerClient fields on loan product UI
         * [HQX-402] - Guard bulk removal of clients from groups using permissions and filter groups by offices selected
+        * [HQX-415] - Groups filtering by higher level hierarchy offices
 
 ## Version 1.4.11.2 - Community 1.0.0
 

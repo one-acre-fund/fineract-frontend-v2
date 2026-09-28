@@ -102,6 +102,15 @@ export class SiteSelectorComponent implements OnInit, OnChanges, OnDestroy {
     this.destroy$.complete();
   }
 
+  /** Resets region/district/site selections back to their initial empty state without refetching offices. */
+  resetSelection(): void {
+    this.districtOptions = [];
+    this.siteOptions = [];
+    this.siteDropdownOptions = [];
+    this.siteSelectorForm.reset({ regionId: null, districtId: null, siteIds: this.ALL_SITES });
+    this.emitSelection();
+  }
+
   private resetForm(): void {
     this.allCountryOffices = [];
     this.regionOptions = [];

@@ -17,7 +17,8 @@ import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GroupsService } from './groups.service';
 
 /** Custom Components */
-import { SiteSelectorChange } from 'app/shared/site-selector/site-selector.component';
+import { SiteSelectorChange, SiteSelectorComponent } from 'app/shared/site-selector/site-selector.component';
+
 import {
   GroupRemovalCheckerTabEvent,
   GroupRemovalCheckerPageEvent,
@@ -45,6 +46,7 @@ import { GroupsDataSource } from './groups.datasource';
 })
 export class GroupsComponent implements OnInit, AfterViewInit {
   @ViewChild('showClosedGroups', { static: true }) showClosedGroups: MatCheckbox;
+  @ViewChild('siteSelector') siteSelector: SiteSelectorComponent;
 
   /** Name form control. */
   name = new UntypedFormControl();
@@ -205,9 +207,9 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     this.siteSelection = selection;
   }
 
-  /** Whether the current selection contains at least one lowest-level office. */
+  /** Whether the current selection contains an office at any hierarchy level. */
   get canApplyOfficeFilter(): boolean {
-    return !!this.siteSelection?.siteIds?.length;
+    return !!this.getSelectedOfficeIdsForFilter().length;
   }
 
   /** Whether an office filter is currently applied to the listing. */
@@ -216,24 +218,43 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Applies the selected lowest-level offices to the groups listing query.
+   * Applies the selected offices (from whichever hierarchy level was chosen) to the groups listing query.
    */
   applyOfficeFilter() {
-    if (!this.canApplyOfficeFilter) {
+    const officeIds = this.getSelectedOfficeIdsForFilter();
+    if (!officeIds.length) {
       return;
     }
-    this.appliedOfficeIds = [...this.siteSelection.siteIds];
+    this.appliedOfficeIds = officeIds;
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
   }
 
   /**
-   * Removes the office filter from the groups listing query.
+   * Resolves the office ids to filter by, preferring the most specific level selected
+   * (sites), then falling back to district, then region.
+   */
+  private getSelectedOfficeIdsForFilter(): number[] {
+    if (this.siteSelection?.siteIds?.length) {
+      return [...this.siteSelection.siteIds];
+    }
+    if (this.siteSelection?.districtId) {
+      return [this.siteSelection.districtId];
+    }
+    if (this.siteSelection?.regionId) {
+      return [this.siteSelection.regionId];
+    }
+    return [];
+  }
+
+  /** and resets the site selector dropdowns.
    */
   clearOfficeFilter() {
     if (!this.hasAppliedOfficeFilter) {
       return;
     }
+    this.appliedOfficeIds = [];
+    this.siteSelector?.resetSelection()
     this.appliedOfficeIds = [];
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
