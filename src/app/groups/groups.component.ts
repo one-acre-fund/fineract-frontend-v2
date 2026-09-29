@@ -70,7 +70,9 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   /** Current site selector selection. */
   siteSelection: SiteSelectorChange | null = null;
 
-  /** Lowest-level office ids currently applied to the groups listing query. */
+  /** Office currently applied to the groups listing query. */
+  appliedOfficeId: number | null = null;
+  /** Multiple sites currently applied to the groups listing query. */
   appliedOfficeIds: number[] = [];
 
   /** Whether the user can see and load client bulk removal logs. */
@@ -168,6 +170,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize,
       !this.showClosedGroups.checked,
+      this.appliedOfficeId,
       this.appliedOfficeIds
     );
   }
@@ -196,6 +199,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize,
       true,
+      this.appliedOfficeId,
       this.appliedOfficeIds
     );
   }
@@ -209,42 +213,47 @@ export class GroupsComponent implements OnInit, AfterViewInit {
 
   /** Whether the current selection contains an office at any hierarchy level. */
   get canApplyOfficeFilter(): boolean {
-    return !!this.getSelectedOfficeIdsForFilter().length;
+    const filter = this.getOfficeFilter();
+    return filter.officeId !== null || filter.officeIds.length > 0;
   }
 
   /** Whether an office filter is currently applied to the listing. */
   get hasAppliedOfficeFilter(): boolean {
-    return this.appliedOfficeIds.length > 0;
+    return this.appliedOfficeId !== null || this.appliedOfficeIds.length > 0;
   }
 
   /**
    * Applies the selected offices (from whichever hierarchy level was chosen) to the groups listing query.
    */
   applyOfficeFilter() {
-    const officeIds = this.getSelectedOfficeIdsForFilter();
-    if (!officeIds.length) {
+    const filter = this.getOfficeFilter();
+    if (filter.officeId === null && !filter.officeIds.length) {
       return;
     }
-    this.appliedOfficeIds = officeIds;
+    this.appliedOfficeId = filter.officeId;
+    this.appliedOfficeIds = filter.officeIds;
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
   }
 
   /**
-   * Resolves the office ids to filter by, preferring the most specific level selected
-   * (sites), then falling back to district, then region.
+   * Resolves site selections to officeIds and hierarchy selections to officeId.
    */
-  private getSelectedOfficeIdsForFilter(): number[] {
-    if (this.siteSelection?.siteIds?.length) {
-      return [...this.siteSelection.siteIds];
+  private getOfficeFilter(): { officeId: number | null; officeIds: number[] } {
+    const siteIds = this.siteSelection?.siteIds || [];
+    if (siteIds.length > 1) {
+      return { officeId: null, officeIds: [...siteIds] };
+    }
+    if (siteIds.length === 1) {
+      return { officeId: siteIds[0], officeIds: [] };
     }
     if (this.siteSelection?.districtId) {
-      return [this.siteSelection.districtId];
+      return { officeId: this.siteSelection.districtId, officeIds: [] };
     }
     if (this.siteSelection?.regionId) {
-      return [this.siteSelection.regionId];
+      return { officeId: this.siteSelection.regionId, officeIds: [] };
     }
-    return [];
+    return { officeId: null, officeIds: [] };
   }
 
   /** and resets the site selector dropdowns.
@@ -253,9 +262,9 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     if (!this.hasAppliedOfficeFilter) {
       return;
     }
+    this.appliedOfficeId = null;
     this.appliedOfficeIds = [];
-    this.siteSelector?.resetSelection()
-    this.appliedOfficeIds = [];
+    this.siteSelector?.resetSelection();
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
   }
