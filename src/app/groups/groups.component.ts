@@ -302,7 +302,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     };
 
     this.groupsService.getGroupRemovalImpactTemplate(payload).subscribe((impactTemplate: any) => {
-        this.router.navigate(['bulk-client-removal'], {
+        void this.router.navigate(['bulk-client-removal'], {
           relativeTo: this.route,
           state: { siteSelection: this.siteSelection, impactTemplate },
         });
@@ -376,7 +376,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   }
 
   onRemovalCheckerReview(event: { row: GroupRemovalCheckerTableRow; groupId: number | null }): void {
-    this.router.navigate(['bulk-client-removal'], {
+    void this.router.navigate(['bulk-client-removal'], {
       relativeTo: this.route,
       state: {
         siteSelection: this.siteSelection,
