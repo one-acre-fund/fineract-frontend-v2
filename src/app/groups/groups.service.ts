@@ -37,6 +37,7 @@ export class GroupsService {
     sortOrder: string,
     offset?: number,
     limit?: number,
+    officeId?: number | null,
     officeIds?: number[]
   ): Observable<any> {
     let httpParams = new HttpParams()
@@ -52,7 +53,7 @@ export class GroupsService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
-    httpParams = this.appendOfficeIds(httpParams, officeIds);
+    httpParams = this.appendOfficeFilter(httpParams, officeId, officeIds);
     return this.http.get('/groups', { params: httpParams });
   }
 
@@ -63,6 +64,7 @@ export class GroupsService {
     offset?: number,
     limit?: number,
     countryId?: string,
+    officeId?: number | null,
     officeIds?: number[]
   ): Observable<any> {
     let httpParams = new HttpParams()
@@ -79,15 +81,19 @@ export class GroupsService {
         httpParams = httpParams.set(filter.type, filter.value);
       }
     });
-    httpParams = this.appendOfficeIds(httpParams, officeIds);
+    httpParams = this.appendOfficeFilter(httpParams, officeId, officeIds);
     return this.http.get('/groups', { params: httpParams });
   }
 
-  /** Appends one repeated `officeIds` query parameter per selected office. */
-  private appendOfficeIds(httpParams: HttpParams, officeIds?: number[]): HttpParams {
-    (officeIds || []).forEach((officeId: number) => {
-      httpParams = httpParams.append('officeIds', officeId.toString());
-    });
+  /** Appends either a hierarchy office or multiple site offices. */
+  private appendOfficeFilter(httpParams: HttpParams, officeId?: number | null, officeIds: number[] = []): HttpParams {
+    if (officeId !== null && officeId !== undefined) {
+      httpParams = httpParams.set('officeId', officeId.toString());
+    } else {
+      officeIds.forEach((selectedOfficeId: number) => {
+        httpParams = httpParams.append('officeIds', selectedOfficeId.toString());
+      });
+    }
     return httpParams;
   }
 

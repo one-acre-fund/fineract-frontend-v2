@@ -17,7 +17,8 @@ import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { GroupsService } from './groups.service';
 
 /** Custom Components */
-import { SiteSelectorChange } from 'app/shared/site-selector/site-selector.component';
+import { SiteSelectorChange, SiteSelectorComponent } from 'app/shared/site-selector/site-selector.component';
+
 import {
   GroupRemovalCheckerTabEvent,
   GroupRemovalCheckerPageEvent,
@@ -45,6 +46,7 @@ import { GroupsDataSource } from './groups.datasource';
 })
 export class GroupsComponent implements OnInit, AfterViewInit {
   @ViewChild('showClosedGroups', { static: true }) showClosedGroups: MatCheckbox;
+  @ViewChild('siteSelector') siteSelector: SiteSelectorComponent;
 
   /** Name form control. */
   name = new UntypedFormControl();
@@ -68,7 +70,9 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   /** Current site selector selection. */
   siteSelection: SiteSelectorChange | null = null;
 
-  /** Lowest-level office ids currently applied to the groups listing query. */
+  /** Office currently applied to the groups listing query. */
+  appliedOfficeId: number | null = null;
+  /** Multiple sites currently applied to the groups listing query. */
   appliedOfficeIds: number[] = [];
 
   /** Whether the user can see and load client bulk removal logs. */
@@ -166,6 +170,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize,
       !this.showClosedGroups.checked,
+      this.appliedOfficeId,
       this.appliedOfficeIds
     );
   }
@@ -194,6 +199,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
       this.paginator.pageIndex,
       this.paginator.pageSize,
       true,
+      this.appliedOfficeId,
       this.appliedOfficeIds
     );
   }
@@ -205,36 +211,60 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     this.siteSelection = selection;
   }
 
-  /** Whether the current selection contains at least one lowest-level office. */
+  /** Whether the current selection contains an office at any hierarchy level. */
   get canApplyOfficeFilter(): boolean {
-    return !!this.siteSelection?.siteIds?.length;
+    const filter = this.getOfficeFilter();
+    return filter.officeId !== null || filter.officeIds.length > 0;
   }
 
   /** Whether an office filter is currently applied to the listing. */
   get hasAppliedOfficeFilter(): boolean {
-    return this.appliedOfficeIds.length > 0;
+    return this.appliedOfficeId !== null || this.appliedOfficeIds.length > 0;
   }
 
   /**
-   * Applies the selected lowest-level offices to the groups listing query.
+   * Applies the selected offices (from whichever hierarchy level was chosen) to the groups listing query.
    */
   applyOfficeFilter() {
-    if (!this.canApplyOfficeFilter) {
+    const filter = this.getOfficeFilter();
+    if (filter.officeId === null && !filter.officeIds.length) {
       return;
     }
-    this.appliedOfficeIds = [...this.siteSelection.siteIds];
+    this.appliedOfficeId = filter.officeId;
+    this.appliedOfficeIds = filter.officeIds;
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
   }
 
   /**
-   * Removes the office filter from the groups listing query.
+   * Resolves site selections to officeIds and hierarchy selections to officeId.
+   */
+  private getOfficeFilter(): { officeId: number | null; officeIds: number[] } {
+    const siteIds = this.siteSelection?.siteIds || [];
+    if (siteIds.length > 1) {
+      return { officeId: null, officeIds: [...siteIds] };
+    }
+    if (siteIds.length === 1) {
+      return { officeId: siteIds[0], officeIds: [] };
+    }
+    if (this.siteSelection?.districtId) {
+      return { officeId: this.siteSelection.districtId, officeIds: [] };
+    }
+    if (this.siteSelection?.regionId) {
+      return { officeId: this.siteSelection.regionId, officeIds: [] };
+    }
+    return { officeId: null, officeIds: [] };
+  }
+
+  /** and resets the site selector dropdowns.
    */
   clearOfficeFilter() {
     if (!this.hasAppliedOfficeFilter) {
       return;
     }
+    this.appliedOfficeId = null;
     this.appliedOfficeIds = [];
+    this.siteSelector?.resetSelection();
     this.paginator.pageIndex = 0;
     this.loadGroupsPage();
   }
@@ -272,7 +302,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
     };
 
     this.groupsService.getGroupRemovalImpactTemplate(payload).subscribe((impactTemplate: any) => {
-        this.router.navigate(['bulk-client-removal'], {
+        void this.router.navigate(['bulk-client-removal'], {
           relativeTo: this.route,
           state: { siteSelection: this.siteSelection, impactTemplate },
         });
@@ -346,7 +376,7 @@ export class GroupsComponent implements OnInit, AfterViewInit {
   }
 
   onRemovalCheckerReview(event: { row: GroupRemovalCheckerTableRow; groupId: number | null }): void {
-    this.router.navigate(['bulk-client-removal'], {
+    void this.router.navigate(['bulk-client-removal'], {
       relativeTo: this.route,
       state: {
         siteSelection: this.siteSelection,

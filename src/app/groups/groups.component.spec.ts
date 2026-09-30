@@ -27,9 +27,11 @@ describe('GroupsComponent', () => {
     siteIds,
   });
 
-  /** Office ids sent on the Nth groups listing request. */
+  /** Office id sent on the Nth groups listing request. */
+  const officeIdOfCall = (index: number): number | null =>
+    groupsService.getGroupsByCountryId.calls.argsFor(index)[6] as number | null;
   const officeIdsOfCall = (index: number): number[] =>
-    groupsService.getGroupsByCountryId.calls.argsFor(index)[6] as number[];
+    groupsService.getGroupsByCountryId.calls.argsFor(index)[7] as number[];
 
   beforeEach(async () => {
     sessionStorage.setItem('selectedCountry', JSON.stringify({ id: 5 }));
@@ -86,7 +88,7 @@ describe('GroupsComponent', () => {
 
   it('should load the listing once on init without an office filter', () => {
     expect(groupsService.getGroupsByCountryId).toHaveBeenCalledTimes(1);
-    expect(officeIdsOfCall(0)).toEqual([]);
+    expect(officeIdOfCall(0)).toBeNull();
   });
 
   it('should not reload the listing when the site selection changes', () => {
@@ -96,7 +98,7 @@ describe('GroupsComponent', () => {
     expect(groupsService.getGroupsByCountryId).toHaveBeenCalledTimes(1);
   });
 
-  it('should enable the filter only when lowest-level offices are selected', () => {
+  it('should enable the filter when an office at any hierarchy level is selected', () => {
     expect(component.canApplyOfficeFilter).toBe(false);
 
     component.onSiteSelectionChange(selection(null));
@@ -109,22 +111,23 @@ describe('GroupsComponent', () => {
     expect(component.canApplyOfficeFilter).toBe(true);
   });
 
-  it('should send the selected office ids when the filter is applied', () => {
+  it('should send the selected office id when the filter is applied', () => {
     component.onSiteSelectionChange(selection([12, 19]));
     component.applyOfficeFilter();
 
     expect(groupsService.getGroupsByCountryId).toHaveBeenCalledTimes(2);
+    expect(officeIdOfCall(1)).toBeNull();
     expect(officeIdsOfCall(1)).toEqual([12, 19]);
   });
 
-  it('should copy the selected ids so later selector edits do not mutate the applied filter', () => {
+  it('should preserve the applied office when later selector edits occur', () => {
     const current = selection([12]);
     component.onSiteSelectionChange(current);
     component.applyOfficeFilter();
 
-    current.siteIds.push(19);
+    current.siteIds!.push(19);
 
-    expect(component.appliedOfficeIds).toEqual([12]);
+    expect(component.appliedOfficeId).toBe(12);
   });
 
   it('should reset to the first page when the filter is applied', () => {
@@ -135,12 +138,12 @@ describe('GroupsComponent', () => {
     expect(component.paginator.pageIndex).toBe(0);
   });
 
-  it('should do nothing when applying without a lowest-level office selection', () => {
+  it('should do nothing when applying without an office selection', () => {
     component.onSiteSelectionChange(selection(null));
     component.applyOfficeFilter();
 
     expect(groupsService.getGroupsByCountryId).toHaveBeenCalledTimes(1);
-    expect(component.appliedOfficeIds).toEqual([]);
+    expect(component.appliedOfficeId).toBeNull();
   });
 
   it('should keep the applied filter across sort and page changes', () => {
@@ -149,10 +152,10 @@ describe('GroupsComponent', () => {
 
     component.loadGroupsPage();
 
-    expect(officeIdsOfCall(2)).toEqual([12]);
+    expect(officeIdOfCall(2)).toBe(12);
   });
 
-  it('should drop the office ids when the filter is cleared', () => {
+  it('should drop the office id when the filter is cleared', () => {
     component.onSiteSelectionChange(selection([12]));
     component.applyOfficeFilter();
     component.paginator.pageIndex = 2;
@@ -163,7 +166,7 @@ describe('GroupsComponent', () => {
 
     expect(component.hasAppliedOfficeFilter).toBe(false);
     expect(component.paginator.pageIndex).toBe(0);
-    expect(officeIdsOfCall(2)).toEqual([]);
+    expect(officeIdOfCall(2)).toBeNull();
   });
 
   it('should do nothing when clearing with no filter applied', () => {
@@ -178,7 +181,7 @@ describe('GroupsComponent', () => {
     component.applyOfficeFilter();
 
     expect(groupsService.getGroups).toHaveBeenCalledTimes(1);
-    expect(groupsService.getGroups.calls.argsFor(0)[5]).toEqual([12]);
+    expect(groupsService.getGroups.calls.argsFor(0)[5]).toBe(12);
   });
 
 });

@@ -31,7 +31,8 @@ export class GroupsDataSource implements DataSource<any> {
    * @param {number} pageIndex Page number.
    * @param {number} limit Number of entries within the page.
    * @param {boolean} groupActive Specify whether to only filter active groups.
-   * @param {number[]} officeIds Lowest-level office ids to restrict the listing to.
+    * @param {number} officeId Office id to restrict the listing to.
+    * @param {number[]} officeIds Site ids to restrict the listing to.
    */
   getGroups(
     filterBy: any,
@@ -40,6 +41,7 @@ export class GroupsDataSource implements DataSource<any> {
     pageIndex: number = 0,
     limit: number = 10,
     groupActive: boolean = true,
+    officeId: number | null = null,
     officeIds: number[] = []
   ) {
     this.groupsSubject.next([]);
@@ -53,10 +55,11 @@ export class GroupsDataSource implements DataSource<any> {
         pageIndex * limit,
         limit,
         countryId,
+        officeId,
         officeIds
       );
     } else {
-      groupsObs = this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit, officeIds);
+      groupsObs = this.groupsService.getGroups(filterBy, "name", "ASC", pageIndex, limit, officeId, officeIds);
     }
 
     groupsObs.subscribe((groups: any) => {
