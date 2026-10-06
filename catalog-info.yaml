@@ -17,10 +17,11 @@ metadata:
       url: https://loans.dev.oneacrefund.org/
       icon: web
   annotations:
-    backstage.io/source-location: url:https://github.com/one-acre-fund/fineract-frontend-v2/tree/main
-    sonarqube.org/project-key: one-acre-fund_fineract-frontend-v2
-    github.com/project-slug: one-acre-fund/fineract-frontend-v2
-    sentry.io/project-slug: fineract-ui
+    sonarqube.org/project-key: 'one-acre-fund_fineract-frontend-v2'
+    github.com/project-slug: 'one-acre-fund/fineract-frontend-v2'
+    sentry.io/project-slug: 'fineract-ui'
+    argocd/app-selector: 'app=fineract-frontend'
+    backstage.io/kubernetes-label-selector: 'instance=fineract-frontend'
 spec:
   type: website
   lifecycle: production
