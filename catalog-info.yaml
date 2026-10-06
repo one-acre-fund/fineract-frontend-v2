@@ -25,7 +25,7 @@ metadata:
 spec:
   type: website
   lifecycle: production
-  owner: group:one-acre-fund/credits-and-payments
+  owner: group:default/credits-and-payments
   system: system:default/clif
   dependsOn:
     - component:default/fineract
