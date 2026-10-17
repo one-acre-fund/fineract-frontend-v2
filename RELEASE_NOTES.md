@@ -1,6 +1,10 @@
 # Release Notes
 
 ## Version 1.4.12 - Community 1.0.0
+    *  Loans & Payments
+        * [HQX-280] - Enable the ability to configure loan product down payment qualification in a flexible way to support different country requirements
+
+## Version 1.4.12 - Community 1.0.0
 
     * Configurations
           * [HQX-306] - Add disbursement date loan repayment allocation protocol to system choice

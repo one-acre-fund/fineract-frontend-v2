@@ -1,0 +1,91 @@
+<mat-expansion-panel
+  [formGroup]="configuration"
+  [expanded]="expanded"
+  (expandedChange)="expanded = $event"
+  class="down-payment-panel"
+>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ configuration.get('name').value || ('labels.oaf.downPaymentConfigurationUnnamed' | translate) }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ 'labels.oaf.downPaymentConfigurationType.' + configuration.get('type').value | translate }} &nbsp;&middot;&nbsp;
+      {{ officeCount }} {{ 'labels.oaf.offices' | translate }} &nbsp;&middot;&nbsp;
+      {{ periods.length }} {{ 'labels.oaf.periods' | translate }}
+      <fa-icon *ngIf="configuration.invalid" icon="exclamation-circle" class="down-payment-invalid"></fa-icon>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column">
+    <mat-form-field fxFlex="48%">
+      <mat-label>{{ 'labels.inputs.Name' | translate }}</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="configuration.get('name').hasError('required')">
+        {{ 'labels.inputs.Name' | translate }} <strong>{{ 'labels.commons.required' | translate }}</strong>
+      </mat-error>
+      <mat-error *ngIf="configuration.get('name').hasError('maxlength')">
+        {{ 'labels.oaf.downPaymentConfigurationNameTooLong' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="48%">
+      <mat-label>{{ 'labels.inputs.Type' | translate }}</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of types" [value]="type" (click)="onTypeChange(type)">
+          {{ 'labels.oaf.downPaymentConfigurationType.' + type | translate }}
+        </mat-option>
+      </mat-select>
+      <mat-error>
+        {{ 'labels.inputs.Type' | translate }} <strong>{{ 'labels.commons.required' | translate }}</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <h4 class="mat-h4">{{ 'labels.heading.downPaymentConfigurationOffices' | translate }}</h4>
+  <p class="down-payment-hint">{{ 'labels.oaf.downPaymentOfficesHint' | translate }}</p>
+  <mifosx-country-tree-view
+    *ngIf="officeTree?.length > 0"
+    [treeDataSource]="officeTree"
+    [disabledOfficeIds]="disabledOfficeIds"
+    [selectOfficeOnly]="true"
+    (checkedOffices)="onOfficesChecked($event)"
+  >
+  </mifosx-country-tree-view>
+  <div *ngIf="!officeTree || officeTree.length === 0" class="down-payment-hint">
+    {{ 'labels.oaf.downPaymentOfficesUnavailable' | translate }}
+  </div>
+
+  <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" class="margin-t">
+    <div fxLayout="column" fxFlex="48%" class="tableName">
+      <h4 class="mat-h4">{{ 'labels.heading.downPaymentPeriods' | translate }}</h4>
+    </div>
+    <div fxLayout="column" fxFlex="48%">
+      <div fxLayout="row" fxLayoutAlign="flex-end">
+        <button type="button" mat-raised-button color="primary" *ngIf="!isStatic" (click)="addPeriod()">
+          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.oaf.addDateRange' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div formArrayName="periods">
+    <mifosx-down-payment-period
+      *ngFor="let period of periods.controls; let periodIndex = index"
+      [configurationIndex]="configurationIndex"
+      [periodIndex]="periodIndex"
+      [isStatic]="isStatic"
+      [amountCalculationTypeOptions]="amountCalculationTypeOptions"
+    >
+    </mifosx-down-payment-period>
+  </div>
+
+  <div *ngIf="messages.length > 0" class="down-payment-messages">
+    <div *ngFor="let message of messages">{{ message }}</div>
+  </div>
+
+  <mat-action-row>
+    <button type="button" mat-button color="warn" (click)="remove()">
+      <fa-icon icon="trash"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Delete' | translate }}
+    </button>
+  </mat-action-row>
+</mat-expansion-panel>

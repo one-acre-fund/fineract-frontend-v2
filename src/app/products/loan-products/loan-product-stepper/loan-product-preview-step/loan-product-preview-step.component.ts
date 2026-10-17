@@ -13,6 +13,8 @@ export class LoanProductPreviewStepComponent implements OnInit {
   @Input() loanProductsTemplate: any;
   @Input() accountingRuleData: any;
   @Input() loanProduct: any;
+  /** The down payment configurations as entered on the down payment step */
+  @Input() downPaymentConfigurations: any[];
   @Output() submit = new EventEmitter();
 
   unitNames: any = [];

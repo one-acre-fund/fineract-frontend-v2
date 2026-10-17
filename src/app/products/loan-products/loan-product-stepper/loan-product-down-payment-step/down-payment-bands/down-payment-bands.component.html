@@ -1,0 +1,59 @@
+<div class="down-payment-bands">
+  <div
+    class="down-payment-band"
+    *ngFor="let band of bands.controls; let bandIndex = index"
+    [formGroup]="bandAt(bandIndex)"
+  >
+    <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column">
+      <mat-form-field fxFlex="22%">
+        <mat-label>{{ 'labels.oaf.minPrincipal' | translate }}</mat-label>
+        <input type="number" matInput formControlName="minPrincipal" />
+        <mat-error *ngIf="bandAt(bandIndex).get('minPrincipal').hasError('required')">
+          {{ 'labels.oaf.minPrincipal' | translate }} <strong>{{ 'labels.commons.required' | translate }}</strong>
+        </mat-error>
+        <mat-error *ngIf="bandAt(bandIndex).get('minPrincipal').hasError('min')">
+          {{ 'labels.oaf.downPaymentMinPrincipalNegative' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="22%">
+        <mat-label>{{ 'labels.oaf.maxPrincipal' | translate }}</mat-label>
+        <input type="number" matInput formControlName="maxPrincipal" />
+        <mat-hint>{{ 'labels.oaf.downPaymentMaxPrincipalHint' | translate }}</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="22%">
+        <mat-label>{{ 'labels.inputs.Type' | translate }}</mat-label>
+        <mat-select formControlName="calculationType">
+          <mat-option *ngFor="let amountCalculationType of amountCalculationTypeOptions" [value]="amountCalculationType.code">
+            {{ amountCalculationType.value }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          {{ 'labels.inputs.Type' | translate }} <strong>{{ 'labels.commons.required' | translate }}</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field fxFlex="22%">
+        <mat-label>{{ 'labels.oaf.downPaymentAmount' | translate }}</mat-label>
+        <input type="number" matInput formControlName="amount" />
+        <mat-error *ngIf="bandAt(bandIndex).get('amount').hasError('required')">
+          {{ 'labels.oaf.downPaymentAmount' | translate }} <strong>{{ 'labels.commons.required' | translate }}</strong>
+        </mat-error>
+        <mat-error *ngIf="bandAt(bandIndex).get('amount').hasError('min')">
+          {{ 'labels.oaf.downPaymentAmountNotPositive' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <div fxFlex="4%" fxLayout="row" fxLayoutAlign="flex-end center">
+        <button type="button" mat-icon-button color="warn" *ngIf="removable()" (click)="remove(bandIndex)">
+          <fa-icon icon="trash"></fa-icon>
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="messagesFor(bandIndex).length > 0" class="down-payment-messages">
+      <div *ngFor="let message of messagesFor(bandIndex)">{{ message }}</div>
+    </div>
+  </div>
+</div>

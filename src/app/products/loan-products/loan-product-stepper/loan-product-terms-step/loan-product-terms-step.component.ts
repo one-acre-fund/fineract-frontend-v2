@@ -11,7 +11,10 @@ import { SelectBase } from 'app/shared/form-dialog/formfield/model/select-base';
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { Dates } from 'app/core/utils/dates';
-import { ProductAddQualificationPeriodComponent } from '../../custom-dialog/product-add-qualification-period/product-add-qualification-period.component';
+import {
+  DOWN_PAYMENT_STRATEGY_CONFIGURED,
+  DOWN_PAYMENT_STRATEGY_NONE,
+} from '../../down-payment/down-payment-configuration.models';
 
 @Component({
   selector: 'mifosx-loan-product-terms-step',
@@ -28,19 +31,16 @@ export class LoanProductTermsStepComponent implements OnInit {
   floatingRateData: any;
   interestRateFrequencyTypeData: any;
   repaymentFrequencyTypeData: any;
-  amountCalculationTypeOptions: any;
   loanEndDateOverrideModeOptions: any;
   repaymentFrequencyTypeOptions: any;
   pristine = true;
 
   downPaymentQualificationStrategies: any[] = [];
-  allDownPaymentQualificationStrategies: any[] = [];
-  private initialDownPaymentStrategyCode?: string;
-  private allowDynamicDownpayment = false;
-  productQualificationPeriodsDisplayedColumns: string[] = ['fromDate', 'toDate', 'prepaidAmount', 'prepaidAmountCalculationType', 'action'];
-  qualificationPeriods: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
-  qualificationPeriodsForDisplay: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }[] = [];
-
+  /** The strategy is only asked for in a country whose loans need the client to qualify by paying a down payment */
+  showDownPaymentStrategy = false;
+  private savedDownPaymentStrategy: string;
+  private hasSavedDownPaymentConfigurations = false;
+  private revertingDownPaymentStrategy = false;
 
   displayedColumns: string[] = ['valueConditionType', 'borrowerCycleNumber', 'minValue', 'defaultValue', 'maxValue', 'actions'];
 
@@ -52,21 +52,11 @@ export class LoanProductTermsStepComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allDownPaymentQualificationStrategies = this.loanProductsTemplate.downPaymentQualificationStrategyOptions;
-    this.downPaymentQualificationStrategies = this.allDownPaymentQualificationStrategies;
-    this.initialDownPaymentStrategyCode = this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code;
-    this.qualificationPeriods = this.loanProductsTemplate.qualificationPeriods || [];
-    this.qualificationPeriods = this.qualificationPeriods.map(period => ({ 
-      ...period, markedForDeletion: false,
-      fromDate: this.dateUtils.formatDate(period.fromDate, this.settingsService.dateFormat),
-      toDate: this.dateUtils.formatDate(period.toDate, this.settingsService.dateFormat),
-    }));
-    this.qualificationPeriodsForDisplay = this.qualificationPeriods;
+    this.downPaymentQualificationStrategies = this.loanProductsTemplate.downPaymentQualificationStrategyOptions;
     this.valueConditionTypeData = this.loanProductsTemplate.valueConditionTypeOptions;
     this.floatingRateData = this.loanProductsTemplate.floatingRateOptions;
     this.interestRateFrequencyTypeData = this.loanProductsTemplate.interestRateFrequencyTypeOptions;
     this.repaymentFrequencyTypeData = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
-    this.amountCalculationTypeOptions = this.loanProductsTemplate.amountCalculationTypeOptions;
     this.repaymentFrequencyTypeOptions = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
     this.loanEndDateOverrideModeOptions = this.loanProductsTemplate.loanEndDateOverrideModeOptions;
 
@@ -94,8 +84,6 @@ export class LoanProductTermsStepComponent implements OnInit {
       'minimumDaysBetweenDisbursalAndFirstRepayment': this.loanProductsTemplate.minimumDaysBetweenDisbursalAndFirstRepayment,
       'loanEndDateOverrideMode': this.loanProductsTemplate.loanEndDateOverrideMode,
       'loanEndDateOverrideEndDate': this.loanProductsTemplate.loanEndDateOverrideEndDate  && new Date(this.loanProductsTemplate.loanEndDateOverrideEndDate),
-      'prepaidAmount': this.loanProductsTemplate.terms?.prepaidAmount,
-      'prepaidAmountCalculationType': this.loanProductsTemplate.terms?.prepaidAmountCalculationType?.id,
       'repaymentStartPeriod': this.loanProductsTemplate.terms?.repaymentStartPeriod,
       'repaymentStartPeriodFrequencyType': this.loanProductsTemplate.terms?.repaymentStartPeriodFrequencyType?.id,
       'downPaymentStrategy': this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code,
@@ -108,35 +96,73 @@ export class LoanProductTermsStepComponent implements OnInit {
     this.loanProductTermsForm.setControl('interestRateVariationsForBorrowerCycle',
       this.formBuilder.array(this.loanProductsTemplate.interestRateVariationsForBorrowerCycle.map((variation: any) => ({ ...variation, valueConditionType: variation.valueConditionType.id }))));
 
-    this.productService.allowDynamicDownpayment.subscribe((allowDynamic: boolean) => {
-      this.allowDynamicDownpayment = allowDynamic;
-      this.syncDownPaymentStrategies();
+    this.savedDownPaymentStrategy = this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code;
+    this.hasSavedDownPaymentConfigurations = (this.loanProductsTemplate.downPaymentConfigurations || []).length > 0;
+    this.productService.isQualificationRequired.subscribe((isQualificationRequired: boolean) => {
+      this.applyDownPaymentStrategyVisibility(isQualificationRequired);
+    });
+    this.loanProductTermsForm.get('downPaymentStrategy').valueChanges.subscribe((strategy: string) => {
+      this.onDownPaymentStrategyChange(strategy);
     });
 
-    this.loanProductTermsForm.get('downPaymentStrategy')?.valueChanges.subscribe(() => {
-      this.syncDownPaymentStrategies();
+    this.publishPrincipalRange();
+    this.loanProductTermsForm.get('minPrincipal').valueChanges.subscribe(() => this.publishPrincipalRange());
+    this.loanProductTermsForm.get('maxPrincipal').valueChanges.subscribe(() => this.publishPrincipalRange());
+  }
+
+  get isDownPaymentConfigured(): boolean {
+    return this.showDownPaymentStrategy
+      && this.loanProductTermsForm.get('downPaymentStrategy').value === DOWN_PAYMENT_STRATEGY_CONFIGURED;
+  }
+
+  /**
+   * Shows or hides the strategy, and only asks for it while it is shown. A product already saved with the CONFIGURED
+   * strategy keeps the field even where its country no longer requires qualification, so that editing it cannot
+   * silently throw its configurations away.
+   */
+  private applyDownPaymentStrategyVisibility(isQualificationRequired: boolean): void {
+    this.showDownPaymentStrategy =
+      !!isQualificationRequired || this.savedDownPaymentStrategy === DOWN_PAYMENT_STRATEGY_CONFIGURED;
+    const strategy = this.loanProductTermsForm.get('downPaymentStrategy');
+    if (this.showDownPaymentStrategy) {
+      strategy.setValidators(Validators.required);
+    } else {
+      strategy.clearValidators();
+      strategy.setValue(null, { emitEvent: false });
+    }
+    strategy.updateValueAndValidity({ emitEvent: false });
+  }
+
+  /** Leaving the CONFIGURED strategy deletes the configurations the product has, so it is worth a confirmation */
+  private onDownPaymentStrategyChange(strategy: string): void {
+    if (this.revertingDownPaymentStrategy) {
+      return;
+    }
+    const losesConfigurations =
+      strategy !== DOWN_PAYMENT_STRATEGY_CONFIGURED
+      && this.hasSavedDownPaymentConfigurations
+      && this.savedDownPaymentStrategy === DOWN_PAYMENT_STRATEGY_CONFIGURED;
+    if (!losesConfigurations) {
+      return;
+    }
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: { deleteContext: `the down payment configurations of this product` }
+    });
+    dialogRef.afterClosed().subscribe((response: any) => {
+      if (!response?.delete) {
+        this.revertingDownPaymentStrategy = true;
+        this.loanProductTermsForm.patchValue({ downPaymentStrategy: DOWN_PAYMENT_STRATEGY_CONFIGURED });
+        this.revertingDownPaymentStrategy = false;
+      }
     });
   }
 
-  private syncDownPaymentStrategies(): void {
-    const currentStrategy = this.loanProductTermsForm.get('downPaymentStrategy')?.value;
-    const preservePersistedDynamic =
-      !this.allowDynamicDownpayment &&
-      this.initialDownPaymentStrategyCode === 'DYNAMIC' &&
-      currentStrategy === 'DYNAMIC';
-
-    const allowedStrategies = this.allowDynamicDownpayment || preservePersistedDynamic
-      ? this.allDownPaymentQualificationStrategies
-      : this.allDownPaymentQualificationStrategies.filter((s: any) => s.code !== 'DYNAMIC');
-
-    this.downPaymentQualificationStrategies = allowedStrategies;
-
-    if (!this.allowDynamicDownpayment && currentStrategy === 'DYNAMIC' && !preservePersistedDynamic) {
-      this.loanProductTermsForm.patchValue(
-        { downPaymentStrategy: allowedStrategies[0]?.code ?? null },
-        { emitEvent: false }
-      );
-    }
+  /** The down payment bands of a CONFIGURED product must cover every principal between these limits */
+  private publishPrincipalRange(): void {
+    this.productService.principalRange = {
+      minPrincipal: this.loanProductTermsForm.get('minPrincipal').value,
+      maxPrincipal: this.loanProductTermsForm.get('maxPrincipal').value,
+    };
   }
 
   createLoanProductTermsForm() {
@@ -158,8 +184,6 @@ export class LoanProductTermsStepComponent implements OnInit {
       'minimumDaysBetweenDisbursalAndFirstRepayment': [''],
       'loanEndDateOverrideMode': [''],
       'loanEndDateOverrideEndDate': [''],
-      'prepaidAmount': [''],
-      'prepaidAmountCalculationType': [''],
       'repaymentStartPeriod': [''],
       'repaymentStartPeriodFrequencyType': [''],
       'downPaymentStrategy': ['', Validators.required],
@@ -319,72 +343,9 @@ export class LoanProductTermsStepComponent implements OnInit {
     if (loanProductTermsFormData.loanEndDateOverrideEndDate instanceof Date) {
       loanProductTermsFormData.loanEndDateOverrideEndDate = this.dateUtils.formatDate(prevLoanEndDateOverrideEndDate, dateFormat) || '';
     }
-    if (this.qualificationPeriods.length > 0) {
-      loanProductTermsFormData.qualificationPeriods = this.qualificationPeriods.map(period => ({
-        ...period,
-        dateFormat: dateFormat,
-        locale: this.settingsService.language.code,
-        fromDate: this.dateUtils.formatDate(period.fromDate, dateFormat),
-        toDate: this.dateUtils.formatDate(period.toDate, dateFormat)
-      }));
-    }
+    loanProductTermsFormData.downPaymentStrategy = this.showDownPaymentStrategy
+      ? loanProductTermsFormData.downPaymentStrategy
+      : DOWN_PAYMENT_STRATEGY_NONE;
     return loanProductTermsFormData;
   }
-
-  prepaidAmountChange(){
-    const prepaidAmount = this.loanProductTermsForm.get('prepaidAmount');
-    this.productService.prepaidAmount = prepaidAmount.value ;
-  }
-
-  prepaidAmountCalculationTypeChange(amountCalculationType){
-    this.productService.prepaidAmountCalculationType = amountCalculationType.value;
-    
-  }
-
-  downPaymentQualificationStrategyChange(downPaymentQualificationStrategy){
-    this.productService.downPaymentQualificationStrategy = downPaymentQualificationStrategy.code;
-  }
-
-  addQualificationPeriod() {
-    const addQualificationPeriodDialogRef = this.dialog.open(ProductAddQualificationPeriodComponent, {
-      data: { amountCalculationTypeOptions: this.amountCalculationTypeOptions }
-    });
-    addQualificationPeriodDialogRef.afterClosed().subscribe((response: any) => {
-      let dataForm = response.data;
-        if (dataForm) {
-          const qualificationPeriodData = {
-            periodId: null,
-            fromDate: this.dateUtils.formatDate(dataForm.value.fromDate, this.settingsService.dateFormat),
-            toDate: this.dateUtils.formatDate(dataForm.value.toDate, this.settingsService.dateFormat),
-            prepaidAmountCalculationType: dataForm.value.prepaidAmountCalculationType,
-            prepaidAmount: dataForm.value.prepaidAmount,
-            markedForDeletion: false
-          };
-          this.qualificationPeriods = this.qualificationPeriods.concat(qualificationPeriodData);
-          this.qualificationPeriodsForDisplay = this.qualificationPeriodsForDisplay.concat(qualificationPeriodData);
-          this.pristine = false;
-        }
-        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
-      });
-    }
-
-    deleteQualificationPeriod(period: { periodId: number | null, fromDate: string | null, toDate: string | null, prepaidAmountCalculationType: string, prepaidAmount: number | null, markedForDeletion: boolean }) {
-      const deleteQualificationPeriodDialogRef = this.dialog.open(DeleteDialogComponent, {
-        data: { deleteContext: `qualification period` }
-      });
-      deleteQualificationPeriodDialogRef.afterClosed().subscribe((response: any) => {
-        if (response.delete) {
-          if (period) {
-            period.markedForDeletion = true;
-            this.qualificationPeriodsForDisplay = this.qualificationPeriodsForDisplay.filter(qp => !qp.markedForDeletion);
-            if (!period.periodId) {
-                this.qualificationPeriods = this.qualificationPeriods.filter(qp => qp !== period);
-            }
-          } 
-          this.pristine = false;
-        }
-        this.productService.setQualificationPeriods(this.qualificationPeriodsForDisplay);
-      });
-    }
-
 }

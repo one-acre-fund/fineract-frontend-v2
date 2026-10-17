@@ -9,8 +9,14 @@ export class QualificationRulesViewComponent implements OnInit {
   @Input() loanProduct: any;
   @Input() loanTypeId: any;
   @Input() loanProductsTemplate: any;
+  /** The configurations being previewed; a saved product carries its own */
+  @Input() downPaymentConfigurationsPreview: any[];
 
   constructor() { }
+
+  get downPaymentConfigurations(): any[] {
+    return this.downPaymentConfigurationsPreview || this.loanProduct?.downPaymentConfigurations || [];
+  }
 
   ngOnInit(): void {
   }

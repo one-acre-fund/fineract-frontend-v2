@@ -366,16 +366,6 @@
   </div>
 
   <div fxFlexFill>
-    <span fxFlex="40%">{{ 'labels.oaf.Prepaid Amount' | translate }}</span>
-    <span fxFlex="60%">{{
-      loanProduct.prepaidAmount +
-        ' ' +
-        (loanProduct.prepaidAmountCalculationType
-          | find : loanProductsTemplate.amountCalculationTypeOptions : 'id' : 'value')
-    }}</span>
-  </div>
-
-  <div fxFlexFill>
     <span fxFlex="40%">{{ 'labels.oaf.Repayment Start Period' | translate }}</span>
     <span fxFlex="60%">{{
       loanProduct.repaymentStartPeriod +
@@ -417,6 +407,7 @@
       [loanProduct]="loanProduct"
       [loanProductsTemplate]="loanProductsTemplate"
       [loanTypeId]="loanTypeId"
+      [downPaymentConfigurationsPreview]="downPaymentConfigurations"
     ></mifosx-qualification-rules-view>
   </div>
 

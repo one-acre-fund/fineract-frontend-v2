@@ -31,6 +31,13 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
   constructor(private router: Router) {}
 
   @Input() treeDataSource: OfficeTreeNode[] = [];
+  /** Offices that may not be picked here, e.g. because another down payment configuration already owns them */
+  @Input() disabledOfficeIds: number[] = [];
+  /**
+   * Ticking an office picks that office alone, instead of its whole subtree. Down payment configurations work this
+   * way because the API already applies a configuration to the offices under the one it names.
+   */
+  @Input() selectOfficeOnly = false;
   @Output() checkedOffices = new EventEmitter<any>();
 
   @ViewChild('officeTree') officeTree!: any;
@@ -51,14 +58,29 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.treeDataSource;
   }
 
+  /** Whether an office is spoken for, so it can neither be ticked on its own nor through its parent */
+  isDisabled = (node: OfficeFlatNode): boolean => (this.disabledOfficeIds || []).indexOf(node.id) > -1;
+
   ngAfterViewInit() {
     for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+      if (this.isDisabled(this.treeControl.dataNodes[i])) {
+        continue;
+      }
       if (this.treeControl.dataNodes[i].checked === true) {
         this.todoItemSelectionToggle(this.treeControl.dataNodes[i]);
         this.checklistSelection.select(this.treeControl.dataNodes[i]);
         this.treeControl.expand(this.treeControl.dataNodes[i]);
       }
     }
+  }
+
+  /** What the checkbox of an office with children shows */
+  isChecked(node: OfficeFlatNode): boolean {
+    return this.selectOfficeOnly ? this.checklistSelection.isSelected(node) : this.descendantsAllSelected(node);
+  }
+
+  isIndeterminate(node: OfficeFlatNode): boolean {
+    return this.selectOfficeOnly ? false : this.descendantsPartiallySelected(node);
   }
 
   descendantsAllSelected(node: OfficeFlatNode): boolean {
@@ -78,8 +100,16 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: OfficeFlatNode): void {
+    if (this.isDisabled(node)) {
+      return;
+    }
+    if (this.selectOfficeOnly) {
+      this.toggleOfficeOnly(node);
+      return;
+    }
     this.checklistSelection.toggle(node);
-    const descendants = this.treeControl.getDescendants(node);
+    // a disabled descendant stays out of the selection, so ticking a parent cannot claim an office someone else owns
+    const descendants = this.treeControl.getDescendants(node).filter((child) => !this.isDisabled(child));
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
@@ -99,8 +129,21 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: OfficeFlatNode): void {
+    if (this.isDisabled(node)) {
+      return;
+    }
+    if (this.selectOfficeOnly) {
+      this.toggleOfficeOnly(node);
+      return;
+    }
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
+  }
+
+  /** Picks or drops one office, leaving the offices above and below it as they are */
+  private toggleOfficeOnly(node: OfficeFlatNode): void {
+    this.checklistSelection.toggle(node);
+    this.checkedOffices.emit(this.checklistSelection.selected);
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */

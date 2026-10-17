@@ -16,6 +16,7 @@ import { LoanProductAppsComponent } from '../loan-product-stepper/loan-product-a
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { LoanProductQualificationRulesStepComponent } from '../loan-product-stepper/loan-product-qualification-rules-step/loan-product-qualification-rules-step.component';
+import { LoanProductDownPaymentStepComponent } from '../loan-product-stepper/loan-product-down-payment-step/loan-product-down-payment-step.component';
 
 @Component({
   selector: 'mifosx-create-loan-product',
@@ -32,6 +33,7 @@ export class CreateLoanProductComponent implements OnInit {
   @ViewChild(LoanProductAccountingStepComponent, { static: true }) loanProductAccountingStep: LoanProductAccountingStepComponent;
   @ViewChild(LoanProductClientEligibilityStepComponent, { static: true }) loanProductClientEligibilityStep: LoanProductClientEligibilityStepComponent;
   @ViewChild(LoanProductQualificationRulesStepComponent, { static: false }) loanProductQualificationRulesStep: LoanProductQualificationRulesStepComponent;
+  @ViewChild(LoanProductDownPaymentStepComponent, { static: false }) loanProductDownPaymentStep: LoanProductDownPaymentStepComponent;
   @ViewChild(LoanProductAppsComponent, { static: true }) loanProductAppsStep: LoanProductAppsComponent;
 
   loanProductsTemplate: any;
@@ -93,6 +95,15 @@ export class CreateLoanProductComponent implements OnInit {
     return this.loanProductQualificationRulesStep?.loanProductQualificationRuleForm;
   }
 
+  get loanProductDownPaymentForm() {
+    return this.loanProductDownPaymentStep?.loanProductDownPaymentForm;
+  }
+
+  /** The down payment step is only reachable for a product that takes a down payment by configuration */
+  get isDownPaymentConfigured() {
+    return this.loanProductTermsStep.isDownPaymentConfigured;
+  }
+
   get loanProductFormValid() {
     return (
       this.loanProductDetailsForm.valid &&
@@ -101,7 +112,8 @@ export class CreateLoanProductComponent implements OnInit {
       this.loanProductTermsForm.valid &&
       this.loanProductClientEligibilityForm.valid &&
       this.loanProductSettingsForm.valid &&
-      this.loanProductAccountingForm.valid 
+      this.loanProductAccountingForm.valid &&
+      (!this.isDownPaymentConfigured || this.loanProductDownPaymentForm?.valid)
     );
   }
 
@@ -115,7 +127,8 @@ export class CreateLoanProductComponent implements OnInit {
       ...this.loanProductSettingsStep.loanProductSettings,
       ...this.loanProductChargesStep.loanProductCharges,
       ...this.loanProductAccountingStep.loanProductAccounting,
-      ...this.loanProductQualificationRulesStep?.loanProductQualificationRule
+      ...this.loanProductQualificationRulesStep?.loanProductQualificationRule,
+      ...this.loanProductDownPaymentStep?.loanProductDownPayment
     };
   }
 
@@ -138,7 +151,6 @@ export class CreateLoanProductComponent implements OnInit {
       ...this.loanProduct,
       charges: this.loanProduct.charges.map((charge: any) => ({ id: charge.id })),
       terms : {
-        prepaidAmount: this.loanProduct.prepaidAmount, prepaidAmountCalculationType: this.loanProduct.prepaidAmountCalculationType,
         repaymentStartPeriod: this.loanProduct.repaymentStartPeriod, repaymentStartPeriodFrequencyType: this.loanProduct.repaymentStartPeriodFrequencyType,
       },
       dateFormat,
@@ -150,8 +162,6 @@ export class CreateLoanProductComponent implements OnInit {
     }
     delete loanProductToSave.allowAttributeConfiguration;
     delete loanProductToSave.advancedAccountingRules;
-    delete loanProductToSave.prepaidAmount;
-    delete loanProductToSave.prepaidAmountCalculationType;
     delete loanProductToSave.repaymentStartPeriod;
     delete loanProductToSave.repaymentStartPeriodFrequencyType;
     delete loanProductToSave.showTermsAndConditions;

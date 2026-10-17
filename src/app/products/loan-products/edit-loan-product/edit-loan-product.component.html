@@ -53,6 +53,15 @@
 
       </mat-step>
 
+      <mat-step [stepControl]="loanProductDownPaymentForm" *ngIf="isDownPaymentConfigured" completed>
+
+        <ng-template matStepLabel>{{ 'labels.loanProductSteps.DOWN_PAYMENT' | translate }}</ng-template>
+
+        <mifosx-loan-product-down-payment-step [loanProductsTemplate]="loanProductAndTemplate">
+        </mifosx-loan-product-down-payment-step>
+
+      </mat-step>
+
       <mat-step [stepControl]="loanProductClientEligibilityForm" completed>
 
         <ng-template matStepLabel>{{ 'labels.loanProductSteps.CLIENT_ELIGIBILITY' | translate }}</ng-template>
@@ -116,6 +125,7 @@
           [loanProductsTemplate]="loanProductAndTemplate"
           [accountingRuleData]="accountingRuleData"
           [loanProduct]="loanProduct"
+          [downPaymentConfigurations]="loanProductDownPaymentStep?.summary"
           (submit)="submit()"
         >
         </mifosx-loan-product-preview-step>
