@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { Subject, merge, of } from 'rxjs';
-import { catchError, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { catchError, distinctUntilChanged, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 
 import DataFlattner from 'app/core/utils/data-flattner';
 import { Dates } from 'app/core/utils/dates';
@@ -36,6 +36,7 @@ export class LoanProductDownPaymentStepComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.store.setProductCountry(this.loanProductsTemplate?.countryId);
     this.store.load(this.loanProductsTemplate?.downPaymentConfigurations, this.dates);
     this.store.setPrincipalRange(this.loanProductsTemplate?.minPrincipal, this.loanProductsTemplate?.maxPrincipal);
 
@@ -52,11 +53,13 @@ export class LoanProductDownPaymentStepComponent implements OnInit, OnDestroy {
         // the whole hierarchy, not only up to the configured OU level: a saved configuration may reach deeper, and
         // an office missing from the tree could neither be seen nor kept
         switchMap((countryId: any) =>
-          this.organizationService.searchCountryById(countryId, false).pipe(catchError(() => of([])))
+          this.organizationService
+            .searchCountryById(countryId, false)
+            .pipe(catchError(() => of([])), map((offices: any[]) => ({ countryId, offices })))
         ),
         takeUntil(this.destroy$)
       )
-      .subscribe((offices: any[]) => this.store.setOfficeTree(toOfficeTree(offices)));
+      .subscribe((loaded: any) => this.store.setOfficeTree(toOfficeTree(loaded.offices), loaded.countryId));
   }
 
   ngOnDestroy(): void {

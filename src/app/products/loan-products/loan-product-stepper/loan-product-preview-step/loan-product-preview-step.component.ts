@@ -15,7 +15,8 @@ export class LoanProductPreviewStepComponent implements OnInit {
   @Input() loanProduct: any;
   /** The down payment configurations as entered on the down payment step */
   @Input() downPaymentConfigurations: any[];
-  @Output() submit = new EventEmitter();
+  /** Named for what it asks of the page that holds it, as an output may not take a DOM event's name */
+  @Output() submitProduct = new EventEmitter();
 
   unitNames: any = [];
   loanProductOffices: any;

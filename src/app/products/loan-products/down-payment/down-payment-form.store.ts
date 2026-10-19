@@ -36,8 +36,11 @@ export class DownPaymentFormStore {
 
   /** The offices the product was loaded with, which stay even if the office tree does not reach them */
   private loadedOfficeIds: number[] = [];
-  /** The offices the picker shows, i.e. the active ones of the product's country */
+  /** The offices the picker shows, i.e. the active ones of the country whose tree it holds */
   private officeTreeIds: number[] = [];
+  /** The country the product was loaded in, and the one its office tree belongs to */
+  private loadedCountryId: any = null;
+  private officeTreeCountryId: any = null;
   private minPrincipal: number | null = null;
   private maxPrincipal: number | null = null;
   /** The office tree and the taken offices as each configuration sees them, rebuilt only when something changes */
@@ -66,6 +69,14 @@ export class DownPaymentFormStore {
     this.revalidate();
   }
 
+  /**
+   * The country the product belongs to. An office it was saved with outlives a tree that cannot reach it only while
+   * the product stays in that country: moved to another one, those offices are not its to keep.
+   */
+  setProductCountry(countryId: any): void {
+    this.loadedCountryId = countryId;
+  }
+
   /** The lowest and highest principal the product allows, which the bands of every period have to cover */
   setPrincipalRange(minPrincipal: number | null, maxPrincipal: number | null): void {
     this.minPrincipal = toNumberOrNull(minPrincipal);
@@ -73,16 +84,20 @@ export class DownPaymentFormStore {
     this.revalidate();
   }
 
-  setOfficeTree(officeTree: OfficeTreeNode[]): void {
+  setOfficeTree(officeTree: OfficeTreeNode[], countryId?: any): void {
     this.officeTree = officeTree || [];
     this.officeTreeIds = officeIdsOf(this.officeTree, []);
-    // a configuration cannot keep an office of the country the product no longer belongs to, but an office it was
-    // saved with stays whether or not the tree reaches it
+    if (countryId !== undefined) {
+      this.officeTreeCountryId = countryId;
+    }
+    // a configuration cannot keep an office of a country the product no longer belongs to; one it was saved with in
+    // its own country stays whether or not the tree reaches it, such as an office since deactivated
     if (this.officeTree.length > 0) {
       this.configurations.controls.forEach((configuration) => {
         const officeIds: number[] = configuration.get('officeIds').value || [];
         const kept = officeIds.filter(
-          (officeId) => this.officeTreeIds.indexOf(officeId) > -1 || this.loadedOfficeIds.indexOf(officeId) > -1
+          (officeId) => this.officeTreeIds.includes(officeId)
+            || (this.keepsOffTreeOffices && this.loadedOfficeIds.includes(officeId))
         );
         if (kept.length !== officeIds.length) {
           configuration.get('officeIds').setValue(kept);
@@ -239,11 +254,13 @@ export class DownPaymentFormStore {
   setOfficeIds(configurationIndex: number, officeIds: number[]): void {
     const control = this.configurations.at(configurationIndex).get('officeIds');
     const takenByOthers = this.disabledOfficeIds(configurationIndex);
-    const picked = (officeIds || []).filter((officeId) => takenByOthers.indexOf(officeId) < 0);
+    const picked = (officeIds || []).filter((officeId) => !takenByOthers.includes(officeId));
     // an office the picker never showed, such as one the product was saved with that is no longer active, is not a
     // selection anybody can make or unmake here, so it outlives whatever the picker reports
-    const beyondThePicker = (control.value || []).filter((officeId: number) => this.officeTreeIds.indexOf(officeId) < 0);
-    const kept = picked.concat(beyondThePicker.filter((officeId: number) => picked.indexOf(officeId) < 0));
+    const beyondThePicker = this.keepsOffTreeOffices
+      ? (control.value || []).filter((officeId: number) => !this.officeTreeIds.includes(officeId))
+      : [];
+    const kept = picked.concat(beyondThePicker.filter((officeId: number) => !picked.includes(officeId)));
     // the picker reports its selection whenever it is built, a saved product's own offices included: an unchanged
     // set is not an edit, and treating it as one would offer to save a product nobody has touched
     if (sameOfficeIds(control.value || [], kept)) {
@@ -279,7 +296,7 @@ export class DownPaymentFormStore {
   ownMessagesFor(path: string): string[] {
     return distinct(
       this.errors
-        .filter((item) => isAtOrBelow(item.path, path) && item.path.substring(path.length).indexOf('[') < 0)
+        .filter((item) => isAtOrBelow(item.path, path) && !item.path.substring(path.length).includes('['))
         .map((item) => item.message)
     );
   }
@@ -305,6 +322,11 @@ export class DownPaymentFormStore {
   /** What the loan product request carries, including the saved items the user removed */
   toRequest(dates: DownPaymentDateAdapter): DownPaymentConfigurationRequest[] {
     return toDownPaymentRequest(this.configurations.value, this.removed, dates);
+  }
+
+  /** Whether the tree on screen is the product's own country's, so the offices it was saved with still belong to it */
+  private get keepsOffTreeOffices(): boolean {
+    return this.loadedCountryId != null && Number(this.officeTreeCountryId) === Number(this.loadedCountryId);
   }
 
   private configurationGroup(value: DownPaymentConfigurationFormValue): UntypedFormGroup {
@@ -426,7 +448,7 @@ function officeNamesById(nodes: OfficeTreeNode[], names: { [officeId: number]: s
 function markTree(nodes: OfficeTreeNode[], selected: number[]): OfficeTreeNode[] {
   return (nodes || []).map((node) => ({
     ...node,
-    checked: selected.indexOf(node.id) > -1,
+    checked: selected.includes(node.id),
     children: node.children ? markTree(node.children, selected) : node.children,
   }));
 }

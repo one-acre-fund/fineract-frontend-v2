@@ -15,7 +15,7 @@ const _transformer = (node: OfficeTreeNode, level: number) => {
   };
 };
 
-const treeFlattener = new MatTreeFlattener(
+const treeFlattener = new MatTreeFlattener<OfficeTreeNode, OfficeFlatNode, number>(
   _transformer,
   (node) => node.level,
   (node) => node.expandable,
@@ -41,9 +41,12 @@ export class CountryTreeViewComponent implements OnInit, OnChanges, AfterViewIni
   @Output() checkedOffices = new EventEmitter<any>();
 
   @ViewChild('officeTree') officeTree!: any;
-  treeControl = new FlatTreeControl<OfficeFlatNode>(
+  // tracked by office id, so a tree handed over again keeps the branches the user opened: flattening builds fresh
+  // nodes each time, and expansion held by object identity would collapse on every selection
+  treeControl = new FlatTreeControl<OfficeFlatNode, number>(
     (node) => node.level,
-    (node) => node.expandable
+    (node) => node.expandable,
+    { trackBy: (node) => node.id }
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
@@ -59,7 +62,7 @@ export class CountryTreeViewComponent implements OnInit, OnChanges, AfterViewIni
   }
 
   /** Whether an office is spoken for, so it can neither be ticked on its own nor through its parent */
-  isDisabled = (node: OfficeFlatNode): boolean => (this.disabledOfficeIds || []).indexOf(node.id) > -1;
+  isDisabled = (node: OfficeFlatNode): boolean => (this.disabledOfficeIds || []).includes(node.id);
 
   /**
    * Takes a tree handed over after the first one, e.g. when the product's country changes under a picker that stays
