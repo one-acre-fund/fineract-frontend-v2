@@ -1,14 +1,6 @@
 {{ 'labels.oaf.Qualification Rules' | translate }}
 <mat-divider fxFlexFill></mat-divider>
 
-<div fxFlexFill>
-  <span fxFlex="40%">{{ 'labels.text.DownPayment' | translate }}</span>
-  <div fxFlex="60%">
-    <mifosx-down-payment-configurations-view [configurations]="downPaymentConfigurations">
-    </mifosx-down-payment-configurations-view>
-  </div>
-</div>
-
 <div *ngIf="loanTypeId == 2">
   <div fxFlexFill>
     <span fxFlex="40%">{{ 'labels.oaf.Minimum qualified members' | translate }}</span>

@@ -52,6 +52,8 @@ export class CreateLoanProductComponent implements OnInit {
               private router: Router) {
     this.route.data.subscribe((data: { loanProductsTemplate: any }) => {
       this.loanProductsTemplate = data.loanProductsTemplate;
+      // a new product has no country until one is chosen, so the one an earlier editor left behind is cleared
+      this.productsService.countryId = null;
     });
   }
 

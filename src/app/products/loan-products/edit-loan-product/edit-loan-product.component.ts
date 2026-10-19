@@ -56,6 +56,9 @@ export class EditLoanProductComponent implements OnInit {
               private router: Router) {
     this.route.data.subscribe((data: { loanProductAndTemplate: any }) => {
       this.loanProductAndTemplate = data.loanProductAndTemplate;
+      // the shared country belongs to whichever product is open: one left behind by an earlier editor would have the
+      // steps that read it load another country's offices and charges
+      this.productsService.countryId = this.loanProductAndTemplate.countryId;
       this.isQualificationRequired = this.loanProductAndTemplate.configurations?.isQualificationRequired;
       this.enableTermsAndConditions = this.loanProductAndTemplate.configurations?.enableTermsAndConditions;
       this.isCreditScoringEnabled = this.loanProductAndTemplate.configurations?.isCreditScoringEnabled;

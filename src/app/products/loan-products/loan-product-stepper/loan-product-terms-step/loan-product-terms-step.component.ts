@@ -39,8 +39,9 @@ export class LoanProductTermsStepComponent implements OnInit {
   /** The strategy is only asked for in a country whose loans need the client to qualify by paying a down payment */
   showDownPaymentStrategy = false;
   private savedDownPaymentStrategy: string;
+  private savedCountryRequiresQualification = false;
   private hasSavedDownPaymentConfigurations = false;
-  private revertingDownPaymentStrategy = false;
+  private settingDownPaymentStrategy = false;
 
   displayedColumns: string[] = ['valueConditionType', 'borrowerCycleNumber', 'minValue', 'defaultValue', 'maxValue', 'actions'];
 
@@ -97,6 +98,9 @@ export class LoanProductTermsStepComponent implements OnInit {
       this.formBuilder.array(this.loanProductsTemplate.interestRateVariationsForBorrowerCycle.map((variation: any) => ({ ...variation, valueConditionType: variation.valueConditionType.id }))));
 
     this.savedDownPaymentStrategy = this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code;
+    // a saved product carries its country's own configuration, which the organisation unit step only reports later
+    this.savedCountryRequiresQualification = !!this.loanProductsTemplate.id
+      && !!this.loanProductsTemplate.configurations?.isQualificationRequired;
     this.hasSavedDownPaymentConfigurations = (this.loanProductsTemplate.downPaymentConfigurations || []).length > 0;
     this.productService.isQualificationRequired.subscribe((isQualificationRequired: boolean) => {
       this.applyDownPaymentStrategyVisibility(isQualificationRequired);
@@ -119,23 +123,36 @@ export class LoanProductTermsStepComponent implements OnInit {
    * Shows or hides the strategy, and only asks for it while it is shown. A product already saved with the CONFIGURED
    * strategy keeps the field even where its country no longer requires qualification, so that editing it cannot
    * silently throw its configurations away.
+   *
+   * The value itself is left alone while the field is hidden: the country's configuration arrives after the product
+   * is loaded, so clearing it here would drop the strategy the product was saved with and leave the field empty and
+   * required once the country turns out to need it. A hidden field is reported as NONE by loanProductTerms, and the
+   * down payment step follows the field rather than the value, so nothing of it reaches the request meanwhile.
+   *
+   * A saved product's own country decides the field from the first paint, so editing one does not show the step
+   * appearing a moment later; the field then stays, even if the country is changed to one that asks for nothing,
+   * so that the strategy is given up deliberately rather than quietly.
    */
   private applyDownPaymentStrategyVisibility(isQualificationRequired: boolean): void {
-    this.showDownPaymentStrategy =
-      !!isQualificationRequired || this.savedDownPaymentStrategy === DOWN_PAYMENT_STRATEGY_CONFIGURED;
+    this.showDownPaymentStrategy = !!isQualificationRequired || this.savedCountryRequiresQualification
+      || this.savedDownPaymentStrategy === DOWN_PAYMENT_STRATEGY_CONFIGURED;
     const strategy = this.loanProductTermsForm.get('downPaymentStrategy');
     if (this.showDownPaymentStrategy) {
       strategy.setValidators(Validators.required);
     } else {
       strategy.clearValidators();
-      strategy.setValue(null, { emitEvent: false });
     }
     strategy.updateValueAndValidity({ emitEvent: false });
   }
 
-  /** Leaving the CONFIGURED strategy deletes the configurations the product has, so it is worth a confirmation */
+  /**
+   * Leaving the CONFIGURED strategy deletes the configurations the product has, so it is worth a confirmation. The
+   * strategy goes back to CONFIGURED before the question is asked and only moves once it is answered: letting the
+   * change stand would take the down payment step off the stepper, and the configurations being edited are held by
+   * that step, so cancelling would hand back the saved ones and drop the work in progress.
+   */
   private onDownPaymentStrategyChange(strategy: string): void {
-    if (this.revertingDownPaymentStrategy) {
+    if (this.settingDownPaymentStrategy) {
       return;
     }
     const losesConfigurations =
@@ -145,16 +162,22 @@ export class LoanProductTermsStepComponent implements OnInit {
     if (!losesConfigurations) {
       return;
     }
+    this.setDownPaymentStrategy(DOWN_PAYMENT_STRATEGY_CONFIGURED);
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { deleteContext: `the down payment configurations of this product` }
     });
     dialogRef.afterClosed().subscribe((response: any) => {
-      if (!response?.delete) {
-        this.revertingDownPaymentStrategy = true;
-        this.loanProductTermsForm.patchValue({ downPaymentStrategy: DOWN_PAYMENT_STRATEGY_CONFIGURED });
-        this.revertingDownPaymentStrategy = false;
+      if (response?.delete) {
+        this.setDownPaymentStrategy(strategy);
       }
     });
+  }
+
+  /** Sets the strategy without asking the question above again */
+  private setDownPaymentStrategy(strategy: string): void {
+    this.settingDownPaymentStrategy = true;
+    this.loanProductTermsForm.patchValue({ downPaymentStrategy: strategy });
+    this.settingDownPaymentStrategy = false;
   }
 
   /** The down payment bands of a CONFIGURED product must cover every principal between these limits */

@@ -13,8 +13,8 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
   @Input() loanProduct: any;
   loanTypeId: any;
   repaymentFrequencyTypeOptions: any;
-  /** Shown read only here; the down payment step is where they are edited */
-  downPaymentConfigurations: any[] = [];
+  /** Shown read only here, as the down payment step holds them: its live summary, not the saved product's */
+  @Input() downPaymentConfigurations: any[] = [];
 
   loanProductQualificationRuleForm: UntypedFormGroup;
 
@@ -30,7 +30,6 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
     if ( this.router.url.includes('edit') ) {
       this.setLoanProductClientEligibilityFormForEdit();
     }
-    this.downPaymentConfigurations = this.loanProductsTemplate.downPaymentConfigurations || [];
   }
   
 

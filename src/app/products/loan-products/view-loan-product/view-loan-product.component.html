@@ -406,6 +406,15 @@
 
         <mifosx-client-eligbility class="client" [loanProduct]="loanProduct"></mifosx-client-eligbility>
 
+        <div fxFlexFill *ngIf="loanProduct.downPaymentConfigurations?.length > 0">
+          {{ 'labels.heading.downPaymentConfigurations' | translate }}
+          <mat-divider [inset]="true"></mat-divider>
+          <mifosx-down-payment-configurations-view
+            class="client"
+            [configurations]="loanProduct.downPaymentConfigurations"
+          ></mifosx-down-payment-configurations-view>
+        </div>
+
         <div fxFlexFill *ngIf="isQualificationRulesPresent">
           <mifosx-qualification-rules-view
             class="client"

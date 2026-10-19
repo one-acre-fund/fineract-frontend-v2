@@ -36,6 +36,8 @@ export class DownPaymentFormStore {
 
   /** The offices the product was loaded with, which stay even if the office tree does not reach them */
   private loadedOfficeIds: number[] = [];
+  /** The offices the picker shows, i.e. the active ones of the product's country */
+  private officeTreeIds: number[] = [];
   private minPrincipal: number | null = null;
   private maxPrincipal: number | null = null;
   /** The office tree and the taken offices as each configuration sees them, rebuilt only when something changes */
@@ -73,14 +75,14 @@ export class DownPaymentFormStore {
 
   setOfficeTree(officeTree: OfficeTreeNode[]): void {
     this.officeTree = officeTree || [];
+    this.officeTreeIds = officeIdsOf(this.officeTree, []);
     // a configuration cannot keep an office of the country the product no longer belongs to, but an office it was
     // saved with stays whether or not the tree reaches it
     if (this.officeTree.length > 0) {
-      const known = officeIdsOf(this.officeTree, []);
       this.configurations.controls.forEach((configuration) => {
         const officeIds: number[] = configuration.get('officeIds').value || [];
         const kept = officeIds.filter(
-          (officeId) => known.indexOf(officeId) > -1 || this.loadedOfficeIds.indexOf(officeId) > -1
+          (officeId) => this.officeTreeIds.indexOf(officeId) > -1 || this.loadedOfficeIds.indexOf(officeId) > -1
         );
         if (kept.length !== officeIds.length) {
           configuration.get('officeIds').setValue(kept);
@@ -235,9 +237,19 @@ export class DownPaymentFormStore {
    * its whole subtree, and a child one of them has taken is not this configuration's to claim.
    */
   setOfficeIds(configurationIndex: number, officeIds: number[]): void {
+    const control = this.configurations.at(configurationIndex).get('officeIds');
     const takenByOthers = this.disabledOfficeIds(configurationIndex);
-    const kept = (officeIds || []).filter((officeId) => takenByOthers.indexOf(officeId) < 0);
-    this.configurations.at(configurationIndex).get('officeIds').setValue(kept);
+    const picked = (officeIds || []).filter((officeId) => takenByOthers.indexOf(officeId) < 0);
+    // an office the picker never showed, such as one the product was saved with that is no longer active, is not a
+    // selection anybody can make or unmake here, so it outlives whatever the picker reports
+    const beyondThePicker = (control.value || []).filter((officeId: number) => this.officeTreeIds.indexOf(officeId) < 0);
+    const kept = picked.concat(beyondThePicker.filter((officeId: number) => picked.indexOf(officeId) < 0));
+    // the picker reports its selection whenever it is built, a saved product's own offices included: an unchanged
+    // set is not an edit, and treating it as one would offer to save a product nobody has touched
+    if (sameOfficeIds(control.value || [], kept)) {
+      return;
+    }
+    control.setValue(kept);
     this.touch();
   }
 
@@ -370,6 +382,15 @@ function nonEmptyArray(control: AbstractControl): ValidationErrors | null {
 
 function toNumberOrNull(value: any): number | null {
   return value === null || value === undefined || value === '' ? null : Number(value);
+}
+
+function sameOfficeIds(left: number[], right: number[]): boolean {
+  if (left.length !== right.length) {
+    return false;
+  }
+  const sortedLeft = [...left].sort((a, b) => a - b);
+  const sortedRight = [...right].sort((a, b) => a - b);
+  return sortedLeft.every((officeId, index) => officeId === sortedRight[index]);
 }
 
 function isAtOrBelow(errorPath: string, path: string): boolean {

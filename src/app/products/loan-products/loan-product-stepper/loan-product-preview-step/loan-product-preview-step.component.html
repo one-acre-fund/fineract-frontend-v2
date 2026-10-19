@@ -401,13 +401,19 @@
 
   <mifosx-client-eligbility class="client" [loanProduct]="loanProduct"></mifosx-client-eligbility>
 
+  <div fxFlexFill *ngIf="downPaymentConfigurations?.length > 0">
+    {{ 'labels.heading.downPaymentConfigurations' | translate }}
+    <mat-divider fxFlexFill></mat-divider>
+    <mifosx-down-payment-configurations-view class="client" [configurations]="downPaymentConfigurations">
+    </mifosx-down-payment-configurations-view>
+  </div>
+
   <div fxFlexFill *ngIf="isQualificationRequired">
     <mifosx-qualification-rules-view
       class="client"
       [loanProduct]="loanProduct"
       [loanProductsTemplate]="loanProductsTemplate"
       [loanTypeId]="loanTypeId"
-      [downPaymentConfigurationsPreview]="downPaymentConfigurations"
     ></mifosx-qualification-rules-view>
   </div>
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Router } from '@angular/router';
@@ -27,7 +27,7 @@ const treeFlattener = new MatTreeFlattener(
   templateUrl: './country-tree-view.component.html',
   styleUrls: ['./country-tree-view.component.scss'],
 })
-export class CountryTreeViewComponent implements OnInit, AfterViewInit {
+export class CountryTreeViewComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(private router: Router) {}
 
   @Input() treeDataSource: OfficeTreeNode[] = [];
@@ -60,6 +60,23 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
 
   /** Whether an office is spoken for, so it can neither be ticked on its own nor through its parent */
   isDisabled = (node: OfficeFlatNode): boolean => (this.disabledOfficeIds || []).indexOf(node.id) > -1;
+
+  /**
+   * Takes a tree handed over after the first one, e.g. when the product's country changes under a picker that stays
+   * on screen. Only a caller whose own state drives the selection can be re-seeded this way, so the callers that
+   * refresh the tree themselves keep the one-time behaviour they were written against. Nothing is emitted: this is
+   * the picker catching up with its caller, not somebody choosing an office.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.selectOfficeOnly || !changes.treeDataSource || changes.treeDataSource.firstChange) {
+      return;
+    }
+    this.dataSource.data = this.treeDataSource;
+    this.checklistSelection.clear();
+    (this.treeControl.dataNodes || [])
+      .filter((node) => node.checked === true && !this.isDisabled(node))
+      .forEach((node) => this.checklistSelection.select(node));
+  }
 
   ngAfterViewInit() {
     for (let i = 0; i < this.treeControl.dataNodes.length; i++) {

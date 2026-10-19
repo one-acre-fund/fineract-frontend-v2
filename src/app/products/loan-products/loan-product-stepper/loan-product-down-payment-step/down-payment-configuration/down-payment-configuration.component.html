@@ -30,8 +30,8 @@
 
     <mat-form-field fxFlex="48%">
       <mat-label>{{ 'labels.inputs.Type' | translate }}</mat-label>
-      <mat-select formControlName="type">
-        <mat-option *ngFor="let type of types" [value]="type" (click)="onTypeChange(type)">
+      <mat-select formControlName="type" (selectionChange)="onTypeChange($event.value)">
+        <mat-option *ngFor="let type of types" [value]="type">
           {{ 'labels.oaf.downPaymentConfigurationType.' + type | translate }}
         </mat-option>
       </mat-select>
