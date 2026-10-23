@@ -445,7 +445,29 @@
       "FirstPage": "Ukurasa wa Kwanza",
       "LastPage": "Ukurasa wa Mwisho",
       "transferDescription": "Maelezo ya Uhamisho",
-      "kycVerificationRequestDate": "Tarehe ya Ombi"
+      "kycVerificationRequestDate": "Tarehe ya Ombi",
+      "downPaymentConfigurationHint": "A client pays the down payment of the configuration that covers their office, for the period that covers today and the band that covers their principal.",
+      "downPaymentConfigurationRequired": "The product needs at least one down payment configuration.",
+      "downPaymentConfigurationUnnamed": "New configuration",
+      "downPaymentConfigurationNameTooLong": "The name must be at most 100 characters",
+      "downPaymentOfficesHint": "An office covers the offices under it. An office can belong to only one configuration of this product.",
+      "downPaymentOfficesUnavailable": "Choose a country on the organisation unit step to pick offices.",
+      "downPaymentMaxPrincipalHint": "Leave empty for no upper limit",
+      "downPaymentMinPrincipalNegative": "The minimum principal cannot be negative",
+      "downPaymentAmountNotPositive": "The amount must be greater than 0",
+      "downPaymentNoConfigurations": "No down payment configurations",
+      "downPaymentAmount": "Down payment",
+      "officeTakenByAnotherConfiguration": "Another configuration of this product already uses this office",
+      "minPrincipal": "Minimum principal",
+      "maxPrincipal": "Maximum principal",
+      "offices": "offices",
+      "periods": "periods",
+      "addBand": "Add band",
+      "downPaymentConfigurationType": {
+        "STATIC": "Static (All Dates)",
+        "DYNAMIC": "Dynamic By Date Range"
+      },
+      "addDateRange": "Add Date Range"
     },
     "boolean": {
       "Yes": "Ndiyo",
@@ -1580,7 +1602,11 @@
       "StatusTransitions": "Mabadiliko ya Hali",
       "DeletedOnDate": "Imefutwa mnamo",
       "DeletedBy": "Imefutwa na",
-      "CreditScoreTenure": "Muda wa Alama ya Mkopo"
+      "CreditScoreTenure": "Muda wa Alama ya Mkopo",
+      "downPaymentConfigurations": "Down payment configurations",
+      "downPaymentConfigurationOffices": "Offices",
+      "downPaymentPeriods": "Periods",
+      "downPaymentBands": "Principal bands"
     },
     "inputs": {
       "accounting": {
@@ -2985,7 +3011,8 @@
       "PREVIEW": "Onyesha",
       "QUALIFICATION_RULES": "Sheria za Ustahiki",
       "SETTINGS": "Mipangilio",
-      "TERMS": "Masharti"
+      "TERMS": "Masharti",
+      "DOWN_PAYMENT": "Down Payment"
     },
     "links": {
       "Community": "Jumuiya",

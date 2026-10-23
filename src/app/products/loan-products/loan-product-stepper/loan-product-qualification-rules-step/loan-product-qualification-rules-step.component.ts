@@ -12,12 +12,9 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
   @Input() loanProductsTemplate: any;
   @Input() loanProduct: any;
   loanTypeId: any;
-  prepaidAmount: any;
-  prepaidAmountCalculationType: any;
-  amountCalculationTypeOptions: any;
   repaymentFrequencyTypeOptions: any;
-  downPaymentQualificationStrategy: any;
-  qualificationPeriods: any[];
+  /** Shown read only here, as the down payment step holds them: its live summary, not the saved product's */
+  @Input() downPaymentConfigurations: any[] = [];
 
   loanProductQualificationRuleForm: UntypedFormGroup;
 
@@ -25,34 +22,13 @@ export class LoanProductQualificationRulesStepComponent implements OnInit {
     this.productService.loanTypeId.subscribe(val => {
       this.loanTypeId = val;
     });
-    this.productService.prepaidAmount.subscribe(val => {
-      this.prepaidAmount = val;
-    } );
-
-    this.productService.prepaidAmountCalculationType.subscribe(val => {
-      this.prepaidAmountCalculationType = val;
-    } );
-
-     this.productService.downPaymentQualificationStrategy.subscribe(val => {
-      this.downPaymentQualificationStrategy = val;
-    } );
-
-     this.productService.getQualificationPeriods().subscribe(val => {
-      this.qualificationPeriods = val;
-    } );
    }
 
   ngOnInit(): void {
     this.createloanProductClientEligibilityForm();
-    this.amountCalculationTypeOptions = this.loanProductsTemplate.amountCalculationTypeOptions;
     this.repaymentFrequencyTypeOptions = this.loanProductsTemplate.repaymentFrequencyTypeOptions;
     if ( this.router.url.includes('edit') ) {
       this.setLoanProductClientEligibilityFormForEdit();
-      // Iniitializing prepaid amount and prepaid amount calculation type for Edit page
-      this.prepaidAmount = this.loanProductsTemplate.terms?.prepaidAmount;
-      this.prepaidAmountCalculationType = this.loanProductsTemplate.terms?.prepaidAmountCalculationType?.value;
-      this.downPaymentQualificationStrategy = this.loanProductsTemplate.terms?.downPaymentQualificationStrategy?.code;
-      this.qualificationPeriods = this.loanProductsTemplate.qualificationPeriods || [];
     }
   }
   

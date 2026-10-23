@@ -372,13 +372,6 @@
         </div>
 
         <div fxFlexFill>
-          <span fxFlex="40%">{{ 'labels.oaf.Prepaid Amount' | translate }}</span>
-          <span fxFlex="60%">{{
-            loanProduct.terms?.prepaidAmount + ' ' + loanProduct.terms?.prepaidAmountCalculationType?.value
-          }}</span>
-        </div>
-
-        <div fxFlexFill>
           <span fxFlex="40%">{{ 'labels.oaf.Repayment Start Period' | translate }}</span>
           <span fxFlex="60%">{{
             loanProduct.terms?.repaymentStartPeriod + ' ' + loanProduct.terms?.repaymentStartPeriodFrequencyType?.value
@@ -412,6 +405,15 @@
         </div>
 
         <mifosx-client-eligbility class="client" [loanProduct]="loanProduct"></mifosx-client-eligbility>
+
+        <div fxFlexFill *ngIf="loanProduct.downPaymentConfigurations?.length > 0">
+          {{ 'labels.heading.downPaymentConfigurations' | translate }}
+          <mat-divider [inset]="true"></mat-divider>
+          <mifosx-down-payment-configurations-view
+            class="client"
+            [configurations]="loanProduct.downPaymentConfigurations"
+          ></mifosx-down-payment-configurations-view>
+        </div>
 
         <div fxFlexFill *ngIf="isQualificationRulesPresent">
           <mifosx-qualification-rules-view

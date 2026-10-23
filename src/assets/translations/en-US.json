@@ -445,7 +445,29 @@
       "FirstPage": "First Page",
       "LastPage": "Last Page",
       "transferDescription": "Transfer Description",
-      "kycVerificationRequestDate": "Request Date"
+      "kycVerificationRequestDate": "Request Date",
+      "downPaymentConfigurationHint": "A client pays the down payment of the configuration that covers their office, for the period that covers today and the band that covers their principal.",
+      "downPaymentConfigurationRequired": "The product needs at least one down payment configuration.",
+      "downPaymentConfigurationUnnamed": "New configuration",
+      "downPaymentConfigurationNameTooLong": "The name must be at most 100 characters",
+      "downPaymentOfficesHint": "An office covers the offices under it. An office can belong to only one configuration of this product.",
+      "downPaymentOfficesUnavailable": "Choose a country on the organisation unit step to pick offices.",
+      "downPaymentMaxPrincipalHint": "Leave empty for no upper limit",
+      "downPaymentMinPrincipalNegative": "The minimum principal cannot be negative",
+      "downPaymentAmountNotPositive": "The amount must be greater than 0",
+      "officeTakenByAnotherConfiguration": "Another configuration of this product already uses this office",
+      "minPrincipal": "Minimum principal",
+      "maxPrincipal": "Maximum principal",
+      "offices": "offices",
+      "periods": "periods",
+      "addBand": "Add band",
+      "downPaymentConfigurationType": {
+        "STATIC": "Static (All Dates)",
+        "DYNAMIC": "Dynamic By Date Range"
+      },
+      "downPaymentNoConfigurations": "No down payment configurations",
+      "downPaymentAmount": "Down payment",
+      "addDateRange": "Add Date Range"
     },
     "boolean": {
       "Yes": "Yes",
@@ -1582,7 +1604,11 @@
       "StatusTransitions": "Status Transitions",
       "DeletedOnDate": "Deleted on",
       "DeletedBy": "Deleted by",
-      "CreditScoreTenure": "Credit Score Tenure"
+      "CreditScoreTenure": "Credit Score Tenure",
+      "downPaymentConfigurations": "Down payment configurations",
+      "downPaymentConfigurationOffices": "Offices",
+      "downPaymentPeriods": "Periods",
+      "downPaymentBands": "Principal bands"
     },
     "inputs": {
       "accounting": {
@@ -2984,6 +3010,7 @@
       "CHARGES": "Charges",
       "CLIENT_ELIGIBILITY": "Client Eligibility",
       "DETAILS": "Details",
+      "DOWN_PAYMENT": "Down Payment",
       "ORGANIZATION_UNITS": "Organization Units",
       "PREVIEW": "Preview",
       "QUALIFICATION_RULES": "Qualification Rules",

@@ -1,0 +1,18 @@
+.down-payment-view-item + .down-payment-view-item {
+  margin-top: 0.5rem;
+}
+
+.down-payment-view-name {
+  font-weight: 500;
+}
+
+.down-payment-view-type,
+.down-payment-view-offices {
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+ul {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+}
