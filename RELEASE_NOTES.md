@@ -1,6 +1,6 @@
 # Release Notes
 
-## Version 1.4.12 - Community 1.0.0
+## Version 1.4.13 - Community 1.0.0
     *  Loans & Payments
         * [HQX-280] - Enable the ability to configure loan product down payment qualification in a flexible way to support different country requirements
 
