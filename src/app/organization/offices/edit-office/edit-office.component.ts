@@ -55,7 +55,11 @@ export class EditOfficeComponent implements OnInit {
   ) {
     this.route.data.subscribe((data: { officeTemplate: any }) => {
       this.officeData = data.officeTemplate;
-      this.allowedParents = data.officeTemplate?.allowedParents?.filter((x) => x.status === true);
+      // A non country OU can only be moved under a parent from its own country
+      const officeCountryId = this.officeData?.isCountry ? null : this.officeData?.officeCountryId;
+      this.allowedParents = data.officeTemplate?.allowedParents?.filter(
+        (x) => x.status === true && (!officeCountryId || x.officeCountryId === officeCountryId)
+      );
       this.allowedParentsSliced = this.allowedParents;
     });
   }

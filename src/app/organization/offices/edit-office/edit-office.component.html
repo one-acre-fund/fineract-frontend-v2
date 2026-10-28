@@ -78,6 +78,7 @@
               placeholder="{{ 'labels.inputs.Select Shop Outlet/Warehouse' | translate }}"
               formControlName="shopOutletId"
               aria-labelledby="shopOutletId"
+              [clearable]="!officeData.shopOutlet"
               [virtualScroll]="true"
             >
             </ng-select>
