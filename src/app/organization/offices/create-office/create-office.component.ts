@@ -29,6 +29,10 @@ export class CreateOfficeComponent implements OnInit {
   maxDate = new Date();
 
   parentId: number;
+  /** Shop outlets the office can be mapped to */
+  shopOutlets: any[] = [];
+  /** Whether the shop outlet picker is shown */
+  showShopOutlet = false;
   /**
    * Retrieves the offices data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -60,6 +64,17 @@ export class CreateOfficeComponent implements OnInit {
   @ViewChild('officeHierarchy') officeHierarchy;
   ngOnInit() {
     this.createofficeForm();
+    this.loadShopOutlets();
+  }
+
+  /**
+   * Loads the shop outlets when the selected country maps lowest level OUs to outlets
+   */
+  loadShopOutlets() {
+    this.organizationService.getShopOutletsForOfficeMapping().subscribe((outlets) => {
+      this.showShopOutlet = outlets !== null;
+      this.shopOutlets = outlets || [];
+    });
   }
   public isFiltered(office: any) {
     return this.officeDataSliced.find((item) => item.id === office.id);
@@ -75,6 +90,7 @@ export class CreateOfficeComponent implements OnInit {
       externalId: [''],
       countryHierarchy: [],
       country: [false],
+      shopOutletId: [null],
     });
   }
 
@@ -118,6 +134,9 @@ export class CreateOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
+    if (this.showHierarchy || !data.shopOutletId) {
+      delete data.shopOutletId;
+    }
     if (this.showHierarchy) {
       data.country = data.country === 'Yes' ? 'true' : 'false';
       this.organizationService.createOfficeHierarchy(data).subscribe((response) => {

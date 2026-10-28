@@ -68,6 +68,21 @@
             </ng-select>
           </div>
 
+          <div *ngIf="showShopOutlet && !showHierarchy" class="shop-outlet">
+            <label for="shopOutletId">{{ 'labels.inputs.Map A Shop Outlet/Warehouse' | translate }}</label>
+            <ng-select
+              id="shopOutletId"
+              [items]="shopOutlets"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.inputs.Select Shop Outlet/Warehouse' | translate }}"
+              formControlName="shopOutletId"
+              aria-labelledby="shopOutletId"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
           <mat-form-field (click)="openingDatePicker.open()">
             <mat-label>{{ 'labels.inputs.Opened On' | translate }}</mat-label>
             <input

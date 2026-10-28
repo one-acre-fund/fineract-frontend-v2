@@ -30,6 +30,10 @@ export class EditOfficeComponent implements OnInit {
   showHierarchy = false;
   allowedParents: any;
   allowedParentsSliced: any;
+  /** Shop outlets the office can be mapped to */
+  shopOutlets: any[] = [];
+  /** Whether the shop outlet picker is shown */
+  showShopOutlet = false;
 
   /**
    * Retrieves the charge data from `resolve`.
@@ -62,6 +66,24 @@ export class EditOfficeComponent implements OnInit {
       this.officeData.countryHierarchies?.length > 0 ? [this.officeData.countryHierarchies[0].officeHierarchy] : [];
 
     this.createOfficeForm();
+    if (!this.showHierarchy) {
+      this.loadShopOutlets();
+    }
+  }
+
+  /**
+   * Loads the shop outlets when the selected country maps lowest level OUs to outlets.
+   * The current outlet is kept in the list even when it is no longer active.
+   */
+  loadShopOutlets() {
+    this.organizationService.getShopOutletsForOfficeMapping().subscribe((outlets) => {
+      this.showShopOutlet = outlets !== null;
+      const currentOutlet = this.officeData.shopOutlet;
+      this.shopOutlets = outlets || [];
+      if (currentOutlet && !this.shopOutlets.some((outlet) => outlet.id === currentOutlet.id)) {
+        this.shopOutlets = [currentOutlet, ...this.shopOutlets];
+      }
+    });
   }
 
   public isFiltered(office: any) {
@@ -90,6 +112,7 @@ export class EditOfficeComponent implements OnInit {
       externalId: [this.officeData.externalId],
       country: [this.officeData.isCountry],
       countryHierarchy: [null],
+      shopOutletId: [this.officeData.shopOutlet?.id ?? null],
     });
     if (this.officeData.allowedParents.length) {
       this.officeForm.addControl('parentId', this.formBuilder.control(this.officeData.parentId, Validators.required));
@@ -125,6 +148,9 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
+    if (this.showHierarchy || !data.shopOutletId) {
+      delete data.shopOutletId;
+    }
     if (this.showHierarchy) {
       data.country = data.country ? 'true' : 'false';
       if (!data.externalId) {
