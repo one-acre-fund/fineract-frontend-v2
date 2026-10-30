@@ -278,17 +278,17 @@ export class OrganizationService {
   }
 
   /**
-   * Retrieves the active shop outlets an office of the selected country can be mapped to. Outlets are only offered
+   * Retrieves the active fulfillment sources an office of the selected country can be mapped to. Outlets are only offered
    * when the country requires lowest level OUs to be mapped to an outlet and the user can read outlets.
-   * @returns {Observable<any[] | null>} the outlets, or null when the shop outlet picker should not be shown
+   * @returns {Observable<any[] | null>} the outlets, or null when the fulfillment source picker should not be shown
    */
-  getShopOutletsForOfficeMapping(): Observable<any[] | null> {
+  getFulfillmentSourcesForOfficeMapping(): Observable<any[] | null> {
     const countryId = this.settingsService.getSelectedCountry()?.id;
-    if (!countryId || !this.canReadShopOutlets()) {
+    if (!countryId || !this.canReadFulfillmentSources()) {
       return of(null);
     }
     return this.systemService
-      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.MAPPING_WAREHOUSE_TO_LOWEST_OU_ENABLED, { countryId })
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.MAPPING_FULFILLMENT_SOURCE_TO_LOWEST_OU_ENABLED, { countryId })
       .pipe(
         switchMap((config: any) =>
           config?.enabled ? this.getRuralRetailOutlets({ countryId, onlyActive: true }) : of(null)
@@ -296,7 +296,7 @@ export class OrganizationService {
       );
   }
 
-  private canReadShopOutlets(): boolean {
+  private canReadFulfillmentSources(): boolean {
     const permissions: string[] = this.authenticationService.getCredentials()?.permissions || [];
     return ['ALL_FUNCTIONS', 'ALL_FUNCTIONS_READ', 'READ_RURAL_RETAIL_OUTLET'].some((permission) =>
       permissions.includes(permission)

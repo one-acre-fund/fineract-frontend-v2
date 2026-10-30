@@ -29,10 +29,10 @@ export class CreateOfficeComponent implements OnInit {
   maxDate = new Date();
 
   parentId: number;
-  /** Shop outlets the office can be mapped to */
-  shopOutlets: any[] = [];
-  /** Whether the shop outlet picker is shown */
-  showShopOutlet = false;
+  /** Fulfillment sources the office can be mapped to */
+  fulfillmentSources: any[] = [];
+  /** Whether the fulfillment source picker is shown */
+  showFulfillmentSource = false;
   /**
    * Retrieves the offices data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -64,16 +64,16 @@ export class CreateOfficeComponent implements OnInit {
   @ViewChild('officeHierarchy') officeHierarchy;
   ngOnInit() {
     this.createofficeForm();
-    this.loadShopOutlets();
+    this.loadFulfillmentSources();
   }
 
   /**
-   * Loads the shop outlets when the selected country maps lowest level OUs to outlets
+   * Loads the fulfillment sources when the selected country maps lowest level OUs to outlets
    */
-  loadShopOutlets() {
-    this.organizationService.getShopOutletsForOfficeMapping().subscribe((outlets) => {
-      this.showShopOutlet = outlets !== null;
-      this.shopOutlets = outlets || [];
+  loadFulfillmentSources() {
+    this.organizationService.getFulfillmentSourcesForOfficeMapping().subscribe((outlets) => {
+      this.showFulfillmentSource = outlets !== null;
+      this.fulfillmentSources = outlets || [];
     });
   }
   public isFiltered(office: any) {
@@ -90,7 +90,7 @@ export class CreateOfficeComponent implements OnInit {
       externalId: [''],
       countryHierarchy: [],
       country: [false],
-      shopOutletId: [null],
+      fulfillmentSourceMapId: [null],
     });
   }
 
@@ -134,8 +134,8 @@ export class CreateOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
-    if (this.showHierarchy || !data.shopOutletId) {
-      delete data.shopOutletId;
+    if (this.showHierarchy || !data.fulfillmentSourceMapId) {
+      delete data.fulfillmentSourceMapId;
     }
     if (this.showHierarchy) {
       data.country = data.country === 'Yes' ? 'true' : 'false';

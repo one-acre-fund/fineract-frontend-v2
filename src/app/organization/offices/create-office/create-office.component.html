@@ -65,16 +65,16 @@
             </ng-select>
           </div>
 
-          <div *ngIf="showShopOutlet && !showHierarchy" class="shop-outlet">
-            <label for="shopOutletId">{{ 'labels.inputs.Map A Shop Outlet/Warehouse' | translate }}</label>
+          <div *ngIf="showFulfillmentSource && !showHierarchy" class="fulfillment-source">
+            <label for="fulfillmentSourceMapId">{{ 'labels.inputs.Map A Fulfillment Source/Warehouse' | translate }}</label>
             <ng-select
-              id="shopOutletId"
-              [items]="shopOutlets"
+              id="fulfillmentSourceMapId"
+              [items]="fulfillmentSources"
               bindLabel="name"
               bindValue="id"
-              placeholder="{{ 'labels.inputs.Select Shop Outlet/Warehouse' | translate }}"
-              formControlName="shopOutletId"
-              aria-labelledby="shopOutletId"
+              placeholder="{{ 'labels.inputs.Select Fulfillment Source/Warehouse' | translate }}"
+              formControlName="fulfillmentSourceMapId"
+              aria-labelledby="fulfillmentSourceMapId"
               [virtualScroll]="true"
             >
             </ng-select>

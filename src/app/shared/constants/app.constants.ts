@@ -4,7 +4,7 @@ export const APP_CONSTANTS = {
     LOAN_QUALIFICATION_RULES: 'loan-qualification-rules-required',
     SKIP_COUNTRY_SPECIFIC_CHECKS: 'skip-country-specific-checks',
     RESTRICT_CLIENT_INFO_EDIT_WHEN_THEY_HAVE_ACTIVE_LOANS: "restrict-client-info-edit-when-they-have-active-loans",
-    MAPPING_WAREHOUSE_TO_LOWEST_OU_ENABLED: 'mapping-warehouse-to-lowest-ou-enabled'
+    MAPPING_FULFILLMENT_SOURCE_TO_LOWEST_OU_ENABLED: 'mapping-fulfillment-source-to-lowest-ou-enabled'
   },
   SESSION_STORAGE: {
     SELECTED_COUNTRY: 'selectedCountry',

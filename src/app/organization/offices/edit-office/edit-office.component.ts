@@ -30,10 +30,10 @@ export class EditOfficeComponent implements OnInit {
   showHierarchy = false;
   allowedParents: any;
   allowedParentsSliced: any;
-  /** Shop outlets the office can be mapped to */
-  shopOutlets: any[] = [];
-  /** Whether the shop outlet picker is shown */
-  showShopOutlet = false;
+  /** Fulfillment sources the office can be mapped to */
+  fulfillmentSources: any[] = [];
+  /** Whether the fulfillment source picker is shown */
+  showFulfillmentSource = false;
 
   /**
    * Retrieves the charge data from `resolve`.
@@ -71,21 +71,21 @@ export class EditOfficeComponent implements OnInit {
 
     this.createOfficeForm();
     if (!this.showHierarchy) {
-      this.loadShopOutlets();
+      this.loadFulfillmentSources();
     }
   }
 
   /**
-   * Loads the shop outlets when the selected country maps lowest level OUs to outlets.
+   * Loads the fulfillment sources when the selected country maps lowest level OUs to outlets.
    * The current outlet is kept in the list even when it is no longer active.
    */
-  loadShopOutlets() {
-    this.organizationService.getShopOutletsForOfficeMapping().subscribe((outlets) => {
-      this.showShopOutlet = outlets !== null;
-      const currentOutlet = this.officeData.shopOutlet;
-      this.shopOutlets = outlets || [];
-      if (currentOutlet && !this.shopOutlets.some((outlet) => outlet.id === currentOutlet.id)) {
-        this.shopOutlets = [currentOutlet, ...this.shopOutlets];
+  loadFulfillmentSources() {
+    this.organizationService.getFulfillmentSourcesForOfficeMapping().subscribe((outlets) => {
+      this.showFulfillmentSource = outlets !== null;
+      const currentOutlet = this.officeData.fulfillmentSourceMap;
+      this.fulfillmentSources = outlets || [];
+      if (currentOutlet && !this.fulfillmentSources.some((outlet) => outlet.id === currentOutlet.id)) {
+        this.fulfillmentSources = [currentOutlet, ...this.fulfillmentSources];
       }
     });
   }
@@ -116,7 +116,7 @@ export class EditOfficeComponent implements OnInit {
       externalId: [this.officeData.externalId],
       country: [this.officeData.isCountry],
       countryHierarchy: [null],
-      shopOutletId: [this.officeData.shopOutlet?.id ?? null],
+      fulfillmentSourceMapId: [this.officeData.fulfillmentSourceMap?.id ?? null],
     });
     if (this.officeData.allowedParents.length) {
       this.officeForm.addControl('parentId', this.formBuilder.control(this.officeData.parentId, Validators.required));
@@ -152,8 +152,8 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
-    if (this.showHierarchy || !data.shopOutletId) {
-      delete data.shopOutletId;
+    if (this.showHierarchy || !data.fulfillmentSourceMapId) {
+      delete data.fulfillmentSourceMapId;
     }
     if (this.showHierarchy) {
       data.country = data.country ? 'true' : 'false';
