@@ -152,7 +152,8 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
-    if (this.showHierarchy || !data.fulfillmentSourceMapId) {
+    // A cleared picker sends null, which removes the OU from its outlet
+    if (this.showHierarchy || !this.showFulfillmentSource) {
       delete data.fulfillmentSourceMapId;
     }
     if (this.showHierarchy) {
