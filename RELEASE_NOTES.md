@@ -3,6 +3,8 @@
 ## Version 1.4.13 - Community 1.0.0
     *  Loans & Payments
         * [HQX-280] - Enable the ability to configure loan product down payment qualification in a flexible way to support different country requirements
+    * Organization Units Configurations
+        * [HQX-424] - Add configuration to map a warehouse to the lowest level OU in the hierarchy
 
 ## Version 1.4.12 - Community 1.0.0
 

@@ -3,10 +3,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 /** rxjs Imports */
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 /** Custom Imports. */
 import { SettingsService } from 'app/settings/settings.service';
+import { SystemService } from 'app/system/system.service';
+import { AuthenticationService } from 'app/core/authentication/authentication.service';
+import { APP_CONSTANTS } from 'app/shared/constants/app.constants';
 
 /**
  * Organization service.
@@ -18,7 +22,12 @@ export class OrganizationService {
   /**
    * @param {HttpClient} http Http Client to send requests.
    */
-  constructor(private http: HttpClient, private settingsService: SettingsService) {}
+  constructor(
+    private http: HttpClient,
+    private settingsService: SettingsService,
+    private systemService: SystemService,
+    private authenticationService: AuthenticationService
+  ) {}
 
   /**
    * @returns {Observable<any>} Loan Provisioning Criteria data
@@ -257,8 +266,41 @@ export class OrganizationService {
   /**
    * @returns {Observable<any>} rural retail outlet data
    */
-  getRuralRetailOutlets(): Observable<any> {
-    return this.http.get('/ruralretailoutlets');
+  getRuralRetailOutlets(filters: { countryId?: number; onlyActive?: boolean } = {}): Observable<any> {
+    let httpParams = new HttpParams();
+    if (filters.countryId) {
+      httpParams = httpParams.set('countryId', filters.countryId.toString());
+    }
+    if (filters.onlyActive) {
+      httpParams = httpParams.set('onlyActive', 'true');
+    }
+    return this.http.get('/ruralretailoutlets', { params: httpParams });
+  }
+
+  /**
+   * Retrieves the active fulfillment sources an office of the selected country can be mapped to. Outlets are only offered
+   * when the country requires lowest level OUs to be mapped to an outlet and the user can read outlets.
+   * @returns {Observable<any[] | null>} the outlets, or null when the fulfillment source picker should not be shown
+   */
+  getFulfillmentSourcesForOfficeMapping(): Observable<any[] | null> {
+    const countryId = this.settingsService.getSelectedCountry()?.id;
+    if (!countryId || !this.canReadFulfillmentSources()) {
+      return of(null);
+    }
+    return this.systemService
+      .getConfigurationByName(APP_CONSTANTS.SYSTEM_CONFIGURATIONS.MAPPING_FULFILLMENT_SOURCE_TO_LOWEST_OU_ENABLED, { countryId })
+      .pipe(
+        switchMap((config: any) =>
+          config?.enabled ? this.getRuralRetailOutlets({ countryId, onlyActive: true }) : of(null)
+        )
+      );
+  }
+
+  private canReadFulfillmentSources(): boolean {
+    const permissions: string[] = this.authenticationService.getCredentials()?.permissions || [];
+    return ['ALL_FUNCTIONS', 'ALL_FUNCTIONS_READ', 'READ_RURAL_RETAIL_OUTLET'].some((permission) =>
+      permissions.includes(permission)
+    );
   }
   getRuralOutletByOutletId(id: any) {
     return this.http.get('/ruralretailoutlets/' + id);

@@ -264,8 +264,8 @@ const routes: Routes = [
         {
           path: 'rural-outlet',
           data: {
-            title: extract('labels.commons.Manage Rural Retail Outlet'),
-            breadcrumb: 'Manage Rural Retail Outlet',
+            title: extract('labels.commons.Manage Shops and Warehouses'),
+            breadcrumb: 'Manage Shops and Warehouses',
           },
           children: [
             {
@@ -278,7 +278,7 @@ const routes: Routes = [
             {
               path: 'create',
               component: CreateOutletComponent,
-              data: { title: extract('labels.commons.Create Outlet'), breadcrumb: 'Create Outlet' },
+              data: { title: extract('labels.commons.Create Shop/Warehouse'), breadcrumb: 'Create Shop/Warehouse' },
               resolve: {
                 offices: RetailOutletResolver,
               },
@@ -286,7 +286,7 @@ const routes: Routes = [
             {
               path: ':id',
               data: {
-                title: extract('labels.commons.Rural Outlet'),
+                title: extract('labels.commons.Shop/Warehouse'),
                 routeParamBreadcrumb: 'id',
                 routeResolveBreadcrumb: ['offices', 'name'],
               },
@@ -297,12 +297,12 @@ const routes: Routes = [
             },
             {
               path: ':id',
-              data: { title: extract('labels.commons.Rural Outlet'), routeParamBreadcrumb: 'id' },
+              data: { title: extract('labels.commons.Shop/Warehouse'), routeParamBreadcrumb: 'id' },
               children: [
                 {
                   path: 'edit',
                   data: {
-                    title: extract('labels.commons.Edit Rural Outlet'),
+                    title: extract('labels.commons.Edit Shop/Warehouse'),
                     breadcrumb: 'Edit',
                     routeParamBreadcrumb: false,
                   },

@@ -61,8 +61,22 @@
               bindLabel="officeHierarchyPath"
               bindValue="id"
               placeholder="{{ 'labels.inputs.Select Office' | translate }}"
+              labelForId="parentId"
               formControlName="parentId"
-              aria-labelledby="parentId"
+              [virtualScroll]="true"
+            >
+            </ng-select>
+          </div>
+
+          <div *ngIf="showFulfillmentSource && !showHierarchy" class="fulfillment-source">
+            <label for="fulfillmentSourceMapId">{{ 'labels.inputs.Map A Fulfillment Source/Warehouse' | translate }}</label>
+            <ng-select
+              labelForId="fulfillmentSourceMapId"
+              [items]="fulfillmentSources"
+              bindLabel="name"
+              bindValue="id"
+              placeholder="{{ 'labels.inputs.Select Fulfillment Source/Warehouse' | translate }}"
+              formControlName="fulfillmentSourceMapId"
               [virtualScroll]="true"
             >
             </ng-select>
