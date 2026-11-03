@@ -29,6 +29,10 @@ export class CreateOfficeComponent implements OnInit {
   maxDate = new Date();
 
   parentId: number;
+  /** Fulfillment sources the office can be mapped to */
+  fulfillmentSources: any[] = [];
+  /** Whether the fulfillment source picker is shown */
+  showFulfillmentSource = false;
   /**
    * Retrieves the offices data from `resolve`.
    * @param {FormBuilder} formBuilder Form Builder.
@@ -60,6 +64,17 @@ export class CreateOfficeComponent implements OnInit {
   @ViewChild('officeHierarchy') officeHierarchy;
   ngOnInit() {
     this.createofficeForm();
+    this.loadFulfillmentSources();
+  }
+
+  /**
+   * Loads the fulfillment sources when the selected country maps lowest level OUs to outlets
+   */
+  loadFulfillmentSources() {
+    this.organizationService.getFulfillmentSourcesForOfficeMapping().subscribe((outlets) => {
+      this.showFulfillmentSource = outlets !== null;
+      this.fulfillmentSources = outlets || [];
+    });
   }
   public isFiltered(office: any) {
     return this.officeDataSliced.find((item) => item.id === office.id);
@@ -75,6 +90,7 @@ export class CreateOfficeComponent implements OnInit {
       externalId: [''],
       countryHierarchy: [],
       country: [false],
+      fulfillmentSourceMapId: [null],
     });
   }
 
@@ -118,6 +134,9 @@ export class CreateOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
+    if (this.showHierarchy || !data.fulfillmentSourceMapId) {
+      delete data.fulfillmentSourceMapId;
+    }
     if (this.showHierarchy) {
       data.country = data.country === 'Yes' ? 'true' : 'false';
       this.organizationService.createOfficeHierarchy(data).subscribe((response) => {
