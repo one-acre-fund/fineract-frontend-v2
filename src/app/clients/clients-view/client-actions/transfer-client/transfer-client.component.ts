@@ -95,9 +95,9 @@ export class TransferClientComponent implements OnInit {
       locale,
     };
     //Track Matomo event for transferring client
-    this.matomoTracker.trackEvent('clients', 'proposeTransfer', this.clientId);
+    this.matomoTracker.trackEvent('clients', 'proposeAndAcceptTransfer', this.clientId);
 
-    this.clientsService.executeClientCommand(this.clientId, "proposeTransfer", data).subscribe(() => {
+    this.clientsService.executeClientCommand(this.clientId, 'proposeAndAcceptTransfer', data).subscribe(() => {
       this.clientsService.redirectToClient(this.clientId);
     });
   }
