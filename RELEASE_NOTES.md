@@ -11,6 +11,8 @@
         * [HQX-332/HQX-379] - Add markedForCreditScoreRefresh and allowedEnrolmentsPerClient fields on loan product UI
         * [HQX-402] - Guard bulk removal of clients from groups using permissions and filter groups by offices selected
         * [HQX-415] - Groups filtering by higher level hierarchy offices
+        * [FNG-502] - Show Undo Transfer for clients under status transfer on hold.
+        * [HQX-463] - Complete new client transfers in one step while retaining acceptance for transfers already in progress.
 
 ## Version 1.4.11.2 - Community 1.0.0
 
