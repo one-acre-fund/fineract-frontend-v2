@@ -1,22 +1,6 @@
 {{ 'labels.oaf.Qualification Rules' | translate }}
 <mat-divider fxFlexFill></mat-divider>
 
-<div fxFlexFill>
-  <span fxFlex="40%">{{ 'labels.text.DownPayment' | translate }}</span>
-  <span fxFlex="60%" *ngIf="'STATIC' === loanProduct.terms?.downPaymentQualificationStrategy?.code">{{
-    loanProduct.prepaidAmount +
-      ('PERCENTAGE' === loanProduct.terms?.prepaidAmountCalculationType?.code ? '%' : '')
-  }}</span>
-  <div fxFlex="60%" *ngIf="'DYNAMIC' === loanProduct.terms?.downPaymentQualificationStrategy?.code">
-    <ul>
-      <li *ngFor="let period of loanProduct.qualificationPeriods">
-        {{ period.fromDate }} - {{ period.toDate }} > {{ period.prepaidAmount }}
-         {{ ('PERCENTAGE' === period.prepaidAmountCalculationType ? '%' : '') }}
-      </li>
-    </ul>
-  </div>
-</div>
-
 <div *ngIf="loanTypeId == 2">
   <div fxFlexFill>
     <span fxFlex="40%">{{ 'labels.oaf.Minimum qualified members' | translate }}</span>

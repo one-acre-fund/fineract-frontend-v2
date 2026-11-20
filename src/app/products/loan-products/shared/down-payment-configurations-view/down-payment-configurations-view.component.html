@@ -1,0 +1,23 @@
+<div class="down-payment-view" *ngIf="rows.length > 0; else noConfigurations">
+  <div class="down-payment-view-item" *ngFor="let row of rows">
+    <div class="down-payment-view-name">
+      {{ row.name }}
+      <span class="down-payment-view-type">{{ 'labels.oaf.downPaymentConfigurationType.' + row.type | translate }}</span>
+    </div>
+
+    <div class="down-payment-view-offices" *ngIf="row.offices.length > 0">
+      {{ 'labels.heading.downPaymentConfigurationOffices' | translate }}: {{ row.offices.join(', ') }}
+    </div>
+
+    <ul>
+      <li *ngFor="let period of row.periods">
+        <span *ngIf="period.label">{{ period.label }}:&nbsp;</span>
+        {{ period.bands.join('; ') }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #noConfigurations>
+  <span>{{ 'labels.oaf.downPaymentNoConfigurations' | translate }}</span>
+</ng-template>

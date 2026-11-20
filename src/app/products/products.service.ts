@@ -17,14 +17,10 @@ import { SettingsService } from "app/settings/settings.service";
 export class ProductsService {
   private loanTypeId$ = new BehaviorSubject<any>(null);
   private countryId$ = new BehaviorSubject<any>(null);
-  private prepaidAmount$ = new BehaviorSubject<any>(null);
-  private prepaidAmountCalculationType$ = new BehaviorSubject<any>('Flat');
   private isQualificationRequired$ = new BehaviorSubject<boolean>(false);
   private enableTermsAndConditions$ = new BehaviorSubject<boolean>(false);
   private isCreditScoringEnabled$ = new BehaviorSubject<boolean>(false);
-  private downPaymentQualificationStrategy$ = new BehaviorSubject<any>('STATIC');
-  private allowDynamicDownpayment$ = new BehaviorSubject<boolean>(false);
-  private qualificationPeriods$ = new BehaviorSubject<any[]>([]);
+  private principalRange$ = new BehaviorSubject<any>({ minPrincipal: null, maxPrincipal: null });
 
   /**
    * @param {HttpClient} http Http Client to send requests.
@@ -46,22 +42,6 @@ export class ProductsService {
 
   get countryId(): any {
     return this.countryId$.asObservable();
-  }
-
-  get prepaidAmount(): any {
-    return this.prepaidAmount$.asObservable();
-  }
-
-  set prepaidAmount(val: any) {
-    this.prepaidAmount$.next(val);
-  }
-
-  get prepaidAmountCalculationType(): any {
-    return this.prepaidAmountCalculationType$.asObservable();
-  }
-
-  set prepaidAmountCalculationType(val: any) {
-    this.prepaidAmountCalculationType$.next(val);
   }
 
   get isQualificationRequired(): any {
@@ -88,28 +68,13 @@ export class ProductsService {
     this.isCreditScoringEnabled$.next(val);
   }
 
-  get downPaymentQualificationStrategy(): any {
-    return this.downPaymentQualificationStrategy$.asObservable();
+  /** The principal limits of the product being edited, which its down payment bands have to cover */
+  get principalRange(): any {
+    return this.principalRange$.asObservable();
   }
 
-  set downPaymentQualificationStrategy(val: any) {
-    this.downPaymentQualificationStrategy$.next(val);
-  }
-
-  get allowDynamicDownpayment(): any {
-    return this.allowDynamicDownpayment$.asObservable();
-  }
-
-  set allowDynamicDownpayment(val: any) {
-    this.allowDynamicDownpayment$.next(val);
-  }
-
-  getQualificationPeriods(): Observable<any[]> {
-    return this.qualificationPeriods$.asObservable();
-  }
-
-  setQualificationPeriods(val: any[]): void {
-    this.qualificationPeriods$.next(val);
+  set principalRange(val: any) {
+    this.principalRange$.next(val);
   }
 
 

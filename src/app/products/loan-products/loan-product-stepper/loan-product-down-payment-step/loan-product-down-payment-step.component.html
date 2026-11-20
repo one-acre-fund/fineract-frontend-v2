@@ -1,0 +1,39 @@
+<form [formGroup]="store.form">
+  <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column">
+    <div fxLayout="column" fxFlex="48%" class="tableName">
+      <h4 class="mat-h4">{{ 'labels.heading.downPaymentConfigurations' | translate }}</h4>
+    </div>
+
+    <div fxLayout="column" fxFlex="48%">
+      <div fxLayout="row" fxLayoutAlign="flex-end">
+        <button type="button" mat-raised-button color="primary" (click)="store.addConfiguration()">
+          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Add' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <p class="down-payment-hint">{{ 'labels.oaf.downPaymentConfigurationHint' | translate }}</p>
+
+  <mat-accordion multi="true" formArrayName="configurations">
+    <mifosx-down-payment-configuration
+      *ngFor="let configuration of store.configurations.controls; let configurationIndex = index"
+      [configurationIndex]="configurationIndex"
+      [amountCalculationTypeOptions]="loanProductsTemplate?.amountCalculationTypeOptions"
+    >
+    </mifosx-down-payment-configuration>
+  </mat-accordion>
+
+  <div *ngIf="store.configurations.length === 0" class="down-payment-empty">
+    {{ 'labels.oaf.downPaymentConfigurationRequired' | translate }}
+  </div>
+
+  <div fxLayout="row" class="margin-t" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="2%">
+    <button mat-raised-button matStepperPrevious>
+      <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Previous' | translate }}
+    </button>
+    <button mat-raised-button matStepperNext [disabled]="store.form.invalid">
+      {{ 'labels.buttons.Next' | translate }}&nbsp;&nbsp;<fa-icon icon="arrow-right"></fa-icon>
+    </button>
+  </div>
+</form>

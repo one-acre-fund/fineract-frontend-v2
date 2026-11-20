@@ -16,6 +16,7 @@ import { LoanProductAppsComponent } from '../loan-product-stepper/loan-product-a
 import { ProductsService } from 'app/products/products.service';
 import { SettingsService } from 'app/settings/settings.service';
 import { LoanProductQualificationRulesStepComponent } from '../loan-product-stepper/loan-product-qualification-rules-step/loan-product-qualification-rules-step.component';
+import { LoanProductDownPaymentStepComponent } from '../loan-product-stepper/loan-product-down-payment-step/loan-product-down-payment-step.component';
 
 @Component({
   selector: 'mifosx-edit-loan-product',
@@ -33,6 +34,7 @@ export class EditLoanProductComponent implements OnInit {
   @ViewChild(LoanProductClientEligibilityStepComponent, { static: true }) loanProductClientEligibilityStep: LoanProductClientEligibilityStepComponent;
   @ViewChild(LoanProductAppsComponent, { static: true }) loanProductAppsStep: LoanProductAppsComponent;
   @ViewChild(LoanProductQualificationRulesStepComponent, { static: false }) loanProductQualificationRulesStep: LoanProductQualificationRulesStepComponent;
+  @ViewChild(LoanProductDownPaymentStepComponent, { static: false }) loanProductDownPaymentStep: LoanProductDownPaymentStepComponent;
 
   loanProductAndTemplate: any;
   accountingRuleData = ['None', 'Cash', 'Accrual (periodic)', 'Accrual (upfront)'];
@@ -54,6 +56,9 @@ export class EditLoanProductComponent implements OnInit {
               private router: Router) {
     this.route.data.subscribe((data: { loanProductAndTemplate: any }) => {
       this.loanProductAndTemplate = data.loanProductAndTemplate;
+      // the shared country belongs to whichever product is open: one left behind by an earlier editor would have the
+      // steps that read it load another country's offices and charges
+      this.productsService.countryId = this.loanProductAndTemplate.countryId;
       this.isQualificationRequired = this.loanProductAndTemplate.configurations?.isQualificationRequired;
       this.enableTermsAndConditions = this.loanProductAndTemplate.configurations?.enableTermsAndConditions;
       this.isCreditScoringEnabled = this.loanProductAndTemplate.configurations?.isCreditScoringEnabled;
@@ -96,6 +101,15 @@ export class EditLoanProductComponent implements OnInit {
     return this.loanProductQualificationRulesStep?.loanProductQualificationRuleForm;
   }
 
+  get loanProductDownPaymentForm() {
+    return this.loanProductDownPaymentStep?.loanProductDownPaymentForm;
+  }
+
+  /** The down payment step is only reachable for a product that takes a down payment by configuration */
+  get isDownPaymentConfigured() {
+    return this.loanProductTermsStep.isDownPaymentConfigured;
+  }
+
   get loanProductFormValidAndNotPristine() {
     return (
       this.loanProductDetailsForm.valid &&
@@ -105,6 +119,7 @@ export class EditLoanProductComponent implements OnInit {
       this.loanProductSettingsForm.valid &&
       this.loanProductAccountingForm.valid &&
       this.loanProductClientEligibilityForm.valid &&
+      (!this.isDownPaymentConfigured || this.loanProductDownPaymentForm?.valid) &&
       (
         !this.loanProductDetailsForm.pristine ||
         !this.loanProductTermsForm.pristine ||
@@ -113,7 +128,8 @@ export class EditLoanProductComponent implements OnInit {
         !this.loanProductAccountingForm.pristine ||
         !this.loanProductOrganizationForm.pristine ||
         !this.loanProductClientEligibilityForm.pristine ||
-        !this.loanProductAppsForm.pristine
+        !this.loanProductAppsForm.pristine ||
+        this.loanProductDownPaymentStep?.pristine === false
       )
     );
   }
@@ -132,8 +148,25 @@ export class EditLoanProductComponent implements OnInit {
       ...this.loanProductAccountingStep.loanProductAccounting,
       ...this.loanProductClientEligibilityStep.loanProductClientEligibility,
       ...this.loanProductAppsStep.loanProductApps,
-      ...this.loanProductQualificationRulesStep?.loanProductQualificationRule
+      ...this.loanProductQualificationRulesStep?.loanProductQualificationRule,
+      ...this.loanProductDownPaymentStep?.loanProductDownPayment,
+      ...this.downPaymentConfigurationsLeftBehind
     };
+  }
+
+  /**
+   * A product that stops taking a down payment has to send its saved configurations back marked for deletion: the API
+   * keeps the ones a request does not mention, and refuses configurations without the CONFIGURED strategy. The down
+   * payment step is gone by then, so the ids come from the product itself.
+   */
+  private get downPaymentConfigurationsLeftBehind() {
+    if (this.isDownPaymentConfigured) {
+      return {};
+    }
+    const saved = this.loanProductAndTemplate.downPaymentConfigurations || [];
+    return saved.length === 0
+      ? {}
+      : { downPaymentConfigurations: saved.map((configuration: any) => ({ id: configuration.id, markedForDeletion: true })) };
   }
 
   submit() {
@@ -145,7 +178,6 @@ export class EditLoanProductComponent implements OnInit {
       dateFormat,
       locale: this.settingsService.language.code,
       terms : {
-        prepaidAmount: this.loanProduct.prepaidAmount, prepaidAmountCalculationType: this.loanProduct.prepaidAmountCalculationType,
         repaymentStartPeriod: this.loanProduct.repaymentStartPeriod, repaymentStartPeriodFrequencyType: this.loanProduct.repaymentStartPeriodFrequencyType,
       },
     };
@@ -154,8 +186,6 @@ export class EditLoanProductComponent implements OnInit {
     }
     delete loanProduct.allowAttributeConfiguration;
     delete loanProduct.advancedAccountingRules;
-    delete loanProduct.prepaidAmount;
-    delete loanProduct.prepaidAmountCalculationType;
     delete loanProduct.repaymentStartPeriod;
     delete loanProduct.repaymentStartPeriodFrequencyType;
     delete loanProduct.showTermsAndConditions;

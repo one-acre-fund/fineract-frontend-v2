@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, AfterViewInit } from '@angular/core';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ const _transformer = (node: OfficeTreeNode, level: number) => {
   };
 };
 
-const treeFlattener = new MatTreeFlattener(
+const treeFlattener = new MatTreeFlattener<OfficeTreeNode, OfficeFlatNode, number>(
   _transformer,
   (node) => node.level,
   (node) => node.expandable,
@@ -27,16 +27,26 @@ const treeFlattener = new MatTreeFlattener(
   templateUrl: './country-tree-view.component.html',
   styleUrls: ['./country-tree-view.component.scss'],
 })
-export class CountryTreeViewComponent implements OnInit, AfterViewInit {
+export class CountryTreeViewComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(private router: Router) {}
 
   @Input() treeDataSource: OfficeTreeNode[] = [];
+  /** Offices that may not be picked here, e.g. because another down payment configuration already owns them */
+  @Input() disabledOfficeIds: number[] = [];
+  /**
+   * Ticking an office picks that office alone, instead of its whole subtree. Down payment configurations work this
+   * way because the API already applies a configuration to the offices under the one it names.
+   */
+  @Input() selectOfficeOnly = false;
   @Output() checkedOffices = new EventEmitter<any>();
 
   @ViewChild('officeTree') officeTree!: any;
-  treeControl = new FlatTreeControl<OfficeFlatNode>(
+  // tracked by office id, so a tree handed over again keeps the branches the user opened: flattening builds fresh
+  // nodes each time, and expansion held by object identity would collapse on every selection
+  treeControl = new FlatTreeControl<OfficeFlatNode, number>(
     (node) => node.level,
-    (node) => node.expandable
+    (node) => node.expandable,
+    { trackBy: (node) => node.id }
   );
 
   dataSource = new MatTreeFlatDataSource(this.treeControl, treeFlattener);
@@ -51,14 +61,46 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
     this.dataSource.data = this.treeDataSource;
   }
 
+  /** Whether an office is spoken for, so it can neither be ticked on its own nor through its parent */
+  isDisabled = (node: OfficeFlatNode): boolean => (this.disabledOfficeIds || []).includes(node.id);
+
+  /**
+   * Takes a tree handed over after the first one, e.g. when the product's country changes under a picker that stays
+   * on screen. Only a caller whose own state drives the selection can be re-seeded this way, so the callers that
+   * refresh the tree themselves keep the one-time behaviour they were written against. Nothing is emitted: this is
+   * the picker catching up with its caller, not somebody choosing an office.
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!this.selectOfficeOnly || !changes.treeDataSource || changes.treeDataSource.firstChange) {
+      return;
+    }
+    this.dataSource.data = this.treeDataSource;
+    this.checklistSelection.clear();
+    (this.treeControl.dataNodes || [])
+      .filter((node) => node.checked === true && !this.isDisabled(node))
+      .forEach((node) => this.checklistSelection.select(node));
+  }
+
   ngAfterViewInit() {
     for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+      if (this.isDisabled(this.treeControl.dataNodes[i])) {
+        continue;
+      }
       if (this.treeControl.dataNodes[i].checked === true) {
         this.todoItemSelectionToggle(this.treeControl.dataNodes[i]);
         this.checklistSelection.select(this.treeControl.dataNodes[i]);
         this.treeControl.expand(this.treeControl.dataNodes[i]);
       }
     }
+  }
+
+  /** What the checkbox of an office with children shows */
+  isChecked(node: OfficeFlatNode): boolean {
+    return this.selectOfficeOnly ? this.checklistSelection.isSelected(node) : this.descendantsAllSelected(node);
+  }
+
+  isIndeterminate(node: OfficeFlatNode): boolean {
+    return this.selectOfficeOnly ? false : this.descendantsPartiallySelected(node);
   }
 
   descendantsAllSelected(node: OfficeFlatNode): boolean {
@@ -78,8 +120,16 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
 
   /** Toggle the to-do item selection. Select/deselect all the descendants node */
   todoItemSelectionToggle(node: OfficeFlatNode): void {
+    if (this.isDisabled(node)) {
+      return;
+    }
+    if (this.selectOfficeOnly) {
+      this.toggleOfficeOnly(node);
+      return;
+    }
     this.checklistSelection.toggle(node);
-    const descendants = this.treeControl.getDescendants(node);
+    // a disabled descendant stays out of the selection, so ticking a parent cannot claim an office someone else owns
+    const descendants = this.treeControl.getDescendants(node).filter((child) => !this.isDisabled(child));
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
@@ -99,8 +149,21 @@ export class CountryTreeViewComponent implements OnInit, AfterViewInit {
 
   /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
   todoLeafItemSelectionToggle(node: OfficeFlatNode): void {
+    if (this.isDisabled(node)) {
+      return;
+    }
+    if (this.selectOfficeOnly) {
+      this.toggleOfficeOnly(node);
+      return;
+    }
     this.checklistSelection.toggle(node);
     this.checkAllParentsSelection(node);
+  }
+
+  /** Picks or drops one office, leaving the offices above and below it as they are */
+  private toggleOfficeOnly(node: OfficeFlatNode): void {
+    this.checklistSelection.toggle(node);
+    this.checkedOffices.emit(this.checklistSelection.selected);
   }
 
   /* Checks all the parents when a leaf node is selected/unselected */

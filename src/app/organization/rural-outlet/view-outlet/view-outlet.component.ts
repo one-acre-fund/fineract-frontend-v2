@@ -46,7 +46,7 @@ export class ViewOutletComponent  {
             this.router.navigate(['../'], { relativeTo: this.route });
           } , error => {
             console.log(error);
-            this.alertService.alert({ type: 'Deletion Error', message: 'Error while deleting rural outlet. Please try again.' });
+            this.alertService.alert({ type: 'Deletion Error', message: 'Error while deleting shop/warehouse. Please try again.' });
           });
       }
     });

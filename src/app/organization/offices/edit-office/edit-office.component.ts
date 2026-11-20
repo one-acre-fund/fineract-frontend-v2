@@ -30,6 +30,10 @@ export class EditOfficeComponent implements OnInit {
   showHierarchy = false;
   allowedParents: any;
   allowedParentsSliced: any;
+  /** Fulfillment sources the office can be mapped to */
+  fulfillmentSources: any[] = [];
+  /** Whether the fulfillment source picker is shown */
+  showFulfillmentSource = false;
 
   /**
    * Retrieves the charge data from `resolve`.
@@ -51,7 +55,11 @@ export class EditOfficeComponent implements OnInit {
   ) {
     this.route.data.subscribe((data: { officeTemplate: any }) => {
       this.officeData = data.officeTemplate;
-      this.allowedParents = data.officeTemplate?.allowedParents?.filter((x) => x.status === true);
+      // A non country OU can only be moved under a parent from its own country
+      const officeCountryId = this.officeData?.isCountry ? null : this.officeData?.officeCountryId;
+      this.allowedParents = data.officeTemplate?.allowedParents?.filter(
+        (x) => x.status === true && (!officeCountryId || x.officeCountryId === officeCountryId)
+      );
       this.allowedParentsSliced = this.allowedParents;
     });
   }
@@ -62,6 +70,24 @@ export class EditOfficeComponent implements OnInit {
       this.officeData.countryHierarchies?.length > 0 ? [this.officeData.countryHierarchies[0].officeHierarchy] : [];
 
     this.createOfficeForm();
+    if (!this.showHierarchy) {
+      this.loadFulfillmentSources();
+    }
+  }
+
+  /**
+   * Loads the fulfillment sources when the selected country maps lowest level OUs to outlets.
+   * The current outlet is kept in the list even when it is no longer active.
+   */
+  loadFulfillmentSources() {
+    this.organizationService.getFulfillmentSourcesForOfficeMapping().subscribe((outlets) => {
+      this.showFulfillmentSource = outlets !== null;
+      const currentOutlet = this.officeData.fulfillmentSourceMap;
+      this.fulfillmentSources = outlets || [];
+      if (currentOutlet && !this.fulfillmentSources.some((outlet) => outlet.id === currentOutlet.id)) {
+        this.fulfillmentSources = [currentOutlet, ...this.fulfillmentSources];
+      }
+    });
   }
 
   public isFiltered(office: any) {
@@ -90,6 +116,7 @@ export class EditOfficeComponent implements OnInit {
       externalId: [this.officeData.externalId],
       country: [this.officeData.isCountry],
       countryHierarchy: [null],
+      fulfillmentSourceMapId: [this.officeData.fulfillmentSourceMap?.id ?? null],
     });
     if (this.officeData.allowedParents.length) {
       this.officeForm.addControl('parentId', this.formBuilder.control(this.officeData.parentId, Validators.required));
@@ -125,6 +152,10 @@ export class EditOfficeComponent implements OnInit {
       dateFormat,
       locale,
     };
+    // A cleared picker sends null, which removes the OU from its outlet
+    if (this.showHierarchy || !this.showFulfillmentSource) {
+      delete data.fulfillmentSourceMapId;
+    }
     if (this.showHierarchy) {
       data.country = data.country ? 'true' : 'false';
       if (!data.externalId) {

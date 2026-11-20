@@ -37,7 +37,6 @@ export class ViewLoanProductComponent implements OnInit {
   ) {
     this.route.data.subscribe((data: { loanProduct: any }) => {
       this.loanProduct = data.loanProduct;
-      this.loanProduct.prepaidAmount = this.loanProduct.terms?.prepaidAmount;
       this.isQualificationRulesPresent = this.loanProduct?.qualificationRules != undefined;
     });
   }

@@ -42,6 +42,12 @@ export class CreateOutletComponent implements OnInit {
       externalId: [''],
       offices: [this.selectedOffices],
     });
+    // Default to the selected country and load its offices
+    const selectedCountryId = this.settingsService.getSelectedCountry()?.id;
+    if (selectedCountryId) {
+      this.outletForm.patchValue({ countryId: selectedCountryId });
+      this.search({ id: selectedCountryId });
+    }
   }
 
   getCountries() {

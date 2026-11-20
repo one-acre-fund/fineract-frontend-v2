@@ -366,16 +366,6 @@
   </div>
 
   <div fxFlexFill>
-    <span fxFlex="40%">{{ 'labels.oaf.Prepaid Amount' | translate }}</span>
-    <span fxFlex="60%">{{
-      loanProduct.prepaidAmount +
-        ' ' +
-        (loanProduct.prepaidAmountCalculationType
-          | find : loanProductsTemplate.amountCalculationTypeOptions : 'id' : 'value')
-    }}</span>
-  </div>
-
-  <div fxFlexFill>
     <span fxFlex="40%">{{ 'labels.oaf.Repayment Start Period' | translate }}</span>
     <span fxFlex="60%">{{
       loanProduct.repaymentStartPeriod +
@@ -410,6 +400,13 @@
   </div>
 
   <mifosx-client-eligbility class="client" [loanProduct]="loanProduct"></mifosx-client-eligbility>
+
+  <div fxFlexFill *ngIf="downPaymentConfigurations?.length > 0">
+    {{ 'labels.heading.downPaymentConfigurations' | translate }}
+    <mat-divider fxFlexFill></mat-divider>
+    <mifosx-down-payment-configurations-view class="client" [configurations]="downPaymentConfigurations">
+    </mifosx-down-payment-configurations-view>
+  </div>
 
   <div fxFlexFill *ngIf="isQualificationRequired">
     <mifosx-qualification-rules-view
@@ -1091,5 +1088,5 @@
     <fa-icon icon="arrow-left"></fa-icon>&nbsp;&nbsp;{{ 'labels.buttons.Previous' | translate }}
   </button>
   <button mat-raised-button [routerLink]="['../']">{{ 'labels.buttons.Cancel' | translate }}</button>
-  <button mat-raised-button color="primary" (click)="submit.emit()">{{ 'labels.buttons.Submit' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="submitProduct.emit()">{{ 'labels.buttons.Submit' | translate }}</button>
 </div>

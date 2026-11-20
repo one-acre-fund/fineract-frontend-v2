@@ -99,8 +99,12 @@ import { LoanProductAllocationSettingComponent } from './loan-product-allocation
 import { LoanProductAllocationComponent } from './loan-product-allocation-setting/loan-product-allocation/loan-product-allocation.component';
 import { DragulaModule } from 'ng2-dragula';
 import { LoanProductQualificationRulesStepComponent } from './loan-products/loan-product-stepper/loan-product-qualification-rules-step/loan-product-qualification-rules-step.component';
+import { LoanProductDownPaymentStepComponent } from './loan-products/loan-product-stepper/loan-product-down-payment-step/loan-product-down-payment-step.component';
+import { DownPaymentConfigurationComponent } from './loan-products/loan-product-stepper/loan-product-down-payment-step/down-payment-configuration/down-payment-configuration.component';
+import { DownPaymentPeriodComponent } from './loan-products/loan-product-stepper/loan-product-down-payment-step/down-payment-period/down-payment-period.component';
+import { DownPaymentBandsComponent } from './loan-products/loan-product-stepper/loan-product-down-payment-step/down-payment-bands/down-payment-bands.component';
+import { DownPaymentConfigurationsViewComponent } from './loan-products/shared/down-payment-configurations-view/down-payment-configurations-view.component';
 import { QualificationRulesViewComponent } from './loan-products/shared/qualification-rules-view/qualification-rules-view.component';
-import { ProductAddQualificationPeriodComponent } from './loan-products/custom-dialog/product-add-qualification-period/product-add-qualification-period.component';
 
 /**
  * Products Module
@@ -202,14 +206,18 @@ import { ProductAddQualificationPeriodComponent } from './loan-products/custom-d
     CreateChargeComponent,
     EditFixedDepositProductComponent,
     LoanProductOrganizationUnitStepComponent,
+    LoanProductDownPaymentStepComponent,
+    DownPaymentConfigurationComponent,
+    DownPaymentPeriodComponent,
+    DownPaymentBandsComponent,
+    DownPaymentConfigurationsViewComponent,
     LoanProductClientEligibilityStepComponent,
     LoanProductAppsComponent,
     ClientEligbilityComponent,
     LoanProductAllocationSettingComponent,
     LoanProductAllocationComponent,
     LoanProductQualificationRulesStepComponent,
-    QualificationRulesViewComponent,
-    ProductAddQualificationPeriodComponent
+    QualificationRulesViewComponent
   ],
   providers: [ ]
 })

@@ -80,7 +80,6 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit, OnDestr
         this.isQualificationRequired = res.configurations?.isQualificationRequired;
         this.loanProductTemplates = res.loanProductTemplates;
         this.productsService.isQualificationRequired = this.isQualificationRequired;
-        this.productsService.allowDynamicDownpayment = res.configurations?.allowDynamicDownpayment ?? false;
         this.loanProductTemplateForm.patchValue({
           loanProductTemplates: this.loanProductTemplates,
           enableTermsAndConditions: this.enableTermsAndConditions,
@@ -169,7 +168,6 @@ export class LoanProductOrganizationUnitStepComponent implements OnInit, OnDestr
     this.productsService.enableTermsAndConditions = false;
     this.productsService.isCreditScoringEnabled = false;
     this.productsService.isQualificationRequired = false;
-    this.productsService.allowDynamicDownpayment = false;
   }
 
   ngOnDestroy(): void {

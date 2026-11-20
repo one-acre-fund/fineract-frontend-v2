@@ -1,0 +1,55 @@
+<div class="down-payment-period" [formGroup]="period">
+  <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%" fxLayout.lt-md="column" *ngIf="!isStatic">
+    <mat-form-field fxFlex="31%" (click)="fromDatePicker.open()">
+      <mat-label>{{ 'labels.inputs.fromDate' | translate }}</mat-label>
+      <input matInput [matDatepicker]="fromDatePicker" [matDatepickerFilter]="dateFilter" formControlName="fromDate" />
+      <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="31%" (click)="toDatePicker.open()">
+      <mat-label>{{ 'labels.inputs.toDate' | translate }}</mat-label>
+      <input
+        matInput
+        [matDatepicker]="toDatePicker"
+        [matDatepickerFilter]="dateFilter"
+        [min]="period.get('fromDate').value"
+        formControlName="toDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #toDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <div fxFlex="31%" fxLayout="row" fxLayoutAlign="flex-end center">
+      <button type="button" mat-icon-button color="warn" *ngIf="removable" (click)="remove()">
+        <fa-icon icon="trash"></fa-icon>
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="row wrap" fxFlexFill fxLayoutGap="2%">
+    <div fxLayout="column" fxFlex="48%" class="tableName">
+      <h5 class="mat-h5">{{ 'labels.heading.downPaymentBands' | translate }}</h5>
+    </div>
+    <div fxLayout="column" fxFlex="48%">
+      <div fxLayout="row" fxLayoutAlign="flex-end">
+        <button type="button" mat-stroked-button color="primary" (click)="addBand()">
+          <fa-icon icon="plus"></fa-icon>&nbsp;&nbsp;{{ 'labels.oaf.addBand' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div formArrayName="bands">
+    <mifosx-down-payment-bands
+      [configurationIndex]="configurationIndex"
+      [periodIndex]="periodIndex"
+      [amountCalculationTypeOptions]="amountCalculationTypeOptions"
+    >
+    </mifosx-down-payment-bands>
+  </div>
+
+  <div *ngIf="messages.length > 0" class="down-payment-messages">
+    <div *ngFor="let message of messages">{{ message }}</div>
+  </div>
+</div>
