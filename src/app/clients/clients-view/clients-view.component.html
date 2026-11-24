@@ -230,7 +230,7 @@
             {{ 'labels.buttons.Undo Rejection' | translate }}
           </button></span
         >
-        <span *ngIf="clientViewData.status.value === 'Transfer in progress'"
+        <span *ngIf="clientViewData.status.value === 'Transfer in progress' || clientViewData.status.value === 'Transfer on hold'"
           ><button mat-menu-item (click)="doAction('Undo Transfer', clientViewData.countryId)">
             {{ 'labels.buttons.Undo Transfer' | translate }}
           </button></span
